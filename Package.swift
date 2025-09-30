@@ -16,9 +16,10 @@ let package = Package(
 	],
 	dependencies: [
 		.package(url: "https://github.com/broadwaylamb/Hammond.git", revision: "bb2ff0843c5bf61cb4ec3f6fa21fb7dcf31f9ceb"),
-		.package(url: "https://github.com/reers/ReerCodable.git", from: "1.3.4")
 	],
 	targets: [
-		.target(name: "SmithereenAPI", dependencies: ["Hammond", "ReerCodable"]),
+		.target(name: "SmithereenAPIInternals"),
+		.target(name: "SmithereenAPI", dependencies: ["Hammond", "SmithereenAPIInternals"]),
+		.testTarget(name: "SmithereenAPITests", dependencies: ["SmithereenAPIInternals"])
 	]
 )

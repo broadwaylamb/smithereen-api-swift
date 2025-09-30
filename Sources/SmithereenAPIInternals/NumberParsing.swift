@@ -1,4 +1,4 @@
-internal func parseInt<S: StringProtocol>(
+package func parseInt<S: StringProtocol>(
 	_ s: S,
 	_ container: any SingleValueDecodingContainer,
 	error: @autoclosure () -> String

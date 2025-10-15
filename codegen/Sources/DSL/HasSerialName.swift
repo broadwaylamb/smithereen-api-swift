@@ -8,7 +8,7 @@ extension HasSerialName {
 		customSwiftName ?? serialName.convertFromSnakeCase()
 	}
 
-	func swiftName(_ name: String) -> Self {
+	func swiftName(_ name: String?) -> Self {
 		copyWith(self, \.customSwiftName, name)
 	}
 }

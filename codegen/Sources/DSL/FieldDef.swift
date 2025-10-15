@@ -8,6 +8,7 @@ struct FieldDef: Documentable, HasSerialName {
 	var isIdentifier: Bool = false
 	var propertyWrappers: [String] = []
 	var alternativeSerialNames: [String] = []
+	var isExcludedFromFields: Bool = false
 
 	init(_ serialName: String, type: TypeRef) {
 		self.serialName = serialName
@@ -30,6 +31,10 @@ struct FieldDef: Documentable, HasSerialName {
 
 	func alternativeNames(_ names: String...) -> FieldDef {
 		copyWith(self, \.alternativeSerialNames, names)
+	}
+
+	func excludeFromFields() -> FieldDef {
+		copyWith(self, \.isExcludedFromFields, true)
 	}
 }
 

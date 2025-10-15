@@ -21,6 +21,16 @@ struct StructDef: Documentable {
 	var fields: [FieldDef] {
 		decls.compactMap { $0 as? FieldDef }
 	}
+
+	func generateFieldsStruct() -> StructDef {
+		let fieldsEnum = EnumDef("Field") {
+			for field in fields where !field.isExcludedFromFields && field.type.isOptional {
+				EnumCaseDef(field.serialName)
+					.swiftName(field.customSwiftName)
+			}
+		}
+		return copyWith(self, \.decls, decls + [fieldsEnum])
+	}
 }
 
 func IdentifierStruct(_ name: String, rawValue: TypeRef) -> StructDef {

@@ -136,14 +136,23 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 
 	public struct RelationshipPartner: Hashable, Codable, Sendable {
 		public var id: UserID
-		public var name: String
+		public var firstName: String
+		public var lastName: String?
 
 		public init(
 			id: UserID,
-			name: String,
+			firstName: String,
+			lastName: String? = nil,
 		) {
 			self.id = id
-			self.name = name
+			self.firstName = firstName
+			self.lastName = lastName
+		}
+
+		private enum CodingKeys: String, CodingKey {
+			case id
+			case firstName = "first_name"
+			case lastName = "last_name"
 		}
 	}
 	public var customProfileFields: [CustomProfileField]?
@@ -611,6 +620,191 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			case followers
 			case subscriptions
 		}
+	}
+
+	public struct Field: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
+		public var rawValue: String
+		public init(rawValue: String) {
+			self.rawValue = rawValue
+		}
+
+		public static let lastName = Self(rawValue: "last_name")
+		public static let deactivated = Self(rawValue: "deactivated")
+		public static let domain = Self(rawValue: "domain")
+		public static let screenName = Self(rawValue: "screen_name")
+		public static let status = Self(rawValue: "status")
+		public static let url = Self(rawValue: "url")
+		public static let nickname = Self(rawValue: "nickname")
+		public static let maidenName = Self(rawValue: "maiden_name")
+		public static let sex = Self(rawValue: "sex")
+		public static let birthday = Self(rawValue: "bdate")
+		public static let homeTown = Self(rawValue: "home_town")
+		public static let relation = Self(rawValue: "relation")
+		public static let customProfileFields = Self(rawValue: "custom")
+		public static let city = Self(rawValue: "city")
+		public static let matrix = Self(rawValue: "matrix")
+		public static let xmpp = Self(rawValue: "xmpp")
+		public static let telegram = Self(rawValue: "telegram")
+		public static let signal = Self(rawValue: "signal")
+		public static let twitter = Self(rawValue: "twitter")
+		public static let instagram = Self(rawValue: "instagram")
+		public static let facebook = Self(rawValue: "facebook")
+		public static let vkontakte = Self(rawValue: "vkontakte")
+		public static let snapchat = Self(rawValue: "snapchat")
+		public static let discord = Self(rawValue: "discord")
+		public static let mastodon = Self(rawValue: "mastodon")
+		public static let pixelfed = Self(rawValue: "pixelfed")
+		public static let phoneNumber = Self(rawValue: "phone_number")
+		public static let email = Self(rawValue: "email")
+		public static let git = Self(rawValue: "git")
+		public static let site = Self(rawValue: "site")
+		public static let activities = Self(rawValue: "activities")
+		public static let interests = Self(rawValue: "interests")
+		public static let music = Self(rawValue: "music")
+		public static let movies = Self(rawValue: "movies")
+		public static let tv = Self(rawValue: "tv")
+		public static let books = Self(rawValue: "books")
+		public static let games = Self(rawValue: "games")
+		public static let quotes = Self(rawValue: "quotes")
+		public static let about = Self(rawValue: "about")
+		public static let personal = Self(rawValue: "personal")
+		public static let online = Self(rawValue: "online")
+		public static let onlineMobile = Self(rawValue: "online_mobile")
+		public static let lastSeen = Self(rawValue: "last_seen")
+		public static let blocked = Self(rawValue: "blocked")
+		public static let blockedByMe = Self(rawValue: "blocked_by_me")
+		public static let canPost = Self(rawValue: "can_post")
+		public static let canSeeAllPosts = Self(rawValue: "can_see_all_posts")
+		public static let canSendFriendRequest = Self(rawValue: "can_send_friend_request")
+		public static let canWritePrivateMessage = Self(rawValue: "can_write_private_message")
+		public static let mutualCount = Self(rawValue: "mutual_count")
+		public static let friendStatus = Self(rawValue: "friend_status")
+		public static let isFriend = Self(rawValue: "is_friend")
+		public static let isFavorite = Self(rawValue: "is_favorite")
+		public static let lists = Self(rawValue: "lists")
+		public static let isHiddenFromFeed = Self(rawValue: "is_hidden_from_feed")
+		public static let followersCount = Self(rawValue: "followers_count")
+		public static let isNoIndex = Self(rawValue: "is_no_index")
+		public static let wallDefault = Self(rawValue: "wall_default")
+		public static let photo50 = Self(rawValue: "photo_50")
+		public static let photo100 = Self(rawValue: "photo_100")
+		public static let photo200 = Self(rawValue: "photo_200")
+		public static let photo400 = Self(rawValue: "photo_400")
+		public static let photoMax = Self(rawValue: "photo_max")
+		public static let photo200Orig = Self(rawValue: "photo_200_orig")
+		public static let photo400Orig = Self(rawValue: "photo_400_orig")
+		public static let photoMaxOrig = Self(rawValue: "photo_max_orig")
+		public static let photoId = Self(rawValue: "photo_id")
+		public static let timezone = Self(rawValue: "timezone")
+		public static let firstNameNom = Self(rawValue: "first_name_nom")
+		public static let nicknameNom = Self(rawValue: "nickname_nom")
+		public static let lastNameNom = Self(rawValue: "last_name_nom")
+		public static let firstNameGen = Self(rawValue: "first_name_gen")
+		public static let nicknameGen = Self(rawValue: "nickname_gen")
+		public static let lastNameGen = Self(rawValue: "last_name_gen")
+		public static let firstNameDat = Self(rawValue: "first_name_dat")
+		public static let nicknameDat = Self(rawValue: "nickname_dat")
+		public static let lastNameDat = Self(rawValue: "last_name_dat")
+		public static let firstNameAcc = Self(rawValue: "first_name_acc")
+		public static let nicknameAcc = Self(rawValue: "nickname_acc")
+		public static let lastNameAcc = Self(rawValue: "last_name_acc")
+		public static let firstNameIns = Self(rawValue: "first_name_ins")
+		public static let nicknameIns = Self(rawValue: "nickname_ins")
+		public static let lastNameIns = Self(rawValue: "last_name_ins")
+		public static let firstNameAbl = Self(rawValue: "first_name_abl")
+		public static let nicknameAbl = Self(rawValue: "nickname_abl")
+		public static let lastNameAbl = Self(rawValue: "last_name_abl")
+		public static let counters = Self(rawValue: "counters")
+
+		public static let allCases: [Field] = [
+			.lastName,
+			.deactivated,
+			.domain,
+			.screenName,
+			.status,
+			.url,
+			.nickname,
+			.maidenName,
+			.sex,
+			.birthday,
+			.homeTown,
+			.relation,
+			.customProfileFields,
+			.city,
+			.matrix,
+			.xmpp,
+			.telegram,
+			.signal,
+			.twitter,
+			.instagram,
+			.facebook,
+			.vkontakte,
+			.snapchat,
+			.discord,
+			.mastodon,
+			.pixelfed,
+			.phoneNumber,
+			.email,
+			.git,
+			.site,
+			.activities,
+			.interests,
+			.music,
+			.movies,
+			.tv,
+			.books,
+			.games,
+			.quotes,
+			.about,
+			.personal,
+			.online,
+			.onlineMobile,
+			.lastSeen,
+			.blocked,
+			.blockedByMe,
+			.canPost,
+			.canSeeAllPosts,
+			.canSendFriendRequest,
+			.canWritePrivateMessage,
+			.mutualCount,
+			.friendStatus,
+			.isFriend,
+			.isFavorite,
+			.lists,
+			.isHiddenFromFeed,
+			.followersCount,
+			.isNoIndex,
+			.wallDefault,
+			.photo50,
+			.photo100,
+			.photo200,
+			.photo400,
+			.photoMax,
+			.photo200Orig,
+			.photo400Orig,
+			.photoMaxOrig,
+			.photoId,
+			.timezone,
+			.firstNameNom,
+			.nicknameNom,
+			.lastNameNom,
+			.firstNameGen,
+			.nicknameGen,
+			.lastNameGen,
+			.firstNameDat,
+			.nicknameDat,
+			.lastNameDat,
+			.firstNameAcc,
+			.nicknameAcc,
+			.lastNameAcc,
+			.firstNameIns,
+			.nicknameIns,
+			.lastNameIns,
+			.firstNameAbl,
+			.nicknameAbl,
+			.lastNameAbl,
+			.counters,
+		]
 	}
 
 	public init(

@@ -9,3 +9,9 @@ struct EnumCaseDef: Documentable, HasSerialName {
 		self.additionalRepresentation = additionalRepresentation
 	}
 }
+
+extension EnumCaseDef: EnumDefPart {
+	var components: [EnumCaseDef] {
+		[self]
+	}
+}

@@ -19,6 +19,7 @@ let user = StructDef("User") {
 	FieldDef("ap_id", type: .url)
 		.swiftName("activityPubID")
 		.doc("Always non-nil for Smithereen, always nil for OpenVK")
+		.excludeFromFields()
 
 	FieldDef("domain", type: .string)
 	FieldDef("screen_name", type: .string)
@@ -54,9 +55,11 @@ let user = StructDef("User") {
 	}
 
 	FieldDef("relation_partner", type: TypeRef(name: "RelationshipPartner"))
+		.excludeFromFields()
 	StructDef("RelationshipPartner") {
 		FieldDef("id", type: .userID).required()
-		FieldDef("name", type: .string).required()
+		FieldDef("first_name", type: .string).required()
+		FieldDef("last_name", type: .string)
 	}
 
 	FieldDef("custom", type: TypeRef(name: "[CustomProfileField]"))
@@ -239,6 +242,7 @@ let user = StructDef("User") {
 		}
 	}
 }
+.generateFieldsStruct()
 
 private func photoSizes(_ s: Int...) -> [String] {
 	s.map {

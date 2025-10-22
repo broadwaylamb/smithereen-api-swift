@@ -62,7 +62,7 @@ let user = StructDef("User") {
 		FieldDef("last_name", type: .string)
 	}
 
-	FieldDef("custom", type: TypeRef(name: "[CustomProfileField]"))
+	FieldDef("custom", type: .array(TypeRef(name: "CustomProfileField")))
 		.swiftName("customProfileFields")
 	StructDef("CustomProfileField") {
 		FieldDef("name", type: .string).required()

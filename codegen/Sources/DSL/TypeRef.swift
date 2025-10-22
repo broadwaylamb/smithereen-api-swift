@@ -15,6 +15,12 @@ extension TypeRef {
 	}
 }
 
+extension TypeRef: CustomStringConvertible {
+	var description: String {
+		name + (isOptional ? "?" : "")
+	}
+}
+
 extension TypeRef {
 	static let int = TypeRef(Int.self)
 	static let string = TypeRef(String.self)
@@ -29,4 +35,20 @@ extension TypeRef {
 	static let identifier = TypeRef(name: "Identifier")
 
 	static let userID = TypeRef(name: "UserID")
+
+	static func array(_ element: TypeRef) -> TypeRef {
+		return TypeRef(name: "[\(element)]")
+	}
+
+	static func dict(key: TypeRef, value: TypeRef) -> TypeRef {
+		return TypeRef(name: "[\(key) : \(value)]")
+	}
+
+	static func def(_ s: StructDef) -> TypeRef {
+		return TypeRef(name: s.name)
+	}
+
+	static func def(_ s: EnumDef) -> TypeRef {
+		return TypeRef(name: s.name)
+	}
 }

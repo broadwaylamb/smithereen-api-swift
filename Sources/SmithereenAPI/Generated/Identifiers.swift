@@ -26,3 +26,11 @@ public struct PhotoID: Identifier {
 		self.rawValue = rawValue
 	}
 }
+
+public struct ServerRuleID: Identifier {
+	public var rawValue: Int
+
+	public init(rawValue: Int) {
+		self.rawValue = rawValue
+	}
+}

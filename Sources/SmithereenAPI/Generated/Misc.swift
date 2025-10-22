@@ -34,3 +34,38 @@ public struct Platform: Hashable, RawRepresentable, CaseIterable, Codable, Senda
 		}
 	}
 }
+
+public struct ServerRule: Hashable, Codable, Sendable, Identifiable {
+	public var id: ServerRuleID
+	public var title: String
+	public var description: String?
+
+	public init(
+		id: ServerRuleID,
+		title: String,
+		description: String? = nil,
+	) {
+		self.id = id
+		self.title = title
+		self.description = description
+	}
+}
+
+public struct ServerSignupMode: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
+	public var rawValue: String
+	public init(rawValue: String) {
+		self.rawValue = rawValue
+	}
+
+	public static let open = Self(rawValue: "open")
+	public static let closed = Self(rawValue: "closed")
+	public static let inviteOnly = Self(rawValue: "invite_only")
+	public static let manualApproval = Self(rawValue: "manual_approval")
+
+	public static let allCases: [ServerSignupMode] = [
+		.open,
+		.closed,
+		.inviteOnly,
+		.manualApproval,
+	]
+}

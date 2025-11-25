@@ -27,6 +27,7 @@ struct StructDef: Documentable {
 			for field in fields where !field.isExcludedFromFields && field.type.isOptional {
 				EnumCaseDef(field.serialName)
 					.swiftName(field.customSwiftName)
+					.doc(field.doc)
 			}
 		}
 		return copyWith(self, \.decls, decls + [fieldsEnum])

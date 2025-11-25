@@ -4,19 +4,35 @@ import Foundation
 import SmithereenAPIInternals
 
 public struct User: Hashable, Codable, Sendable, Identifiable {
+
+	/// Unique (within the server) identifier for this user. A positive integer.
 	public var id: UserID
+
+	/// User’s first name.
 	public var firstName: String
+
+	/// User’s last name.
 	public var lastName: String?
+
+	/// For restricted users, their restriction status.
+	/// If this is set, none of the optional fields will be returned.
 	public var deactivated: DeactivatedStatus?
 
+	/// For restricted users, their restriction status.
+	/// If this is set, none of the optional fields will be returned.
 	public struct DeactivatedStatus: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
 		public var rawValue: String
 		public init(rawValue: String) {
 			self.rawValue = rawValue
 		}
 
+		/// The user’s account is frozen or suspended.
 		public static let banned = Self(rawValue: "banned")
+
+		/// The user has deleted their own profile.
 		public static let hidden = Self(rawValue: "hidden")
+
+		/// The server staff made this profile only visible to authenticated users.
 		public static let deleted = Self(rawValue: "deleted")
 
 		public static let allCases: [DeactivatedStatus] = [
@@ -26,14 +42,54 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		]
 	}
 
+	/// Globally unique ActivityPub identifier for this user.
+	/// Use this to match users across servers.
 	/// Always non-nil for Smithereen, always nil for OpenVK
 	public var activityPubID: URL?
+
+	/// For a user from a remote server, the domain of their home server.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var domain: String?
+
+	/// The profile URL a.k.a. the username. If the user doesn’t have one set, defaults to `idXXX`.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var screenName: String?
+
+	/// The status string, the one that’s displayed under the user’s
+	/// name on the web.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var status: String?
+
+	/// The URL of this user’s profile page on the web.
+	/// For remote users, this points to their home server.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var url: URL?
+
+	/// User’s nickname or middle name
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var nickname: String?
+
+	/// User’s maiden name.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var maidenName: String?
+
+	/// User’s preferred grammatical gender, to choose pronouns
+	/// in strings that refer to them.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var sex: Gender?
 
 	public struct Gender: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
@@ -71,25 +127,54 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			}
 		}
 	}
+
+	/// User’s birth date as `DD.MM.YYYY` or `DD.MM`.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var birthday: Birthday?
+
+	/// User’s hometown.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var homeTown: String?
+
+	/// User’s relationship status.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var relation: RelationshipStatus?
 
+	/// User’s relationship status.
 	public struct RelationshipStatus: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
 		public var rawValue: String
 		public init(rawValue: String) {
 			self.rawValue = rawValue
 		}
 
+		/// Single
 		public static let single = Self(rawValue: "single")
+
+		/// In a relationship
 		public static let inRelationship = Self(rawValue: "in_relationship")
+
+		/// Engaged
 		public static let engaged = Self(rawValue: "engaged")
+
+		/// Married
 		public static let married = Self(rawValue: "married")
+
+		/// It’s complicated
 		public static let complicated = Self(rawValue: "complicated")
+
+		/// Actively searching
 		public static let activelySearching = Self(rawValue: "actively_searching")
+
+		/// In love
 		public static let inLove = Self(rawValue: "in_love")
 
-		/// OpenVK only, not supported in Smithereen
+		/// In civil marriage. OpenVK only, not supported in Smithereen
 		public static let inCivilMarriage = Self(rawValue: "in_civil_marriage")
 
 		public static let allCases: [RelationshipStatus] = [
@@ -132,11 +217,22 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			}
 		}
 	}
+
+	/// User’s relationship partner.
+	/// Returned when the ``Field/relation`` field is requested.
 	public var relationPartner: RelationshipPartner?
 
+	/// User’s relationship partner.
+	/// Returned when the ``Field/relation`` field is requested.
 	public struct RelationshipPartner: Hashable, Codable, Sendable {
+
+		/// Partner’s ID.
 		public var id: UserID
+
+		/// Partner’s first name.
 		public var firstName: String
+
+		/// Partner’s last name.
 		public var lastName: String?
 
 		public init(
@@ -155,10 +251,20 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			case lastName = "last_name"
 		}
 	}
+
+	/// User-defined profile fields that some fediverse software
+	/// like Mastodon allows specifying.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var customProfileFields: [CustomProfileField]?
 
 	public struct CustomProfileField: Hashable, Codable, Sendable {
+
+		/// The field name specified by the user.
 		public var name: String
+
+		/// The field value as HTML.
 		public var value: String
 
 		public init(
@@ -169,41 +275,158 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			self.value = value
 		}
 	}
+
+	/// User’s current city.
 	public var city: String?
+
+	/// User’s Matrix username.
+	/// Request by passing ``Field/connections```.
 	public var matrix: String?
+
+	/// User’s XMPP/Jabber handle.
+	/// Request by passing ``Field/connections```.
 	public var xmpp: String?
+
+	/// User’s Telegram username.
+	/// Request by passing ``Field/connections```.
 	public var telegram: String?
+
+	/// User’s Signal username or URL.
+	/// Request by passing ``Field/connections```.
 	public var signal: String?
+
+	/// User’s Twitter username.
+	/// Request by passing ``Field/connections```.
 	public var twitter: String?
+
+	/// User’s Instagram username.
+	/// Request by passing ``Field/connections```.
 	public var instagram: String?
+
+	/// User’s Facebook username.
+	/// Request by passing ``Field/connections```.
 	public var facebook: String?
+
+	/// User’s VKontakte username.
+	/// Request by passing ``Field/connections```.
 	public var vkontakte: String?
+
+	/// User’s Snapchat username.
+	/// Request by passing ``Field/connections```.
 	public var snapchat: String?
+
+	/// User’s Discord username.
+	/// Request by passing ``Field/connections```.
 	public var discord: String?
+
+	/// User’s Mastodon username.
+	/// Request by passing ``Field/connections```.
 	public var mastodon: String?
+
+	/// User’s Pixelfed username.
+	/// Request by passing ``Field/connections```.
 	public var pixelfed: String?
+
+	/// User’s phone number.
+	/// Request by passing ``Field/connections```.
 	public var phoneNumber: String?
+
+	/// User’s email address.
+	/// Request by passing ``Field/connections```.
 	public var email: String?
+
+	/// User’s GitHub, GitLab, or other Git forge URL.
+	/// Request by passing ``Field/connections```.
 	public var git: URL?
+
+	/// User’s personal website.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var site: URL?
+
+	/// User’s activities.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var activities: String?
+
+	/// User’s interests.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var interests: String?
+
+	/// User’s favorite music.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var music: String?
+
+	/// User’s favorite movies.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var movies: String?
+
+	/// User’s favorite TV shows.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var tv: String?
+
+	/// User’s favorite books.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var books: String?
+
+	/// User’s favorite games.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var games: String?
+
+	/// User’s favorite quotes.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var quotes: String?
+
+	/// User’s about field as HTML.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var about: String?
+
+	/// User’s personal views.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var personal: PersonalViews?
 
+	/// User’s personal views.
 	public struct PersonalViews: Hashable, Codable, Sendable {
+
+		/// Political views.
 		public var political: PoliticalViews?
+
+		/// Religious views.
 		public var religion: String?
+
+		/// Sources of inspiration.
 		public var inspiredBy: String?
+
+		/// What this user considers important in others.
 		public var peopleMain: PeoplePriority?
+
+		/// What this user considers personal priority.
 		public var lifeMain: PersonalPriority?
+
+		/// Views on smoking.
 		public var smoking: HabitsViews?
+
+		/// Views on alcohol.
 		public var alcohol: HabitsViews?
 
 		public init(
@@ -443,17 +666,34 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		}
 	}
 
+	/// Whether the user is currently online.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	@LenientBool
 	public var online: Bool?
 
+	/// Whether the user is currently online from a mobile device.
+	/// Request by passing ``Fields/online``.
 	@LenientBool
 	public var onlineMobile: Bool?
+
+	/// If the user is currently offline, information about when they
+	/// were last online.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var lastSeen: LastSeen?
 
+	/// If the user is currently offline, information about when they
+	/// were last online.
 	public struct LastSeen: Hashable, Codable, Sendable {
 
+		/// Last seen time.
 		@UnixTimestamp
 		public var time: Date
+
+		/// What kind of device the user last used to go online.
 		public var platform: Platform
 
 		public init(
@@ -465,24 +705,61 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		}
 	}
 
+	/// Whether the current user is blocked by this user.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	@LenientBool
 	public var blocked: Bool?
 
+	/// Whether this user is blocked by the current user.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	@LenientBool
 	public var blockedByMe: Bool?
 
+	/// Whether the current user can post on this user’s wall.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	@LenientBool
 	public var canPost: Bool?
 
+	/// Whether the current user is allowed see all posts on this user’s
+	/// wall, or only this user’s own posts.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	@LenientBool
 	public var canSeeAllPosts: Bool?
 
+	/// If `true`, you can send a friend request to this user.
+	/// If `false`, you can only follow them.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	@LenientBool
 	public var canSendFriendRequest: Bool?
 
+	/// Whether the current user is allowed send private messages to this
+	/// user.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	@LenientBool
 	public var canWritePrivateMessage: Bool?
+
+	/// The number of mutual friends between this user and the current user.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var mutualCount: Int?
+
+	/// The relationship between this user and the current user.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var friendStatus: FriendStatus?
 
 	public struct FriendStatus: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
@@ -491,10 +768,20 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			self.rawValue = rawValue
 		}
 
+		/// No relationship.
 		public static let none = Self(rawValue: "none")
+
+		/// The current user is following this user.
 		public static let following = Self(rawValue: "following")
+
+		/// This user is following the current user.
 		public static let followedBy = Self(rawValue: "followed_by")
+
+		/// The users are friends (they follow each other).
 		public static let friends = Self(rawValue: "friends")
+
+		/// Only for remote users – the current user tried to follow this
+		/// user, but their server hasn’t yet accepted that request
 		public static let followRequested = Self(rawValue: "follow_requested")
 
 		public static let allCases: [FriendStatus] = [
@@ -527,52 +814,209 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		}
 	}
 
+	/// Whether this user and the current user are friends.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	@LenientBool
 	public var isFriend: Bool?
 
 	@LenientBool
 	public var isFavorite: Bool?
+
+	/// The current user’s friend list IDs that this user is in.
+	/// Private lists are excluded unless the token has the `friends:read`
+	/// permission.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var lists: [FriendListID]?
 
+	/// Whether this user is hidden from the current user’s friends news feed.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	@LenientBool
 	public var isHiddenFromFeed: Bool?
 	public var followersCount: Int?
 
+	/// Whether this user prefers their profile to not be indexed by search
+	/// engines.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	@LenientBool
 	public var isNoIndex: Bool?
+
+	/// How this user’s wall should be displayed by default.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var wallDefault: WallMode?
 
 	public enum WallMode: String, Codable, Sendable {
-		case owner
-		case all
+		case
+
+		/// Show only the user's own posts
+		owner
+		case
+
+		/// Show all posts
+		all
 	}
+
+	/// URL of a square 50x50 version of the profile picture.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var photo50: URL?
+
+	/// URL of a square 100x100 version of the profile picture.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var photo100: URL?
+
+	/// URL of a square 200x200 version of the profile picture.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var photo200: URL?
+
+	/// URL of a square 400x400 version of the profile picture.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var photo400: URL?
 	public var photoMax: URL?
+
+	/// URL of a rectangular 200px wide version of the profile picture.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var photo200Orig: URL?
+
+	/// URL of a rectangular 400px wide version of the profile picture.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var photo400Orig: URL?
 	public var photoMaxOrig: URL?
+
+	/// If this user has a “profile pictures” system photo album,
+	/// ID of the photo used for the current profile picture in that album.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var photoId: PhotoID?
 	public var timezone: TimeZone?
+
+	/// First name in nominative case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var firstNameNom: String?
+
+	/// Middle name in nominative case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var nicknameNom: String?
+
+	/// Last name name in nominative case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var lastNameNom: String?
+
+	/// First name in genitive case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var firstNameGen: String?
+
+	/// Middle name in genitive case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var nicknameGen: String?
+
+	/// Last name name in genitive case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var lastNameGen: String?
+
+	/// First name in dative case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var firstNameDat: String?
+
+	/// Middle name in dative case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var nicknameDat: String?
+
+	/// Last name name in dative case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var lastNameDat: String?
+
+	/// First name in accusative case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var firstNameAcc: String?
+
+	/// Middle name in accusative case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var nicknameAcc: String?
+
+	/// Last name name in accusative case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var lastNameAcc: String?
+
+	/// First name in instrumental case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var firstNameIns: String?
+
+	/// Middle name in instrumental case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var nicknameIns: String?
+
+	/// Last name name in instrumental case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var lastNameIns: String?
+
+	/// First name in prepositional case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var firstNameAbl: String?
+
+	/// Middle name in prepositional case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var nicknameAbl: String?
+
+	/// Last name name in prepositional case
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
 	public var lastNameAbl: String?
 	public var counters: Counters?
 
@@ -628,97 +1072,404 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			self.rawValue = rawValue
 		}
 
-		public static let lastName = Self(rawValue: "last_name")
-		public static let deactivated = Self(rawValue: "deactivated")
+		/// For a user from a remote server, the domain of their home server.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let domain = Self(rawValue: "domain")
+
+		/// The profile URL a.k.a. the username. If the user doesn’t have one set, defaults to `idXXX`.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let screenName = Self(rawValue: "screen_name")
+
+		/// The status string, the one that’s displayed under the user’s
+		/// name on the web.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let status = Self(rawValue: "status")
+
+		/// The URL of this user’s profile page on the web.
+		/// For remote users, this points to their home server.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let url = Self(rawValue: "url")
+
+		/// User’s nickname or middle name
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let nickname = Self(rawValue: "nickname")
+
+		/// User’s maiden name.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let maidenName = Self(rawValue: "maiden_name")
+
+		/// User’s preferred grammatical gender, to choose pronouns
+		/// in strings that refer to them.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let sex = Self(rawValue: "sex")
+
+		/// User’s birth date as `DD.MM.YYYY` or `DD.MM`.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let birthday = Self(rawValue: "bdate")
+
+		/// User’s hometown.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let homeTown = Self(rawValue: "home_town")
+
+		/// User’s relationship status.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let relation = Self(rawValue: "relation")
+
+		/// User-defined profile fields that some fediverse software
+		/// like Mastodon allows specifying.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let customProfileFields = Self(rawValue: "custom")
+
+		/// User’s current city.
 		public static let city = Self(rawValue: "city")
-		public static let matrix = Self(rawValue: "matrix")
-		public static let xmpp = Self(rawValue: "xmpp")
-		public static let telegram = Self(rawValue: "telegram")
-		public static let signal = Self(rawValue: "signal")
-		public static let twitter = Self(rawValue: "twitter")
-		public static let instagram = Self(rawValue: "instagram")
-		public static let facebook = Self(rawValue: "facebook")
-		public static let vkontakte = Self(rawValue: "vkontakte")
-		public static let snapchat = Self(rawValue: "snapchat")
-		public static let discord = Self(rawValue: "discord")
-		public static let mastodon = Self(rawValue: "mastodon")
-		public static let pixelfed = Self(rawValue: "pixelfed")
-		public static let phoneNumber = Self(rawValue: "phone_number")
-		public static let email = Self(rawValue: "email")
+
+		/// User’s GitHub, GitLab, or other Git forge URL.
+		/// Request by passing ``Field/connections```.
 		public static let git = Self(rawValue: "git")
+
+		/// User’s personal website.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let site = Self(rawValue: "site")
+
+		/// User’s activities.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let activities = Self(rawValue: "activities")
+
+		/// User’s interests.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let interests = Self(rawValue: "interests")
+
+		/// User’s favorite music.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let music = Self(rawValue: "music")
+
+		/// User’s favorite movies.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let movies = Self(rawValue: "movies")
+
+		/// User’s favorite TV shows.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let tv = Self(rawValue: "tv")
+
+		/// User’s favorite books.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let books = Self(rawValue: "books")
+
+		/// User’s favorite games.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let games = Self(rawValue: "games")
+
+		/// User’s favorite quotes.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let quotes = Self(rawValue: "quotes")
+
+		/// User’s about field as HTML.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let about = Self(rawValue: "about")
+
+		/// User’s personal views.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let personal = Self(rawValue: "personal")
+
+		/// Whether the user is currently online.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let online = Self(rawValue: "online")
-		public static let onlineMobile = Self(rawValue: "online_mobile")
+
+		/// If the user is currently offline, information about when they
+		/// were last online.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let lastSeen = Self(rawValue: "last_seen")
+
+		/// Whether the current user is blocked by this user.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let blocked = Self(rawValue: "blocked")
+
+		/// Whether this user is blocked by the current user.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let blockedByMe = Self(rawValue: "blocked_by_me")
+
+		/// Whether the current user can post on this user’s wall.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let canPost = Self(rawValue: "can_post")
+
+		/// Whether the current user is allowed see all posts on this user’s
+		/// wall, or only this user’s own posts.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let canSeeAllPosts = Self(rawValue: "can_see_all_posts")
+
+		/// If `true`, you can send a friend request to this user.
+		/// If `false`, you can only follow them.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let canSendFriendRequest = Self(rawValue: "can_send_friend_request")
+
+		/// Whether the current user is allowed send private messages to this
+		/// user.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let canWritePrivateMessage = Self(rawValue: "can_write_private_message")
+
+		/// The number of mutual friends between this user and the current user.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let mutualCount = Self(rawValue: "mutual_count")
+
+		/// The relationship between this user and the current user.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let friendStatus = Self(rawValue: "friend_status")
+
+		/// Whether this user and the current user are friends.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let isFriend = Self(rawValue: "is_friend")
 		public static let isFavorite = Self(rawValue: "is_favorite")
+
+		/// The current user’s friend list IDs that this user is in.
+		/// Private lists are excluded unless the token has the `friends:read`
+		/// permission.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let lists = Self(rawValue: "lists")
+
+		/// Whether this user is hidden from the current user’s friends news feed.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let isHiddenFromFeed = Self(rawValue: "is_hidden_from_feed")
 		public static let followersCount = Self(rawValue: "followers_count")
+
+		/// Whether this user prefers their profile to not be indexed by search
+		/// engines.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let isNoIndex = Self(rawValue: "is_no_index")
+
+		/// How this user’s wall should be displayed by default.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let wallDefault = Self(rawValue: "wall_default")
+
+		/// URL of a square 50x50 version of the profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let photo50 = Self(rawValue: "photo_50")
+
+		/// URL of a square 100x100 version of the profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let photo100 = Self(rawValue: "photo_100")
+
+		/// URL of a square 200x200 version of the profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let photo200 = Self(rawValue: "photo_200")
+
+		/// URL of a square 400x400 version of the profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let photo400 = Self(rawValue: "photo_400")
 		public static let photoMax = Self(rawValue: "photo_max")
+
+		/// URL of a rectangular 200px wide version of the profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let photo200Orig = Self(rawValue: "photo_200_orig")
+
+		/// URL of a rectangular 400px wide version of the profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let photo400Orig = Self(rawValue: "photo_400_orig")
 		public static let photoMaxOrig = Self(rawValue: "photo_max_orig")
+
+		/// If this user has a “profile pictures” system photo album,
+		/// ID of the photo used for the current profile picture in that album.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let photoId = Self(rawValue: "photo_id")
 		public static let timezone = Self(rawValue: "timezone")
+
+		/// First name in nominative case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let firstNameNom = Self(rawValue: "first_name_nom")
+
+		/// Middle name in nominative case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let nicknameNom = Self(rawValue: "nickname_nom")
+
+		/// Last name name in nominative case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let lastNameNom = Self(rawValue: "last_name_nom")
+
+		/// First name in genitive case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let firstNameGen = Self(rawValue: "first_name_gen")
+
+		/// Middle name in genitive case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let nicknameGen = Self(rawValue: "nickname_gen")
+
+		/// Last name name in genitive case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let lastNameGen = Self(rawValue: "last_name_gen")
+
+		/// First name in dative case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let firstNameDat = Self(rawValue: "first_name_dat")
+
+		/// Middle name in dative case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let nicknameDat = Self(rawValue: "nickname_dat")
+
+		/// Last name name in dative case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let lastNameDat = Self(rawValue: "last_name_dat")
+
+		/// First name in accusative case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let firstNameAcc = Self(rawValue: "first_name_acc")
+
+		/// Middle name in accusative case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let nicknameAcc = Self(rawValue: "nickname_acc")
+
+		/// Last name name in accusative case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let lastNameAcc = Self(rawValue: "last_name_acc")
+
+		/// First name in instrumental case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let firstNameIns = Self(rawValue: "first_name_ins")
+
+		/// Middle name in instrumental case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let nicknameIns = Self(rawValue: "nickname_ins")
+
+		/// Last name name in instrumental case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let lastNameIns = Self(rawValue: "last_name_ins")
+
+		/// First name in prepositional case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let firstNameAbl = Self(rawValue: "first_name_abl")
+
+		/// Middle name in prepositional case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let nicknameAbl = Self(rawValue: "nickname_abl")
+
+		/// Last name name in prepositional case
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
 		public static let lastNameAbl = Self(rawValue: "last_name_abl")
 		public static let counters = Self(rawValue: "counters")
 
 		public static let allCases: [Field] = [
-			.lastName,
-			.deactivated,
 			.domain,
 			.screenName,
 			.status,
@@ -731,20 +1482,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			.relation,
 			.customProfileFields,
 			.city,
-			.matrix,
-			.xmpp,
-			.telegram,
-			.signal,
-			.twitter,
-			.instagram,
-			.facebook,
-			.vkontakte,
-			.snapchat,
-			.discord,
-			.mastodon,
-			.pixelfed,
-			.phoneNumber,
-			.email,
 			.git,
 			.site,
 			.activities,
@@ -758,7 +1495,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			.about,
 			.personal,
 			.online,
-			.onlineMobile,
 			.lastSeen,
 			.blocked,
 			.blockedByMe,

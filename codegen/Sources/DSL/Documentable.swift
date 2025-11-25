@@ -3,7 +3,7 @@ protocol Documentable {
 }
 
 extension Documentable {
-	func doc(_ text: String) -> Self {
+	func doc(_ text: String?) -> Self {
 		copyWith(self, \.doc, text)
 	}
 }

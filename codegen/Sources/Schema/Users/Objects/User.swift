@@ -1,5 +1,5 @@
 let user = StructDef("User") {
-	FieldDef("id", type: .userID)
+	FieldDef("id", type: .def(userID))
 		.id()
 		.required()
 		.doc("Unique (within the server) identifier for this user. A positive integer.")
@@ -12,35 +12,8 @@ let user = StructDef("User") {
 		.excludeFromFields()
 		.doc("User’s last name.")
 
-	let deactivatedStatusDoc = """
-	For restricted users, their restriction status.
-	If this is set, none of the optional fields will be returned.
-	"""
-
-	FieldDef("deactivated", type: TypeRef(name: "DeactivatedStatus"))
-		.excludeFromFields()
-		.doc(deactivatedStatusDoc)
-
-	EnumDef("DeactivatedStatus") {
-		EnumCaseDef("banned")
-			.doc("The user’s account is frozen or suspended.")
-		EnumCaseDef("hidden")
-			.doc("The user has deleted their own profile.")
-		EnumCaseDef("deleted")
-			.doc("The server staff made this profile only visible to authenticated users.")
-	}
-	.doc(deactivatedStatusDoc)
-
-	FieldDef("ap_id", type: .url)
-		.swiftName("activityPubID")
-		.doc(
-			"""
-			Globally unique ActivityPub identifier for this user.
-			Use this to match users across servers.
-
-			Always non-nil for Smithereen, always nil for OpenVK
-			""")
-		.excludeFromFields()
+	deactivatedStatusField("user")
+	activityPubIDField("user")
 
 	FieldDef("domain", type: .string)
 		.optionalFieldDoc(
@@ -48,7 +21,7 @@ let user = StructDef("User") {
 		)
 	FieldDef("screen_name", type: .string)
 		.optionalFieldDoc("""
-			The profile URL a.k.a. the username. \
+			The profile URL a.k.a. the username.
 			If the user doesn’t have one set, defaults to `idXXX`.
 			""")
 	FieldDef("status", type: .string)
@@ -119,7 +92,7 @@ let user = StructDef("User") {
 		.excludeFromFields()
 		.doc(relationPartnerDoc)
 	StructDef("RelationshipPartner") {
-		FieldDef("id", type: .userID)
+		FieldDef("id", type: .def(userID))
 			.required()
 			.doc("Partner’s ID.")
 		FieldDef("first_name", type: .string)
@@ -358,27 +331,7 @@ let user = StructDef("User") {
 			.doc("Show all posts")
 	}.frozen()
 
-	for size in photoSizes(50, 100, 200, 400, .max) {
-		let doc = size == "max" 
-			? nil 
-			: "URL of a square \(size)x\(size) version of the profile picture."
-		FieldDef("photo_\(size)", type: .url)
-			.optionalFieldDoc(doc)
-	}
-
-	for size in photoSizes(200, 400, .max) {
-		let doc = size == "max"
-			? nil
-			: "URL of a rectangular \(size)px wide version of the profile picture."
-		FieldDef("photo_\(size)_orig", type: .url)
-			.optionalFieldDoc(doc)
-	}
-
-	FieldDef("photo_id", type: TypeRef(name: "PhotoID"))
-		.optionalFieldDoc("""
-			If this user has a “profile pictures” system photo album,
-			ID of the photo used for the current profile picture in that album.
-			""")
+	profilePictureFields("user")
 
 	FieldDef("timezone", type: .timeZone)
 
@@ -421,26 +374,9 @@ let user = StructDef("User") {
 }
 .generateFieldsStruct()
 
-private func photoSizes(_ s: Int...) -> [String] {
-	s.map {
-		if $0 == .max {
-			return "max"
-		} else {
-			return String($0)
-		}
-	}
-}
-
 extension Documentable {
 	fileprivate func optionalFieldDoc(_ text: String?) -> Self {
-		guard let text else { return self }
-		return self.doc("""
-			\(text)
-
-			- Note: This is an **optional** field.
-			Request it by passing it in `fields` to any method that returns
-			``User`` objects.
-			""")
+		optionalFieldDoc(text, objectName: "User")
 	}
 
 	fileprivate func connectionsDoc(_ text: String) -> Self {

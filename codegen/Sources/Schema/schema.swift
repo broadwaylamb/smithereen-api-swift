@@ -1,9 +1,9 @@
 let schema = Group {
 	FileDef("Identifiers") {
-		IdentifierStruct("UserID", rawValue: .int)
-		IdentifierStruct("FriendListID", rawValue: .int)
-		IdentifierStruct("PhotoID", rawValue: .string)
-		IdentifierStruct("ServerRuleID", rawValue: .int)
+		userID
+		friendListID
+		photoID
+		serverRuleID
 	}
 	FileDef("Misc") {
 		EnumDef("Platform") {
@@ -12,6 +12,7 @@ let schema = Group {
 		}
 		serverRule
 		serverSignupMode
+		deactivatedStatus
 	}
 	Group("User") {
 		Group("Objects") {

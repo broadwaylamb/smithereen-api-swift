@@ -34,8 +34,6 @@ extension TypeRef {
 	static let sendable = TypeRef(name: "Sendable")
 	static let identifier = TypeRef(name: "Identifier")
 
-	static let userID = TypeRef(name: "UserID")
-
 	static func array(_ element: TypeRef) -> TypeRef {
 		return TypeRef(name: "[\(element)]")
 	}

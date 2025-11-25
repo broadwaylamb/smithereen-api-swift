@@ -18,30 +18,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// If this is set, none of the optional fields will be returned.
 	public var deactivated: DeactivatedStatus?
 
-	/// For restricted users, their restriction status.
-	/// If this is set, none of the optional fields will be returned.
-	public struct DeactivatedStatus: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
-
-		/// The user’s account is frozen or suspended.
-		public static let banned = Self(rawValue: "banned")
-
-		/// The user has deleted their own profile.
-		public static let hidden = Self(rawValue: "hidden")
-
-		/// The server staff made this profile only visible to authenticated users.
-		public static let deleted = Self(rawValue: "deleted")
-
-		public static let allCases: [DeactivatedStatus] = [
-			.banned,
-			.hidden,
-			.deleted,
-		]
-	}
-
 	/// Globally unique ActivityPub identifier for this user.
 	/// Use this to match users across servers.
 	/// Always non-nil for Smithereen, always nil for OpenVK
@@ -53,7 +29,8 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// ``User`` objects.
 	public var domain: String?
 
-	/// The profile URL a.k.a. the username. If the user doesn’t have one set, defaults to `idXXX`.
+	/// The profile URL a.k.a. the username.
+	/// If the user doesn’t have one set, defaults to `idXXX`.
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -1078,7 +1055,8 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// ``User`` objects.
 		public static let domain = Self(rawValue: "domain")
 
-		/// The profile URL a.k.a. the username. If the user doesn’t have one set, defaults to `idXXX`.
+		/// The profile URL a.k.a. the username.
+		/// If the user doesn’t have one set, defaults to `idXXX`.
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.

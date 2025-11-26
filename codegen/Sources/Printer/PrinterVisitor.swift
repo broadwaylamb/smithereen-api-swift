@@ -1,5 +1,6 @@
 import SwiftSyntax
 import SwiftSyntaxBuilder
+import SwiftParser
 
 struct PrinterVisitor {
 	func printFile(_ def: FileDef) -> SourceFileSyntax {
@@ -178,7 +179,7 @@ struct PrinterVisitor {
 								ArrayElementSyntax(
 									leadingTrivia: .newline,
 									expression: MemberAccessExprSyntax(
-										name: .identifier(`case`.swiftName),
+										name: identifier(`case`.swiftName, context: .memberAccess),
 									),
 									trailingComma: .commaToken(),
 									trailingTrivia: i == def.cases.endIndex - 1 ? .newline : nil,
@@ -198,7 +199,7 @@ struct PrinterVisitor {
 									try! SwitchExprSyntax("switch intValue") {
 										for `case` in def.cases {
 											if let intValue = `case`.additionalRepresentation {
-												SwitchCaseSyntax("case \(raw: intValue): self = .\(DeclReferenceExprSyntax(baseName: .identifier(`case`.swiftName)))")
+												SwitchCaseSyntax("case \(raw: intValue): self = .\(DeclReferenceExprSyntax(baseName: identifier(`case`.swiftName, context: .memberAccess)))")
 											}
 										}
 										SwitchCaseSyntax("default: self = Self(rawValue: String(intValue))")
@@ -258,6 +259,16 @@ extension Documentable {
 	}
 }
 
+private func identifier(
+	_ name: String,
+	 context: IdentifierCheckContext,
+) -> TokenSyntax {
+	if name.isValidSwiftIdentifier(for: context) {
+		return .identifier(name)
+	}
+	return .identifier("`\(name)`")
+}
+
 private func property(
 	leadingTrivia: Trivia? = nil,
 	attributes: AttributeListSyntax = [],
@@ -274,7 +285,7 @@ private func property(
 		bindingSpecifier: .keyword(bindingSpecifier),
 	) {
 		PatternBindingSyntax(
-			pattern: IdentifierPatternSyntax(identifier: .identifier(name)),
+			pattern: IdentifierPatternSyntax(identifier: identifier(name, context: .variableName)),
 			typeAnnotation: type.map { TypeAnnotationSyntax(type: $0) },
 			initializer: initializer.map { InitializerClauseSyntax(value: $0) },
 		)

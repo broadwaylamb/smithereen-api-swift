@@ -11,6 +11,14 @@ public struct UserID: Identifier {
 	}
 }
 
+public struct GroupID: Identifier {
+	public var rawValue: Int
+
+	public init(rawValue: Int) {
+		self.rawValue = rawValue
+	}
+}
+
 public struct FriendListID: Identifier {
 	public var rawValue: Int
 
@@ -28,6 +36,14 @@ public struct PhotoID: Identifier {
 }
 
 public struct ServerRuleID: Identifier {
+	public var rawValue: Int
+
+	public init(rawValue: Int) {
+		self.rawValue = rawValue
+	}
+}
+
+public struct GroupLinkID: Identifier {
 	public var rawValue: Int
 
 	public init(rawValue: Int) {

@@ -1,9 +1,11 @@
 let schema = Group {
 	FileDef("Identifiers") {
 		userID
+		groupID
 		friendListID
 		photoID
 		serverRuleID
+		groupLinkID
 	}
 	FileDef("Misc") {
 		EnumDef("Platform") {
@@ -17,6 +19,11 @@ let schema = Group {
 	Group("User") {
 		Group("Objects") {
 			user
+		}
+	}
+	Group("Groups") {
+		Group("Objects") {
+			group
 		}
 	}
 	Group("Server") {

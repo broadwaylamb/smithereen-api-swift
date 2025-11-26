@@ -1,7 +1,9 @@
 let userID = IdentifierStruct("UserID", rawValue: .int)
+let groupID = IdentifierStruct("GroupID", rawValue: .int)
 let friendListID = IdentifierStruct("FriendListID", rawValue: .int)
 let photoID = IdentifierStruct("PhotoID", rawValue: .string)
 let serverRuleID = IdentifierStruct("ServerRuleID", rawValue: .int)
+let groupLinkID = IdentifierStruct("GroupLinkID", rawValue: .int)
 
 let serverRule = StructDef("ServerRule") {
 	FieldDef("id", type: TypeRef(name: "ServerRuleID"))
@@ -61,6 +63,14 @@ func activityPubIDField(_ entity: String) -> FieldDef {
 			""")
 }
 
+func statusField(_ entity: String) -> FieldDef {
+	FieldDef("status", type: .string)
+		.optionalFieldDoc("""
+			The status string, the one that’s displayed under the \(entity)’s
+			name on the web.
+			""", objectName: entity.capitalized)
+}
+
 @StructDefBuilder
 func profilePictureFields(_ entity: String) -> any StructDefPart {
 	for size in photoSizes(50, 100, 200, 400, .max) {
@@ -86,7 +96,7 @@ func profilePictureFields(_ entity: String) -> any StructDefPart {
 			""", objectName: entity.capitalized)
 }
 
-private func photoSizes(_ s: Int...) -> [String] {
+func photoSizes(_ s: Int...) -> [String] {
 	s.map {
 		if $0 == .max {
 			return "max"

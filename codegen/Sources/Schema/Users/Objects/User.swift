@@ -24,11 +24,7 @@ let user = StructDef("User") {
 			The profile URL a.k.a. the username.
 			If the user doesn’t have one set, defaults to `idXXX`.
 			""")
-	FieldDef("status", type: .string)
-		.optionalFieldDoc("""
-			The status string, the one that’s displayed under the user’s
-			name on the web.
-			""")
+	statusField("user")
 
 	FieldDef("url", type: .url)
 		.optionalFieldDoc("""

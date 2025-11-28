@@ -256,65 +256,112 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// User’s current city.
 	public var city: String?
 
-	/// User’s Matrix username.
-	/// Request by passing ``Field/connections```.
-	public var matrix: String?
+	/// User’s contact information.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
+	public var connections: Connections?
 
-	/// User’s XMPP/Jabber handle.
-	/// Request by passing ``Field/connections```.
-	public var xmpp: String?
+	/// User’s contact information.
+	public struct Connections: Hashable, Codable, Sendable {
 
-	/// User’s Telegram username.
-	/// Request by passing ``Field/connections```.
-	public var telegram: String?
+		/// User’s Matrix username.
+		public var matrix: String?
 
-	/// User’s Signal username or URL.
-	/// Request by passing ``Field/connections```.
-	public var signal: String?
+		/// User’s XMPP/Jabber handle.
+		public var xmpp: String?
 
-	/// User’s Twitter username.
-	/// Request by passing ``Field/connections```.
-	public var twitter: String?
+		/// User’s Telegram username.
+		public var telegram: String?
 
-	/// User’s Instagram username.
-	/// Request by passing ``Field/connections```.
-	public var instagram: String?
+		/// User’s Signal username or URL.
+		public var signal: String?
 
-	/// User’s Facebook username.
-	/// Request by passing ``Field/connections```.
-	public var facebook: String?
+		/// User’s Twitter username.
+		public var twitter: String?
 
-	/// User’s VKontakte username.
-	/// Request by passing ``Field/connections```.
-	public var vkontakte: String?
+		/// User’s Instagram username.
+		public var instagram: String?
 
-	/// User’s Snapchat username.
-	/// Request by passing ``Field/connections```.
-	public var snapchat: String?
+		/// User’s Facebook username.
+		public var facebook: String?
 
-	/// User’s Discord username.
-	/// Request by passing ``Field/connections```.
-	public var discord: String?
+		/// User’s VKontakte username.
+		public var vkontakte: String?
 
-	/// User’s Mastodon username.
-	/// Request by passing ``Field/connections```.
-	public var mastodon: String?
+		/// User’s Snapchat username.
+		public var snapchat: String?
 
-	/// User’s Pixelfed username.
-	/// Request by passing ``Field/connections```.
-	public var pixelfed: String?
+		/// User’s Discord username.
+		public var discord: String?
 
-	/// User’s phone number.
-	/// Request by passing ``Field/connections```.
-	public var phoneNumber: String?
+		/// User’s Mastodon username.
+		public var mastodon: String?
 
-	/// User’s email address.
-	/// Request by passing ``Field/connections```.
-	public var email: String?
+		/// User’s Pixelfed username.
+		public var pixelfed: String?
 
-	/// User’s GitHub, GitLab, or other Git forge URL.
-	/// Request by passing ``Field/connections```.
-	public var git: URL?
+		/// User’s phone number.
+		public var phoneNumber: String?
+
+		/// User’s email address.
+		public var email: String?
+
+		/// GitHub, GitLab, or other Git forge URL.
+		public var git: URL?
+
+		public init(
+			matrix: String? = nil,
+			xmpp: String? = nil,
+			telegram: String? = nil,
+			signal: String? = nil,
+			twitter: String? = nil,
+			instagram: String? = nil,
+			facebook: String? = nil,
+			vkontakte: String? = nil,
+			snapchat: String? = nil,
+			discord: String? = nil,
+			mastodon: String? = nil,
+			pixelfed: String? = nil,
+			phoneNumber: String? = nil,
+			email: String? = nil,
+			git: URL? = nil,
+		) {
+			self.matrix = matrix
+			self.xmpp = xmpp
+			self.telegram = telegram
+			self.signal = signal
+			self.twitter = twitter
+			self.instagram = instagram
+			self.facebook = facebook
+			self.vkontakte = vkontakte
+			self.snapchat = snapchat
+			self.discord = discord
+			self.mastodon = mastodon
+			self.pixelfed = pixelfed
+			self.phoneNumber = phoneNumber
+			self.email = email
+			self.git = git
+		}
+
+		private enum CodingKeys: String, CodingKey {
+			case matrix
+			case xmpp
+			case telegram
+			case signal
+			case twitter
+			case instagram
+			case facebook
+			case vkontakte
+			case snapchat
+			case discord
+			case mastodon
+			case pixelfed
+			case phoneNumber = "phone_number"
+			case email
+			case git
+		}
+	}
 
 	/// User’s personal website.
 	/// - Note: This is an **optional** field.
@@ -1123,9 +1170,11 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// User’s current city.
 		public static let city = Self(rawValue: "city")
 
-		/// User’s GitHub, GitLab, or other Git forge URL.
-		/// Request by passing ``Field/connections```.
-		public static let git = Self(rawValue: "git")
+		/// User’s contact information.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
+		public static let connections = Self(rawValue: "connections")
 
 		/// User’s personal website.
 		/// - Note: This is an **optional** field.
@@ -1460,7 +1509,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			.relation,
 			.customProfileFields,
 			.city,
-			.git,
+			.connections,
 			.site,
 			.activities,
 			.interests,
@@ -1540,21 +1589,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		relationPartner: RelationshipPartner? = nil,
 		customProfileFields: [CustomProfileField]? = nil,
 		city: String? = nil,
-		matrix: String? = nil,
-		xmpp: String? = nil,
-		telegram: String? = nil,
-		signal: String? = nil,
-		twitter: String? = nil,
-		instagram: String? = nil,
-		facebook: String? = nil,
-		vkontakte: String? = nil,
-		snapchat: String? = nil,
-		discord: String? = nil,
-		mastodon: String? = nil,
-		pixelfed: String? = nil,
-		phoneNumber: String? = nil,
-		email: String? = nil,
-		git: URL? = nil,
+		connections: Connections? = nil,
 		site: URL? = nil,
 		activities: String? = nil,
 		interests: String? = nil,
@@ -1632,21 +1667,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		self.relationPartner = relationPartner
 		self.customProfileFields = customProfileFields
 		self.city = city
-		self.matrix = matrix
-		self.xmpp = xmpp
-		self.telegram = telegram
-		self.signal = signal
-		self.twitter = twitter
-		self.instagram = instagram
-		self.facebook = facebook
-		self.vkontakte = vkontakte
-		self.snapchat = snapchat
-		self.discord = discord
-		self.mastodon = mastodon
-		self.pixelfed = pixelfed
-		self.phoneNumber = phoneNumber
-		self.email = email
-		self.git = git
+		self.connections = connections
 		self.site = site
 		self.activities = activities
 		self.interests = interests
@@ -1726,21 +1747,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		case relationPartner = "relation_partner"
 		case customProfileFields = "custom"
 		case city
-		case matrix
-		case xmpp
-		case telegram
-		case signal
-		case twitter
-		case instagram
-		case facebook
-		case vkontakte
-		case snapchat
-		case discord
-		case mastodon
-		case pixelfed
-		case phoneNumber = "phone_number"
-		case email
-		case git
+		case connections
 		case site
 		case activities
 		case interests

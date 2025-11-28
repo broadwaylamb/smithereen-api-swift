@@ -117,31 +117,37 @@ let user = StructDef("User") {
 	FieldDef("city", type: .string)
 		.doc("User’s current city.")
 
-	let contactFields: [(String, String)] = [
-		("matrix", "User’s Matrix username."),
-		("xmpp", "User’s XMPP/Jabber handle."),
-		("telegram", "User’s Telegram username."),
-		("signal", "User’s Signal username or URL."),
-		("twitter", "User’s Twitter username."),
-		("instagram", "User’s Instagram username."),
-		("facebook", "User’s Facebook username."),
-		("vkontakte", "User’s VKontakte username."),
-		("snapchat", "User’s Snapchat username."),
-		("discord", "User’s Discord username."),
-		("mastodon", "User’s Mastodon username."),
-		("pixelfed", "User’s Pixelfed username."),
-		("phone_number", "User’s phone number."),
-		("email", "User’s email address."),
-	]
+	let connectionsStruct = StructDef("Connections") {
+		let fields: [(String, String)] = [
+			("matrix", "User’s Matrix username."),
+			("xmpp", "User’s XMPP/Jabber handle."),
+			("telegram", "User’s Telegram username."),
+			("signal", "User’s Signal username or URL."),
+			("twitter", "User’s Twitter username."),
+			("instagram", "User’s Instagram username."),
+			("facebook", "User’s Facebook username."),
+			("vkontakte", "User’s VKontakte username."),
+			("snapchat", "User’s Snapchat username."),
+			("discord", "User’s Discord username."),
+			("mastodon", "User’s Mastodon username."),
+			("pixelfed", "User’s Pixelfed username."),
+			("phone_number", "User’s phone number."),
+			("email", "User’s email address."),
+		]
+		for (field, doc) in fields {
+			FieldDef(field, type: .string)
+				.doc(doc)
+		}
 
-	for (name, doc) in contactFields {
-		FieldDef(name, type: .string)
-			.excludeFromFields()
-			.connectionsDoc(doc)
+		FieldDef("git", type: .url)
+			.doc("GitHub, GitLab, or other Git forge URL.")
 	}
+	.doc("User’s contact information.")
 
-	FieldDef("git", type: .url)
-		.connectionsDoc("User’s GitHub, GitLab, or other Git forge URL.")
+	FieldDef("connections", type: .def(connectionsStruct))
+		.optionalFieldDoc(connectionsStruct.doc)
+	connectionsStruct
+	
 	FieldDef("site", type: .url)
 		.optionalFieldDoc("User’s personal website.")
 
@@ -373,13 +379,5 @@ let user = StructDef("User") {
 extension Documentable {
 	fileprivate func optionalFieldDoc(_ text: String?) -> Self {
 		optionalFieldDoc(text, objectName: "User")
-	}
-
-	fileprivate func connectionsDoc(_ text: String) -> Self {
-		self.doc("""
-			\(text)
-
-			Request by passing ``Field/connections```.
-			""")
 	}
 }

@@ -343,7 +343,7 @@ let user = StructDef("User") {
 		("dat", "dative"),
 		("acc", "accusative"),
 		("ins", "instrumental"),
-		("abl", "prepositional"),
+		("pre", "prepositional"),
 	]
 	for (`case`, caseDoc) in slavicCases {
 		FieldDef("first_name_\(`case`)", type: .string)

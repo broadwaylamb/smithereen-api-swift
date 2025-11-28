@@ -1029,19 +1029,19 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
-	public var firstNameAbl: String?
+	public var firstNamePre: String?
 
 	/// Middle name in prepositional case
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
-	public var nicknameAbl: String?
+	public var nicknamePre: String?
 
 	/// Last name name in prepositional case
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
-	public var lastNameAbl: String?
+	public var lastNamePre: String?
 	public var counters: Counters?
 
 	public struct Counters: Hashable, Codable, Sendable {
@@ -1481,19 +1481,19 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let firstNameAbl = Self(rawValue: "first_name_abl")
+		public static let firstNamePre = Self(rawValue: "first_name_pre")
 
 		/// Middle name in prepositional case
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let nicknameAbl = Self(rawValue: "nickname_abl")
+		public static let nicknamePre = Self(rawValue: "nickname_pre")
 
 		/// Last name name in prepositional case
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let lastNameAbl = Self(rawValue: "last_name_abl")
+		public static let lastNamePre = Self(rawValue: "last_name_pre")
 		public static let counters = Self(rawValue: "counters")
 
 		public static let allCases: [Field] = [
@@ -1563,9 +1563,9 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			.firstNameIns,
 			.nicknameIns,
 			.lastNameIns,
-			.firstNameAbl,
-			.nicknameAbl,
-			.lastNameAbl,
+			.firstNamePre,
+			.nicknamePre,
+			.lastNamePre,
 			.counters,
 		]
 	}
@@ -1644,9 +1644,9 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		firstNameIns: String? = nil,
 		nicknameIns: String? = nil,
 		lastNameIns: String? = nil,
-		firstNameAbl: String? = nil,
-		nicknameAbl: String? = nil,
-		lastNameAbl: String? = nil,
+		firstNamePre: String? = nil,
+		nicknamePre: String? = nil,
+		lastNamePre: String? = nil,
 		counters: Counters? = nil,
 	) {
 		self.id = id
@@ -1722,9 +1722,9 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		self.firstNameIns = firstNameIns
 		self.nicknameIns = nicknameIns
 		self.lastNameIns = lastNameIns
-		self.firstNameAbl = firstNameAbl
-		self.nicknameAbl = nicknameAbl
-		self.lastNameAbl = lastNameAbl
+		self.firstNamePre = firstNamePre
+		self.nicknamePre = nicknamePre
+		self.lastNamePre = lastNamePre
 		self.counters = counters
 	}
 
@@ -1802,9 +1802,9 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		case firstNameIns = "first_name_ins"
 		case nicknameIns = "nickname_ins"
 		case lastNameIns = "last_name_ins"
-		case firstNameAbl = "first_name_abl"
-		case nicknameAbl = "nickname_abl"
-		case lastNameAbl = "last_name_abl"
+		case firstNamePre = "first_name_pre"
+		case nicknamePre = "nickname_pre"
+		case lastNamePre = "last_name_pre"
 		case counters
 	}
 }

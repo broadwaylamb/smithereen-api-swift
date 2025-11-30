@@ -23,6 +23,7 @@ extension TypeRef: CustomStringConvertible {
 
 extension TypeRef {
 	static let int = TypeRef(Int.self)
+	static let double = TypeRef(Double.self)
 	static let string = TypeRef(String.self)
 	static let bool = TypeRef(Bool.self)
 	static let url = TypeRef(URL.self)

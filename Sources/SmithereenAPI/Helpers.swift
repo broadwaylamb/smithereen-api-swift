@@ -48,3 +48,27 @@ extension User.RelationshipStatus {
 		return canHavePartner && self != .inLove
 	}
 }
+
+extension ActorID {
+	public init(_ userID: UserID) {
+		self.init(rawValue: userID.rawValue)
+	}
+
+	public init(_ groupID: GroupID) {
+		self.init(rawValue: -groupID.rawValue)
+	}
+
+	public var userID: UserID? {
+		if rawValue > 0 {
+			return UserID(rawValue: rawValue)
+		}
+		return nil
+	}
+
+	public var groupID: GroupID? {
+		if (rawValue < 0) {
+			return GroupID(rawValue: -rawValue)
+		}
+		return nil
+	}
+}

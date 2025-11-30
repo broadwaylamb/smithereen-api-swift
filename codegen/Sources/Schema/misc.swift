@@ -1,9 +1,13 @@
 let userID = IdentifierStruct("UserID", rawValue: .int)
 let groupID = IdentifierStruct("GroupID", rawValue: .int)
+let actorID = IdentifierStruct("ActorID", rawValue: .int)
+	.doc("Represents either ``UserID`` or ``GroupID``.")
 let friendListID = IdentifierStruct("FriendListID", rawValue: .int)
 let photoID = IdentifierStruct("PhotoID", rawValue: .string)
 let serverRuleID = IdentifierStruct("ServerRuleID", rawValue: .int)
 let groupLinkID = IdentifierStruct("GroupLinkID", rawValue: .int)
+let pollID = IdentifierStruct("PollID", rawValue: .int)
+let pollOptionID = IdentifierStruct("PollOptionID", rawValue: .int)
 
 let serverRule = StructDef("ServerRule") {
 	FieldDef("id", type: TypeRef(name: "ServerRuleID"))

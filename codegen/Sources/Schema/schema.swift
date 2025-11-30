@@ -2,10 +2,13 @@ let schema = Group {
 	FileDef("Identifiers") {
 		userID
 		groupID
+		actorID
 		friendListID
 		photoID
 		serverRuleID
 		groupLinkID
+		pollID
+		pollOptionID
 	}
 	FileDef("Misc") {
 		EnumDef("Platform") {
@@ -15,6 +18,9 @@ let schema = Group {
 		serverRule
 		serverSignupMode
 		deactivatedStatus
+	}
+	FileDef("Poll") {
+		poll
 	}
 	Group("User") {
 		Group("Objects") {

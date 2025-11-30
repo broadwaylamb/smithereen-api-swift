@@ -19,6 +19,15 @@ public struct GroupID: Identifier {
 	}
 }
 
+/// Represents either ``UserID`` or ``GroupID``.
+public struct ActorID: Identifier {
+	public var rawValue: Int
+
+	public init(rawValue: Int) {
+		self.rawValue = rawValue
+	}
+}
+
 public struct FriendListID: Identifier {
 	public var rawValue: Int
 
@@ -44,6 +53,22 @@ public struct ServerRuleID: Identifier {
 }
 
 public struct GroupLinkID: Identifier {
+	public var rawValue: Int
+
+	public init(rawValue: Int) {
+		self.rawValue = rawValue
+	}
+}
+
+public struct PollID: Identifier {
+	public var rawValue: Int
+
+	public init(rawValue: Int) {
+		self.rawValue = rawValue
+	}
+}
+
+public struct PollOptionID: Identifier {
 	public var rawValue: Int
 
 	public init(rawValue: Int) {

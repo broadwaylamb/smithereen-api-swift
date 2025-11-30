@@ -35,6 +35,8 @@ extension TypeRef {
 	static let sendable = TypeRef(name: "Sendable")
 	static let identifier = TypeRef(name: "Identifier")
 
+	static let blurhash = TypeRef(name: "BlurHash")
+
 	static func array(_ element: TypeRef) -> TypeRef {
 		return TypeRef(name: "[\(element)]")
 	}

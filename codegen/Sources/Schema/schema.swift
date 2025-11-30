@@ -25,6 +25,9 @@ let schema = Group {
 	FileDef("Graffiti") {
 		graffiti
 	}
+	FileDef("Video") {
+		video
+	}
 	Group("User") {
 		Group("Objects") {
 			user

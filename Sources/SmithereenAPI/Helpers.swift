@@ -1,6 +1,6 @@
 import SmithereenAPIInternals
 
-public struct Birthday: Equatable, Hashable, Codable, Sendable, CustomStringConvertible {
+public struct Birthday: Hashable, Codable, Sendable, CustomStringConvertible {
 	var day: Int
 	var month: Int
 	var year: Int?
@@ -70,5 +70,27 @@ extension ActorID {
 			return GroupID(rawValue: -rawValue)
 		}
 		return nil
+	}
+}
+
+public struct BlurHash: Hashable, Sendable {
+	public var string: String // TODO: Make byte array-backed?
+
+	public init(string: String) throws {
+		self.string = string
+	}
+}
+
+extension BlurHash: Encodable {
+	public func encode(to encoder: any Encoder) throws {
+		var container = encoder.singleValueContainer()
+		try container.encode(string)
+	}
+}
+
+extension BlurHash: Decodable {
+	public init(from decoder: any Decoder) throws {
+		let container = try decoder.singleValueContainer()
+		try self.init(string: container.decode(String.self))
 	}
 }

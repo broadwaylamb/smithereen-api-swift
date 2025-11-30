@@ -28,6 +28,9 @@ let schema = Group {
 	FileDef("Video") {
 		video
 	}
+	FileDef("Audio") {
+		audio
+	}
 	Group("User") {
 		Group("Objects") {
 			user

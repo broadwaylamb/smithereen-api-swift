@@ -22,6 +22,9 @@ let schema = Group {
 	FileDef("Poll") {
 		poll
 	}
+	FileDef("Graffiti") {
+		graffiti
+	}
 	Group("User") {
 		Group("Objects") {
 			user

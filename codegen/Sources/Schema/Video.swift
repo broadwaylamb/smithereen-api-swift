@@ -12,8 +12,7 @@ let video = StructDef("Video") {
     FieldDef("height", type: .int)
         .doc("The height of the video.")
     
-    FieldDef("blurhash", type: .blurhash)
-        .doc("The [BlurHash](https://blurha.sh/) for the thumbnail.")
+    blurhashField()
     
     FieldDef("description", type: .string)
         .doc("""

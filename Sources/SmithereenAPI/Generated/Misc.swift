@@ -94,3 +94,33 @@ public struct DeactivatedStatus: Hashable, RawRepresentable, CaseIterable, Codab
 		.deleted,
 	]
 }
+
+public struct Likes: Hashable, Codable, Sendable {
+
+	/// How many users liked this object.
+	public var count: Int
+
+	/// Whether the current user can like this object.
+	@LenientBool
+	public var canLike: Bool
+
+	/// Whether the current user likes this photo.
+	@LenientBool
+	public var userLikes: Bool?
+
+	public init(
+		count: Int,
+		canLike: Bool,
+		userLikes: Bool? = nil,
+	) {
+		self.count = count
+		self.canLike = canLike
+		self.userLikes = userLikes
+	}
+
+	private enum CodingKeys: String, CodingKey {
+		case count
+		case canLike = "can_like"
+		case userLikes = "user_likes"
+	}
+}

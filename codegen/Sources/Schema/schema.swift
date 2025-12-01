@@ -5,6 +5,7 @@ let schema = Group {
 		actorID
 		friendListID
 		photoID
+		albumID
 		serverRuleID
 		groupLinkID
 		pollID
@@ -18,6 +19,10 @@ let schema = Group {
 		serverRule
 		serverSignupMode
 		deactivatedStatus
+		likes
+	}
+	FileDef("Photo") {
+		photo
 	}
 	FileDef("Poll") {
 		poll

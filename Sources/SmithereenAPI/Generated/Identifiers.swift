@@ -44,6 +44,14 @@ public struct PhotoID: Identifier {
 	}
 }
 
+public struct AlbumID: Identifier {
+	public var rawValue: String
+
+	public init(rawValue: String) {
+		self.rawValue = rawValue
+	}
+}
+
 public struct ServerRuleID: Identifier {
 	public var rawValue: Int
 

@@ -94,3 +94,24 @@ extension BlurHash: Decodable {
 		try self.init(string: container.decode(String.self))
 	}
 }
+
+extension Photo.SizeType {
+	public var maxSize: Int {
+		switch self {
+		case .thumbSmall:
+			return 100
+		case .thumbMedium:
+			return 320
+		case .small:
+			return 640
+		case .medium:
+			return 800
+		case .large:
+			return 1280
+		case .original:
+			return 2560
+		default: 
+			return 0
+		}
+	}
+}

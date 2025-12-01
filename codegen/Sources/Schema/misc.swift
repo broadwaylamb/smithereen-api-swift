@@ -4,6 +4,7 @@ let actorID = IdentifierStruct("ActorID", rawValue: .int)
 	.doc("Represents either ``UserID`` or ``GroupID``.")
 let friendListID = IdentifierStruct("FriendListID", rawValue: .int)
 let photoID = IdentifierStruct("PhotoID", rawValue: .string)
+let albumID = IdentifierStruct("AlbumID", rawValue: .string)
 let serverRuleID = IdentifierStruct("ServerRuleID", rawValue: .int)
 let groupLinkID = IdentifierStruct("GroupLinkID", rawValue: .int)
 let pollID = IdentifierStruct("PollID", rawValue: .int)
@@ -44,6 +45,18 @@ let deactivatedStatus = EnumDef("DeactivatedStatus") {
 .doc("""
 	For restricted users and groups, their restriction status.
 	""")
+
+let likes = StructDef("Likes") {
+	FieldDef("count", type: .int)
+		.required()
+		.doc("How many users liked this object.")
+	FieldDef("can_like", type: .bool)
+		.required()
+		.doc("Whether the current user can like this object.")
+	FieldDef("user_likes", type: .bool)
+		.excludeFromFields()
+		.doc("Whether the current user likes this photo.")
+}
 
 func deactivatedStatusField(_ entity: String) -> FieldDef {
 	FieldDef("deactivated", type: .def(deactivatedStatus))
@@ -121,4 +134,9 @@ extension Documentable {
 			``\(objectName)`` objects.
 			""")
 	}
+}
+
+func blurhashField() -> FieldDef {
+	FieldDef("blurhash", type: .blurhash)
+        .doc("The [BlurHash](https://blurha.sh/) for the thumbnail.")
 }

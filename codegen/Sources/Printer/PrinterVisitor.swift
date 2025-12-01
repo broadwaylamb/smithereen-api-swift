@@ -73,22 +73,21 @@ struct PrinterVisitor {
 
 			let needsCodingKeys = fields.contains { $0.requiresCustomCodingKey }
 			if needsCodingKeys {
-				let inheritanceClause = InheritanceClauseSyntax {
-					InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("String")))
-					InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("CodingKey")))
-				}
-				EnumDeclSyntax(leadingTrivia: .newlines(2), modifiers: [DeclModifierSyntax(name: .keyword(.private))], name: .identifier("CodingKeys"), inheritanceClause: inheritanceClause) {
-					for field in fields {
-						EnumCaseDeclSyntax {
-							EnumCaseElementSyntax(
-								name: .identifier(field.swiftName),
-								rawValue: field.requiresCustomCodingKey
-									? InitializerClauseSyntax(value: StringLiteralExprSyntax(content: field.serialName))
-									: nil
-							)
-						}
-					}
-				}
+				codingKeys(for: fields)
+			}
+		}
+	}
+
+	private func codingKeys(
+		for entities: [any HasSerialName],
+	) -> EnumDeclSyntax {
+		let inheritanceClause = InheritanceClauseSyntax {
+			InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("String")))
+			InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("CodingKey")))
+		}
+		return EnumDeclSyntax(leadingTrivia: .newlines(2), modifiers: [DeclModifierSyntax(name: .keyword(.private))], name: .identifier("CodingKeys"), inheritanceClause: inheritanceClause) {
+			for entity in entities {
+				enumCase(entity, hasDoc: false)
 			}
 		}
 	}
@@ -179,7 +178,7 @@ struct PrinterVisitor {
 								ArrayElementSyntax(
 									leadingTrivia: .newline,
 									expression: MemberAccessExprSyntax(
-										name: identifier(`case`.swiftName, context: .memberAccess),
+										name: `case`.swiftIdentifier(for: .memberAccess),
 									),
 									trailingComma: .commaToken(),
 									trailingTrivia: i == def.cases.endIndex - 1 ? .newline : nil,
@@ -199,7 +198,7 @@ struct PrinterVisitor {
 									try! SwitchExprSyntax("switch intValue") {
 										for `case` in def.cases {
 											if let intValue = `case`.additionalRepresentation {
-												SwitchCaseSyntax("case \(raw: intValue): self = .\(DeclReferenceExprSyntax(baseName: identifier(`case`.swiftName, context: .memberAccess)))")
+												SwitchCaseSyntax("case \(raw: intValue): self = .\(DeclReferenceExprSyntax(baseName: `case`.swiftIdentifier(for: .memberAccess)))")
 											}
 										}
 										SwitchCaseSyntax("default: self = Self(rawValue: String(intValue))")
@@ -214,6 +213,74 @@ struct PrinterVisitor {
 			}
 		}
 	}
+
+	func printTaggedUnion(_ def: TaggedUnionDef) -> EnumDeclSyntax {
+		EnumDeclSyntax(
+			leadingTrivia: def.leadingTriviaForTypeDecl,
+			modifiers: [DeclModifierSyntax(name: .keyword(.public))],
+			name: .identifier(def.name),
+			inheritanceClause: InheritanceClauseSyntax {
+				InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("Hashable")))
+				InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("Codable")))
+				InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("Sendable")))
+			}
+		) {
+			for variant in def.variants {
+				enumCase(variant, payload: variant.type)
+			}
+			
+			enumCase(
+				leadingTrivia: docComment("Represents an unrecognized type of payload."), 
+				name: "unknown",
+				payload: .string,
+			)
+
+			codingKeys(for: [CustomCodingKey(serialName: "type")] + def.variants)
+
+			initFromDecoderDecl {
+				"let container = try decoder.container(keyedBy: CodingKeys.self)"
+        		"let type = try container.decode(String.self, forKey: .type)"
+				try! SwitchExprSyntax("switch type") {
+					for variant in def.variants {
+						let caseName = variant.swiftIdentifier(for: .memberAccess)
+						SwitchCaseSyntax("""
+							case CodingKeys.\(caseName).stringValue:
+								self = .\(caseName)(try container.decode(\(variant.type.syntax).self, forKey: .\(caseName)))
+							""")
+					}
+					SwitchCaseSyntax("""
+						default:
+							self = .unknown(type)
+						""")
+				}
+			}
+
+			try! FunctionDeclSyntax("public func encode(to encoder: any Encoder) throws") {
+				"var container = encoder.container(keyedBy: CodingKeys.self)"
+				"let tag: String"
+				try! SwitchExprSyntax("switch self") {
+					for variant in def.variants {
+						let caseName = variant.swiftIdentifier(for: .memberAccess)
+						SwitchCaseSyntax("""
+							case .\(caseName)(let payload):
+								tag = CodingKeys.\(caseName).stringValue
+								try container.encode(payload, forKey: .\(caseName))
+							""")
+					}
+					SwitchCaseSyntax("""
+						case .unknown(let _tag):
+							tag = _tag
+						""")
+				}
+				"try container.encode(tag, forKey: .type)"
+			}
+		}
+	}
+}
+
+private struct CustomCodingKey: HasSerialName {
+	var serialName: String
+	var customSwiftName: String?
 }
 
 extension EnumDef {
@@ -239,15 +306,18 @@ extension TypeRef {
 	}
 }
 
+private func docComment(_ text: String) -> Trivia {
+	var pieces: [TriviaPiece] = [.newlines(2)]
+	for line in text.split(separator: "\n") {
+		pieces.append(.docLineComment("/// " + line))
+		pieces.append(.newlines(1))
+	}
+	return Trivia(pieces: pieces)
+}
+
 extension Documentable {
 	fileprivate var leadingTrivia: Trivia? {
-		guard let doc else { return nil }
-		var pieces: [TriviaPiece] = [.newlines(2)]
-		for line in doc.split(separator: "\n") {
-			pieces.append(.docLineComment("/// " + line))
-			pieces.append(.newlines(1))
-		}
-		return Trivia(pieces: pieces)
+		doc.map(docComment)
 	}
 
 	fileprivate var leadingTriviaForTypeDecl: Trivia {
@@ -256,6 +326,12 @@ extension Documentable {
 
 	fileprivate func leadingTrivia(alwaysSeparate: Bool) -> Trivia? {
 		leadingTrivia ?? (alwaysSeparate ? .newlines(2) : nil)
+	}
+}
+
+extension HasSerialName {
+	fileprivate func swiftIdentifier(for context: IdentifierCheckContext) -> TokenSyntax {
+		identifier(swiftName, context: context)
 	}
 }
 
@@ -314,4 +390,47 @@ private func initFromDecoderDecl(
 		),
 		bodyBuilder: bodyBuilder
 	)
+}
+
+private func enumCase(
+	_ entity: any HasSerialName,
+	hasDoc: Bool = true,
+	payload: TypeRef? = nil,
+) -> EnumCaseDeclSyntax {
+	let leadingTrivia: Trivia? = if let entity = entity as? Documentable, hasDoc {
+		entity.leadingTrivia
+	} else {
+		nil
+	}
+	return enumCase(
+		leadingTrivia: leadingTrivia,
+		name: entity.swiftName,
+		rawValue: payload == nil && entity.requiresCustomCodingKey 
+			? entity.serialName 
+			: nil,
+		payload: payload,
+	)
+}
+
+private func enumCase(
+	leadingTrivia: Trivia?,
+	name: String,
+	rawValue: String? = nil,
+	payload: TypeRef? = nil,
+) -> EnumCaseDeclSyntax {
+	EnumCaseDeclSyntax(leadingTrivia: leadingTrivia) {
+		EnumCaseElementSyntax(
+			name: identifier(name, context: .variableName),
+			parameterClause: payload.map { payload in
+				EnumCaseParameterClauseSyntax(
+					parameters: EnumCaseParameterListSyntax {
+						EnumCaseParameterSyntax(type: payload.syntax)
+					}
+				)
+			},
+			rawValue: rawValue.map {
+				InitializerClauseSyntax(value: StringLiteralExprSyntax(content: $0))
+			}
+		)
+	}
 }

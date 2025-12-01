@@ -21,21 +21,12 @@ let schema = Group {
 		deactivatedStatus
 		likes
 	}
-	FileDef("Photo") {
-		photo
-	}
-	FileDef("Poll") {
-		poll
-	}
-	FileDef("Graffiti") {
-		graffiti
-	}
-	FileDef("Video") {
-		video
-	}
-	FileDef("Audio") {
-		audio
-	}
+	photo
+	poll
+	graffiti
+	video
+	audio
+	attachment
 	Group("User") {
 		Group("Objects") {
 			user

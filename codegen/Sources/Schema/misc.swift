@@ -9,6 +9,7 @@ let serverRuleID = IdentifierStruct("ServerRuleID", rawValue: .int)
 let groupLinkID = IdentifierStruct("GroupLinkID", rawValue: .int)
 let pollID = IdentifierStruct("PollID", rawValue: .int)
 let pollOptionID = IdentifierStruct("PollOptionID", rawValue: .int)
+let boardTopicID = IdentifierStruct(("BoardTopicID"), rawValue: .string)
 
 let serverRule = StructDef("ServerRule") {
 	FieldDef("id", type: TypeRef(name: "ServerRuleID"))

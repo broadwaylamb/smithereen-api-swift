@@ -10,10 +10,12 @@ let schema = Group {
 		groupLinkID
 		pollID
 		pollOptionID
+		boardTopicID
 	}
 	Group("Objects") {
 		attachment
 		audio
+		boardTopic
 		deactivatedStatus
 		graffiti
 		group

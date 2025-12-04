@@ -83,3 +83,11 @@ public struct PollOptionID: Identifier {
 		self.rawValue = rawValue
 	}
 }
+
+public struct BoardTopicID: Identifier {
+	public var rawValue: String
+
+	public init(rawValue: String) {
+		self.rawValue = rawValue
+	}
+}

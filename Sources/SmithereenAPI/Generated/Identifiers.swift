@@ -91,3 +91,11 @@ public struct BoardTopicID: Identifier {
 		self.rawValue = rawValue
 	}
 }
+
+public struct WallPostID: Identifier {
+	public var rawValue: Int
+
+	public init(rawValue: Int) {
+		self.rawValue = rawValue
+	}
+}

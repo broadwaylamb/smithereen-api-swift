@@ -52,4 +52,8 @@ extension TypeRef {
 	static func def(_ s: EnumDef) -> TypeRef {
 		return TypeRef(name: s.name)
 	}
+
+	static func def(_ s: TaggedUnionDef) -> TypeRef {
+		return TypeRef(name: s.name)
+	}
 }

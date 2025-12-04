@@ -10,6 +10,7 @@ let groupLinkID = IdentifierStruct("GroupLinkID", rawValue: .int)
 let pollID = IdentifierStruct("PollID", rawValue: .int)
 let pollOptionID = IdentifierStruct("PollOptionID", rawValue: .int)
 let boardTopicID = IdentifierStruct(("BoardTopicID"), rawValue: .string)
+let wallPostID = IdentifierStruct("WallPostID", rawValue: .int)
 
 let serverRule = StructDef("ServerRule") {
 	FieldDef("id", type: TypeRef(name: "ServerRuleID"))

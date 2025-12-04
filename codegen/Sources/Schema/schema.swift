@@ -11,6 +11,7 @@ let schema = Group {
 		pollID
 		pollOptionID
 		boardTopicID
+		wallPostID
 	}
 	Group("Objects") {
 		attachment
@@ -27,5 +28,6 @@ let schema = Group {
 		serverSignupMode
 		user
 		video
+		wallPost
 	}
 }

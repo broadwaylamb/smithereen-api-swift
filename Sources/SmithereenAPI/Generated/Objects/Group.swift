@@ -197,7 +197,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
-	public var photoId: PhotoID?
+	public var photoID: PhotoID?
 
 	/// Whether the current user can create new discussion board topics
 	/// in this group.
@@ -224,21 +224,21 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	public struct ManagementItem: Hashable, Codable, Sendable {
 
 		/// User identifier.
-		public var userId: UserID
+		public var userID: UserID
 
 		/// Description to be shown alongside the name.
 		public var description: String?
 
 		public init(
-			userId: UserID,
+			userID: UserID,
 			description: String? = nil,
 		) {
-			self.userId = userId
+			self.userID = userID
 			self.description = description
 		}
 
 		private enum CodingKeys: String, CodingKey {
-			case userId = "user_id"
+			case userID = "user_id"
 			case description
 		}
 	}
@@ -442,7 +442,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		photo200Orig: URL? = nil,
 		photo400Orig: URL? = nil,
 		photoMaxOrig: URL? = nil,
-		photoId: PhotoID? = nil,
+		photoID: PhotoID? = nil,
 		canCreateTopic: Bool? = nil,
 		canPost: Bool? = nil,
 		management: [ManagementItem]? = nil,
@@ -478,7 +478,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		self.photo200Orig = photo200Orig
 		self.photo400Orig = photo400Orig
 		self.photoMaxOrig = photoMaxOrig
-		self.photoId = photoId
+		self.photoID = photoID
 		self.canCreateTopic = canCreateTopic
 		self.canPost = canPost
 		self.management = management
@@ -516,7 +516,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		case photo200Orig = "photo_200_orig"
 		case photo400Orig = "photo_400_orig"
 		case photoMaxOrig = "photo_max_orig"
-		case photoId = "photo_id"
+		case photoID = "photo_id"
 		case canCreateTopic = "can_create_topic"
 		case canPost = "can_post"
 		case management

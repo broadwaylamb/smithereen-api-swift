@@ -932,7 +932,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
-	public var photoId: PhotoID?
+	public var photoID: PhotoID?
 	public var timezone: TimeZone?
 
 	/// First name in nominative case
@@ -1384,7 +1384,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let photoId = Self(rawValue: "photo_id")
+		public static let photoID = Self(rawValue: "photo_id")
 		public static let timezone = Self(rawValue: "timezone")
 
 		/// First name in nominative case
@@ -1546,7 +1546,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			.photo200Orig,
 			.photo400Orig,
 			.photoMaxOrig,
-			.photoId,
+			.photoID,
 			.timezone,
 			.firstNameNom,
 			.nicknameNom,
@@ -1627,7 +1627,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		photo200Orig: URL? = nil,
 		photo400Orig: URL? = nil,
 		photoMaxOrig: URL? = nil,
-		photoId: PhotoID? = nil,
+		photoID: PhotoID? = nil,
 		timezone: TimeZone? = nil,
 		firstNameNom: String? = nil,
 		nicknameNom: String? = nil,
@@ -1705,7 +1705,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		self.photo200Orig = photo200Orig
 		self.photo400Orig = photo400Orig
 		self.photoMaxOrig = photoMaxOrig
-		self.photoId = photoId
+		self.photoID = photoID
 		self.timezone = timezone
 		self.firstNameNom = firstNameNom
 		self.nicknameNom = nicknameNom
@@ -1785,7 +1785,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		case photo200Orig = "photo_200_orig"
 		case photo400Orig = "photo_400_orig"
 		case photoMaxOrig = "photo_max_orig"
-		case photoId = "photo_id"
+		case photoID = "photo_id"
 		case timezone
 		case firstNameNom = "first_name_nom"
 		case nicknameNom = "nickname_nom"

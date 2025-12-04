@@ -10,7 +10,7 @@ public struct BoardTopic: Hashable, Codable, Sendable, Identifiable {
 	public var id: BoardTopicID
 
 	/// Identifier of the group in which this topic exists.
-	public var groupId: GroupID
+	public var groupID: GroupID
 
 	/// Globally unique ActivityPub identifier for this topic.
 	/// Use this to match topics across servers.
@@ -54,7 +54,7 @@ public struct BoardTopic: Hashable, Codable, Sendable, Identifiable {
 
 	public init(
 		id: BoardTopicID,
-		groupId: GroupID,
+		groupID: GroupID,
 		activityPubID: URL? = nil,
 		url: URL,
 		title: String,
@@ -68,7 +68,7 @@ public struct BoardTopic: Hashable, Codable, Sendable, Identifiable {
 		commentPreview: String? = nil,
 	) {
 		self.id = id
-		self.groupId = groupId
+		self.groupID = groupID
 		self.activityPubID = activityPubID
 		self.url = url
 		self.title = title
@@ -84,7 +84,7 @@ public struct BoardTopic: Hashable, Codable, Sendable, Identifiable {
 
 	private enum CodingKeys: String, CodingKey {
 		case id
-		case groupId = "group_id"
+		case groupID = "group_id"
 		case activityPubID = "ap_id"
 		case url
 		case title

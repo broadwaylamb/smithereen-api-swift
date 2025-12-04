@@ -10,7 +10,7 @@ public struct Poll: Hashable, Codable, Sendable, Identifiable {
 	public var id: PollID
 
 	/// The identifier of the owner of this poll.
-	public var ownerId: ActorID
+	public var ownerID: ActorID
 
 	/// The timestamp when this poll was created, as unixtime.
 	@UnixTimestamp
@@ -83,11 +83,11 @@ public struct Poll: Hashable, Codable, Sendable, Identifiable {
 	public var canVote: Bool
 
 	/// The identifier of the author of this poll.
-	public var authorId: ActorID
+	public var authorID: ActorID
 
 	public init(
 		id: PollID,
-		ownerId: ActorID,
+		ownerID: ActorID,
 		created: Date,
 		question: String? = nil,
 		votes: Int,
@@ -99,10 +99,10 @@ public struct Poll: Hashable, Codable, Sendable, Identifiable {
 		closed: Bool,
 		canEdit: Bool,
 		canVote: Bool,
-		authorId: ActorID,
+		authorID: ActorID,
 	) {
 		self.id = id
-		self.ownerId = ownerId
+		self.ownerID = ownerID
 		self.created = created
 		self.question = question
 		self.votes = votes
@@ -114,12 +114,12 @@ public struct Poll: Hashable, Codable, Sendable, Identifiable {
 		self.closed = closed
 		self.canEdit = canEdit
 		self.canVote = canVote
-		self.authorId = authorId
+		self.authorID = authorID
 	}
 
 	private enum CodingKeys: String, CodingKey {
 		case id
-		case ownerId = "owner_id"
+		case ownerID = "owner_id"
 		case created
 		case question
 		case votes
@@ -131,6 +131,6 @@ public struct Poll: Hashable, Codable, Sendable, Identifiable {
 		case closed
 		case canEdit = "can_edit"
 		case canVote = "can_vote"
-		case authorId = "author_id"
+		case authorID = "author_id"
 	}
 }

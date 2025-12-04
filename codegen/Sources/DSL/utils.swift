@@ -22,12 +22,20 @@ extension String {
 		let trailingUnderscoreRange = index(after: lastNonUnderscore)..<endIndex
 
 		let components = self[keyRange].split(separator: "_")
-		let joinedString: String
+		var joinedString: String
 		if components.count == 1 {
 			// No underscores in key, leave the word as is - maybe already camel cased
 			joinedString = String(self[keyRange])
 		} else {
-			joinedString = ([components[0].lowercased()] + components[1...].map { $0.capitalized }).joined()
+			joinedString = components[0].lowercased()
+			for component in components[1...] {
+				if component == "id" {
+					// Identifiers are spelled as ID
+					joinedString += "ID"
+				} else {
+					joinedString += component.capitalized
+				}
+			}
 		}
 
 		// Do a cheap isEmpty check before creating and appending potentially empty strings

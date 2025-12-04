@@ -18,14 +18,14 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 	public var url: URL
 
 	/// If this photo is in an album, the identifier of that album.
-	public var albumId: AlbumID?
+	public var albumID: AlbumID?
 
 	/// The identifier of the owner of this photo.
-	public var ownerId: ActorID
+	public var ownerID: ActorID
 
 	/// For a photo in an album in a group, the identifier of the user
 	/// who uploaded this photo to the album.
-	public var userId: UserID?
+	public var userID: UserID?
 
 	/// A textual description of the photo. In case of post attachments,
 	/// often used as an “alt text” to describe the image for
@@ -145,9 +145,9 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 		id: PhotoID,
 		activityPubID: URL? = nil,
 		url: URL,
-		albumId: AlbumID? = nil,
-		ownerId: ActorID,
-		userId: UserID? = nil,
+		albumID: AlbumID? = nil,
+		ownerID: ActorID,
+		userID: UserID? = nil,
 		text: String? = nil,
 		date: Date,
 		blurhash: BlurHash? = nil,
@@ -163,9 +163,9 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 		self.id = id
 		self.activityPubID = activityPubID
 		self.url = url
-		self.albumId = albumId
-		self.ownerId = ownerId
-		self.userId = userId
+		self.albumID = albumID
+		self.ownerID = ownerID
+		self.userID = userID
 		self.text = text
 		self.date = date
 		self.blurhash = blurhash
@@ -183,9 +183,9 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 		case id
 		case activityPubID = "ap_id"
 		case url
-		case albumId = "album_id"
-		case ownerId = "owner_id"
-		case userId = "user_id"
+		case albumID = "album_id"
+		case ownerID = "owner_id"
+		case userID = "user_id"
 		case text
 		case date
 		case blurhash

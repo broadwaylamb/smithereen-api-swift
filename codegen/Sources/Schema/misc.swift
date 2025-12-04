@@ -58,6 +58,11 @@ let likes = StructDef("Likes") {
 		.doc("Whether the current user likes this photo.")
 }
 
+let platform = EnumDef("Platform") {
+    EnumCaseDef("mobile", additionalRepresentation: 1)
+    EnumCaseDef("desktop", additionalRepresentation: 7)
+}
+
 func deactivatedStatusField(_ entity: String) -> FieldDef {
 	FieldDef("deactivated", type: .def(deactivatedStatus))
 		.excludeFromFields()

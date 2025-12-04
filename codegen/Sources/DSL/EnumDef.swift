@@ -44,3 +44,9 @@ extension EnumDef: StructDefPart {
 private struct CompositeEnumDefPart: EnumDefPart {
 	var components: [EnumCaseDef]
 }
+
+extension EnumDef: GroupPart {
+    var file: FileDef? {
+        FileDef(name + ".swift") { self }
+    }
+}

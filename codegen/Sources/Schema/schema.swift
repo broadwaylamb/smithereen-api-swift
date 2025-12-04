@@ -11,35 +11,19 @@ let schema = Group {
 		pollID
 		pollOptionID
 	}
-	FileDef("Misc") {
-		EnumDef("Platform") {
-			EnumCaseDef("mobile", additionalRepresentation: 1)
-			EnumCaseDef("desktop", additionalRepresentation: 7)
-		}
+	Group("Objects") {
+		attachment
+		audio
+		deactivatedStatus
+		graffiti
+		group
+		likes
+		photo
+		platform
+		poll
 		serverRule
 		serverSignupMode
-		deactivatedStatus
-		likes
-	}
-	photo
-	poll
-	graffiti
-	video
-	audio
-	attachment
-	Group("User") {
-		Group("Objects") {
-			user
-		}
-	}
-	Group("Groups") {
-		Group("Objects") {
-			group
-		}
-	}
-	Group("Server") {
-		Group("Objects") {
-			serverInfo
-		}
+		user
+		video
 	}
 }

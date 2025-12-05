@@ -31,9 +31,9 @@ protocol TaggedUnionDefPart: Sendable {
 }
 
 extension TaggedUnionDef: StructDefPart {
-    func accept(_ visitor: PrinterVisitor) -> any DeclSyntaxProtocol {
-        visitor.printTaggedUnion(self)
-    }
+	func accept(_ visitor: PrinterVisitor) -> any DeclSyntaxProtocol {
+		visitor.printTaggedUnion(self)
+	}
 }
 
 extension TaggedUnionDef: GroupPart {

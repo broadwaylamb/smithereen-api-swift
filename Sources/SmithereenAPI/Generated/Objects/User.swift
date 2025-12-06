@@ -878,15 +878,13 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// ``User`` objects.
 	public var wallDefault: WallMode?
 
-	public enum WallMode: String, Codable, Sendable {
-		case
+	public enum WallMode: String, Codable, Sendable, CaseIterable {
 
 		/// Show only the user's own posts
-		owner
-		case
+		case owner
 
 		/// Show all posts
-		all
+		case all
 	}
 
 	/// URL of a square 50x50 version of the profile picture.

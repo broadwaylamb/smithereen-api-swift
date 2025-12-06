@@ -38,6 +38,10 @@ extension TypeRef {
 
 	static let blurhash = TypeRef(name: "BlurHash")
 
+	static func paginatedList(_ element: TypeRef) -> TypeRef {
+		return TypeRef(name: "PaginatedList<\(element)>")
+	}
+
 	static func array(_ element: TypeRef) -> TypeRef {
 		return TypeRef(name: "[\(element)]")
 	}

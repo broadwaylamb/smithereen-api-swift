@@ -101,6 +101,9 @@ struct PrinterVisitor {
 				"public typealias Result = \(resultType.syntax)"
 			}
 		}
+		if def.customSwiftName != nil {
+			return structSyntax
+		}
 		let components = def.name.split(separator: ".")
 		if components.count == 1 {
 			return structSyntax
@@ -158,6 +161,7 @@ struct PrinterVisitor {
 					InheritedTypeSyntax(type: rawValueType)
 					InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("Codable")))
 					InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("Sendable")))
+					InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("CaseIterable")))
 				}
 			) {
 				for `case` in def.cases {
@@ -171,9 +175,8 @@ struct PrinterVisitor {
 					default:
 						fatalError("Unsupported enum raw value type")
 					}
-					EnumCaseDeclSyntax {
+					EnumCaseDeclSyntax(leadingTrivia: `case`.leadingTrivia) {
 						EnumCaseElementSyntax(
-							leadingTrivia: `case`.leadingTrivia,
 							name: .identifier(`case`.swiftName),
 							rawValue: rawValue.map {
 								InitializerClauseSyntax(value: $0)

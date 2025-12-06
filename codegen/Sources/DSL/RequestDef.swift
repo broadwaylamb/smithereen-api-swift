@@ -2,6 +2,7 @@ import SwiftSyntax
 
 struct RequestDef: Documentable {
 	var name: String
+	var customSwiftName: String?
 	var structDef: StructDef
 	var resultType: TypeRef?
 	
@@ -22,14 +23,16 @@ struct RequestDef: Documentable {
 
 	init(
 		_ name: String,
+		swiftName: String? = nil,
 		resultType: TypeRef? = nil,
 		conformances: [TypeRef] = defaultConformances,
 		@StructDefBuilder build: () -> any StructDefPart,
 	) {
 		self.name = name
+		self.customSwiftName = swiftName
 		self.resultType = resultType
 		structDef = StructDef(
-			(name.split(separator: ".").last.map(String.init) ?? name).capitalizedFirstChar,
+			swiftName ?? (name.split(separator: ".").last.map(String.init) ?? name).capitalizedFirstChar,
 			conformances: conformances,
 			build: build,
 		)

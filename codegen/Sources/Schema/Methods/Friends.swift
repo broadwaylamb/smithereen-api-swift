@@ -172,4 +172,67 @@ let friends = Group("Friends") {
 	}
 	.doc("Updates an existing friend list. Returns `true` on success.")
 	.requiresPermissions("friends")
+
+	RequestDef("friends.get", resultType: .paginatedList(.def(userID))) {
+		let orderEnum = EnumDef<String>("Order") {
+			EnumCaseDef("hints")
+				.doc("""
+					Order by how often the user interacts with each friend.
+					Requires `friends:read` and only works for the current user.
+					""")
+			EnumCaseDef("random")
+				.doc("Order randomly.")
+			EnumCaseDef("id")
+				.doc("Order by user identifiers.")
+			EnumCaseDef("recent")
+				.doc("""
+					Order by when each friend was added, most recent first.
+					Requires `friends:read` and only works for the current user.
+					""")
+		}
+		.frozen()
+		parametersForGet(orderEnum)
+		orderEnum
+
+		RequestDef(
+			"friends.get",
+			swiftName: "WithFields",
+			resultType: .paginatedList(.def(user)),
+		) {
+			parametersForGet(orderEnum)
+			FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
+				.required()
+				.doc("A list of user profile fields to be returned.")
+		}
+		.doc("Returns the friend list of a user.")
+	}
+	.doc("Returns the friend list of a user.")
+}
+
+@StructDefBuilder
+private func parametersForGet(_ order: EnumDef<String>) -> any StructDefPart {
+	FieldDef("user_id", type: .def(userID))
+		.doc("""
+			The identifier of the user whose friend list needs to be returned.
+			If an access token is used, defaults to the current user’s ID.
+			Required when called without an access token.
+			""")
+	
+	FieldDef("order", type: .def(order))
+		.doc("""
+			In which order to return the friends. By default ``Order/id``.
+			""")
+	
+	FieldDef("list_id", type: .def(friendListID))
+		.doc("""
+			Only return friends in the specified list.
+			For private lists, only works for the current user and only with
+			a token that has the `friends:read` permission.
+			""")
+	
+	FieldDef("offset", type: .int)
+		.doc("Offset into the friend list for pagination.")
+	
+	FieldDef("count", type: .int)
+		.doc("How many friends to return. By default 100.")
 }

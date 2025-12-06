@@ -91,4 +91,35 @@ let friends = Group("Friends") {
 		to the specified users.
 		""")
 	.requiresPermissions("friends:read")
+
+	RequestDef("friends.delete") {
+		FieldDef("user_id", type: .def(userID))
+
+		EnumDef<String>("Result") {
+			EnumCaseDef("friend_deleted", additionalRepresentation: 1)
+				.doc("""
+					The target user was the current user’s friend and was
+					removed from the friend list.
+					""")
+			EnumCaseDef("unfollowed")
+				.doc("""
+					The current user was non-mutually following the target user,
+					but there was no outgoing friend request.
+					""")
+			EnumCaseDef("out_request_deleted")
+				.doc("""
+					There was an outgoing friend request and it was deleted.
+					""")
+			EnumCaseDef("in_request_deleted", additionalRepresentation: 2)
+				.doc("""
+					There was an incoming friend request and it was deleted.
+					""")
+		}
+	}
+	.doc("""
+		Unfriends or unfollows a user. If there’s an outgoing friend request,
+		cancels it. If there’s an incoming friend request, rejects it,
+		same as the “leave as a follower” button on the web.
+		""")
+	.requiresPermissions("friends")
 }

@@ -144,4 +144,32 @@ let friends = Group("Friends") {
 		Changes which lists a friend is included in. Returns `true` on success.
 		""")
 	.requiresPermissions("friends")
+
+	RequestDef("friends.editList", resultType: .bool) {
+		FieldDef("list_id", type: .def(friendListID))
+			.required()
+			.doc("The identifier of the friend list to be updated.")
+		FieldDef("name", type: .string)
+			.doc("""
+				A new name for the list. If not specified, the name of the list
+				will not be updated.
+				""")
+		FieldDef("user_ids", type: .array(.def(userID)))
+			.doc("""
+				A list of user identifiers to completely replace the existing
+				ones in this list.
+				""")
+		FieldDef("add_user_ids", type: .array(.def(userID)))
+			.doc("""
+				A list of user identifiers to be added to this list.
+				Only applies if ``userIDs`` was not specified.
+				""")
+		FieldDef("delete_user_ids", type: .array(.def(userID)))
+			.doc("""
+				A list of user identifiers to be removed from this list.
+				Only applies if ``userIDs`` was not specified.
+				""")
+	}
+	.doc("Updates an existing friend list. Returns `true` on success.")
+	.requiresPermissions("friends")
 }

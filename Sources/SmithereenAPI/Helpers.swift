@@ -71,6 +71,14 @@ extension ActorID {
 		}
 		return nil
 	}
+	
+	public func map<R>(userID: (UserID) -> R, groupID: (GroupID) -> R) -> R {
+		if rawValue >= 0 {
+			return userID(UserID(rawValue: rawValue))
+		} else {
+			return groupID(GroupID(rawValue: -rawValue))
+		}
+	}
 }
 
 public struct BlurHash: Hashable, Sendable {

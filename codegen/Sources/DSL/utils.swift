@@ -56,6 +56,17 @@ extension String {
 	}
 }
 
+extension StringProtocol {
+	var capitalizedFirstChar: String {
+		var result = ""
+		if let first = first {
+			result += first.uppercased()
+		}
+		result += dropFirst()
+		return result
+	}
+}
+
 func copyWith<T, S>(_ value: T, _ keyPath: WritableKeyPath<T, S>, _ newValue: S) -> T {
 	var value = value
 	value[keyPath: keyPath] = newValue

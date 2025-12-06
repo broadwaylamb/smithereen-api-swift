@@ -97,6 +97,9 @@ struct PrinterVisitor {
 			#"public var path: String { "/api/method/\#(raw: def.name)" }"#
 			"public static var method: HTTPMethod { .post }"
 			"public var encodableBody: Self { self }"
+			if let resultType = def.resultType {
+				"public typealias Result = \(resultType.syntax)"
+			}
 		}
 		let components = def.name.split(separator: ".")
 		if components.count == 1 {

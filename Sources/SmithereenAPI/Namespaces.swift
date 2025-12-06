@@ -1,1 +1,1 @@
-enum Friends {}
+public enum Friends {}

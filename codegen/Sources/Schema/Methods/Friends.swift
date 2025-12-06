@@ -25,7 +25,21 @@ let friends = Group("Friends") {
 	.doc("""
 		Sends a friend request, accepts an incoming friend request,
 		or follows a user.
-
-		- Note: This method requires the following permissions: `friends`.
 		""")
+	.requiresPermissions("friends")
+	
+	RequestDef("friends.addList", resultType: .def(friendListID)) {
+		FieldDef("name", type: .string)
+			.required()
+			.doc("The name of the new list.")
+		FieldDef("user_ids", type: .array(.def(friendListID)))
+			.required()
+			.doc("A list of user identifiers to be added to this list.")
+	}
+	.doc("""
+		Creates a private friend list.
+
+		Returns the identifier of the newly created friend list.
+		""")
+	.requiresPermissions("friends")
 }

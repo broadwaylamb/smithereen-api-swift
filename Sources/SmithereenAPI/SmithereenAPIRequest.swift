@@ -4,7 +4,9 @@ import Hammond
 public protocol SmithereenAPIRequest
 	:	EncodableRequestProtocol,
 		DecodableRequestProtocol
-	where ServerError == SmithereenAPIError, ResponseBody == Data {
+	where ServerError == SmithereenAPIError, ResponseBody == Data 
+{
+	associatedtype Result
 }
 
 private let smithereenJSONDecoder = JSONDecoder()

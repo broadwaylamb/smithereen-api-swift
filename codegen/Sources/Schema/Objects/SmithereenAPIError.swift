@@ -83,6 +83,8 @@ let error = StructDef("SmithereenAPIError") {
 			.doc("""
 				See the method page for required parameters and their format.
 				""")
+		EnumCaseDef(173, swiftName: "tooManyFriendLists")
+			.doc("Too many friend lists.")
 		EnumCaseDef(174, swiftName: "cantAddOneselfAsFriend")
 			.doc("Can't add oneself as a friend.")
 		EnumCaseDef(175, swiftName: "cantAddAsFriendBecauseUserBlockedYou")

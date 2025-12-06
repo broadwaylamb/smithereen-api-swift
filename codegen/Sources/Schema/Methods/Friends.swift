@@ -130,4 +130,18 @@ let friends = Group("Friends") {
 	}
 	.doc("Deletes a friend list. Returns `true` on success.")
 	.requiresPermissions("friends")
+
+	RequestDef("friends.edit", resultType: .bool) {
+		FieldDef("user_id", type: .def(userID))
+			.required()
+			.doc("User identifier for which lists need to be updated.")
+
+		FieldDef("list_ids", type: .array(.def(friendListID)))
+			.required()
+			.doc("The list of list identifiers.")
+	}
+	.doc("""
+		Changes which lists a friend is included in. Returns `true` on success.
+		""")
+	.requiresPermissions("friends")
 }

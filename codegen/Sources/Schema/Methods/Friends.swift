@@ -122,4 +122,12 @@ let friends = Group("Friends") {
 		same as the “leave as a follower” button on the web.
 		""")
 	.requiresPermissions("friends")
+
+	RequestDef("friends.deleteList", resultType: .bool) {
+		FieldDef("list_id", type: .def(friendListID))
+			.required()
+			.doc("The identifier of the friend list to be deleted.")
+	}
+	.doc("Deletes a friend list. Returns `true` on success.")
+	.requiresPermissions("friends")
 }

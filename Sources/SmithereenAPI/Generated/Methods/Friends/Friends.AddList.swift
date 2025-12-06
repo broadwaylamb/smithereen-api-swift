@@ -14,19 +14,19 @@ extension Friends {
 		public var name: String
 
 		/// A list of user identifiers to be added to this list.
-		public var userIds: [FriendListID]
+		public var userIDs: [FriendListID]
 
 		public init(
 			name: String,
-			userIds: [FriendListID],
+			userIDs: [FriendListID],
 		) {
 			self.name = name
-			self.userIds = userIds
+			self.userIDs = userIDs
 		}
 
 		private enum CodingKeys: String, CodingKey {
 			case name
-			case userIds = "user_ids"
+			case userIDs = "user_ids"
 		}
 		public var path: String {
 			"/api/method/friends.addList"

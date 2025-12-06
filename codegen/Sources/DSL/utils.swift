@@ -30,8 +30,9 @@ extension String {
 			joinedString = components[0].lowercased()
 			for component in components[1...] {
 				if component == "id" {
-					// Identifiers are spelled as ID
 					joinedString += "ID"
+				} else if component == "ids" {
+					joinedString += "IDs"
 				} else {
 					joinedString += component.capitalized
 				}

@@ -63,7 +63,7 @@ public struct Poll: Hashable, Codable, Sendable, Identifiable {
 
 	/// If the current user has voted in this poll, the IDs of the options
 	/// they voted for.
-	public var answerIds: [PollOptionID]?
+	public var answerIDs: [PollOptionID]?
 
 	/// The timestamp when this poll ends, in unixtime.
 	/// 0 if the poll does not end.
@@ -94,7 +94,7 @@ public struct Poll: Hashable, Codable, Sendable, Identifiable {
 		answers: [Answer],
 		anonymous: Bool,
 		multiple: Bool,
-		answerIds: [PollOptionID]? = nil,
+		answerIDs: [PollOptionID]? = nil,
 		endDate: Date,
 		closed: Bool,
 		canEdit: Bool,
@@ -109,7 +109,7 @@ public struct Poll: Hashable, Codable, Sendable, Identifiable {
 		self.answers = answers
 		self.anonymous = anonymous
 		self.multiple = multiple
-		self.answerIds = answerIds
+		self.answerIDs = answerIDs
 		self.endDate = endDate
 		self.closed = closed
 		self.canEdit = canEdit
@@ -126,7 +126,7 @@ public struct Poll: Hashable, Codable, Sendable, Identifiable {
 		case answers
 		case anonymous
 		case multiple
-		case answerIds = "answer_ids"
+		case answerIDs = "answer_ids"
 		case endDate = "end_date"
 		case closed
 		case canEdit = "can_edit"

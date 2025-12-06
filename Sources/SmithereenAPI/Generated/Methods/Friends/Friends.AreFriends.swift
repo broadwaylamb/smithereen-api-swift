@@ -11,7 +11,7 @@ extension Friends {
 	public struct AreFriends: SmithereenAPIRequest, Hashable, Encodable {
 
 		/// The list of user identifiers to retrieve friendship states for.
-		public var userIds: [UserID]
+		public var userIDs: [UserID]
 
 		/// Whether to return ``FriendshipInfo/isRequestUnread``.
 		@LenientBool
@@ -101,15 +101,15 @@ extension Friends {
 		}
 
 		public init(
-			userIds: [UserID],
+			userIDs: [UserID],
 			extended: Bool,
 		) {
-			self.userIds = userIds
+			self.userIDs = userIDs
 			self.extended = extended
 		}
 
 		private enum CodingKeys: String, CodingKey {
-			case userIds = "user_ids"
+			case userIDs = "user_ids"
 			case extended
 		}
 		public var path: String {

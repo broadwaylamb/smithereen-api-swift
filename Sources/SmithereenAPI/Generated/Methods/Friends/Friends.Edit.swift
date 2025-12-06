@@ -13,19 +13,19 @@ extension Friends {
 		public var userID: UserID
 
 		/// The list of list identifiers.
-		public var listIds: [FriendListID]
+		public var listIDs: [FriendListID]
 
 		public init(
 			userID: UserID,
-			listIds: [FriendListID],
+			listIDs: [FriendListID],
 		) {
 			self.userID = userID
-			self.listIds = listIds
+			self.listIDs = listIDs
 		}
 
 		private enum CodingKeys: String, CodingKey {
 			case userID = "user_id"
-			case listIds = "list_ids"
+			case listIDs = "list_ids"
 		}
 		public var path: String {
 			"/api/method/friends.edit"

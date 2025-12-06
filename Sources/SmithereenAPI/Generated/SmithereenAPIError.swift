@@ -51,6 +51,13 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 		/// (`journalctl -u smithereen.service`) for details.
 		public static let internalServerError = Self(rawValue: 10)
 
+		/// Failed to compile the script in the ``Execute`` method.
+		public static let executeFailedToCompile = Self(rawValue: 12)
+
+		/// A runtime error occurred during script execution in
+		/// the ``Execute`` method.
+		public static let executeRuntimeError = Self(rawValue: 13)
+
 		/// You are performing the same type of action too often, and
 		/// the server suspects you of spamming. [You need to present
 		/// a captcha image to the user and retry the request](https://smithereen.software/docs/api/captcha).
@@ -84,6 +91,8 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 			.invalidRequest,
 			.floodControl,
 			.internalServerError,
+			.executeFailedToCompile,
+			.executeRuntimeError,
 			.captchaNeeded,
 			.accessDenied,
 			.validationRequired,

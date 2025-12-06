@@ -45,6 +45,15 @@ let error = StructDef("SmithereenAPIError") {
 				If this is your server, see the server log 
 				(`journalctl -u smithereen.service`) for details.
 				""")
+		EnumCaseDef(12, swiftName: "executeFailedToCompile")
+			.doc("""
+				Failed to compile the script in the ``Execute`` method.
+				""")
+		EnumCaseDef(13, swiftName: "executeRuntimeError")
+			.doc("""
+				A runtime error occurred during script execution in
+				the ``Execute`` method.
+				""")
 		EnumCaseDef(14, swiftName: "captchaNeeded")
 			.doc("""
 				You are performing the same type of action too often, and

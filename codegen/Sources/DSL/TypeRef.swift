@@ -31,6 +31,7 @@ extension TypeRef {
 	static let timeZone = TypeRef(TimeZone.self)
 
 	static let hashable = TypeRef(name: "Hashable")
+	static let encodable = TypeRef(name: "Encodable")
 	static let codable = TypeRef(name: "Codable")
 	static let sendable = TypeRef(name: "Sendable")
 	static let identifier = TypeRef(name: "Identifier")

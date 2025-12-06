@@ -11,6 +11,11 @@ struct PrinterVisitor {
 			ImportDeclSyntax(
 				path: [ImportPathComponentSyntax(name: .identifier("SmithereenAPIInternals"))],
 			)
+			for additionalImport in def.additionalImports {
+				ImportDeclSyntax(
+					path: [ImportPathComponentSyntax(name: .identifier(additionalImport))],
+				)
+			}
 
 			for decl in def.decls {
 				decl.accept(self)
@@ -19,6 +24,13 @@ struct PrinterVisitor {
 	}
 
 	func printStruct(_ def: StructDef) -> StructDeclSyntax {
+		printStruct(def, additionalDeclarations: {})
+	}
+
+	private func printStruct(
+		_ def: StructDef,
+		@MemberBlockItemListBuilder additionalDeclarations: () -> MemberBlockItemListSyntax,
+	) -> StructDeclSyntax {
 		let fields = def.fields
 		return StructDeclSyntax(
 			leadingTrivia: def.leadingTriviaForTypeDecl,
@@ -75,6 +87,30 @@ struct PrinterVisitor {
 			if needsCodingKeys {
 				codingKeys(for: fields)
 			}
+
+			additionalDeclarations()
+		}
+	}
+
+	func printRequest(_ def: RequestDef) -> any DeclSyntaxProtocol {
+		let structSyntax = printStruct(def.structDef) {
+			#"public var path: String { "/api/method/\#(raw: def.name)" }"#
+			"public static var method: HTTPMethod { .post }"
+			"public var encodableBody: Self { self }"
+		}
+		let components = def.name.split(separator: ".")
+		if components.count == 1 {
+			return structSyntax
+		}
+
+		let extendedName = components
+			.dropLast()
+			.map { $0.capitalized }
+			.joined(separator: ".")
+		return ExtensionDeclSyntax(
+			extendedType: IdentifierTypeSyntax(name: .identifier(extendedName)),
+		) {
+			structSyntax
 		}
 	}
 

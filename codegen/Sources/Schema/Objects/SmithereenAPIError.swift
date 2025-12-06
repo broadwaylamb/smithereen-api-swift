@@ -83,6 +83,14 @@ let error = StructDef("SmithereenAPIError") {
 			.doc("""
 				See the method page for required parameters and their format.
 				""")
+		EnumCaseDef(174, swiftName: "cantAddOneselfAsFriend")
+			.doc("Can't add oneself as a friend.")
+		EnumCaseDef(175, swiftName: "cantAddAsFriendBecauseUserBlockedYou")
+			.doc("Can't add this user as a friend because they blocked you.")
+		EnumCaseDef(176, swiftName: "cantAddAsFriendBecauseYouBlockedUser")
+			.doc("Can't add this user as a friend because you blocked them.")
+		EnumCaseDef(242, swiftName: "tooManyFriends")
+			.doc("Too many friends.")
 	}
 	FieldDef("error_code", type: .def(codeEnum))
 		.required()

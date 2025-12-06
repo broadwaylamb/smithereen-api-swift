@@ -3,9 +3,15 @@ import SwiftSyntax
 struct FileDef {
 	var path: String
 	var decls: [any StructDefPart]
+	var additionalImports: [String] = []
 
-	init(_ path: String, @FileDefBuilder build: () -> [any StructDefPart]) {
+	init(
+		_ path: String,
+		additionalImports: [String] = [],
+		@FileDefBuilder build: () -> [any StructDefPart],
+	) {
 		self.path = path.hasSuffix(".swift") ? path : path + ".swift"
+		self.additionalImports = additionalImports
 		self.decls = build()
 	}
 }

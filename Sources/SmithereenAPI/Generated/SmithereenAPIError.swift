@@ -82,6 +82,18 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 		/// See the method page for required parameters and their format.
 		public static let invalidMethodParameters = Self(rawValue: 100)
 
+		/// Can't add oneself as a friend.
+		public static let cantAddOneselfAsFriend = Self(rawValue: 174)
+
+		/// Can't add this user as a friend because they blocked you.
+		public static let cantAddAsFriendBecauseUserBlockedYou = Self(rawValue: 175)
+
+		/// Can't add this user as a friend because you blocked them.
+		public static let cantAddAsFriendBecauseYouBlockedUser = Self(rawValue: 176)
+
+		/// Too many friends.
+		public static let tooManyFriends = Self(rawValue: 242)
+
 		public static let allCases: [Code] = [
 			.other,
 			.unknownMethodPassed,
@@ -98,6 +110,10 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 			.validationRequired,
 			.accountBanned,
 			.invalidMethodParameters,
+			.cantAddOneselfAsFriend,
+			.cantAddAsFriendBecauseUserBlockedYou,
+			.cantAddAsFriendBecauseYouBlockedUser,
+			.tooManyFriends,
 		]
 	}
 	public var message: String

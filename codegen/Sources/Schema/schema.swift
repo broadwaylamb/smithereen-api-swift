@@ -31,5 +31,9 @@ let schema = Group {
 		wallPost
 	}
 
+	Group("Methods") {
+		friends
+	}
+
 	error
 }

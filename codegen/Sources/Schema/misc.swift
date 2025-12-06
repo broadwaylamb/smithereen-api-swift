@@ -23,14 +23,14 @@ let serverRule = StructDef("ServerRule") {
 	FieldDef("description", type: .string)
 }
 
-let serverSignupMode = EnumDef("ServerSignupMode") {
+let serverSignupMode = EnumDef<String>("ServerSignupMode") {
 	EnumCaseDef("open")
 	EnumCaseDef("closed")
 	EnumCaseDef("invite_only")
 	EnumCaseDef("manual_approval")
 }
 
-let deactivatedStatus = EnumDef("DeactivatedStatus") {
+let deactivatedStatus = EnumDef<String>("DeactivatedStatus") {
 	EnumCaseDef("banned")
 		.doc("The user's account or the group is frozen or suspended.")
 	EnumCaseDef("hidden")
@@ -60,7 +60,7 @@ let likes = StructDef("Likes") {
 		.doc("Whether the current user likes this photo.")
 }
 
-let platform = EnumDef("Platform") {
+let platform = EnumDef<String>("Platform") {
     EnumCaseDef("mobile", additionalRepresentation: 1)
     EnumCaseDef("desktop", additionalRepresentation: 7)
 }

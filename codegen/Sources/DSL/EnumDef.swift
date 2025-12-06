@@ -1,12 +1,12 @@
 import SwiftSyntax
 
-struct EnumDef: Documentable {
+struct EnumDef<RawValue: Sendable>: Documentable {
 	var name: String
 	var doc: String?
-	var cases: [EnumCaseDef]
+	var cases: [EnumCaseDef<RawValue>]
 	var isFrozen: Bool = false
 
-	init(_ name: String, @EnumDefBuilder build: () -> any EnumDefPart) {
+	init(_ name: String, @EnumDefBuilder<RawValue> build: () -> CompositeEnumDefPart<RawValue>) {
 		self.name = name
 		self.cases = build().components
 	}
@@ -17,23 +17,39 @@ struct EnumDef: Documentable {
 }
 
 @resultBuilder
-struct EnumDefBuilder {
-	static func buildExpression(_ expression: any EnumDefPart) -> any EnumDefPart {
+struct EnumDefBuilder<RawValue: Sendable> {
+	static func buildExpression<T : EnumDefPart>(_ expression: T) -> T {
 		return expression
 	}
+}
 
-	static func buildBlock(_ components: any EnumDefPart...) -> any EnumDefPart {
+extension EnumDefBuilder<String> {
+	static func buildBlock(_ components: any StringEnumDefPart...) -> CompositeEnumDefPart<String> {
 		return CompositeEnumDefPart(components: components.flatMap { $0.components })
 	}
 
-	static func buildArray(_ components: [any EnumDefPart]) -> any EnumDefPart {
+	static func buildArray(_ components: [any StringEnumDefPart]) -> CompositeEnumDefPart<String> {
 		return CompositeEnumDefPart(components: components.flatMap { $0.components })
 	}
 }
 
-protocol EnumDefPart: Sendable {
-	var components: [EnumCaseDef] { get }
+extension EnumDefBuilder<Int> {
+	static func buildBlock(_ components: any IntEnumDefPart...) -> CompositeEnumDefPart<Int> {
+		return CompositeEnumDefPart(components: components.flatMap { $0.components })
+	}
+
+	static func buildArray(_ components: [any IntEnumDefPart]) -> CompositeEnumDefPart<Int> {
+		return CompositeEnumDefPart(components: components.flatMap { $0.components })
+	}
 }
+
+protocol EnumDefPart<RawValue>: Sendable {
+	associatedtype RawValue: Sendable
+	var components: [EnumCaseDef<RawValue>] { get }
+}
+
+protocol StringEnumDefPart: EnumDefPart<String> {}
+protocol IntEnumDefPart: EnumDefPart<Int> {}
 
 extension EnumDef: StructDefPart {
     func accept(_ visitor: PrinterVisitor) -> any DeclSyntaxProtocol {
@@ -41,9 +57,12 @@ extension EnumDef: StructDefPart {
     }
 }
 
-private struct CompositeEnumDefPart: EnumDefPart {
-	var components: [EnumCaseDef]
+struct CompositeEnumDefPart<RawValue: Sendable>: EnumDefPart {
+	var components: [EnumCaseDef<RawValue>]
 }
+
+extension CompositeEnumDefPart<String> : StringEnumDefPart {}
+extension CompositeEnumDefPart<Int> : IntEnumDefPart {}
 
 extension EnumDef: GroupPart {
     var file: FileDef? {

@@ -30,4 +30,6 @@ let schema = Group {
 		video
 		wallPost
 	}
+
+	error
 }

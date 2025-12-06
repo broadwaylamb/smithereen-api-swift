@@ -31,7 +31,7 @@ let wallPost = StructDef("WallPost") {
 			[More about text formatting.](https://smithereen.software/docs/api/text-formatting)
 			""")
 	
-	let privacyEnum = EnumDef("Privacy") {
+	let privacyEnum = EnumDef<String>("Privacy") {
 		EnumCaseDef("followers")
 		EnumCaseDef("followers_and_mentioned")
 		EnumCaseDef("friends")

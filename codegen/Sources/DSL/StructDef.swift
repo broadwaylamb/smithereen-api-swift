@@ -23,7 +23,7 @@ struct StructDef: Documentable {
 	}
 
 	func generateFieldsStruct() -> StructDef {
-		let fieldsEnum = EnumDef("Field") {
+		let fieldsEnum = EnumDef<String>("Field") {
 			for field in fields where !field.isExcludedFromFields && field.type.isOptional {
 				EnumCaseDef(field.serialName)
 					.swiftName(field.customSwiftName)

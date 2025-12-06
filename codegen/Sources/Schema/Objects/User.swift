@@ -42,7 +42,7 @@ let user = StructDef("User") {
 			User’s preferred grammatical gender, to choose pronouns
 			in strings that refer to them.
 			""")
-	EnumDef("Gender") {
+	EnumDef<String>("Gender") {
 		EnumCaseDef("other", additionalRepresentation: 0)
 		EnumCaseDef("female", additionalRepresentation: 1)
 		EnumCaseDef("male", additionalRepresentation: 2)
@@ -59,7 +59,7 @@ let user = StructDef("User") {
 
 	FieldDef("relation", type: TypeRef(name: "RelationshipStatus"))
 		.optionalFieldDoc(relationDoc)
-	EnumDef("RelationshipStatus") {
+	EnumDef<String>("RelationshipStatus") {
 		EnumCaseDef("single", additionalRepresentation: 1)
 			.doc("Single")
 		EnumCaseDef("in_relationship", additionalRepresentation: 2)
@@ -191,7 +191,7 @@ let user = StructDef("User") {
 	}
 	.doc(personalDoc)
 
-	EnumDef("PoliticalViews") {
+	EnumDef<String>("PoliticalViews") {
 		EnumCaseDef("communist", additionalRepresentation: 1)
 		EnumCaseDef("socialist", additionalRepresentation: 2)
 		EnumCaseDef("moderate", additionalRepresentation: 3)
@@ -202,7 +202,7 @@ let user = StructDef("User") {
 		EnumCaseDef("apathetic", additionalRepresentation: 8)
 		EnumCaseDef("libertarian", additionalRepresentation: 9)
 	}
-	EnumDef("PeoplePriority") {
+	EnumDef<String>("PeoplePriority") {
 		EnumCaseDef("intellect_creativity", additionalRepresentation: 1)
 		EnumCaseDef("kindness_honesty", additionalRepresentation: 2)
 		EnumCaseDef("health_beauty", additionalRepresentation: 3)
@@ -210,7 +210,7 @@ let user = StructDef("User") {
 		EnumCaseDef("courage_persistence", additionalRepresentation: 5)
 		EnumCaseDef("humor_life_love", additionalRepresentation: 6)
 	}
-	EnumDef("PersonalPriority") {
+	EnumDef<String>("PersonalPriority") {
 		EnumCaseDef("family_children", additionalRepresentation: 1)
 		EnumCaseDef("career_money", additionalRepresentation: 2)
 		EnumCaseDef("entertainment_leisure", additionalRepresentation: 3)
@@ -220,7 +220,7 @@ let user = StructDef("User") {
 		EnumCaseDef("beauty_art", additionalRepresentation: 7)
 		EnumCaseDef("fame_influence", additionalRepresentation: 8)
 	}
-	EnumDef("HabitsViews") {
+	EnumDef<String>("HabitsViews") {
 		EnumCaseDef("very_negative", additionalRepresentation: 1)
 		EnumCaseDef("negative", additionalRepresentation: 2)
 		EnumCaseDef("tolerant", additionalRepresentation: 3)
@@ -287,7 +287,7 @@ let user = StructDef("User") {
 
 	FieldDef("friend_status", type: TypeRef(name: "FriendStatus"))
 		.optionalFieldDoc("The relationship between this user and the current user.")
-	EnumDef("FriendStatus") {
+	EnumDef<String>("FriendStatus") {
 		EnumCaseDef("none", additionalRepresentation: 0)
 			.doc("No relationship.")
 		EnumCaseDef("following", additionalRepresentation: 1)
@@ -326,7 +326,7 @@ let user = StructDef("User") {
 	FieldDef("wall_default", type: TypeRef(name: "WallMode"))
 		.optionalFieldDoc("How this user’s wall should be displayed by default.")
 
-	EnumDef("WallMode") {
+	EnumDef<String>("WallMode") {
 		EnumCaseDef("owner")
 			.doc("Show only the user's own posts")
 		EnumCaseDef("all")

@@ -108,26 +108,37 @@ struct PrinterVisitor {
 		)
 	}
 
-	func printEnum(_ def: EnumDef) -> any DeclSyntaxProtocol {
+	func printEnum<RawValue>(_ def: EnumDef<RawValue>) -> any DeclSyntaxProtocol {
+		let rawValueType = IdentifierTypeSyntax(name: .identifier("\(RawValue.self)"))
 		if def.isFrozen {
 			return EnumDeclSyntax(
 				leadingTrivia: def.leadingTriviaForTypeDecl,
 				modifiers: [DeclModifierSyntax(name: .keyword(.public))],
 				name: .identifier(def.name),
 				inheritanceClause: InheritanceClauseSyntax {
-					InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("String")))
+					InheritedTypeSyntax(type: rawValueType)
 					InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("Codable")))
 					InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("Sendable")))
 				}
 			) {
 				for `case` in def.cases {
+					let rawValue: (any ExprSyntaxProtocol)? = switch `case` {
+					case let c as EnumCaseDef<String>:
+						c.requiresCustomCodingKey
+							? StringLiteralExprSyntax(content: c.serialName)
+							: nil
+					case let c as EnumCaseDef<Int>:
+						IntegerLiteralExprSyntax(integerLiteral: c.rawValue)
+					default:
+						fatalError("Unsupported enum raw value type")
+					}
 					EnumCaseDeclSyntax {
 						EnumCaseElementSyntax(
 							leadingTrivia: `case`.leadingTrivia,
 							name: .identifier(`case`.swiftName),
-							rawValue: `case`.requiresCustomCodingKey
-								? InitializerClauseSyntax(value: StringLiteralExprSyntax(content: `case`.serialName))
-								: nil
+							rawValue: rawValue.map {
+								InitializerClauseSyntax(value: $0)
+							}
 						)
 					}
 				}
@@ -145,9 +156,9 @@ struct PrinterVisitor {
 					InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("Sendable")))
 				},
 			) {
-				property(name: "rawValue", modifiers: .public, bindingSpecifier: .var, type: "String")
+				property(name: "rawValue", modifiers: .public, bindingSpecifier: .var, type: rawValueType)
 				DeclSyntax("""
-				public init(rawValue: String) {
+				public init(rawValue: \(rawValueType)) {
 					self.rawValue = rawValue
 				}
 				""")
@@ -157,12 +168,21 @@ struct PrinterVisitor {
 					} else {
 						`case`.leadingTrivia
 					}
+					let initializer: ExprSyntax = switch `case` {
+					case let c as EnumCaseDef<String>:
+						"Self(rawValue: \(StringLiteralExprSyntax(content: c.serialName)))"
+					case let c as EnumCaseDef<Int>:
+						"Self(rawValue: \(IntegerLiteralExprSyntax(integerLiteral: c.rawValue)))"
+					default:
+						fatalError("Unsupported enum raw value type")
+					}
 					property(
 						leadingTrivia: leadingTrivia,
 						name: `case`.swiftName, 
 						modifiers: .public, .static,
 						bindingSpecifier: .let,
-						initializer: "Self(rawValue: \(StringLiteralExprSyntax(content: `case`.serialName)))"
+						type: nil as TypeSyntax?,
+						initializer: initializer,
 					)
 				}
 
@@ -178,7 +198,7 @@ struct PrinterVisitor {
 								ArrayElementSyntax(
 									leadingTrivia: .newline,
 									expression: MemberAccessExprSyntax(
-										name: `case`.swiftIdentifier(for: .memberAccess),
+										name: identifier(`case`.swiftName, context: .memberAccess),
 									),
 									trailingComma: .commaToken(),
 									trailingTrivia: i == def.cases.endIndex - 1 ? .newline : nil,
@@ -198,7 +218,7 @@ struct PrinterVisitor {
 									try! SwitchExprSyntax("switch intValue") {
 										for `case` in def.cases {
 											if let intValue = `case`.additionalRepresentation {
-												SwitchCaseSyntax("case \(raw: intValue): self = .\(DeclReferenceExprSyntax(baseName: `case`.swiftIdentifier(for: .memberAccess)))")
+												SwitchCaseSyntax("case \(raw: intValue): self = .\(DeclReferenceExprSyntax(baseName: identifier(`case`.swiftName, context: .memberAccess)))")
 											}
 										}
 										SwitchCaseSyntax("default: self = Self(rawValue: String(intValue))")
@@ -351,7 +371,7 @@ private func property(
 	name: String,
 	modifiers: Keyword...,
 	bindingSpecifier: Keyword,
-	type: TypeSyntax? = nil,
+	type: (some TypeSyntaxProtocol)? = nil,
 	initializer: ExprSyntax? = nil,
 ) -> VariableDeclSyntax {
 	VariableDeclSyntax(

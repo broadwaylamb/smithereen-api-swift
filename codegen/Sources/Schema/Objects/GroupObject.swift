@@ -11,7 +11,7 @@ let group = StructDef("Group") {
 	deactivatedStatusField("group")
 	activityPubIDField("group")
 
-	let accessTypeEnum = EnumDef("AccessType") {
+	let accessTypeEnum = EnumDef<String>("AccessType") {
 		EnumCaseDef("open", additionalRepresentation: 0)
 			.doc("This is an open group or event, anyone can join.")
 		EnumCaseDef("closed", additionalRepresentation: 1)
@@ -38,7 +38,7 @@ let group = StructDef("Group") {
 		.doc(accessTypeEnum.doc)
 	accessTypeEnum
 
-	let groupTypeEnum = EnumDef("GroupType") {
+	let groupTypeEnum = EnumDef<String>("GroupType") {
 		EnumCaseDef("group")
 		EnumCaseDef("event")
 	}
@@ -71,7 +71,7 @@ let group = StructDef("Group") {
 	FieldDef("is_admin", type: .bool)
 		.optionalFieldDoc("Whether the current user can manage this group.")
 	
-	let adminLevelEnum = EnumDef("AdminLevel") {
+	let adminLevelEnum = EnumDef<String>("AdminLevel") {
 		EnumCaseDef("moderator")
 		EnumCaseDef("admin")
 		EnumCaseDef("owner")
@@ -177,7 +177,7 @@ let group = StructDef("Group") {
 		.optionalFieldDoc(linkStruct.doc)
 	linkStruct
 
-	let membershipStatusEnum = EnumDef("MembershipStatus") {
+	let membershipStatusEnum = EnumDef<String>("MembershipStatus") {
 		EnumCaseDef("none")
 			.doc("This user is not a member of this group.")
 		EnumCaseDef("member")

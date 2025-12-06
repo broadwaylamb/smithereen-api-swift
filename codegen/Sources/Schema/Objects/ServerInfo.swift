@@ -20,7 +20,7 @@ let serverInfo = StructDef("ServerInfo") {
 
 	FieldDef("api_versions", type: .dict(key: TypeRef(name: "APIVersionKey"), value: .string))
 		.required()
-	EnumDef("APIVersionKey") {
+	EnumDef<String>("APIVersionKey") {
 		EnumCaseDef("smithereen")
 	}
 

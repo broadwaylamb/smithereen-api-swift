@@ -49,7 +49,7 @@ extension TypeRef {
 		return TypeRef(name: s.name)
 	}
 
-	static func def(_ s: EnumDef) -> TypeRef {
+	static func def<RawValue: Sendable>(_ s: EnumDef<RawValue>) -> TypeRef {
 		return TypeRef(name: s.name)
 	}
 

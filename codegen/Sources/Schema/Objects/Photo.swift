@@ -43,7 +43,7 @@ let photo = StructDef("Photo") {
 		.required()
 		.doc("Whether there are tagged people in this photo.")
 	
-	let sizeTypeEnum = EnumDef("SizeType") {
+	let sizeTypeEnum = EnumDef<String>("SizeType") {
 		EnumCaseDef("s")
 			.swiftName("thumbSmall")
 			.doc("Scaled to fit into a 100x100 square")

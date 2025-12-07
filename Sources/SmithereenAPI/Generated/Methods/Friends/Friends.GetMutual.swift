@@ -6,6 +6,7 @@ import Hammond
 extension Friends {
 
 	/// Returns the list of mutual friends between two users.
+	/// - Note: This method requires the following permissions: `friends:read`.
 	public struct GetMutual: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// Identifier of the user whose friend list needs to be intersected
@@ -35,6 +36,7 @@ extension Friends {
 		public var count: Int?
 
 		/// Returns the list of mutual friends between two users.
+		/// - Note: This method requires the following permissions: `friends:read`.
 		public struct WithFields: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 			/// Identifier of the user whose friend list needs to be intersected

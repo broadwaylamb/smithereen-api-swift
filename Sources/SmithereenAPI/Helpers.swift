@@ -123,3 +123,14 @@ extension Photo.SizeType {
 		}
 	}
 }
+
+extension Friends.GetRequests {
+	@available(
+		*,
+		deprecated,
+		message: "You need to pass at least one argument to 'extended'"
+	)
+	public func extended() -> Extended {
+		extended(extended: nil, needMutual: nil, fields: nil)
+	}
+}

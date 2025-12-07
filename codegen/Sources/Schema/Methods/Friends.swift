@@ -254,6 +254,7 @@ let friends = Group("Friends") {
 		offsetAndCountParams("friend", defaultCount: 100)
 	}
 	.doc("Returns the list of mutual friends between two users.")
+	.requiresPermissions("friends:read")
 	.withUserFields()
 
 	RequestDef("friends.getOnline", resultType: .paginatedList(.def(userID))) {
@@ -294,4 +295,60 @@ let friends = Group("Friends") {
 	}
 	.doc("Returns the friends of a user that are online right now.")
 	.withUserFields()
+
+
+	let friendRequestStruct = StructDef("FriendRequest") {
+		FieldDef("user_id", type: .def(userID))
+			.doc("""
+				If no ``Friends/GetRequests/fields`` are specified, the user
+				identifier.
+				""")
+		FieldDef("user", type: .def(user))
+			.doc("If fields are specified, a ``User`` object.")
+		FieldDef("message", type: .string)
+			.doc("""
+				If ``Friends/GetRequests/extended`` is `true`, and this friend
+				request was sent with a message, that message.
+				""")
+		
+		let mutualStruct = StructDef("Mutual") {
+			FieldDef("count", type: .int)
+				.required()
+				.doc("The total number of mutual friends.")
+			FieldDef("users", type: .array(.def(userID)))
+				.required()
+				.doc("Up to 10 user IDs of mutual friends.")
+		}
+		FieldDef("mutual", type: .def(mutualStruct))
+			.doc("""
+				If ``Friends/GetRequests/needMutual`` is `true`, an object
+				describing the mutual friends with this user.
+				""")
+		mutualStruct
+	}
+	RequestDef("friends.getRequests", resultType: .paginatedList(.def(userID))) {
+		offsetAndCountParams("friend request", defaultCount: 20)
+	}
+	.doc("Returns the current user’s incoming friend requests.")
+	.requiresPermissions("friends:read")
+	.withExtendedVersion(
+		"Extended",
+		extendedResultType: .paginatedList(.def(friendRequestStruct))
+	) {
+		FieldDef("extended", type: .bool)
+			.doc("""
+				Whether to return the messages specified by the users who sent
+				the friend requests.
+				By default `false`.
+				""")
+		FieldDef("need_mutual", type: .bool)
+			.doc("""
+				Whether to return information about mutual friends for each
+				friend request.
+				""")
+		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
+			.doc("A list of user profile fields to be returned.")
+		
+		friendRequestStruct
+	}
 }

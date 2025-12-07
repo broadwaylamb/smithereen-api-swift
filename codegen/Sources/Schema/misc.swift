@@ -147,3 +147,28 @@ func blurhashField() -> FieldDef {
 	FieldDef("blurhash", type: .blurhash)
         .doc("The [BlurHash](https://blurha.sh/) for the thumbnail.")
 }
+
+@StructDefBuilder
+func offsetAndCountParams(
+	_ entity: String,
+	defaultCount: Int
+) -> any StructDefPart {
+	FieldDef("offset", type: .int)
+		.doc("Offset into the \(entity) list for pagination.")
+	
+	FieldDef("count", type: .int)
+		.doc("How many \(entity)s to return. By default \(defaultCount).")
+}
+
+extension RequestDef {
+	func withUserFields() -> RequestDef {
+		withExtendedVersion(
+			"WithFields",
+			extendedResultType: .paginatedList(.def(user)),
+		) {
+			FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
+				.required()
+				.doc("A list of user profile fields to be returned.")
+		}
+	}
+}

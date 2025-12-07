@@ -211,21 +211,10 @@ let friends = Group("Friends") {
 				a token that has the `friends:read` permission.
 				""")
 		
-		FieldDef("offset", type: .int)
-			.doc("Offset into the friend list for pagination.")
-		
-		FieldDef("count", type: .int)
-			.doc("How many friends to return. By default 100.")
+		offsetAndCountParams("friend", defaultCount: 100)
 	}
 	.doc("Returns the friend list of a user.")
-	.withExtendedVersion(
-		"WithFields",
-		extendedResultType: .paginatedList(.def(user)),
-	) {
-		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
-			.required()
-			.doc("A list of user profile fields to be returned.")
-	}
+	.withUserFields()
 
 	RequestDef("friends.getLists", resultType: .array(.def(friendList))) {
 		FieldDef("user_id", type: .def(userID))
@@ -235,4 +224,35 @@ let friends = Group("Friends") {
 				If using a token, defaults to the current user.
 				""")
 	}
+
+	RequestDef("friends.getMutual", resultType: .array(.def(userID))) {
+		FieldDef("source_user_id", type: .def(userID))
+			.doc("""
+				Identifier of the user whose friend list needs to be intersected
+				with ``targetUserID``. By default, the current user ID.
+				""")
+		FieldDef("target_user_id", type: .def(userID))
+			.required()
+			.doc("""
+				Identifier of the user with whom mutual friends need to be
+				found.
+				""")
+		
+		let orderEnum = EnumDef<String>("Order") {
+			EnumCaseDef("random")
+				.doc("Order randomly.")
+			EnumCaseDef("id")
+				.doc("Order by user identifiers.")
+		}
+		.frozen()
+		FieldDef("order", type: .def(orderEnum))
+			.doc("""
+				In which order to return the friends. By default ``Order/id``.
+				""")
+		orderEnum
+
+		offsetAndCountParams("friend", defaultCount: 100)
+	}
+	.doc("Returns the list of mutual friends between two users.")
+	.withUserFields()
 }

@@ -6,7 +6,7 @@ import Hammond
 extension Friends {
 
 	/// Returns the friend list of a user.
-	public struct Get: SmithereenAPIRequest, Hashable, Encodable {
+	public struct Get: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// The identifier of the user whose friend list needs to be returned.
 		/// If an access token is used, defaults to the current user’s ID.
@@ -45,7 +45,7 @@ extension Friends {
 		public var count: Int?
 
 		/// Returns the friend list of a user.
-		public struct WithFields: SmithereenAPIRequest, Hashable, Encodable {
+		public struct WithFields: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 			/// The identifier of the user whose friend list needs to be returned.
 			/// If an access token is used, defaults to the current user’s ID.

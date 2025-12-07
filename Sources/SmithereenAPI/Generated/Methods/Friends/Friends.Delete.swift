@@ -9,7 +9,7 @@ extension Friends {
 	/// cancels it. If there’s an incoming friend request, rejects it,
 	/// same as the “leave as a follower” button on the web.
 	/// - Note: This method requires the following permissions: `friends`.
-	public struct Delete: SmithereenAPIRequest, Hashable, Encodable {
+	public struct Delete: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 		public var userID: UserID?
 
 		public struct Result: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {

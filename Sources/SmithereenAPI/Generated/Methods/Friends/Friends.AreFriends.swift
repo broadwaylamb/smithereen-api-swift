@@ -8,7 +8,7 @@ extension Friends {
 	/// Returns information about friendship states and friend requests related
 	/// to the specified users.
 	/// - Note: This method requires the following permissions: `friends:read`.
-	public struct AreFriends: SmithereenAPIRequest, Hashable, Encodable {
+	public struct AreFriends: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// The list of user identifiers to retrieve friendship states for.
 		public var userIDs: [UserID]

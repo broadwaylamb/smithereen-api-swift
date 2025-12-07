@@ -6,7 +6,7 @@ import Hammond
 extension Friends {
 
 	/// Returns the list of mutual friends between two users.
-	public struct GetMutual: SmithereenAPIRequest, Hashable, Encodable {
+	public struct GetMutual: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// Identifier of the user whose friend list needs to be intersected
 		/// with ``targetUserID``. By default, the current user ID.
@@ -35,7 +35,7 @@ extension Friends {
 		public var count: Int?
 
 		/// Returns the list of mutual friends between two users.
-		public struct WithFields: SmithereenAPIRequest, Hashable, Encodable {
+		public struct WithFields: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 			/// Identifier of the user whose friend list needs to be intersected
 			/// with ``targetUserID``. By default, the current user ID.

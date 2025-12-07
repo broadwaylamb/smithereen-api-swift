@@ -8,7 +8,7 @@ extension Friends {
 	/// Sends a friend request, accepts an incoming friend request,
 	/// or follows a user.
 	/// - Note: This method requires the following permissions: `friends`.
-	public struct Add: SmithereenAPIRequest, Hashable, Encodable {
+	public struct Add: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// The identifier of the target user.
 		public var userID: UserID

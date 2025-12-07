@@ -5,7 +5,7 @@ import SmithereenAPIInternals
 import Hammond
 extension Friends {
 
-	public struct GetLists: SmithereenAPIRequest, Hashable, Encodable {
+	public struct GetLists: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// User identifier whose friend lists need to be returned.
 		/// Required if not using a token.

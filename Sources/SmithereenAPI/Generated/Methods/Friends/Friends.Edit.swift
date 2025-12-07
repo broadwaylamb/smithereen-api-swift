@@ -7,7 +7,7 @@ extension Friends {
 
 	/// Changes which lists a friend is included in. Returns `true` on success.
 	/// - Note: This method requires the following permissions: `friends`.
-	public struct Edit: SmithereenAPIRequest, Hashable, Encodable {
+	public struct Edit: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// User identifier for which lists need to be updated.
 		public var userID: UserID

@@ -6,7 +6,7 @@ import Hammond
 extension Friends {
 
 	/// Returns the friends of a user that are online right now.
-	public struct GetOnline: SmithereenAPIRequest, Hashable, Encodable {
+	public struct GetOnline: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// The identifier of the user whose friend list needs to be
 		/// returned. If an access token is used, defaults to the current
@@ -41,7 +41,7 @@ extension Friends {
 		public var count: Int?
 
 		/// Returns the friends of a user that are online right now.
-		public struct WithFields: SmithereenAPIRequest, Hashable, Encodable {
+		public struct WithFields: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 			/// The identifier of the user whose friend list needs to be
 			/// returned. If an access token is used, defaults to the current

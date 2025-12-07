@@ -38,3 +38,7 @@ extension Execute: Encodable {
 		try container.encode(code, forKey: .code)
 	}
 }
+
+extension Execute: Equatable where Args: Equatable {}
+extension Execute: Hashable where Args: Hashable {}
+extension Execute: Sendable where Args: Sendable {}

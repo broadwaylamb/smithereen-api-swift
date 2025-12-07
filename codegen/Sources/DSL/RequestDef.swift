@@ -30,6 +30,7 @@ struct RequestDef: Documentable {
 		TypeRef(name: "SmithereenAPIRequest"),
 		.hashable,
 		.encodable,
+		.sendable,
 	]
 
 	init(

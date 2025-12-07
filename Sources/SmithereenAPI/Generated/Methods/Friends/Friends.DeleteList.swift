@@ -7,7 +7,7 @@ extension Friends {
 
 	/// Deletes a friend list. Returns `true` on success.
 	/// - Note: This method requires the following permissions: `friends`.
-	public struct DeleteList: SmithereenAPIRequest, Hashable, Encodable {
+	public struct DeleteList: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// The identifier of the friend list to be deleted.
 		public var listID: FriendListID

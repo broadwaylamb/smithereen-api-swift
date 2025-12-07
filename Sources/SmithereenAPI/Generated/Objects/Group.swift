@@ -420,6 +420,220 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	@UnixTimestamp
 	public var finishDate: Date?
 
+	public struct Field: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
+		public var rawValue: String
+		public init(rawValue: String) {
+			self.rawValue = rawValue
+		}
+
+		/// For a group from a remote server, the domain of its home server.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let domain = Self(rawValue: "domain")
+
+		/// The profile URL a.k.a. the username.
+		/// If the community doesn’t have one set, defaults to `clubXXX`
+		/// for groups and `eventXXX` for events.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let screenName = Self(rawValue: "screen_name")
+
+		/// The status string, the one that’s displayed under the group’s
+		/// name on the web.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let status = Self(rawValue: "status")
+
+		/// The URL of this group’s profile page on the web.
+		/// For remote groups, this points to its home server.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let url = Self(rawValue: "url")
+
+		/// Whether the current user can manage this group.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let isAdmin = Self(rawValue: "is_admin")
+
+		/// The privilege level of the current user, if `isAdmin` is `true`.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let adminLevel = Self(rawValue: "admin_level")
+
+		/// Whether the current user is a member of this group.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let isMember = Self(rawValue: "is_member")
+
+		/// URL of a square 50x50 version of the profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let photo50 = Self(rawValue: "photo_50")
+
+		/// URL of a square 100x100 version of the profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let photo100 = Self(rawValue: "photo_100")
+
+		/// URL of a square 200x200 version of the profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let photo200 = Self(rawValue: "photo_200")
+
+		/// URL of a square 400x400 version of the profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let photo400 = Self(rawValue: "photo_400")
+		public static let photoMax = Self(rawValue: "photo_max")
+
+		/// URL of a rectangular 200px wide version of the profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let photo200Orig = Self(rawValue: "photo_200_orig")
+
+		/// URL of a rectangular 400px wide version of the profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let photo400Orig = Self(rawValue: "photo_400_orig")
+		public static let photoMaxOrig = Self(rawValue: "photo_max_orig")
+
+		/// If this group has a “profile pictures” system photo album,
+		/// ID of the photo used for the current profile picture in that album.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let photoID = Self(rawValue: "photo_id")
+
+		/// Whether the current user can create new discussion board topics
+		/// in this group.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let canCreateTopic = Self(rawValue: "can_create_topic")
+
+		/// Whether the current user can create new posts on this group’s wall.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let canPost = Self(rawValue: "can_post")
+
+		/// Information about users who manage this group.
+		/// Only returned when a single group is requested.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let management = Self(rawValue: "management")
+
+		/// Information about how many of each of the types of content there are
+		/// in this group. Only returned when a single group is requested.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let counters = Self(rawValue: "counters")
+
+		/// The description text of this group, as HTML.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let description = Self(rawValue: "description")
+
+		/// Whether this group has a profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let hasPhoto = Self(rawValue: "has_photo")
+
+		/// Whether this group is in the current user’s bookmarks.
+		/// Requires the `likes:read` permission.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let isFavorite = Self(rawValue: "is_favorite")
+
+		/// Information from the “Links” block in this group.
+		/// Only returned when a single group is requested.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let links = Self(rawValue: "links")
+
+		/// The membership status of the current user in this group.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let memberStatus = Self(rawValue: "member_status")
+
+		/// The name of the place and/or address where this event will take
+		/// place.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let place = Self(rawValue: "place")
+
+		/// The website URL from the group’s profile.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let site = Self(rawValue: "site")
+
+		/// The time when the event starts.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let startDate = Self(rawValue: "start_date")
+
+		/// The time when the event ends.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let finishDate = Self(rawValue: "finish_date")
+
+		public static let allCases: [Field] = [
+			.domain,
+			.screenName,
+			.status,
+			.url,
+			.isAdmin,
+			.adminLevel,
+			.isMember,
+			.photo50,
+			.photo100,
+			.photo200,
+			.photo400,
+			.photoMax,
+			.photo200Orig,
+			.photo400Orig,
+			.photoMaxOrig,
+			.photoID,
+			.canCreateTopic,
+			.canPost,
+			.management,
+			.counters,
+			.description,
+			.hasPhoto,
+			.isFavorite,
+			.links,
+			.memberStatus,
+			.place,
+			.site,
+			.startDate,
+			.finishDate,
+		]
+	}
+
 	public init(
 		id: GroupID,
 		name: String,

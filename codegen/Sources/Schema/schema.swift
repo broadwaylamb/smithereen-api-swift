@@ -34,6 +34,7 @@ let schema = Group {
 
 	Group("Methods") {
 		friends
+		groups
 	}
 
 	error

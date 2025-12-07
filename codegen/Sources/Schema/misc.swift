@@ -171,4 +171,15 @@ extension RequestDef {
 				.doc("A list of user profile fields to be returned.")
 		}
 	}
+
+	func withGroupFields() -> RequestDef {
+		withExtendedVersion(
+			"WithFields",
+			extendedResultType: .paginatedList(.def(group)), 
+		) {
+			FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
+				.required()
+				.doc("A list of group profile fields to be returned.")
+		}
+	}
 }

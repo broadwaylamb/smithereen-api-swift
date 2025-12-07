@@ -213,6 +213,7 @@ let group = StructDef("Group") {
 	FieldDef("finish_date", type: .unixTimestamp)
 		.optionalFieldDoc("The time when the event ends.")
 }
+.generateFieldsStruct()
 
 extension Documentable {
 	fileprivate func optionalFieldDoc(_ text: String?) -> Self {

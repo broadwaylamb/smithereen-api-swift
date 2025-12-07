@@ -174,3 +174,9 @@ extension Likes.Add {
 		try itemID.encode(to: encoder)
 	}
 }
+
+extension Likes.Delete {
+	public func encode(to encoder: any Encoder) throws {
+		try itemID.encode(to: encoder)
+	}
+}

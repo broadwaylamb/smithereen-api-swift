@@ -5,19 +5,19 @@ import SmithereenAPIInternals
 import Hammond
 extension Likes {
 
-	/// Likes an object on behalf of the current user.
+	/// Undoes the like of an object on behalf of the current user.
 	/// Returns the new number of likes on the target object.
 	/// - Note: This method requires the following permissions: `likes`.
-	public struct Add: SmithereenAPIRequest, Hashable, Encodable, Sendable {
+	public struct Delete: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
-		/// Identifier of the object to be liked.
+		/// Identifier of the object to be unliked.
 		public var itemID: LikeableObject
 
 		public init(itemID: LikeableObject) {
 			self.itemID = itemID
 		}
 		public var path: String {
-			"/method/likes.add"
+			"/method/likes.delete"
 		}
 		public static var method: HTTPMethod {
 			.post

@@ -255,4 +255,43 @@ let friends = Group("Friends") {
 	}
 	.doc("Returns the list of mutual friends between two users.")
 	.withUserFields()
+
+	RequestDef("friends.getOnline", resultType: .paginatedList(.def(userID))) {
+		FieldDef("user_id", type: .def(userID))
+			.doc("""
+				The identifier of the user whose friend list needs to be
+				returned. If an access token is used, defaults to the current
+				user’s ID. Required when called without an access token.
+				""")
+		
+		let orderEnum = EnumDef<String>("Order") {
+			EnumCaseDef("hints")
+				.doc("""
+					Order by how often the user interacts with each friend.
+					Requires a token and only works for the current user.
+					""")
+			EnumCaseDef("random")
+				.doc("Order randomly.")
+			EnumCaseDef("id")
+				.doc("Order by user identifiers.")
+		}
+		.frozen()
+
+		FieldDef("order", type: .def(orderEnum))
+			.doc(
+				"In which order to return the friends. By default ``Order/id``."
+			)
+		orderEnum
+
+		FieldDef("list_id", type: .def(friendListID))
+			.doc("""
+				Only return friends in the specified list. For private lists,
+				only works for the current user and only with a token that has
+				the `friends:read` permission.
+				""")
+		
+		offsetAndCountParams("friend", defaultCount: 100)
+	}
+	.doc("Returns the friends of a user that are online right now.")
+	.withUserFields()
 }

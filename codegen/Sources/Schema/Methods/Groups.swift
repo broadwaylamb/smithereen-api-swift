@@ -211,4 +211,23 @@ let groups = Group("Groups") {
 		}
 		.doc(isMemberDoc)
 	}
+
+	RequestDef("groups.join", resultType: .bool) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("The group identifier.")
+		FieldDef("not_sure", type: .bool)
+			.doc("""
+				If this group is an event, whether the user is unsure they’ll
+				be able to addend this event.
+				""")
+	}
+	.doc("""
+		Joins a group.
+
+		If there’s an invitation, accepts it as well.
+
+		Returns `true` on success.
+		""")
+	.requiresPermissions("groups")
 }

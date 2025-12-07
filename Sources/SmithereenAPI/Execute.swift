@@ -21,7 +21,7 @@ public struct Execute<Args: Encodable, Result: Decodable>: SmithereenAPIRequest 
 		self.args = args
 	}
 
-	public var path: String { "/api/method/execute" }
+	public var path: String { "/method/execute" }
 	public static var method: HTTPMethod { .post }
 
 	public var encodableBody: Self { self }

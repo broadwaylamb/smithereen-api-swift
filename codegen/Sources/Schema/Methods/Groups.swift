@@ -37,4 +37,12 @@ let groups = Group("Groups") {
 	}
 	.doc("Returns the list of groups or events in which a user is a member.")
 	.withGroupFields()
+
+	RequestDef("groups.getById", resultType: .array(.def(group))) {
+		FieldDef("group_ids", type: .array(.def(groupID)))
+			.required()
+			.doc("A list of group identifiers.")
+		FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
+			.doc("A list of group profile fields to return.")
+	}
 }

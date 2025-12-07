@@ -168,3 +168,9 @@ extension Groups.GetMembers {
 		}
 	}
 }
+
+extension Likes.Add {
+	public func encode(to encoder: any Encoder) throws {
+		try itemID.encode(to: encoder)
+	}
+}

@@ -12,6 +12,8 @@ let schema = Group {
 		pollOptionID
 		boardTopicID
 		wallPostID
+		photoCommentID
+		topicCommentID
 	}
 	Group("Objects") {
 		attachment
@@ -35,6 +37,7 @@ let schema = Group {
 	Group("Methods") {
 		friends
 		groups
+		likes
 	}
 
 	communityType

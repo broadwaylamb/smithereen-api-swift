@@ -99,3 +99,19 @@ public struct WallPostID: Identifier {
 		self.rawValue = rawValue
 	}
 }
+
+public struct PhotoCommentID: Identifier {
+	public var rawValue: String
+
+	public init(rawValue: String) {
+		self.rawValue = rawValue
+	}
+}
+
+public struct TopicCommentID: Identifier {
+	public var rawValue: String
+
+	public init(rawValue: String) {
+		self.rawValue = rawValue
+	}
+}

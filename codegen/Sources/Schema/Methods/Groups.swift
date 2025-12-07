@@ -230,4 +230,16 @@ let groups = Group("Groups") {
 		Returns `true` on success.
 		""")
 	.requiresPermissions("groups")
+
+	RequestDef("groups.leave", resultType: .bool) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("The group identifier.")
+	}
+	.doc("""
+		Leaves a group or rejects an invitation.
+
+		Returns `true` on success.
+		""")
+	.requiresPermissions("groups")
 }

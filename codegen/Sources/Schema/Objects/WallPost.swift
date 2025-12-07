@@ -41,7 +41,7 @@ let wallPost = StructDef("WallPost") {
 		.doc("If this post isn’t publicly visible, the visibility setting specified by the author.")
 	privacyEnum
 
-	FieldDef("likes", type: .def(likes))
+	FieldDef("likes", type: .def(likeInfo))
 		.doc("Information about likes of this post.")
 	
 	let repostsStruct = StructDef("Reposts") {

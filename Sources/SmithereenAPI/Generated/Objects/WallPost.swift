@@ -53,7 +53,7 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 	}
 
 	/// Information about likes of this post.
-	public var likes: Likes?
+	public var likes: LikeInfo?
 
 	/// Information about reposts of this post.
 	public var reposts: Reposts?
@@ -216,7 +216,7 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 		date: Date,
 		text: String? = nil,
 		privacy: Privacy? = nil,
-		likes: Likes? = nil,
+		likes: LikeInfo? = nil,
 		reposts: Reposts? = nil,
 		attachments: [Attachment]? = nil,
 		contentWarning: String? = nil,

@@ -120,7 +120,7 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: this field is returned by some `photos.*` methods
 	/// 	which take the `extended` parameter, when that parameter is set
 	/// 	to `true`.
-	public var likes: Likes?
+	public var likes: LikeInfo?
 
 	/// The total number of comments on this photo.
 	/// - Note: this field is returned by some `photos.*` methods
@@ -155,7 +155,7 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 		sizes: [Size],
 		width: Int,
 		height: Int,
-		likes: Likes? = nil,
+		likes: LikeInfo? = nil,
 		comments: Int? = nil,
 		canComment: Bool? = nil,
 		tags: Int? = nil,

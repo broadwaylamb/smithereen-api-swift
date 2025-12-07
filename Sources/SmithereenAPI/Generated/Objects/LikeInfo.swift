@@ -3,7 +3,7 @@
 import Foundation
 import SmithereenAPIInternals
 
-public struct Likes: Hashable, Codable, Sendable {
+public struct LikeInfo: Hashable, Codable, Sendable {
 
 	/// How many users liked this object.
 	public var count: Int

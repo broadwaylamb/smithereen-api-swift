@@ -21,7 +21,7 @@ let schema = Group {
 		friendList
 		graffiti
 		group
-		likes
+		likeInfo
 		photo
 		platform
 		poll

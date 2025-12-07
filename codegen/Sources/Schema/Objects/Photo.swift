@@ -104,7 +104,7 @@ let photo = StructDef("Photo") {
 		.required()
 		.doc("The height of the largest-size image for this photo in pixels.")
 	
-	FieldDef("likes", type: .def(likes))
+	FieldDef("likes", type: .def(likeInfo))
 		.extendedFieldDoc("Information about likes of this photo.")
 	
 	FieldDef("comments", type: .int)

@@ -48,7 +48,7 @@ let deactivatedStatus = EnumDef<String>("DeactivatedStatus") {
 	For restricted users and groups, their restriction status.
 	""")
 
-let likes = StructDef("Likes") {
+let likeInfo = StructDef("LikeInfo") {
 	FieldDef("count", type: .int)
 		.required()
 		.doc("How many users liked this object.")

@@ -148,4 +148,67 @@ let groups = Group("Groups") {
 	}
 	.doc("Returns the list of group members.")
 	.withUserFields()
+
+	FileDef("Groups.IsMember", additionalImports: ["Hammond"]) {
+		let isMemberDoc = 
+			"Checks whether a user is a member of a group or an event."
+		let isMemberGroupIDField = FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+		RequestDef(
+			"groups.isMember",
+			swiftName: "Groups.IsMemberSingleUser",
+			resultType: .bool
+		) {
+			isMemberGroupIDField
+			FieldDef("user_id", type: .def(userID))
+				.required()
+				.doc("User identifier to check.")
+		}
+		.doc(isMemberDoc)
+		
+		let membershipStruct = StructDef("Membership") {
+			FieldDef("user_id", type: .def(userID))
+				.required()
+			FieldDef("member", type: .bool)
+				.required()
+			FieldDef("request", type: .bool)
+				.doc("""
+					Whether there’s a pending join request from this user
+					(only returned with a token with `groups:read` permission,
+					for group admins or moderators).
+					""")
+			FieldDef("invitation", type: .bool)
+				.doc("""
+					Whether this user is invited into this group or event
+					(only returned with a token with `groups:read` permission,
+					for group admins or moderators).
+					""")
+			FieldDef("can_invite", type: .bool)
+				.doc("""
+					Whether the current user can invite this user to this group or
+					event.
+					""")
+		}
+		RequestDef(
+			"groups.isMember",
+			swiftName: "Groups.IsMemberMultipleUsers",
+			resultType: .array(.def(membershipStruct)),
+		) {
+			isMemberGroupIDField
+			FieldDef("user_ids", type: .array(.def(userID)))
+				.required()
+				.doc("Up to 500 user identifiers.")
+			FieldDef("extended", type: .bool)
+				.doc("""
+					Whether to also return information about join requests and
+					invitations.
+
+					By default `false`.
+					""")
+			
+			membershipStruct
+		}
+		.doc(isMemberDoc)
+	}
 }

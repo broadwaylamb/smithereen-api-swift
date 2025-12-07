@@ -43,8 +43,9 @@ struct RequestDef: Documentable {
 		self.name = name
 		self.customSwiftName = swiftName
 		self.resultType = resultType
+		let swiftName = swiftName ?? name
 		structDef = StructDef(
-			swiftName ?? (name.split(separator: ".").last.map(String.init) ?? name).uppercasedFirstChar,
+			(swiftName.split(separator: ".").last.map(String.init) ?? swiftName).uppercasedFirstChar,
 			conformances: conformances,
 			build: build,
 		)

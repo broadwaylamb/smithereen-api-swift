@@ -128,17 +128,15 @@ struct PrinterVisitor {
 				}
 			}
 		}
-		if def.customSwiftName != nil {
-			return structSyntax
-		}
-		let components = def.name.split(separator: ".")
+		let components = (def.customSwiftName ?? def.name)
+			.split(separator: ".")
 		if components.count == 1 {
 			return structSyntax
 		}
 
 		let extendedName = components
 			.dropLast()
-			.map { $0.capitalized }
+			.map { $0.uppercasedFirstChar }
 			.joined(separator: ".")
 		return ExtensionDeclSyntax(
 			extendedType: IdentifierTypeSyntax(name: .identifier(extendedName)),

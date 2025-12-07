@@ -94,7 +94,7 @@ struct PrinterVisitor {
 
 	func printRequest(_ def: RequestDef) -> any DeclSyntaxProtocol {
 		let structSyntax = printStruct(def.structDef) {
-			#"public var path: String { "/api/method/\#(raw: def.name)" }"#
+			#"public var path: String { "/method/\#(raw: def.name)" }"#
 			"public static var method: HTTPMethod { .post }"
 			"public var encodableBody: Self { self }"
 			if let resultType = def.resultType {

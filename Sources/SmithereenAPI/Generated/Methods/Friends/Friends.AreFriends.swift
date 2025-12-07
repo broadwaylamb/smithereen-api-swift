@@ -113,7 +113,7 @@ extension Friends {
 			case extended
 		}
 		public var path: String {
-			"/api/method/friends.areFriends"
+			"/method/friends.areFriends"
 		}
 		public static var method: HTTPMethod {
 			.post

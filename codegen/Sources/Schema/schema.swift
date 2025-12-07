@@ -37,6 +37,7 @@ let schema = Group {
 		groups
 	}
 
+	communityType
 	actorField
 	error
 }

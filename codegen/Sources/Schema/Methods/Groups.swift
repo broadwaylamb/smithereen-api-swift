@@ -48,18 +48,12 @@ let groups = Group("Groups") {
 	.doc("Returns information about groups.")
 
 	RequestDef("groups.getInvites", resultType: .paginatedList(.def(group))) {
-		let typeEnum = EnumDef<String>("CommunityType") {
-			EnumCaseDef("groups")
-			EnumCaseDef("events")
-		}
-		.frozen()
-		FieldDef("type", type: .def(typeEnum))
+		FieldDef("type", type: .def(communityType))
 			.doc("""
 				Whether to return invitations to groups or to events.
 
 				By default ``CommunityType/groups``.
 				""")
-		typeEnum
 
 		offsetAndCountParams("invitation", defaultCount: 20)
 
@@ -242,4 +236,23 @@ let groups = Group("Groups") {
 		Returns `true` on success.
 		""")
 	.requiresPermissions("groups")
+
+	RequestDef("groups.search", resultType: .paginatedList(.def(group))) {
+		FieldDef("q", type: .string)
+			.swiftName("query")
+			.required()
+			.doc("The search query.")
+		
+		FieldDef("type", type: .def(communityType))
+			.doc("""
+				Whether to search for groups or to events.
+				By default ``CommunityType/groups``.
+				""")
+		
+		offsetAndCountParams("group", defaultCount: 100)
+
+		FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
+			.doc("A list of group profile fields to return.")
+	}
+	.doc("Searches groups or events.")
 }

@@ -65,6 +65,11 @@ let platform = EnumDef<String>("Platform") {
     EnumCaseDef("desktop", additionalRepresentation: 7)
 }
 
+let communityType = EnumDef<String>("CommunityType") {
+	EnumCaseDef("groups")
+	EnumCaseDef("events")
+}
+
 let actorField = EnumDef<String>("ActorField") {
 	let cases = (user.requestableFieldCases + group.requestableFieldCases)
 		.distinct(by: \.swiftName)

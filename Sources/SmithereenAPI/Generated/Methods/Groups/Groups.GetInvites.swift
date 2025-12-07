@@ -13,11 +13,6 @@ extension Groups {
 		/// By default ``CommunityType/groups``.
 		public var type: CommunityType?
 
-		public enum CommunityType: String, Codable, Sendable, CaseIterable {
-			case groups
-			case events
-		}
-
 		/// Offset into the invitation list for pagination.
 		public var offset: Int?
 

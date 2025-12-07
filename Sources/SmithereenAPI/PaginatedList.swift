@@ -8,10 +8,13 @@ public struct PaginatedList<Element> {
 	/// The array of items you requested.
 	public private(set) var items: [Element]
 
+	public var profiles: [User]?
+
+	public var groups: [Group]?
+
 	private init(items: [Element], totalCount: Int) {
-		precondition(totalCount >= items.count, "totalCount exceeds items.count")
 		self.items = items
-		self.totalCount = totalCount
+		self.totalCount = Swift.max(totalCount, items.count)
 	}
 
 	public init<S: Sequence<Element>>(_ elements: S, totalCount: Int) {
@@ -26,6 +29,8 @@ public struct PaginatedList<Element> {
 	fileprivate enum CodingKeys: String, CodingKey {
 		case totalCount = "count"
 		case items
+		case profiles
+		case groups
 	}
 }
 

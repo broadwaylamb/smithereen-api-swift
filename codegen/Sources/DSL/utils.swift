@@ -82,3 +82,16 @@ func copyWith<T, S>(_ value: T, _ keyPath: WritableKeyPath<T, S>, _ newValue: S)
 	value[keyPath: keyPath] = newValue
 	return value
 }
+
+extension Sequence {
+	func distinct<T: Hashable>(by value: (Element) -> T) -> [Element] {
+		var seen = Set<T>()
+		var result = [Element]()
+		for element in self {
+			if seen.insert(value(element)).inserted {
+				result.append(element)
+			}
+		}
+		return result
+	}
+}

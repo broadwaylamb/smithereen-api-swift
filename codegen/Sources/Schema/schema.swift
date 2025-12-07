@@ -37,5 +37,6 @@ let schema = Group {
 		groups
 	}
 
+	actorField
 	error
 }

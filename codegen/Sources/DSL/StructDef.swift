@@ -22,12 +22,20 @@ struct StructDef: Documentable {
 		decls.compactMap { $0 as? FieldDef }
 	}
 
+	var requestableFieldCases: [EnumCaseDef<String>] {
+		fields
+			.filter { !$0.isExcludedFromFields && $0.type.isOptional }
+			.map { 
+				EnumCaseDef($0.serialName)
+					.swiftName($0.customSwiftName)
+					.doc($0.doc)
+			 }
+	}
+
 	func generateFieldsStruct() -> StructDef {
 		let fieldsEnum = EnumDef<String>("Field") {
-			for field in fields where !field.isExcludedFromFields && field.type.isOptional {
-				EnumCaseDef(field.serialName)
-					.swiftName(field.customSwiftName)
-					.doc(field.doc)
+			for `case` in requestableFieldCases {
+				`case`
 			}
 		}
 		return copyWith(self, \.decls, decls + [fieldsEnum])

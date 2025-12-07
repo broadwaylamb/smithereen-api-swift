@@ -65,6 +65,15 @@ let platform = EnumDef<String>("Platform") {
     EnumCaseDef("desktop", additionalRepresentation: 7)
 }
 
+let actorField = EnumDef<String>("ActorField") {
+	let cases = (user.requestableFieldCases + group.requestableFieldCases)
+		.distinct(by: \.swiftName)
+	
+	for `case` in cases {
+		`case`
+	}
+}
+
 func deactivatedStatusField(_ entity: String) -> FieldDef {
 	FieldDef("deactivated", type: .def(deactivatedStatus))
 		.excludeFromFields()

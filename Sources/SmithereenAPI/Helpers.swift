@@ -134,3 +134,13 @@ extension Friends.GetRequests {
 		extended(extended: nil, needMutual: nil, fields: nil)
 	}
 }
+
+extension ActorField {
+	public init(_ userField: User.Field) {
+		self.init(rawValue: userField.rawValue)
+	}
+
+	public init(_ groupField: Group.Field) {
+		self.init(rawValue: groupField.rawValue)
+	}
+}

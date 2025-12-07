@@ -45,4 +45,35 @@ let groups = Group("Groups") {
 		FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
 			.doc("A list of group profile fields to return.")
 	}
+	.doc("Returns information about groups.")
+
+	RequestDef("groups.getInvites", resultType: .paginatedList(.def(group))) {
+		let typeEnum = EnumDef<String>("CommunityType") {
+			EnumCaseDef("groups")
+			EnumCaseDef("events")
+		}
+		.frozen()
+		FieldDef("type", type: .def(typeEnum))
+			.doc("""
+				Whether to return invitations to groups or to events.
+
+				By default ``CommunityType/groups``.
+				""")
+		typeEnum
+
+		offsetAndCountParams("invitation", defaultCount: 20)
+
+		FieldDef("extended", type: .bool)
+			.doc("Whether to also return users that sent the invitations.")
+		
+		FieldDef("fields", type: .array(.def(actorField)))
+			.doc("""
+				A list of group profile fields to return.
+
+				If ``extended`` is `true`, also user profile fields for
+				the inviters.
+				""")
+	}
+	.doc("Returns the group invitations for the current user.")
+	.requiresPermissions("groups")
 }

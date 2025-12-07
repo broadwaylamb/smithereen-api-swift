@@ -18,6 +18,7 @@ let schema = Group {
 		audio
 		boardTopic
 		deactivatedStatus
+		friendList
 		graffiti
 		group
 		likes

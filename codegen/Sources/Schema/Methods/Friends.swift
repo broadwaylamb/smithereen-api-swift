@@ -207,6 +207,15 @@ let friends = Group("Friends") {
 		.doc("Returns the friend list of a user.")
 	}
 	.doc("Returns the friend list of a user.")
+
+	RequestDef("friends.getLists", resultType: .array(.def(friendList))) {
+		FieldDef("user_id", type: .def(userID))
+			.doc("""
+				User identifier whose friend lists need to be returned.
+				Required if not using a token.
+				If using a token, defaults to the current user.
+				""")
+	}
 }
 
 @StructDefBuilder

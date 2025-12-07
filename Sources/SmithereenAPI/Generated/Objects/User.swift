@@ -1088,6 +1088,39 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		}
 	}
 
+	/// Returned by the ``Groups/GetMembers`` method.
+	public var role: GroupRole?
+
+	public struct GroupRole: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
+		public var rawValue: String
+		public init(rawValue: String) {
+			self.rawValue = rawValue
+		}
+
+		public static let creator = Self(rawValue: "creator")
+		public static let administrator = Self(rawValue: "administrator")
+		public static let moderator = Self(rawValue: "moderator")
+
+		public static let allCases: [GroupRole] = [
+			.creator,
+			.administrator,
+			.moderator,
+		]
+	}
+
+	public struct GroupAdmin: Hashable, Codable, Sendable {
+		public var id: UserID
+		public var role: GroupRole
+
+		public init(
+			id: UserID,
+			role: GroupRole,
+		) {
+			self.id = id
+			self.role = role
+		}
+	}
+
 	public struct Field: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
 		public var rawValue: String
 		public init(rawValue: String) {
@@ -1646,6 +1679,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		nicknamePre: String? = nil,
 		lastNamePre: String? = nil,
 		counters: Counters? = nil,
+		role: GroupRole? = nil,
 	) {
 		self.id = id
 		self.firstName = firstName
@@ -1724,6 +1758,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		self.nicknamePre = nicknamePre
 		self.lastNamePre = lastNamePre
 		self.counters = counters
+		self.role = role
 	}
 
 	private enum CodingKeys: String, CodingKey {
@@ -1804,5 +1839,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		case nicknamePre = "nickname_pre"
 		case lastNamePre = "last_name_pre"
 		case counters
+		case role
 	}
 }

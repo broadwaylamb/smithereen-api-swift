@@ -373,6 +373,25 @@ let user = StructDef("User") {
 			FieldDef(name, type: .int).required()
 		}
 	}
+
+	let roleEnum = EnumDef<String>("GroupRole") {
+		EnumCaseDef("creator")
+		EnumCaseDef("administrator")
+		EnumCaseDef("moderator")
+	}
+	FieldDef("role", type: .def(roleEnum))
+		.excludeFromFields()
+		.doc("""
+			Returned by the ``Groups/GetMembers`` method.
+			""")
+	roleEnum
+
+	StructDef("GroupAdmin") {
+		FieldDef("id", type: .def(userID))
+			.required()
+		FieldDef("role", type: .def(roleEnum))
+			.required()
+	}
 }
 .generateFieldsStruct()
 

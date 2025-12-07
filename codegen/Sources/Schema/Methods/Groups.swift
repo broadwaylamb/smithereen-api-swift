@@ -76,4 +76,76 @@ let groups = Group("Groups") {
 	}
 	.doc("Returns the group invitations for the current user.")
 	.requiresPermissions("groups")
+
+	RequestDef("groups.getMembers") {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+		
+		let sortingEnum = EnumDef<String>("Sorting") {
+			EnumCaseDef("id_asc")
+				.swiftName("idAscending")
+				.doc("By identifiers, ascending.")
+			EnumCaseDef("id_desc")
+				.swiftName("idDescending")
+				.doc("By identifiers, descending.")
+			EnumCaseDef("random")
+				.doc("""
+					Random. The ``offset`` parameter is ignored in this mode.
+					""")
+			EnumCaseDef("time_asc")
+				.swiftName("timeAscending")
+				.doc("""
+					By join time, ascending (only available when called with
+					an access token of a group manager).
+					""")
+			EnumCaseDef("time_desc")
+				.swiftName("timeDescending")
+				.doc("""
+					By join time, descending (only available when called with
+					an access token of a group manager).
+					""")
+		}
+		.frozen()
+		FieldDef("sort", type: .def(sortingEnum))
+			.doc("""
+				How to sort the returned users.
+				By default ``Sorting/idAscending``.
+				""")
+		sortingEnum
+
+		offsetAndCountParams("member", defaultCount: 100)
+
+		let filterEnum = EnumDef<String>("Filter") {
+			EnumCaseDef("friends")
+				.doc("""
+					Only return current user’s friends who are members of
+					this group.
+					""")
+			EnumCaseDef("unsure")
+				.doc("Only return event attendees who aren’t sure.")
+			EnumCaseDef("managers")
+				.doc("""
+					Only return group managers and their roles (only available
+					when called with an access token of a group manager).
+					``offset`` and ``count`` parameters are ignored in this
+					mode.
+					""")
+			EnumCaseDef("unsure_friends")
+				.doc("""
+					Only return current user’s friends who aren’t sure that
+					they’ll attend this event.
+					""")
+		}
+		.frozen()
+		FieldDef("filter", type: .def(filterEnum))
+			.doc("""
+				How to filter the group members.
+				By default, all members are returned for groups,
+				and “sure” attendees for events.
+				""")
+		filterEnum
+	}
+	.doc("Returns the list of group members.")
+	.withUserFields()
 }

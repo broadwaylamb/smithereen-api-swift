@@ -144,3 +144,27 @@ extension ActorField {
 		self.init(rawValue: groupField.rawValue)
 	}
 }
+
+extension Groups.GetMembers {
+	public enum Result: Hashable, Sendable, Codable {
+		case ids(PaginatedList<UserID>)
+		case managers(PaginatedList<User.GroupAdmin>)
+
+		public func encode(to encoder: any Encoder) throws {
+			switch self {
+			case .ids(let ids):
+				try ids.encode(to: encoder)
+			case .managers(let managers):
+				try managers.encode(to: encoder)
+			}
+		}
+
+		public init(from decoder: any Decoder) throws {
+			do {
+				self = .ids(try .init(from: decoder))
+			} catch DecodingError.typeMismatch {
+				self = .managers(try .init(from: decoder))
+			}
+		}
+	}
+}

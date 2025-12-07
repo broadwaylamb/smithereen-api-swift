@@ -58,10 +58,19 @@ extension String {
 }
 
 extension StringProtocol {
-	var capitalizedFirstChar: String {
+	var uppercasedFirstChar: String {
 		var result = ""
 		if let first = first {
 			result += first.uppercased()
+		}
+		result += dropFirst()
+		return result
+	}
+
+	var lowercasedFirstChar: String {
+		var result = ""
+		if let first = first {
+			result += first.lowercased()
 		}
 		result += dropFirst()
 		return result

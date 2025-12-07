@@ -16,17 +16,6 @@ extension Friends {
 		/// In which order to return the friends. By default ``Order/id``.
 		public var order: Order?
 
-		/// Only return friends in the specified list.
-		/// For private lists, only works for the current user and only with
-		/// a token that has the `friends:read` permission.
-		public var listID: FriendListID?
-
-		/// Offset into the friend list for pagination.
-		public var offset: Int?
-
-		/// How many friends to return. By default 100.
-		public var count: Int?
-
 		public enum Order: String, Codable, Sendable, CaseIterable {
 
 			/// Order by how often the user interacts with each friend.
@@ -43,6 +32,17 @@ extension Friends {
 			/// Requires `friends:read` and only works for the current user.
 			case recent
 		}
+
+		/// Only return friends in the specified list.
+		/// For private lists, only works for the current user and only with
+		/// a token that has the `friends:read` permission.
+		public var listID: FriendListID?
+
+		/// Offset into the friend list for pagination.
+		public var offset: Int?
+
+		/// How many friends to return. By default 100.
+		public var count: Int?
 
 		/// Returns the friend list of a user.
 		public struct WithFields: SmithereenAPIRequest, Hashable, Encodable {
@@ -136,5 +136,16 @@ extension Friends {
 			self
 		}
 		public typealias Result = PaginatedList<UserID>
+
+		public func withFields(fields: [User.Field]) -> WithFields {
+			WithFields(
+				userID: userID,
+				order: order,
+				listID: listID,
+				offset: offset,
+				count: count,
+				fields: fields,
+			)
+		}
 	}
 }

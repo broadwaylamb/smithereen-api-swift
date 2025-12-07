@@ -123,16 +123,3 @@ extension Photo.SizeType {
 		}
 	}
 }
-
-extension Friends.Get {
-	public func withFields(_ fields: [User.Field]) -> Friends.Get.WithFields {
-		.init(
-			userID: userID,
-			order: order,
-			listID: listID,
-			offset: offset,
-			count: count,
-			fields: fields,
-		)
-	}
-}

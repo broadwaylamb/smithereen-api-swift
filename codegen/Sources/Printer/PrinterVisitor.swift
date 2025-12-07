@@ -53,18 +53,7 @@ struct PrinterVisitor {
 				leadingTrivia: .newlines(2),
 				modifiers: [DeclModifierSyntax(name: .keyword(.public))],
 				signature: FunctionSignatureSyntax(
-					parameterClause: FunctionParameterClauseSyntax {
-						for (i, field) in fields.enumerated() {
-							FunctionParameterSyntax(
-								leadingTrivia: fields.count > 1 ? .newline : nil,
-								firstName: .identifier(field.swiftName),
-								type: field.type.syntax,
-								defaultValue: field.type.isOptional ? InitializerClauseSyntax(value: NilLiteralExprSyntax()) : nil,
-								trailingComma: fields.count > 1 ? .commaToken() : nil,
-								trailingTrivia: fields.count > 1 && i == fields.endIndex - 1 ? .newline : nil,
-							)
-						}
-					}
+					parameterClause: parametersForFields(fields)
 				)
 			) {
 				for field in fields {
@@ -99,6 +88,44 @@ struct PrinterVisitor {
 			"public var encodableBody: Self { self }"
 			if let resultType = def.resultType {
 				"public typealias Result = \(resultType.syntax)"
+			}
+
+			if let extended = def.extended {
+				let returnTypeRef = TypeRef.def(extended.request.structDef)
+				FunctionDeclSyntax(
+					leadingTrivia: .newlines(2),
+					modifiers: [DeclModifierSyntax(name: .keyword(.public))],
+					name: identifier(
+						extended.request.customSwiftName!.lowercasedFirstChar,
+						context: .variableName,
+					),
+					signature: FunctionSignatureSyntax(
+						parameterClause: parametersForFields(extended.newFields),
+						returnClause: ReturnClauseSyntax(
+							type: returnTypeRef.syntax
+						),
+					),
+				) {
+					FunctionCallExprSyntax(
+						calledExpression: DeclReferenceExprSyntax(baseName: .identifier(returnTypeRef.name)),
+						leftParen: .leftParenToken(), 
+						rightParen: .rightParenToken(),
+					) {
+						var isFirst = true
+						for field in extended.request.structDef.fields {
+							let id = field.swiftIdentifier(for: .memberAccess)
+							LabeledExprSyntax(
+								leadingTrivia: isFirst ? .newline : nil,
+								label: id,
+								colon: .colonToken(),
+								expression: DeclReferenceExprSyntax(baseName: id),
+								trailingComma: .commaToken(),
+								trailingTrivia: .newline,
+							)
+							let _ = isFirst = false
+						}
+					}
+				}
 			}
 		}
 		if def.customSwiftName != nil {
@@ -494,5 +521,20 @@ private func enumCase(
 				InitializerClauseSyntax(value: StringLiteralExprSyntax(content: $0))
 			}
 		)
+	}
+}
+
+private func parametersForFields(_ fields: [FieldDef]) -> FunctionParameterClauseSyntax {
+	FunctionParameterClauseSyntax {
+		for (i, field) in fields.enumerated() {
+			FunctionParameterSyntax(
+				leadingTrivia: fields.count > 1 ? .newline : nil,
+				firstName: .identifier(field.swiftName),
+				type: field.type.syntax,
+				defaultValue: field.type.isOptional ? InitializerClauseSyntax(value: NilLiteralExprSyntax()) : nil,
+				trailingComma: fields.count > 1 ? .commaToken() : nil,
+				trailingTrivia: fields.count > 1 && i == fields.endIndex - 1 ? .newline : nil,
+			)
+		}
 	}
 }

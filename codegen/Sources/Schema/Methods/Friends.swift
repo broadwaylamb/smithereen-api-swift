@@ -174,6 +174,13 @@ let friends = Group("Friends") {
 	.requiresPermissions("friends")
 
 	RequestDef("friends.get", resultType: .paginatedList(.def(userID))) {
+		FieldDef("user_id", type: .def(userID))
+			.doc("""
+				The identifier of the user whose friend list needs to be returned.
+				If an access token is used, defaults to the current user’s ID.
+				Required when called without an access token.
+				""")
+		
 		let orderEnum = EnumDef<String>("Order") {
 			EnumCaseDef("hints")
 				.doc("""
@@ -191,22 +198,34 @@ let friends = Group("Friends") {
 					""")
 		}
 		.frozen()
-		parametersForGet(orderEnum)
+		FieldDef("order", type: .def(orderEnum))
+			.doc("""
+				In which order to return the friends. By default ``Order/id``.
+				""")
 		orderEnum
-
-		RequestDef(
-			"friends.get",
-			swiftName: "WithFields",
-			resultType: .paginatedList(.def(user)),
-		) {
-			parametersForGet(orderEnum)
-			FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
-				.required()
-				.doc("A list of user profile fields to be returned.")
-		}
-		.doc("Returns the friend list of a user.")
+		
+		FieldDef("list_id", type: .def(friendListID))
+			.doc("""
+				Only return friends in the specified list.
+				For private lists, only works for the current user and only with
+				a token that has the `friends:read` permission.
+				""")
+		
+		FieldDef("offset", type: .int)
+			.doc("Offset into the friend list for pagination.")
+		
+		FieldDef("count", type: .int)
+			.doc("How many friends to return. By default 100.")
 	}
 	.doc("Returns the friend list of a user.")
+	.withExtendedVersion(
+		"WithFields",
+		extendedResultType: .paginatedList(.def(user)),
+	) {
+		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
+			.required()
+			.doc("A list of user profile fields to be returned.")
+	}
 
 	RequestDef("friends.getLists", resultType: .array(.def(friendList))) {
 		FieldDef("user_id", type: .def(userID))
@@ -216,32 +235,4 @@ let friends = Group("Friends") {
 				If using a token, defaults to the current user.
 				""")
 	}
-}
-
-@StructDefBuilder
-private func parametersForGet(_ order: EnumDef<String>) -> any StructDefPart {
-	FieldDef("user_id", type: .def(userID))
-		.doc("""
-			The identifier of the user whose friend list needs to be returned.
-			If an access token is used, defaults to the current user’s ID.
-			Required when called without an access token.
-			""")
-	
-	FieldDef("order", type: .def(order))
-		.doc("""
-			In which order to return the friends. By default ``Order/id``.
-			""")
-	
-	FieldDef("list_id", type: .def(friendListID))
-		.doc("""
-			Only return friends in the specified list.
-			For private lists, only works for the current user and only with
-			a token that has the `friends:read` permission.
-			""")
-	
-	FieldDef("offset", type: .int)
-		.doc("Offset into the friend list for pagination.")
-	
-	FieldDef("count", type: .int)
-		.doc("How many friends to return. By default 100.")
 }

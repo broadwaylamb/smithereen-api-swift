@@ -11,10 +11,10 @@ public protocol SmithereenAPIRequest
 
 private let smithereenJSONDecoder = JSONDecoder()
 
-extension SmithereenAPIRequest where Result: Decodable {
+extension SmithereenAPIRequest {
 	public func deserializeError(from body: Data) throws -> SmithereenAPIError {
 		let response = try smithereenJSONDecoder
-			.decode(SmithereenAPIResponse<Result>.self, from: body)
+			.decode(SmithereenAPIResponse<NeverCodable>.self, from: body)
 		
 		if let error = response.error {
 			return error
@@ -28,23 +28,31 @@ extension SmithereenAPIRequest where Result: Decodable {
 			),
 		)
 	}
+}
 
+extension SmithereenAPIRequest where Result: Decodable {
     public func deserializeResult(from body: Data) throws -> Result {
-		let response = try smithereenJSONDecoder
-			.decode(SmithereenAPIResponse<Result>.self, from: body)
-		
-		if let result = response.response {
-			return result
-		}
-
-		throw DecodingError.valueNotFound(
-			Result.self,
-			DecodingError.Context(
-				codingPath: [SmithereenAPIResponse<Result>.CodingKeys.response],
-				debugDescription: "Missing response",
-			)
-		)
+		try deserializeRequestResult(from: body)
 	}
+}
+
+internal func deserializeRequestResult<Result: Decodable>(
+	from body: Data
+) throws -> Result {
+	let response = try smithereenJSONDecoder
+		.decode(SmithereenAPIResponse<Result>.self, from: body)
+	
+	if let result = response.response {
+		return result
+	}
+
+	throw DecodingError.valueNotFound(
+		Result.self,
+		DecodingError.Context(
+			codingPath: [SmithereenAPIResponse<Result>.CodingKeys.response],
+			debugDescription: "Missing response",
+		)
+	)
 }
 
 extension SmithereenAPIError: ServerErrorProtocol {

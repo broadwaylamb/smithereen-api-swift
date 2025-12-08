@@ -1,3 +1,5 @@
+import Hammond
+
 public struct SmithereenAPIResponse<Payload> {
 	public var response: Payload?
 	public var error: SmithereenAPIError?
@@ -25,3 +27,18 @@ extension SmithereenAPIResponse: Hashable where Payload: Hashable {}
 extension SmithereenAPIResponse: Sendable where Payload: Sendable {}
 extension SmithereenAPIResponse: Encodable where Payload: Encodable {}
 extension SmithereenAPIResponse: Decodable where Payload: Decodable {}
+
+extension SmithereenAPIResponse where Payload == NeverCodable {
+	public init(from decoder: any Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		try self.init(
+			error: container
+				.decodeIfPresent(SmithereenAPIError.self, forKey: .error), 
+			executeErrors: container
+				.decodeIfPresent(
+					[SmithereenAPIError].self,
+					forKey: .executeErrors
+				),
+		)
+	}
+}

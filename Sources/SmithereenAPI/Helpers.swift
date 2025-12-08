@@ -1,3 +1,4 @@
+import Foundation
 import SmithereenAPIInternals
 
 public struct Birthday: Hashable, Codable, Sendable, CustomStringConvertible {
@@ -146,26 +147,17 @@ extension ActorField {
 }
 
 extension Groups.GetMembers {
-	public enum Result: Hashable, Sendable, Codable {
+	public func deserializeResult(from body: Data) throws -> Result {
+		if filter == .managers {
+			return .managers(try deserializeRequestResult(from: body))
+		} else {
+			return .ids(try deserializeRequestResult(from: body))
+		}
+	}
+
+	public enum Result: Hashable, Sendable {
 		case ids(PaginatedList<UserID>)
 		case managers(PaginatedList<User.GroupAdmin>)
-
-		public func encode(to encoder: any Encoder) throws {
-			switch self {
-			case .ids(let ids):
-				try ids.encode(to: encoder)
-			case .managers(let managers):
-				try managers.encode(to: encoder)
-			}
-		}
-
-		public init(from decoder: any Decoder) throws {
-			do {
-				self = .ids(try .init(from: decoder))
-			} catch DecodingError.typeMismatch {
-				self = .managers(try .init(from: decoder))
-			}
-		}
 	}
 }
 

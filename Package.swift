@@ -15,7 +15,7 @@ let package = Package(
 		.library(name: "SmithereenAPI", targets: ["SmithereenAPI"]),
 	],
 	dependencies: [
-		.package(url: "https://github.com/broadwaylamb/Hammond.git", revision: "bb2ff0843c5bf61cb4ec3f6fa21fb7dcf31f9ceb"),
+		.package(url: "https://github.com/broadwaylamb/Hammond.git", revision: "03c1769564f2819ebbad52f98cbda94f5626e449"),
 	],
 	targets: [
 		.target(name: "SmithereenAPIInternals"),

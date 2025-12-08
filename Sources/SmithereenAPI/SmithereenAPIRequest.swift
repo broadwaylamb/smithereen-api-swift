@@ -12,7 +12,7 @@ public protocol SmithereenAPIRequest
 private let smithereenJSONDecoder = JSONDecoder()
 
 extension SmithereenAPIRequest where Result: Decodable {
-	public static func deserializeError(from body: Data) throws -> SmithereenAPIError {
+	public func deserializeError(from body: Data) throws -> SmithereenAPIError {
 		let response = try smithereenJSONDecoder
 			.decode(SmithereenAPIResponse<Result>.self, from: body)
 		
@@ -29,7 +29,7 @@ extension SmithereenAPIRequest where Result: Decodable {
 		)
 	}
 
-    public static func deserializeResult(from body: Data) throws -> Result {
+    public func deserializeResult(from body: Data) throws -> Result {
 		let response = try smithereenJSONDecoder
 			.decode(SmithereenAPIResponse<Result>.self, from: body)
 		

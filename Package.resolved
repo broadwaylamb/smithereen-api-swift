@@ -1,12 +1,12 @@
 {
-  "originHash" : "5bd7b382f692704989ce0b555c71818f9014a0eef94f6e67ed2f8b0e47fea914",
+  "originHash" : "e712da8326d69e67d872dba0bfa255e1803b7389b1c9e63ae17da8c4568b45c9",
   "pins" : [
     {
       "identity" : "hammond",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/broadwaylamb/Hammond.git",
       "state" : {
-        "revision" : "bb2ff0843c5bf61cb4ec3f6fa21fb7dcf31f9ceb"
+        "revision" : "03c1769564f2819ebbad52f98cbda94f5626e449"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/swiftlang/swift-syntax",
       "state" : {
-        "revision" : "f99ae8aa18f0cf0d53481901f88a0991dc3bd4a2",
-        "version" : "601.0.1"
+        "revision" : "4799286537280063c85a32f09884cfbca301b1a1",
+        "version" : "602.0.0"
       }
     }
   ],

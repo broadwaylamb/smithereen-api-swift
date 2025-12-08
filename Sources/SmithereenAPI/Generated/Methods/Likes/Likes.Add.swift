@@ -13,6 +13,16 @@ extension Likes {
 		/// Identifier of the object to be liked.
 		public var itemID: LikeableObject
 
+		public struct Result: Hashable, Codable, Sendable {
+
+			/// The new number of likes on the target object.
+			public var likes: Int
+
+			public init(likes: Int) {
+				self.likes = likes
+			}
+		}
+
 		public init(itemID: LikeableObject) {
 			self.itemID = itemID
 		}
@@ -25,6 +35,5 @@ extension Likes {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = Int
 	}
 }

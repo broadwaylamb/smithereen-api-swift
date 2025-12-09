@@ -5,7 +5,7 @@ import SmithereenAPIInternals
 import Hammond
 extension Friends {
 
-	/// Deletes a friend list. Returns `true` on success.
+	/// Deletes a friend list.
 	/// - Note: This method requires the following permissions: `friends`.
 	public struct DeleteList: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
@@ -28,6 +28,6 @@ extension Friends {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = Bool
+		public typealias Result = ()
 	}
 }

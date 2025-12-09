@@ -123,15 +123,15 @@ let friends = Group("Friends") {
 		""")
 	.requiresPermissions("friends")
 
-	RequestDef("friends.deleteList", resultType: .bool) {
+	RequestDef("friends.deleteList", resultType: .void) {
 		FieldDef("list_id", type: .def(friendListID))
 			.required()
 			.doc("The identifier of the friend list to be deleted.")
 	}
-	.doc("Deletes a friend list. Returns `true` on success.")
+	.doc("Deletes a friend list.")
 	.requiresPermissions("friends")
 
-	RequestDef("friends.edit", resultType: .bool) {
+	RequestDef("friends.edit", resultType: .void) {
 		FieldDef("user_id", type: .def(userID))
 			.required()
 			.doc("User identifier for which lists need to be updated.")
@@ -141,11 +141,11 @@ let friends = Group("Friends") {
 			.doc("The list of list identifiers.")
 	}
 	.doc("""
-		Changes which lists a friend is included in. Returns `true` on success.
+		Changes which lists a friend is included in.
 		""")
 	.requiresPermissions("friends")
 
-	RequestDef("friends.editList", resultType: .bool) {
+	RequestDef("friends.editList", resultType: .void) {
 		FieldDef("list_id", type: .def(friendListID))
 			.required()
 			.doc("The identifier of the friend list to be updated.")
@@ -170,7 +170,7 @@ let friends = Group("Friends") {
 				Only applies if ``userIDs`` was not specified.
 				""")
 	}
-	.doc("Updates an existing friend list. Returns `true` on success.")
+	.doc("Updates an existing friend list.")
 	.requiresPermissions("friends")
 
 	RequestDef("friends.get", resultType: .paginatedList(.def(userID))) {

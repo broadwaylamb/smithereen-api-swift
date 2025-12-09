@@ -6,7 +6,6 @@ import Hammond
 extension Groups {
 
 	/// Leaves a group or rejects an invitation.
-	/// Returns `true` on success.
 	/// - Note: This method requires the following permissions: `groups`.
 	public struct Leave: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
@@ -29,6 +28,6 @@ extension Groups {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = Bool
+		public typealias Result = ()
 	}
 }

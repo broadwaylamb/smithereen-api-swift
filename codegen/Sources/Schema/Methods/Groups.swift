@@ -206,7 +206,7 @@ let groups = Group("Groups") {
 		.doc(isMemberDoc)
 	}
 
-	RequestDef("groups.join", resultType: .bool) {
+	RequestDef("groups.join", resultType: .void) {
 		FieldDef("group_id", type: .def(groupID))
 			.required()
 			.doc("The group identifier.")
@@ -220,20 +220,16 @@ let groups = Group("Groups") {
 		Joins a group.
 
 		If there’s an invitation, accepts it as well.
-
-		Returns `true` on success.
 		""")
 	.requiresPermissions("groups")
 
-	RequestDef("groups.leave", resultType: .bool) {
+	RequestDef("groups.leave", resultType: .void) {
 		FieldDef("group_id", type: .def(groupID))
 			.required()
 			.doc("The group identifier.")
 	}
 	.doc("""
 		Leaves a group or rejects an invitation.
-
-		Returns `true` on success.
 		""")
 	.requiresPermissions("groups")
 

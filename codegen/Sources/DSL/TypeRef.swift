@@ -22,6 +22,7 @@ extension TypeRef: CustomStringConvertible {
 }
 
 extension TypeRef {
+	static let void = TypeRef(Void.self)
 	static let int = TypeRef(Int.self)
 	static let double = TypeRef(Double.self)
 	static let string = TypeRef(String.self)

@@ -5,7 +5,7 @@ import SmithereenAPIInternals
 import Hammond
 extension Friends {
 
-	/// Changes which lists a friend is included in. Returns `true` on success.
+	/// Changes which lists a friend is included in.
 	/// - Note: This method requires the following permissions: `friends`.
 	public struct Edit: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
@@ -36,6 +36,6 @@ extension Friends {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = Bool
+		public typealias Result = ()
 	}
 }

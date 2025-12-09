@@ -9,6 +9,7 @@ struct FieldDef: Documentable, HasSerialName {
 	var propertyWrappers: [String] = []
 	var alternativeSerialNames: [String] = []
 	var isExcludedFromFields: Bool = false
+	var isFlattened: Bool = false
 
 	init(_ serialName: String, type: TypeRef) {
 		self.serialName = serialName
@@ -35,6 +36,10 @@ struct FieldDef: Documentable, HasSerialName {
 
 	func excludeFromFields() -> FieldDef {
 		copyWith(self, \.isExcludedFromFields, true)
+	}
+
+	func flatten() -> FieldDef {
+		copyWith(self, \.isFlattened, true)
 	}
 }
 

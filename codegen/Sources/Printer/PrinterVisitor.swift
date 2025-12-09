@@ -72,9 +72,31 @@ struct PrinterVisitor {
 				DeclSyntax("public var id: \(identifierField.type.syntax) { return \(raw: identifierField.swiftName) }")
 			}
 
-			let needsCodingKeys = fields.contains { $0.requiresCustomCodingKey }
-			if needsCodingKeys {
-				codingKeys(for: fields)
+			let needsCustomCoding = fields.contains { $0.isFlattened }
+			let needsCodingKeys = 
+				needsCustomCoding || fields.contains { $0.requiresCustomCodingKey }
+			let nonFlattenedFields = fields.filter { !$0.isFlattened }
+			if needsCodingKeys && !nonFlattenedFields.isEmpty {
+				codingKeys(for: nonFlattenedFields)
+			}
+
+			if needsCustomCoding {
+				try! FunctionDeclSyntax("public func encode(to encoder: any Encoder) throws") {
+					let allFieldsAreFlattened = fields.allSatisfy { $0.isFlattened }
+					if !allFieldsAreFlattened {
+						"var container = encoder.container(keyedBy: CodingKeys.self)"
+					}
+					for field in fields {
+						let fieldIdentifier = field.swiftIdentifier(for: .memberAccess)
+						if field.isFlattened {
+							let questionMark = field.type.isOptional ? "?" : ""
+							"try self.\(fieldIdentifier)\(raw: questionMark).encode(to: encoder)"
+						} else {
+							let ifPresent = field.type.isOptional ? "IfPresent" : ""
+							"try container.encode\(raw: ifPresent)(self.\(fieldIdentifier), forKey: .\(fieldIdentifier))"
+						}
+					}
+				}
 			}
 
 			additionalDeclarations()

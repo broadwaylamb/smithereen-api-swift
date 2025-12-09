@@ -26,6 +26,9 @@ extension Likes {
 		public init(itemID: LikeableObject) {
 			self.itemID = itemID
 		}
+		public func encode(to encoder: any Encoder) throws {
+			try self.itemID.encode(to: encoder)
+		}
 		public var path: String {
 			"/method/likes.add"
 		}

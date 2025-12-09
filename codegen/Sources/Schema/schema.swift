@@ -41,6 +41,7 @@ let schema = Group {
 		groups
 		likes
 		newsfeed
+		photos
 	}
 
 	communityType

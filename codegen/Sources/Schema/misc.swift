@@ -89,6 +89,22 @@ let commentView = EnumDef<String>("CommentView") {
 }
 .frozen()
 
+let photoFeedUpdate = StructDef("PhotoUpdate") {
+	FieldDef("count", type: .int)
+		.required()
+		.doc("How many photos were added or tagged in total.")
+	FieldDef("items", type: .array(.def(photo)))
+		.required()
+		.doc("Up to 10 photo objects.")
+	FieldDef("list_id", type: .def(photoFeedEntryID))
+		.required()
+		.doc("""
+			An identifier to retrieve the complete list of photos that
+			were added or tagged using ``Photos/GetFeedEntry``.
+			""")
+}
+.doc("The information about photos added to an album or a user was tagged in.")
+
 func deactivatedStatusField(_ entity: String) -> FieldDef {
 	FieldDef("deactivated", type: .def(deactivatedStatus))
 		.excludeFromFields()

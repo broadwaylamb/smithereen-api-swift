@@ -21,7 +21,7 @@ extension Newsfeed {
 			/// Photos.
 			case photo
 
-			/// Discussion board topics
+			/// Discussion board topics.
 			case board
 		}
 

@@ -5,9 +5,9 @@ import SmithereenAPIInternals
 import Hammond
 extension Newsfeed {
 
-	/// Returns the current user’s followees’ updates (and their own posts).
+	/// Returns updates from the current user’s groups.
 	/// - Note: This method requires the following permissions: `newsfeed`.
-	public struct Get: SmithereenAPIRequest, Hashable, Encodable, Sendable {
+	public struct GetGroups: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		public struct PaginationToken: Identifier {
 			public var rawValue: String
@@ -19,39 +19,19 @@ extension Newsfeed {
 
 		/// Which types of updates to return.
 		/// By default, updates of all types are returned.
-		public var filters: [Filter]?
+		public var filters: Filter?
 
 		public enum Filter: String, Codable, Sendable, CaseIterable {
 
-			/// Wall posts and reposts.
+			/// New wall posts.
 			case post
+
+			/// New discussion board topics.
+			case board
 
 			/// New photos added to albums.
 			case photo
-
-			/// New photo tags.
-			case photoTag = "photo_tag"
-
-			/// New friends.
-			case friend
-
-			/// Groups joined or created.
-			case group
-
-			/// Events joined or created.
-			case event
-
-			/// New discussion board topics in groups.
-			case board
-
-			/// Relationship status changes
-			case relation
 		}
-
-		/// Whether to include updates from muted users.
-		/// By default `false`.
-		@LenientBool
-		public var returnBanned: Bool?
 
 		/// An opaque string required for pagination, returned as
 		/// ``Result/nextFrom`` by the previous call of this method.
@@ -66,55 +46,16 @@ extension Newsfeed {
 		/// A list of user and group profile fields to return.
 		public var fields: [ActorField]?
 
-		/// The information about the relationship status change.
-		public struct RelationUpdate: Hashable, Codable, Sendable {
-
-			/// The new relationship status.
-			public var status: User.RelationshipStatus
-
-			/// The new partner user identifier, if any.
-			public var partner: UserID?
-
-			public init(
-				status: User.RelationshipStatus,
-				partner: UserID? = nil,
-			) {
-				self.status = status
-				self.partner = partner
-			}
-		}
-
 		public enum UpdatedItem: Hashable, Codable, Sendable {
 
 			/// A new wall post was created.
 			case post(WallPost)
 
-			/// New photos were uploaded.
-			case photo(PhotoUpdate)
-
-			/// The user was tagged in some photos.
-			case photoTag(PhotoUpdate)
-
-			/// The user added new friends.
-			case friend([UserID])
-
-			/// The user joined some groups.
-			case groupJoin([GroupID])
-
-			/// The user created some groups.
-			case groupCreate([GroupID])
-
-			/// The user joined some events.
-			case eventJoin([GroupID])
-
-			/// The user created some events.
-			case eventCreate([GroupID])
-
-			/// The user created some discussion board topics.
+			/// New discussion board topics were created in the group.
 			case board([BoardTopic])
 
-			/// The user has changed their relationship status.
-			case relation(RelationUpdate)
+			/// New photos were added to the group’s photo albums.
+			case photo([PhotoUpdate])
 
 			/// Represents an unrecognized type of payload.
 			case unknown(String)
@@ -122,11 +63,8 @@ extension Newsfeed {
 			private enum CodingKeys: String, CodingKey {
 				case type
 				case post
-				case photos
-				case friendIDs = "friend_ids"
-				case groupIDs = "group_ids"
 				case topics
-				case relation
+				case photos
 			}
 
 			public init(from decoder: Decoder) throws {
@@ -135,24 +73,10 @@ extension Newsfeed {
 				switch type {
 				case "post":
 					self = .post(try container.decode(WallPost.self, forKey: .post))
-				case "photo":
-					self = .photo(try container.decode(PhotoUpdate.self, forKey: .photos))
-				case "photo_tag":
-					self = .photoTag(try container.decode(PhotoUpdate.self, forKey: .photos))
-				case "friend":
-					self = .friend(try container.decode([UserID].self, forKey: .friendIDs))
-				case "group_join":
-					self = .groupJoin(try container.decode([GroupID].self, forKey: .groupIDs))
-				case "group_create":
-					self = .groupCreate(try container.decode([GroupID].self, forKey: .groupIDs))
-				case "event_join":
-					self = .eventJoin(try container.decode([GroupID].self, forKey: .groupIDs))
-				case "event_create":
-					self = .eventCreate(try container.decode([GroupID].self, forKey: .groupIDs))
 				case "board":
 					self = .board(try container.decode([BoardTopic].self, forKey: .topics))
-				case "relation":
-					self = .relation(try container.decode(RelationUpdate.self, forKey: .relation))
+				case "photo":
+					self = .photo(try container.decode([PhotoUpdate].self, forKey: .photos))
 				default:
 					self = .unknown(type)
 				}
@@ -164,33 +88,12 @@ extension Newsfeed {
 				case .post(let payload):
 					tag = "post"
 					try container.encode(payload, forKey: .post)
-				case .photo(let payload):
-					tag = "photo"
-					try container.encode(payload, forKey: .photos)
-				case .photoTag(let payload):
-					tag = "photo_tag"
-					try container.encode(payload, forKey: .photos)
-				case .friend(let payload):
-					tag = "friend"
-					try container.encode(payload, forKey: .friendIDs)
-				case .groupJoin(let payload):
-					tag = "group_join"
-					try container.encode(payload, forKey: .groupIDs)
-				case .groupCreate(let payload):
-					tag = "group_create"
-					try container.encode(payload, forKey: .groupIDs)
-				case .eventJoin(let payload):
-					tag = "event_join"
-					try container.encode(payload, forKey: .groupIDs)
-				case .eventCreate(let payload):
-					tag = "event_create"
-					try container.encode(payload, forKey: .groupIDs)
 				case .board(let payload):
 					tag = "board"
 					try container.encode(payload, forKey: .topics)
-				case .relation(let payload):
-					tag = "relation"
-					try container.encode(payload, forKey: .relation)
+				case .photo(let payload):
+					tag = "photo"
+					try container.encode(payload, forKey: .photos)
 				case .unknown(let _tag):
 					tag = _tag
 				}
@@ -212,35 +115,35 @@ extension Newsfeed {
 			/// Identifier of this update.
 			public var id: UpdateID
 
-			/// Which user this update is about.
-			public var userID: UserID
+			/// Which group this update is about.
+			public var groupID: GroupID
 
 			public init(
 				item: UpdatedItem,
 				id: UpdateID,
-				userID: UserID,
+				groupID: GroupID,
 			) {
 				self.item = item
 				self.id = id
-				self.userID = userID
+				self.groupID = groupID
 			}
 
 			private enum CodingKeys: String, CodingKey {
 				case id
-				case userID = "user_id"
+				case groupID = "group_id"
 			}
 			public func encode(to encoder: any Encoder) throws {
 				var container = encoder.container(keyedBy: CodingKeys.self)
 				try self.item.encode(to: encoder)
 				try container.encode(self.id, forKey: .id)
-				try container.encode(self.userID, forKey: .userID)
+				try container.encode(self.groupID, forKey: .groupID)
 			}
 
 			public init(from decoder: Decoder) throws {
 				let container = try decoder.container(keyedBy: CodingKeys.self)
 				self.item = try UpdatedItem(from: decoder)
 				self.id = try container.decode(UpdateID.self, forKey: .id)
-				self.userID = try container.decode(UserID.self, forKey: .userID)
+				self.groupID = try container.decode(GroupID.self, forKey: .groupID)
 			}
 		}
 
@@ -281,14 +184,12 @@ extension Newsfeed {
 		}
 
 		public init(
-			filters: [Filter]? = nil,
-			returnBanned: Bool? = nil,
+			filters: Filter? = nil,
 			startFrom: PaginationToken? = nil,
 			count: Int? = nil,
 			fields: [ActorField]? = nil,
 		) {
 			self.filters = filters
-			self.returnBanned = returnBanned
 			self.startFrom = startFrom
 			self.count = count
 			self.fields = fields
@@ -296,13 +197,12 @@ extension Newsfeed {
 
 		private enum CodingKeys: String, CodingKey {
 			case filters
-			case returnBanned = "return_banned"
 			case startFrom = "start_from"
 			case count
 			case fields
 		}
 		public var path: String {
-			"/method/newsfeed.get"
+			"/method/newsfeed.getGroups"
 		}
 		public static var method: HTTPMethod {
 			.post

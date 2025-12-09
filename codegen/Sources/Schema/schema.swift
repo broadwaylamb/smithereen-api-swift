@@ -26,6 +26,7 @@ let schema = Group {
 		group
 		likeInfo
 		photo
+		photoFeedUpdate
 		platform
 		poll
 		serverRule

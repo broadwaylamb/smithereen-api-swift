@@ -3,25 +3,16 @@ let newsfeed = Group("Newsfeed") {
 		let paginationToken = IdentifierStruct("PaginationToken", rawValue: .string)
 		paginationToken
 
-		let filter = EnumDef<String>("Filter") {
-			EnumCaseDef("post")
-				.doc("Wall posts and reposts.")
-			EnumCaseDef("photo")
-				.doc("New photos added to albums.")
-			EnumCaseDef("photo_tag")
-				.doc("New photo tags.")
-			EnumCaseDef("friend")
-				.doc("New friends")
-			EnumCaseDef("group")
-				.doc("Groups joined or created")
-			EnumCaseDef("event")
-				.doc("Events joined or created")
-			EnumCaseDef("board")
-				.doc("New discussion board topics in groups")
-			EnumCaseDef("relation")
-				.doc("Relationship status changes")
-		}
-		.frozen()
+		let filter = filterEnum(
+			("post", "Wall posts and reposts."),
+			("photo", "New photos added to albums."),
+			("photo_tag", "New photo tags."),
+			("friend", "New friends."),
+			("group", "Groups joined or created."),
+			("event", "Events joined or created."),
+			("board", "New discussion board topics in groups."),
+			("relation", "Relationship status changes"),
+		)
 
 		FieldDef("filters", type: .array(.def(filter)))
 			.doc("""
@@ -38,40 +29,8 @@ let newsfeed = Group("Newsfeed") {
 				By default `false`.
 				""")
 		
-		FieldDef("start_from", type: .def(paginationToken))
-			.doc("""
-				An opaque string required for pagination, returned as
-				``Result/nextFrom`` by the previous call of this method.
-				Don’t pass this parameter when loading the news feed for
-				the first time or refreshing it.
-				""")
-		
-		FieldDef("count", type: .int)
-			.doc("""
-				How many updates to return.
-
-				By default 25.
-				""")
-		
-		FieldDef("fields", type: .array(.def(actorField)))
-			.doc("A list of user and group profile fields to return.")
-		
-		let photoUpdateStruct = StructDef("PhotoUpdate") {
-			FieldDef("count", type: .int)
-				.required()
-				.doc("How many photos were added or tagged in total.")
-			FieldDef("items", type: .array(.def(photo)))
-				.required()
-				.doc("Up to 10 photo objects.")
-			FieldDef("list_id", type: .def(photoFeedEntryID))
-				.required()
-				.doc("""
-					An identifier to retrieve the complete list of photos that
-					were added or tagged using ``Photos/GetFeedEntry``.
-					""")
-		}
-		.doc("The information about photos the user added or was tagged in.")
-		photoUpdateStruct
+		startFromAndCount(paginationToken)
+		fieldsParameter()
 
 		let relationUpdateStruct = StructDef("RelationUpdate") {
 			FieldDef("status", type: TypeRef(name: "User.RelationshipStatus"))
@@ -94,7 +53,7 @@ let newsfeed = Group("Newsfeed") {
 				TaggedUnionVariantDef(
 					photoUpdate,
 					payloadFieldName: "photos",
-					type: .def(photoUpdateStruct)
+					type: .def(photoFeedUpdate)
 				)
 				.doc(doc)
 			}
@@ -127,55 +86,23 @@ let newsfeed = Group("Newsfeed") {
 			TaggedUnionVariantDef("relation", type: .def(relationUpdateStruct))
 				.doc("The user has changed their relationship status.")
 		}
-
 		updatedItem
-		
-		let update = StructDef("Update") {
-			FieldDef("item", type: .def(updatedItem))
-				.required()
-				.flatten()
-			
+
+		feedResult(paginationToken: paginationToken, updatedItem: updatedItem) {
 			FieldDef("user_id", type: .def(userID))
 				.required()
 				.doc("Which user this update is about.")
-		}
-		update
-
-		StructDef("Result") {
-			FieldDef("items", type: .array(.def(update)))
-				.required()
-				.doc("The updates themselves.")
-			
-			FieldDef("profiles", type: .array(.def(user)))
-				.required()
-				.doc("User objects relevant to these updates.")
-			
-			FieldDef("groups", type: .array(.def(group)))
-				.required()
-				.doc("Group objects relevant to these updates.")
-			
-			FieldDef("next_from", type: .def(paginationToken))
-				.doc("""
-					The value to pass as ``startFrom`` in a subsequent call to
-					this method to load the next page of the news feed.
-
-					If this field is absent, no more updates are available.
-					""")
 		}
 	}
 	.doc("Returns the current user’s followees’ updates (and their own posts).")
 	.requiresPermissions("newsfeed")
 
 	RequestDef("newsfeed.getComments") {
-		let filter = EnumDef<String>("Filter") {
-			EnumCaseDef("post")
-				.doc("Wall posts.")
-			EnumCaseDef("photo")
-				.doc("Photos.")
-			EnumCaseDef("board")
-				.doc("Discussion board topics")
-		}
-		.frozen()
+		let filter = filterEnum(
+			("post", "Wall posts."),
+			("photo", "Photos."),
+			("board", "Discussion board topics."),
+		)
 
 		FieldDef("filters", type: .def(filter))
 			.doc("""
@@ -200,8 +127,7 @@ let newsfeed = Group("Newsfeed") {
 				By default uses the user preference.
 				""")
 		
-		FieldDef("fields", type: .array(.def(actorField)))
-			.doc("A list of user and group profile fields to return.")
+		fieldsParameter()
 		
 		let commentableObject = TaggedUnionDef("CommentableObject") {
 			TaggedUnionVariantDef("post", type: .def(wallPost))
@@ -247,4 +173,134 @@ let newsfeed = Group("Newsfeed") {
 	}
 	.doc("Returns comment threads that the current user has participated in.")
 	.requiresPermissions("newsfeed")
+
+	RequestDef("newsfeed.getGroups") {
+		let paginationToken = IdentifierStruct("PaginationToken", rawValue: .string)
+		paginationToken
+
+		let filter = filterEnum(
+			("post", "New wall posts."),
+			("board", "New discussion board topics."),
+			("photo", "New photos added to albums."),
+		)
+
+		FieldDef("filters", type: .def(filter))
+			.doc("""
+				Which types of updates to return.
+
+				By default, updates of all types are returned.
+				""")
+		filter
+		
+		startFromAndCount(paginationToken)
+		fieldsParameter()
+
+		let updatedItem = TaggedUnionDef("UpdatedItem") {
+			TaggedUnionVariantDef("post", type: .def(wallPost))
+				.doc("A new wall post was created.")
+			TaggedUnionVariantDef(
+				"board",
+				payloadFieldName: "topics",
+				type: .array(.def(boardTopic)),
+			)
+			.doc("New discussion board topics were created in the group.")
+			TaggedUnionVariantDef(
+				"photo",
+				payloadFieldName: "photos",
+				type: .array(.def(photoFeedUpdate)),
+			)
+			.doc("New photos were added to the group’s photo albums.")
+		}
+
+		updatedItem
+
+		feedResult(paginationToken: paginationToken, updatedItem: updatedItem) {
+			FieldDef("group_id", type: .def(groupID))
+				.required()
+				.doc("Which group this update is about.")
+		}
+	}
+	.doc("Returns updates from the current user’s groups.")
+	.requiresPermissions("newsfeed")
+}
+
+private func filterEnum(_ namesAndDocs: (String, String)...) -> EnumDef<String> {
+	EnumDef<String>("Filter") {
+		for (name, doc) in namesAndDocs {
+			EnumCaseDef(name)
+				.doc(doc)
+		}
+	}
+	.frozen()
+}
+
+@StructDefBuilder
+private func startFromAndCount(
+	_ paginationToken: StructDef,
+) -> any StructDefPart {
+	FieldDef("start_from", type: .def(paginationToken))
+		.doc("""
+			An opaque string required for pagination, returned as
+			``Result/nextFrom`` by the previous call of this method.
+			Don’t pass this parameter when loading the news feed for
+			the first time or refreshing it.
+			""")
+	
+	FieldDef("count", type: .int)
+		.doc("""
+			How many updates to return, from 0 to 100.
+
+			By default 25.
+			""")
+}
+
+private func fieldsParameter() -> FieldDef {
+	FieldDef("fields", type: .array(.def(actorField)))
+		.doc("A list of user and group profile fields to return.")
+}
+
+@StructDefBuilder
+private func feedResult(
+	paginationToken: StructDef,
+	updatedItem: TaggedUnionDef,
+	@StructDefBuilder additionalUpdateFields: () -> any StructDefPart,
+) -> any StructDefPart {
+	let updateID = IdentifierStruct("UpdateID", rawValue: .int)
+	updateID
+
+	let update = StructDef("Update") {
+		FieldDef("item", type: .def(updatedItem))
+			.required()
+			.flatten()
+		
+		FieldDef("id", type: .def(updateID))
+			.required()
+			.id()
+			.doc("Identifier of this update.")
+		
+		additionalUpdateFields()
+	}
+	update
+
+	StructDef("Result") {
+		FieldDef("items", type: .array(.def(update)))
+			.required()
+			.doc("The updates themselves.")
+		
+		FieldDef("profiles", type: .array(.def(user)))
+			.required()
+			.doc("User objects relevant to these updates.")
+		
+		FieldDef("groups", type: .array(.def(group)))
+			.required()
+			.doc("Group objects relevant to these updates.")
+		
+		FieldDef("next_from", type: .def(paginationToken))
+			.doc("""
+				The value to pass as ``startFrom`` in a subsequent call to
+				this method to load the next page of the news feed.
+
+				If this field is absent, no more updates are available.
+				""")
+	}
 }

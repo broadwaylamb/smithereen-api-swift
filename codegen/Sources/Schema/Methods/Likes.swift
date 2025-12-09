@@ -6,7 +6,7 @@ let likes = Group("Likes") {
 	}
 
 	RequestDef("likes.add") {
-		FieldDef("itemID", type: TypeRef(name: "LikeableObject"))
+		FieldDef("item_id", type: .likeableObject)
 			.required()
 			.flatten()
 			.doc("Identifier of the object to be liked.")
@@ -20,7 +20,7 @@ let likes = Group("Likes") {
 	.requiresPermissions("likes")
 
 	RequestDef("likes.delete") {
-		FieldDef("itemID", type: TypeRef(name: "LikeableObject"))
+		FieldDef("item_id", type: .likeableObject)
 			.required()
 			.flatten()
 			.doc("Identifier of the object to be unliked.")
@@ -34,7 +34,7 @@ let likes = Group("Likes") {
 	.requiresPermissions("likes")
 
 	RequestDef("likes.getList", resultType: .paginatedList(.def(userID))) {
-		FieldDef("itemID", type: TypeRef(name: "LikeableObject"))
+		FieldDef("item_id", type: .likeableObject)
 			.required()
 			.flatten()
 			.doc("Identifier of the target object.")
@@ -55,5 +55,28 @@ let likes = Group("Likes") {
 	}
 	.doc("Returns the list of users who like an object.")
 	.withUserFields()
+
+	RequestDef("likes.isLiked") {
+		FieldDef("user_id", type: .def(userID))
+			.doc("""
+				The user identifier for which the like needs to be checked.
+
+				By default, the current user.
+				""")
+		
+		FieldDef("item_id", type: .likeableObject)	
+			.required()
+			.flatten()
+			.doc("Identifier of the target object.")
+		
+		StructDef("Result") {
+			FieldDef("liked", type: .bool)
+				.required()
+				.doc("Whether the user likes this object.")
+			
+			FieldDef("reposted", type: .bool)
+				.doc("Whether the user has reposted this post or comment.")
+		}
+	}
 }
 

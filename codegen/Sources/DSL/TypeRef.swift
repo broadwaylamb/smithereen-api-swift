@@ -38,6 +38,7 @@ extension TypeRef {
 	static let identifier = TypeRef(name: "Identifier")
 
 	static let blurhash = TypeRef(name: "BlurHash")
+	static let likeableObject = TypeRef(name: "LikeableObject")
 
 	static func paginatedList(_ element: TypeRef) -> TypeRef {
 		return TypeRef(name: "PaginatedList<\(element)>")

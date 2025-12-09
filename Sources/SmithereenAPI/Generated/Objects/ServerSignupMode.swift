@@ -3,21 +3,18 @@
 import Foundation
 import SmithereenAPIInternals
 
-public struct ServerSignupMode: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-	public var rawValue: String
-	public init(rawValue: String) {
-		self.rawValue = rawValue
-	}
+public enum ServerSignupMode: String, Codable, Sendable, CaseIterable {
 
-	public static let open = Self(rawValue: "open")
-	public static let closed = Self(rawValue: "closed")
-	public static let inviteOnly = Self(rawValue: "invite_only")
-	public static let manualApproval = Self(rawValue: "manual_approval")
+	/// Anyone can freely register on their own.
+	case open
 
-	public static let allCases: [ServerSignupMode] = [
-		.open,
-		.closed,
-		.inviteOnly,
-		.manualApproval,
-	]
+	/// This server does not accept new users.
+	case closed
+
+	/// New users can only register by an invitation from an existing user.
+	case inviteOnly = "invite_only"
+
+	/// New users can submit requests to the server staff and can only
+	/// register after their request has been accepted.
+	case manualApproval = "manual_approval"
 }

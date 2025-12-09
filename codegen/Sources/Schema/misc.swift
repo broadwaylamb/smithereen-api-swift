@@ -15,23 +15,22 @@ let photoCommentID = IdentifierStruct("PhotoCommentID", rawValue: .string)
 let topicCommentID = IdentifierStruct("TopicCommentID", rawValue: .string)
 let photoFeedEntryID = IdentifierStruct("PhotoFeedEntryID", rawValue: .string)
 
-let serverRule = StructDef("ServerRule") {
-	FieldDef("id", type: TypeRef(name: "ServerRuleID"))
-		.required()
-		.id()
-	
-	FieldDef("title", type: .string)
-		.required()
-		
-	FieldDef("description", type: .string)
-}
-
 let serverSignupMode = EnumDef<String>("ServerSignupMode") {
 	EnumCaseDef("open")
+		.doc("Anyone can freely register on their own.")
 	EnumCaseDef("closed")
+		.doc("This server does not accept new users.")
 	EnumCaseDef("invite_only")
+		.doc("""
+			New users can only register by an invitation from an existing user.
+			""")
 	EnumCaseDef("manual_approval")
+		.doc("""
+			New users can submit requests to the server staff and can only
+			register after their request has been accepted.
+			""")
 }
+.frozen()
 
 let deactivatedStatus = EnumDef<String>("DeactivatedStatus") {
 	EnumCaseDef("banned")

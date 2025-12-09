@@ -29,7 +29,6 @@ let schema = Group {
 		photoFeedUpdate
 		platform
 		poll
-		serverRule
 		serverSignupMode
 		user
 		video
@@ -42,6 +41,7 @@ let schema = Group {
 		likes
 		newsfeed
 		photos
+		server
 	}
 
 	communityType

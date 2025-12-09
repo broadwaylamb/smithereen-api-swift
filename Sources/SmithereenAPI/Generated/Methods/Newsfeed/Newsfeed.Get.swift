@@ -5,6 +5,8 @@ import SmithereenAPIInternals
 import Hammond
 extension Newsfeed {
 
+	/// Returns the current user’s followees’ updates (and their own posts).
+	/// - Note: This method requires the following permissions: `newsfeed`.
 	public struct Get: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		public struct PaginationToken: Identifier {

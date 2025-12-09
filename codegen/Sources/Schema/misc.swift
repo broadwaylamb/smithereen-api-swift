@@ -82,6 +82,13 @@ let actorField = EnumDef<String>("ActorField") {
 	}
 }
 
+let commentView = EnumDef<String>("CommentView") {
+	EnumCaseDef("threaded")
+	EnumCaseDef("two_level")
+	EnumCaseDef("flat")
+}
+.frozen()
+
 func deactivatedStatusField(_ entity: String) -> FieldDef {
 	FieldDef("deactivated", type: .def(deactivatedStatus))
 		.excludeFromFields()

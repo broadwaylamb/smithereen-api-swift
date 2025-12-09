@@ -163,4 +163,88 @@ let newsfeed = Group("Newsfeed") {
 					""")
 		}
 	}
+	.doc("Returns the current user’s followees’ updates (and their own posts).")
+	.requiresPermissions("newsfeed")
+
+	RequestDef("newsfeed.getComments") {
+		let filter = EnumDef<String>("Filter") {
+			EnumCaseDef("post")
+				.doc("Wall posts.")
+			EnumCaseDef("photo")
+				.doc("Photos.")
+			EnumCaseDef("board")
+				.doc("Discussion board topics")
+		}
+		.frozen()
+
+		FieldDef("filters", type: .def(filter))
+			.doc("""
+				Which types of commentable objects to return.
+
+				By default, all types are returned.
+				""")
+		filter
+
+		offsetAndCountParams("object", defaultCount: 25)
+		
+		FieldDef("last_comments", type: .int)
+			.doc("""
+				How many of the most recent comments to return, from 0 to 3.
+
+				By default 0.
+				""")
+		
+		FieldDef("comment_view_type", type: .def(commentView))
+			.doc("""
+				How to structure the comments for ``lastComments``.
+				By default uses the user preference.
+				""")
+		
+		FieldDef("fields", type: .array(.def(actorField)))
+			.doc("A list of user and group profile fields to return.")
+		
+		let commentableObject = TaggedUnionDef("CommentableObject") {
+			TaggedUnionVariantDef("post", type: .def(wallPost))
+			TaggedUnionVariantDef("photo", type: .def(photo))
+			TaggedUnionVariantDef(
+				"board",
+				payloadFieldName: "topic",
+				type: .def(boardTopic),
+			)
+		}
+		commentableObject
+
+		let update = StructDef("Update") {
+			FieldDef("item", type: .def(commentableObject))
+				.required()
+				.flatten()
+			
+			FieldDef("comments", type: .array(.def(wallPost)))
+				.doc("""
+					If ``lastComments`` is non-zero, an array of comment
+					objects.
+					""")
+		}
+		update
+
+		StructDef("Result") {
+			FieldDef("items", type: .array(.def(update)))
+				.required()
+				.doc("The commentable objects themselves.")
+			
+			FieldDef("profiles", type: .array(.def(user)))
+				.required()
+				.doc("User objects relevant to these objects.")
+			
+			FieldDef("groups", type: .array(.def(group)))
+				.required()
+				.doc("Group objects relevant to these objects.")
+			
+			FieldDef("count", type: .int)
+				.required()
+				.doc("How many comment threads there are in total.")
+		}
+	}
+	.doc("Returns comment threads that the current user has participated in.")
+	.requiresPermissions("newsfeed")
 }

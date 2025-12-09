@@ -44,5 +44,6 @@ let schema = Group {
 
 	communityType
 	actorField
+	commentView
 	error
 }

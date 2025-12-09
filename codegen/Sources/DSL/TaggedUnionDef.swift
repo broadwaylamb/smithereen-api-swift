@@ -48,12 +48,18 @@ private struct CompositeTaggedUnionDefPart: TaggedUnionDefPart {
 
 struct TaggedUnionVariantDef: Documentable, HasSerialName {
 	var serialName: String
+	var customPayloadFieldName: String?
 	var customSwiftName: String?
 	var doc: String?
 	var type: TypeRef
 
-	init(_ serialName: String, type: TypeRef) {
+	var payloadFieldName: String {
+		customPayloadFieldName ?? serialName
+	}
+
+	init(_ serialName: String, payloadFieldName: String? = nil, type: TypeRef) {
 		self.serialName = serialName
+		self.customPayloadFieldName = payloadFieldName
 		self.type = type
 	}
 }

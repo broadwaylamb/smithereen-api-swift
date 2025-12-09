@@ -115,3 +115,11 @@ public struct TopicCommentID: Identifier {
 		self.rawValue = rawValue
 	}
 }
+
+public struct PhotoFeedEntryID: Identifier {
+	public var rawValue: String
+
+	public init(rawValue: String) {
+		self.rawValue = rawValue
+	}
+}

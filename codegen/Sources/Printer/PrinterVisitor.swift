@@ -81,19 +81,39 @@ struct PrinterVisitor {
 			}
 
 			if needsCustomCoding {
-				try! FunctionDeclSyntax("public func encode(to encoder: any Encoder) throws") {
-					let allFieldsAreFlattened = fields.allSatisfy { $0.isFlattened }
-					if !allFieldsAreFlattened {
-						"var container = encoder.container(keyedBy: CodingKeys.self)"
+				if def.conformances.contains(.encodable) || def.conformances.contains(.codable) {
+					try! FunctionDeclSyntax("public func encode(to encoder: any Encoder) throws") {
+						let allFieldsAreFlattened = fields.allSatisfy { $0.isFlattened }
+						if !allFieldsAreFlattened {
+							"var container = encoder.container(keyedBy: CodingKeys.self)"
+						}
+						for field in fields {
+							let fieldIdentifier = field.swiftIdentifier(for: .memberAccess)
+							if field.isFlattened {
+								let questionMark = field.type.isOptional ? "?" : ""
+								"try self.\(fieldIdentifier)\(raw: questionMark).encode(to: encoder)"
+							} else {
+								let ifPresent = field.type.isOptional ? "IfPresent" : ""
+								"try container.encode\(raw: ifPresent)(self.\(fieldIdentifier), forKey: .\(fieldIdentifier))"
+							}
+						}
 					}
-					for field in fields {
-						let fieldIdentifier = field.swiftIdentifier(for: .memberAccess)
-						if field.isFlattened {
-							let questionMark = field.type.isOptional ? "?" : ""
-							"try self.\(fieldIdentifier)\(raw: questionMark).encode(to: encoder)"
-						} else {
-							let ifPresent = field.type.isOptional ? "IfPresent" : ""
-							"try container.encode\(raw: ifPresent)(self.\(fieldIdentifier), forKey: .\(fieldIdentifier))"
+				}
+				if def.conformances.contains(.decodable) || def.conformances.contains(.codable) {
+					initFromDecoderDecl {
+						let allFieldsAreFlattened = fields.allSatisfy { $0.isFlattened }
+						if !allFieldsAreFlattened {
+							"let container = try decoder.container(keyedBy: CodingKeys.self)"
+						}
+						for field in fields {
+							let fieldIdentifier = field.swiftIdentifier(for: .memberAccess)
+							let typeSyntax = field.type.optional(false).syntax
+							if field.isFlattened {
+								"self.\(fieldIdentifier) = try \(typeSyntax)(from: decoder)"
+							} else {
+								let ifPresent = field.type.isOptional ? "IfPresent" : ""
+								"self.\(fieldIdentifier) = try container.decode\(raw: ifPresent)(\(typeSyntax).self, forKey: .\(fieldIdentifier))"
+							}
 						}
 					}
 				}
@@ -344,7 +364,12 @@ struct PrinterVisitor {
 				payload: .string,
 			)
 
-			codingKeys(for: [CustomCodingKey(serialName: "type")] + def.variants)
+			codingKeys(
+				for: [CustomCodingKey(serialName: "type")] +
+					def.variants
+						.distinct { $0.payloadFieldName }
+						.map { CustomCodingKey(serialName: $0.payloadFieldName) }
+			)
 
 			initFromDecoderDecl {
 				"let container = try decoder.container(keyedBy: CodingKeys.self)"
@@ -352,9 +377,13 @@ struct PrinterVisitor {
 				try! SwitchExprSyntax("switch type") {
 					for variant in def.variants {
 						let caseName = variant.swiftIdentifier(for: .memberAccess)
+						let codingKey = identifier(
+							variant.payloadFieldName.convertFromSnakeCase(),
+							context: .memberAccess,
+						)
 						SwitchCaseSyntax("""
-							case CodingKeys.\(caseName).stringValue:
-								self = .\(caseName)(try container.decode(\(variant.type.syntax).self, forKey: .\(caseName)))
+							case "\(raw: variant.serialName)":
+								self = .\(caseName)(try container.decode(\(variant.type.syntax).self, forKey: .\(codingKey)))
 							""")
 					}
 					SwitchCaseSyntax("""
@@ -370,10 +399,14 @@ struct PrinterVisitor {
 				try! SwitchExprSyntax("switch self") {
 					for variant in def.variants {
 						let caseName = variant.swiftIdentifier(for: .memberAccess)
+						let codingKey = identifier(
+							variant.payloadFieldName.convertFromSnakeCase(),
+							context: .memberAccess,
+						)
 						SwitchCaseSyntax("""
 							case .\(caseName)(let payload):
-								tag = CodingKeys.\(caseName).stringValue
-								try container.encode(payload, forKey: .\(caseName))
+								tag = "\(raw: variant.serialName)"
+								try container.encode(payload, forKey: .\(codingKey))
 							""")
 					}
 					SwitchCaseSyntax("""

@@ -14,6 +14,7 @@ let schema = Group {
 		wallPostID
 		photoCommentID
 		topicCommentID
+		photoFeedEntryID
 	}
 	Group("Objects") {
 		attachment
@@ -38,6 +39,7 @@ let schema = Group {
 		friends
 		groups
 		likes
+		newsfeed
 	}
 
 	communityType

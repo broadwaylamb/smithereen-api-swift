@@ -33,6 +33,7 @@ extension TypeRef {
 
 	static let hashable = TypeRef(name: "Hashable")
 	static let encodable = TypeRef(name: "Encodable")
+	static let decodable = TypeRef(name: "Decodable")
 	static let codable = TypeRef(name: "Codable")
 	static let sendable = TypeRef(name: "Sendable")
 	static let identifier = TypeRef(name: "Identifier")

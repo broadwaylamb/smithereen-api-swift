@@ -13,6 +13,7 @@ let boardTopicID = IdentifierStruct(("BoardTopicID"), rawValue: .string)
 let wallPostID = IdentifierStruct("WallPostID", rawValue: .int)
 let photoCommentID = IdentifierStruct("PhotoCommentID", rawValue: .string)
 let topicCommentID = IdentifierStruct("TopicCommentID", rawValue: .string)
+let photoFeedEntryID = IdentifierStruct("PhotoFeedEntryID", rawValue: .string)
 
 let serverRule = StructDef("ServerRule") {
 	FieldDef("id", type: TypeRef(name: "ServerRuleID"))

@@ -37,15 +37,15 @@ public enum Attachment: Hashable, Codable, Sendable {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		let type = try container.decode(String.self, forKey: .type)
 		switch type {
-		case CodingKeys.photo.stringValue:
+		case "photo":
 			self = .photo(try container.decode(Photo.self, forKey: .photo))
-		case CodingKeys.graffiti.stringValue:
+		case "graffiti":
 			self = .graffiti(try container.decode(Graffiti.self, forKey: .graffiti))
-		case CodingKeys.video.stringValue:
+		case "video":
 			self = .video(try container.decode(Video.self, forKey: .video))
-		case CodingKeys.audio.stringValue:
+		case "audio":
 			self = .audio(try container.decode(Audio.self, forKey: .audio))
-		case CodingKeys.poll.stringValue:
+		case "poll":
 			self = .poll(try container.decode(Poll.self, forKey: .poll))
 		default:
 			self = .unknown(type)
@@ -56,19 +56,19 @@ public enum Attachment: Hashable, Codable, Sendable {
 		let tag: String
 		switch self {
 		case .photo(let payload):
-			tag = CodingKeys.photo.stringValue
+			tag = "photo"
 			try container.encode(payload, forKey: .photo)
 		case .graffiti(let payload):
-			tag = CodingKeys.graffiti.stringValue
+			tag = "graffiti"
 			try container.encode(payload, forKey: .graffiti)
 		case .video(let payload):
-			tag = CodingKeys.video.stringValue
+			tag = "video"
 			try container.encode(payload, forKey: .video)
 		case .audio(let payload):
-			tag = CodingKeys.audio.stringValue
+			tag = "audio"
 			try container.encode(payload, forKey: .audio)
 		case .poll(let payload):
-			tag = CodingKeys.poll.stringValue
+			tag = "poll"
 			try container.encode(payload, forKey: .poll)
 		case .unknown(let _tag):
 			tag = _tag

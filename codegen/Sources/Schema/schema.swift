@@ -29,6 +29,7 @@ let schema = Group {
 		photoFeedUpdate
 		platform
 		poll
+		privacySetting
 		serverSignupMode
 		user
 		video

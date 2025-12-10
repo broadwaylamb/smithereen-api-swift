@@ -13,4 +13,16 @@ let photos = Group("Photos") {
 		Get the information required for uploading an image to be attached
 		to a wall post, comment, or message.
 		""")
+
+	RequestDef("photos.confirmTag", resultType: .void) {
+		FieldDef("photo_id", type: .def(photoID))
+			.required()
+			.doc("Identifier of the photo.")
+
+		FieldDef("tag_id", type: .def(photoTagID))
+			.required()
+			.doc("Identifier of the tag.")
+	}
+	.doc("Confirms the current user’s tag on a photo.")
+	.requiresPermissions("photos")
 }

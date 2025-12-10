@@ -9,7 +9,7 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 	/// Unique (server-wide) identifier of this post.
 	public var id: WallPostID
 
-	/// Identifier of the wall owner, either user ID or minus group ID.
+	/// Identifier of the wall owner.
 	public var ownerID: ActorID
 
 	/// Identifier of the user who made this post.
@@ -29,8 +29,75 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 	public var date: Date
 
 	/// The text of the post as HTML.
-	/// [More about text formatting.](https://smithereen.software/docs/api/text-formatting)
+	/// [More about text formatting](https://smithereen.software/docs/api/text-formatting).
 	public var text: String?
+
+	/// Information about likes of this post.
+	public var likes: LikeInfo?
+
+	/// Media attachments added to this post.
+	public var attachments: [Attachment]?
+
+	/// The content warning text, if any. If this field is present,
+	/// hide the post content, replacing it with this text, and only reveal
+	/// it after an extra click or tap.
+	public var contentWarning: String?
+
+	/// Whether the current user can delete this post.
+	@LenientBool
+	public var canDelete: Bool
+
+	/// Whether the current user can edit this post.
+	@LenientBool
+	public var canEdit: Bool
+
+	/// An array of user IDs corresponding to users mentioned in this post.
+	public var mentionedUsers: [ActorID]?
+
+	/// Array of identifiers of parent comments.
+	/// - Note: Only returned for comments.
+	public var parentsStack: [WallPostID]?
+
+	/// Identifier of the comment this is in reply to, if applicable.
+	/// - Note: Only returned for comments.
+	public var replyToComment: WallPostID?
+
+	/// Identifier of the user this is in reply to, if applicable.
+	/// - Note: Only returned for comments.
+	public var replyToUser: ActorID?
+
+	/// An object describing the reply thread of this comment.
+	/// Only returned when `view_type` is `threaded` or `two_level`.
+	/// - Note: Only returned for comments.
+	public var thread: Thread?
+
+	public struct Thread: Hashable, Codable, Sendable {
+
+		/// The total number of comments in this branch.
+		public var count: Int
+
+		/// The total number of replies to this comment.
+		public var replyCount: Int
+
+		/// The replies to this comment.
+		public var items: [WallPost]
+
+		public init(
+			count: Int,
+			replyCount: Int,
+			items: [WallPost],
+		) {
+			self.count = count
+			self.replyCount = replyCount
+			self.items = items
+		}
+
+		private enum CodingKeys: String, CodingKey {
+			case count
+			case replyCount = "reply_count"
+			case items
+		}
+	}
 
 	/// If this post isn’t publicly visible, the visibility setting specified by the author.
 	public var privacy: Privacy?
@@ -51,9 +118,6 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 			.friends,
 		]
 	}
-
-	/// Information about likes of this post.
-	public var likes: LikeInfo?
 
 	/// Information about reposts of this post.
 	public var reposts: Reposts?
@@ -87,25 +151,6 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 			case userReposted = "user_reposted"
 		}
 	}
-
-	/// Media attachments added to this post.
-	public var attachments: [Attachment]?
-
-	/// The content warning text, if any. If this field is present,
-	/// hide the post content, replacing it with this text, and only reveal
-	/// it after an extra click or tap.
-	public var contentWarning: String?
-
-	/// Whether the current user can delete this post.
-	@LenientBool
-	public var canDelete: Bool
-
-	/// Whether the current user can edit this post.
-	@LenientBool
-	public var canEdit: Bool
-
-	/// An array of user IDs corresponding to users mentioned in this post.
-	public var mentionedUsers: [ActorID]?
 
 	/// Information about comments on this post.
 	/// - Note: Only returned for top-level posts.
@@ -162,51 +207,6 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 	@LenientBool
 	public var isPinned: Bool?
 
-	/// Array of identifiers of parent comments.
-	/// - Note: Only returned for comments.
-	public var parentsStack: [WallPostID]?
-
-	/// Identifier of the comment this is in reply to, if applicable.
-	/// - Note: Only returned for comments.
-	public var replyToComment: WallPostID?
-
-	/// Identifier of the user this is in reply to, if applicable.
-	/// - Note: Only returned for comments.
-	public var replyToUser: ActorID?
-
-	/// An object describing the reply thread of this comment.
-	/// Only returned when `view_type` is `threaded` or `two_level`.
-	/// - Note: Only returned for comments.
-	public var thread: Thread?
-
-	public struct Thread: Hashable, Codable, Sendable {
-
-		/// The total number of comments in this branch.
-		public var count: Int
-
-		/// The total number of replies to this comment.
-		public var replyCount: Int
-
-		/// The replies to this comment.
-		public var items: [WallPost]
-
-		public init(
-			count: Int,
-			replyCount: Int,
-			items: [WallPost],
-		) {
-			self.count = count
-			self.replyCount = replyCount
-			self.items = items
-		}
-
-		private enum CodingKeys: String, CodingKey {
-			case count
-			case replyCount = "reply_count"
-			case items
-		}
-	}
-
 	public init(
 		id: WallPostID,
 		ownerID: ActorID,
@@ -215,23 +215,23 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 		url: URL,
 		date: Date,
 		text: String? = nil,
-		privacy: Privacy? = nil,
 		likes: LikeInfo? = nil,
-		reposts: Reposts? = nil,
 		attachments: [Attachment]? = nil,
 		contentWarning: String? = nil,
 		canDelete: Bool,
 		canEdit: Bool,
 		mentionedUsers: [ActorID]? = nil,
+		parentsStack: [WallPostID]? = nil,
+		replyToComment: WallPostID? = nil,
+		replyToUser: ActorID? = nil,
+		thread: Thread? = nil,
+		privacy: Privacy? = nil,
+		reposts: Reposts? = nil,
 		comments: Comments? = nil,
 		repostHistory: [WallPost]? = nil,
 		isMastodonStyleRepost: Bool? = nil,
 		canPin: Bool? = nil,
 		isPinned: Bool? = nil,
-		parentsStack: [WallPostID]? = nil,
-		replyToComment: WallPostID? = nil,
-		replyToUser: ActorID? = nil,
-		thread: Thread? = nil,
 	) {
 		self.id = id
 		self.ownerID = ownerID
@@ -240,23 +240,23 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 		self.url = url
 		self.date = date
 		self.text = text
-		self.privacy = privacy
 		self.likes = likes
-		self.reposts = reposts
 		self.attachments = attachments
 		self.contentWarning = contentWarning
 		self.canDelete = canDelete
 		self.canEdit = canEdit
 		self.mentionedUsers = mentionedUsers
+		self.parentsStack = parentsStack
+		self.replyToComment = replyToComment
+		self.replyToUser = replyToUser
+		self.thread = thread
+		self.privacy = privacy
+		self.reposts = reposts
 		self.comments = comments
 		self.repostHistory = repostHistory
 		self.isMastodonStyleRepost = isMastodonStyleRepost
 		self.canPin = canPin
 		self.isPinned = isPinned
-		self.parentsStack = parentsStack
-		self.replyToComment = replyToComment
-		self.replyToUser = replyToUser
-		self.thread = thread
 	}
 
 	private enum CodingKeys: String, CodingKey {
@@ -267,22 +267,22 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 		case url
 		case date
 		case text
-		case privacy
 		case likes
-		case reposts
 		case attachments
 		case contentWarning = "content_warning"
 		case canDelete = "can_delete"
 		case canEdit = "can_edit"
 		case mentionedUsers = "mentioned_users"
+		case parentsStack = "parents_stack"
+		case replyToComment = "reply_to_comment"
+		case replyToUser = "reply_to_user"
+		case thread
+		case privacy
+		case reposts
 		case comments
 		case repostHistory = "repost_history"
 		case isMastodonStyleRepost = "is_mastodon_style_repost"
 		case canPin = "can_pin"
 		case isPinned = "is_pinned"
-		case parentsStack = "parents_stack"
-		case replyToComment = "reply_to_comment"
-		case replyToUser = "reply_to_user"
-		case thread
 	}
 }

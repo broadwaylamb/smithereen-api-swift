@@ -4,10 +4,15 @@ struct TaggedUnionDef: Documentable {
 	var name: String
 	var doc: String?
 	var variants: [TaggedUnionVariantDef]
+	var isFrozen: Bool = false
 
 	init(_ name: String, @TaggedUnionDefBuilder build: () -> any TaggedUnionDefPart) {
 		self.name = name
 		self.variants = build().components
+	}
+
+	func frozen() -> TaggedUnionDef {
+		copyWith(self, \.isFrozen, true)
 	}
 }
 

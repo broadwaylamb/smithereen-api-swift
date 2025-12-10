@@ -73,7 +73,7 @@ struct PrinterVisitor {
 			}
 
 			let needsCustomCoding = fields.contains { $0.isFlattened }
-			let needsCodingKeys = 
+			let needsCodingKeys =
 				needsCustomCoding || fields.contains { $0.requiresCustomCodingKey }
 			let nonFlattenedFields = fields.filter { !$0.isFlattened }
 			if needsCodingKeys && !nonFlattenedFields.isEmpty {
@@ -150,7 +150,7 @@ struct PrinterVisitor {
 				) {
 					FunctionCallExprSyntax(
 						calledExpression: DeclReferenceExprSyntax(baseName: .identifier(returnTypeRef.name)),
-						leftParen: .leftParenToken(), 
+						leftParen: .leftParenToken(),
 						rightParen: .rightParenToken(),
 					) {
 						var isFirst = true
@@ -287,7 +287,7 @@ struct PrinterVisitor {
 					}
 					property(
 						leadingTrivia: leadingTrivia,
-						name: `case`.swiftName, 
+						name: `case`.swiftName,
 						modifiers: .public, .static,
 						bindingSpecifier: .let,
 						type: nil as TypeSyntax?,
@@ -357,12 +357,14 @@ struct PrinterVisitor {
 			for variant in def.variants {
 				enumCase(variant, payload: variant.type)
 			}
-			
-			enumCase(
-				leadingTrivia: docComment("Represents an unrecognized type of payload."), 
-				name: "unknown",
-				payload: .string,
-			)
+
+			if !def.isFrozen {
+				enumCase(
+					leadingTrivia: docComment("Represents an unrecognized type of payload."),
+					name: "unknown",
+					payload: .string,
+				)
+			}
 
 			codingKeys(
 				for: [CustomCodingKey(serialName: "type")] +
@@ -386,10 +388,21 @@ struct PrinterVisitor {
 								self = .\(caseName)(try container.decode(\(variant.type.syntax).self, forKey: .\(codingKey)))
 							""")
 					}
-					SwitchCaseSyntax("""
-						default:
-							self = .unknown(type)
-						""")
+					if def.isFrozen {
+						SwitchCaseSyntax("""
+							default:
+								throw DecodingError.dataCorruptedError(
+									forKey: .type,
+									in: container,
+									debugDescription: "Unknown payload type",
+								)
+							""")
+					} else {
+						SwitchCaseSyntax("""
+							default:
+								self = .unknown(type)
+							""")
+					}
 				}
 			}
 
@@ -409,10 +422,12 @@ struct PrinterVisitor {
 								try container.encode(payload, forKey: .\(codingKey))
 							""")
 					}
-					SwitchCaseSyntax("""
-						case .unknown(let _tag):
-							tag = _tag
-						""")
+					if !def.isFrozen {
+						SwitchCaseSyntax("""
+							case .unknown(let _tag):
+								tag = _tag
+							""")
+					}
 				}
 				"try container.encode(tag, forKey: .type)"
 			}
@@ -547,8 +562,8 @@ private func enumCase(
 	return enumCase(
 		leadingTrivia: leadingTrivia,
 		name: entity.swiftName,
-		rawValue: payload == nil && entity.requiresCustomCodingKey 
-			? entity.serialName 
+		rawValue: payload == nil && entity.requiresCustomCodingKey
+			? entity.serialName
 			: nil,
 		payload: payload,
 	)

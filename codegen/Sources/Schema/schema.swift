@@ -12,8 +12,7 @@ let schema = Group {
 		pollOptionID
 		boardTopicID
 		wallPostID
-		photoCommentID
-		topicCommentID
+		commentID
 		photoFeedEntryID
 		photoTagID
 	}
@@ -21,11 +20,13 @@ let schema = Group {
 		attachment
 		audio
 		boardTopic
+		comment
 		deactivatedStatus
 		friendList
 		graffiti
 		group
 		likeInfo
+		likeableObject
 		photo
 		photoFeedUpdate
 		platform

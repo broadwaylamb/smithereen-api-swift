@@ -92,6 +92,7 @@ public struct BoardTopicID: Identifier {
 	}
 }
 
+/// An identifier of a wall post or a comment on a wall post.
 public struct WallPostID: Identifier {
 	public var rawValue: Int
 
@@ -100,15 +101,8 @@ public struct WallPostID: Identifier {
 	}
 }
 
-public struct PhotoCommentID: Identifier {
-	public var rawValue: String
-
-	public init(rawValue: String) {
-		self.rawValue = rawValue
-	}
-}
-
-public struct TopicCommentID: Identifier {
+/// And identifier of a comment on anything except a wall post.
+public struct CommentID: Identifier {
 	public var rawValue: String
 
 	public init(rawValue: String) {

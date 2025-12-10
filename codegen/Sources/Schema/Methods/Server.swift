@@ -5,11 +5,11 @@ let server = Group("Server") {
 				.required()
 				.id()
 				.doc("Rule identifier.")
-			
+
 			FieldDef("title", type: .string)
 				.required()
 				.doc("The short title of this rule.")
-				
+
 			FieldDef("description", type: .string)
 				.doc("The description of this rule.")
 		}
@@ -22,7 +22,7 @@ let server = Group("Server") {
 			FieldDef("image_max_dimensions", type: .int)
 				.required()
 				.doc("The maximum image dimensions, on each side, in pixels.")
-			
+
 			 // TODO: Use ContentType instead of String
 			FieldDef("image_types", type: .array(.string))
 				.required()
@@ -64,7 +64,7 @@ let server = Group("Server") {
 				.doc("The version of Smithereen running on this server.")
 			FieldDef("policy", type: .string)
 				.doc("The server policy, as displayed on /system/about (HTML).")
-			
+
 			FieldDef("rules", type: .array(.def(serverRule)))
 				.required()
 				.doc("""
@@ -72,7 +72,7 @@ let server = Group("Server") {
 					strings will be different depending on the language
 					(the `lang` parameter or the current user’s setting).
 					""")
-			
+
 			FieldDef("admin_email", type: .string)
 				.doc("The server administrator’s email.")
 
@@ -104,11 +104,45 @@ let server = Group("Server") {
 					Information about the limitations that this server imposes
 					on uploaded files.
 					""")
-			
+
 			FieldDef("stats", type: .def(statsStruct))
 				.required()
 				.doc("Server statistics.")
 		}
 	}
 	.doc("Returns information about this server.")
+
+	let restriction = EnumDef<String>("ServerRestriction") {
+		EnumCaseDef("suspension")
+			.doc("Complete defederation – no communication with this server is possible.")
+	}
+
+	let restrictedServerStruct = StructDef("RestrictedServer") {
+		FieldDef("domain", type: .string)
+			.required()
+			.doc("The domain name of the server. May be partially masked with `*`s.")
+
+		FieldDef("reason", type: .string)
+			.doc("The reason for restriction provided by this server’s administrators.")
+
+		FieldDef("restriction", type: .def(restriction))
+			.required()
+			.doc("The type of restriction applied.")
+	}
+
+	RequestDef("server.getRestrictedServers", resultType: .paginatedList(.def(restrictedServerStruct))) {
+		FieldDef("offset", type: .int)
+			.doc("Offset into the list of restricted servers.")
+
+		FieldDef("count", type: .int)
+			.doc("""
+				How many of the restricted servers to return.
+
+				By default, all servers are returned.
+				""")
+
+		restriction
+		restrictedServerStruct
+	}
+	.doc("Returns the list of servers for which there are federation restrictions.")
 }

@@ -163,4 +163,16 @@ let photos = Group("Photos") {
 	}
 	.doc("Deletes a comment on a photo.")
 	.requiresPermissions("photos")
+
+	RequestDef("photos.edit", resultType: .void) {
+		FieldDef("photo_id", type: .def(photoID))
+			.required()
+			.doc("Identifier of the photo to be updated.")
+		FieldDef("caption", type: .string)
+			.doc("The new caption.")
+		FieldDef("text_format", type: .def(textFormat))
+			.doc("The format of the text in ``caption``.")
+	}
+	.doc("Updates the caption of a photo.")
+	.requiresPermissions("photos")
 }

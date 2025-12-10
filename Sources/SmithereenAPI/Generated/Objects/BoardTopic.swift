@@ -14,8 +14,7 @@ public struct BoardTopic: Hashable, Codable, Sendable, Identifiable {
 
 	/// Globally unique ActivityPub identifier for this topic.
 	/// Use this to match topics across servers.
-	/// Always non-nil for Smithereen, always nil for OpenVK
-	public var activityPubID: URL?
+	public var activityPubID: URL
 
 	/// The URL of the web page representing this topic.
 	/// For topics in remote groups, points to the group’s home server.
@@ -39,11 +38,9 @@ public struct BoardTopic: Hashable, Codable, Sendable, Identifiable {
 	public var updatedBy: UserID
 
 	/// Whether this topic is closed so no further posts can be made.
-	@LenientBool
 	public var isClosed: Bool
 
 	/// Whether this topic is pinned at the top of the discussion board.
-	@LenientBool
 	public var isPinned: Bool
 
 	/// The total number of posts in this topic.
@@ -55,7 +52,7 @@ public struct BoardTopic: Hashable, Codable, Sendable, Identifiable {
 	public init(
 		id: BoardTopicID,
 		groupID: GroupID,
-		activityPubID: URL? = nil,
+		activityPubID: URL,
 		url: URL,
 		title: String,
 		created: Date,

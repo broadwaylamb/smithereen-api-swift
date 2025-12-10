@@ -20,6 +20,5 @@ let package = Package(
 	targets: [
 		.target(name: "SmithereenAPIInternals"),
 		.target(name: "SmithereenAPI", dependencies: ["Hammond", "SmithereenAPIInternals"]),
-		.testTarget(name: "SmithereenAPITests", dependencies: ["SmithereenAPIInternals"])
 	]
 )

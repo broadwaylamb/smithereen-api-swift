@@ -7,16 +7,12 @@ struct FieldDef: Documentable, HasSerialName {
 	var doc: String?
 	var isIdentifier: Bool = false
 	var propertyWrappers: [String] = []
-	var alternativeSerialNames: [String] = []
 	var isExcludedFromFields: Bool = false
 	var isFlattened: Bool = false
 
 	init(_ serialName: String, type: TypeRef) {
 		self.serialName = serialName
 		self.type = type.optional()
-		if type.optional(false) == .bool {
-			propertyWrappers.append("LenientBool")
-		}
 		if type.optional(false) == .unixTimestamp {
 			propertyWrappers.append("UnixTimestamp")
 		}
@@ -28,10 +24,6 @@ struct FieldDef: Documentable, HasSerialName {
 
 	func id() -> FieldDef {
 		copyWith(self, \.isIdentifier, true)
-	}
-
-	func alternativeNames(_ names: String...) -> FieldDef {
-		copyWith(self, \.alternativeSerialNames, names)
 	}
 
 	func excludeFromFields() -> FieldDef {

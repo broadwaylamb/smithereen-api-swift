@@ -54,7 +54,7 @@ let user = StructDef("User") {
 
 	FieldDef("home_town", type: .string)
 		.optionalFieldDoc("User’s hometown.")
-	
+
 	let relationDoc = "User’s relationship status."
 
 	FieldDef("relation", type: TypeRef(name: "RelationshipStatus"))
@@ -74,8 +74,6 @@ let user = StructDef("User") {
 			.doc("Actively searching")
 		EnumCaseDef("in_love", additionalRepresentation: 7)
 			.doc("In love")
-		EnumCaseDef("in_civil_marriage", additionalRepresentation: 8)
-			.doc("In civil marriage. OpenVK only, not supported in Smithereen")
 	}
 	.doc(relationDoc)
 
@@ -147,7 +145,7 @@ let user = StructDef("User") {
 	FieldDef("connections", type: .def(connectionsStruct))
 		.optionalFieldDoc(connectionsStruct.doc)
 	connectionsStruct
-	
+
 	FieldDef("site", type: .url)
 		.optionalFieldDoc("User’s personal website.")
 
@@ -172,7 +170,7 @@ let user = StructDef("User") {
 
 	FieldDef("personal", type: TypeRef(name: "PersonalViews"))
 		.optionalFieldDoc(personalDoc)
-		
+
 	StructDef("PersonalViews") {
 		FieldDef("political", type: TypeRef(name: "PoliticalViews"))
 			.doc("Political views.")
@@ -236,7 +234,7 @@ let user = StructDef("User") {
 			Whether the user is currently online from a mobile device.
 			Request by passing ``Fields/online``.
 			""")
-	
+
 	let lastSeenDoc = """
 		If the user is currently offline, information about when they
 		were last online.
@@ -255,11 +253,9 @@ let user = StructDef("User") {
 	.doc(lastSeenDoc)
 
 	FieldDef("blocked", type: .bool)
-		.alternativeNames("blacklisted")
 		.optionalFieldDoc("Whether the current user is blocked by this user.")
 
 	FieldDef("blocked_by_me", type: .bool)
-		.alternativeNames("blacklisted_by_me")
 		.optionalFieldDoc("Whether this user is blocked by the current user.")
 
 	FieldDef("can_post", type: .bool)
@@ -355,8 +351,7 @@ let user = StructDef("User") {
 	}
 
 	FieldDef("counters", type: TypeRef(name: "Counters"))
-		.alternativeNames("correct_counters")
-		
+
 	StructDef("Counters") {
 		let fields = [
 			"albums",

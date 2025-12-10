@@ -17,11 +17,9 @@ extension Likes {
 		public struct Result: Hashable, Codable, Sendable {
 
 			/// Whether the user likes this object.
-			@LenientBool
 			public var liked: Bool
 
 			/// Whether the user has reposted this post or comment.
-			@LenientBool
 			public var reposted: Bool?
 
 			public init(

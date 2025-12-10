@@ -50,7 +50,6 @@ extension Newsfeed {
 
 		/// Whether to include updates from muted users.
 		/// By default `false`.
-		@LenientBool
 		public var returnBanned: Bool?
 
 		/// An opaque string required for pagination, returned as

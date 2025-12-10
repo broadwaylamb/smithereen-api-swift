@@ -20,7 +20,6 @@ extension Groups {
 		public var count: Int?
 
 		/// Whether to also return users that sent the invitations.
-		@LenientBool
 		public var extended: Bool?
 
 		/// A list of group profile fields to return.

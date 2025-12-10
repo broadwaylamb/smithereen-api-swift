@@ -10,8 +10,7 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 
 	/// Globally unique ActivityPub identifier for this photo.
 	/// Use this to match photos across servers.
-	/// Always non-nil for Smithereen, always nil for OpenVK
-	public var activityPubID: URL?
+	public var activityPubID: URL
 
 	/// The URL of the web page representing this photo.
 	/// For photos uploaded by remote users, points to their home server.
@@ -128,7 +127,6 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: this field is returned by some `photos.*` methods
 	/// 	which take the `extended` parameter, when that parameter is set
 	/// 	to `true`.
-	@LenientBool
 	public var canComment: Bool?
 
 	/// The total number of people tagged in this photo.
@@ -152,7 +150,7 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 
 	public init(
 		id: PhotoID,
-		activityPubID: URL? = nil,
+		activityPubID: URL,
 		url: URL,
 		albumID: PhotoAlbumID? = nil,
 		ownerID: ActorID,

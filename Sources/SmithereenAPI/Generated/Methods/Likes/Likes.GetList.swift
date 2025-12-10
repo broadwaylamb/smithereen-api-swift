@@ -13,12 +13,10 @@ extension Likes {
 
 		/// Whether to only return likes by the current user’s friends.
 		/// By default `false`.
-		@LenientBool
 		public var friendsOnly: Bool?
 
 		/// Whether to omit the current user from the list.
 		/// By default `false`.
-		@LenientBool
 		public var skipOwn: Bool?
 
 		/// Offset into the user list for pagination.
@@ -35,12 +33,10 @@ extension Likes {
 
 			/// Whether to only return likes by the current user’s friends.
 			/// By default `false`.
-			@LenientBool
 			public var friendsOnly: Bool?
 
 			/// Whether to omit the current user from the list.
 			/// By default `false`.
-			@LenientBool
 			public var skipOwn: Bool?
 
 			/// Offset into the user list for pagination.

@@ -52,30 +52,24 @@ extension Groups {
 		/// Whether to also return information about join requests and
 		/// invitations.
 		/// By default `false`.
-		@LenientBool
 		public var extended: Bool?
 
 		public struct Membership: Hashable, Codable, Sendable {
 			public var userID: UserID
-
-			@LenientBool
 			public var member: Bool
 
 			/// Whether there’s a pending join request from this user
 			/// (only returned with a token with `groups:read` permission,
 			/// for group admins or moderators).
-			@LenientBool
 			public var request: Bool?
 
 			/// Whether this user is invited into this group or event
 			/// (only returned with a token with `groups:read` permission,
 			/// for group admins or moderators).
-			@LenientBool
 			public var invitation: Bool?
 
 			/// Whether the current user can invite this user to this group or
 			/// event.
-			@LenientBool
 			public var canInvite: Bool?
 
 			public init(

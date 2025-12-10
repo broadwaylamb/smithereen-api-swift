@@ -20,8 +20,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 
 	/// Globally unique ActivityPub identifier for this user.
 	/// Use this to match users across servers.
-	/// Always non-nil for Smithereen, always nil for OpenVK
-	public var activityPubID: URL?
+	public var activityPubID: URL
 
 	/// For a user from a remote server, the domain of their home server.
 	/// - Note: This is an **optional** field.
@@ -151,9 +150,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// In love
 		public static let inLove = Self(rawValue: "in_love")
 
-		/// In civil marriage. OpenVK only, not supported in Smithereen
-		public static let inCivilMarriage = Self(rawValue: "in_civil_marriage")
-
 		public static let allCases: [RelationshipStatus] = [
 			.single,
 			.inRelationship,
@@ -162,7 +158,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			.complicated,
 			.activelySearching,
 			.inLove,
-			.inCivilMarriage,
 		]
 
 		public init(from decoder: Decoder) throws {
@@ -186,8 +181,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 					self = .activelySearching
 				case 7:
 					self = .inLove
-				case 8:
-					self = .inCivilMarriage
 				default:
 					self = Self(rawValue: String(intValue))
 				}
@@ -694,12 +687,10 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
-	@LenientBool
 	public var online: Bool?
 
 	/// Whether the user is currently online from a mobile device.
 	/// Request by passing ``Fields/online``.
-	@LenientBool
 	public var onlineMobile: Bool?
 
 	/// If the user is currently offline, information about when they
@@ -733,21 +724,18 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
-	@LenientBool
 	public var blocked: Bool?
 
 	/// Whether this user is blocked by the current user.
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
-	@LenientBool
 	public var blockedByMe: Bool?
 
 	/// Whether the current user can post on this user’s wall.
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
-	@LenientBool
 	public var canPost: Bool?
 
 	/// Whether the current user is allowed see all posts on this user’s
@@ -755,7 +743,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
-	@LenientBool
 	public var canSeeAllPosts: Bool?
 
 	/// If `true`, you can send a friend request to this user.
@@ -763,7 +750,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
-	@LenientBool
 	public var canSendFriendRequest: Bool?
 
 	/// Whether the current user is allowed send private messages to this
@@ -771,7 +757,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
-	@LenientBool
 	public var canWritePrivateMessage: Bool?
 
 	/// The number of mutual friends between this user and the current user.
@@ -842,10 +827,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
-	@LenientBool
 	public var isFriend: Bool?
-
-	@LenientBool
 	public var isFavorite: Bool?
 
 	/// The current user’s friend list IDs that this user is in.
@@ -860,7 +842,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
-	@LenientBool
 	public var isHiddenFromFeed: Bool?
 	public var followersCount: Int?
 
@@ -869,7 +850,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
-	@LenientBool
 	public var isNoIndex: Bool?
 
 	/// How this user’s wall should be displayed by default.
@@ -1606,7 +1586,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		firstName: String,
 		lastName: String? = nil,
 		deactivated: DeactivatedStatus? = nil,
-		activityPubID: URL? = nil,
+		activityPubID: URL,
 		domain: String? = nil,
 		screenName: String? = nil,
 		status: String? = nil,

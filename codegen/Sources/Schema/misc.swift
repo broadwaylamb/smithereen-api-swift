@@ -117,14 +117,13 @@ func deactivatedStatusField(_ entity: String) -> FieldDef {
 
 func activityPubIDField(_ entity: String) -> FieldDef {
 	FieldDef("ap_id", type: .url)
+		.required()
 		.excludeFromFields()
 		.swiftName("activityPubID")
 		.doc(
 			"""
 			Globally unique ActivityPub identifier for this \(entity).
 			Use this to match \(entity)s across servers.
-
-			Always non-nil for Smithereen, always nil for OpenVK
 			""")
 }
 

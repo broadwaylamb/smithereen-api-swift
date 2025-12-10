@@ -28,12 +28,10 @@ extension Friends {
 			/// Whether to return the messages specified by the users who sent
 			/// the friend requests.
 			/// By default `false`.
-			@LenientBool
 			public var extended: Bool?
 
 			/// Whether to return information about mutual friends for each
 			/// friend request.
-			@LenientBool
 			public var needMutual: Bool?
 
 			/// A list of user profile fields to be returned.

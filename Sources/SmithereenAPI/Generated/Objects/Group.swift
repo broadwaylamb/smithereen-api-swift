@@ -17,8 +17,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 	/// Globally unique ActivityPub identifier for this group.
 	/// Use this to match groups across servers.
-	/// Always non-nil for Smithereen, always nil for OpenVK
-	public var activityPubID: URL?
+	public var activityPubID: URL
 
 	/// Determines how new members can join this group and what is visible
 	/// to non-members.
@@ -121,7 +120,6 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
-	@LenientBool
 	public var isAdmin: Bool?
 
 	/// The privilege level of the current user, if `isAdmin` is `true`.
@@ -151,7 +149,6 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
-	@LenientBool
 	public var isMember: Bool?
 
 	/// URL of a square 50x50 version of the profile picture.
@@ -204,14 +201,12 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
-	@LenientBool
 	public var canCreateTopic: Bool?
 
 	/// Whether the current user can create new posts on this group’s wall.
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
-	@LenientBool
 	public var canPost: Bool?
 
 	/// Information about users who manage this group.
@@ -284,7 +279,6 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
-	@LenientBool
 	public var hasPhoto: Bool?
 
 	/// Whether this group is in the current user’s bookmarks.
@@ -292,7 +286,6 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
-	@LenientBool
 	public var isFavorite: Bool?
 
 	/// Information from the “Links” block in this group.
@@ -638,7 +631,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		id: GroupID,
 		name: String,
 		deactivated: DeactivatedStatus? = nil,
-		activityPubID: URL? = nil,
+		activityPubID: URL,
 		accessType: AccessType,
 		type: GroupType,
 		domain: String? = nil,

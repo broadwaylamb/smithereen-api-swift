@@ -17,8 +17,7 @@ public struct Comment: Hashable, Codable, Sendable, Identifiable {
 
 	/// Globally unique ActivityPub identifier for this comment.
 	/// Use this to match comments across servers.
-	/// Always non-nil for Smithereen, always nil for OpenVK
-	public var activityPubID: URL?
+	public var activityPubID: URL
 
 	/// The URL of the web page representing this comment.
 	/// For comments made by remote users, points to their home server.
@@ -44,11 +43,9 @@ public struct Comment: Hashable, Codable, Sendable, Identifiable {
 	public var contentWarning: String?
 
 	/// Whether the current user can delete this comment.
-	@LenientBool
 	public var canDelete: Bool
 
 	/// Whether the current user can edit this comment.
-	@LenientBool
 	public var canEdit: Bool
 
 	/// An array of user IDs corresponding to users mentioned in this comment.
@@ -99,7 +96,7 @@ public struct Comment: Hashable, Codable, Sendable, Identifiable {
 		id: CommentID,
 		ownerID: ActorID,
 		fromID: ActorID,
-		activityPubID: URL? = nil,
+		activityPubID: URL,
 		url: URL,
 		date: Date,
 		text: String? = nil,

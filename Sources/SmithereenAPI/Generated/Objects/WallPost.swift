@@ -17,8 +17,7 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 
 	/// Globally unique ActivityPub identifier for this post.
 	/// Use this to match posts across servers.
-	/// Always non-nil for Smithereen, always nil for OpenVK
-	public var activityPubID: URL?
+	public var activityPubID: URL
 
 	/// The URL of the web page representing this post.
 	/// For posts made by remote users, points to their home server.
@@ -44,11 +43,9 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 	public var contentWarning: String?
 
 	/// Whether the current user can delete this post.
-	@LenientBool
 	public var canDelete: Bool
 
 	/// Whether the current user can edit this post.
-	@LenientBool
 	public var canEdit: Bool
 
 	/// An array of user IDs corresponding to users mentioned in this post.
@@ -128,11 +125,9 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 		public var count: Int
 
 		/// Whether the current user can repost this post.
-		@LenientBool
 		public var canRepost: Bool
 
 		/// Whether the current user has reposted this post.
-		@LenientBool
 		public var userReposted: Bool
 
 		public init(
@@ -162,7 +157,6 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 		public var count: Int
 
 		/// Whether the current user can comment on this post.
-		@LenientBool
 		public var canPost: Bool
 
 		public init(
@@ -194,24 +188,21 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 	/// It’s also recommended display such posts with some indication in
 	/// the UI that the user will interact with the original post.
 	/// - Note: Only returned for top-level posts.
-	@LenientBool
 	public var isMastodonStyleRepost: Bool?
 
 	/// Whether the current user can pin this post to their wall.
 	/// - Note: Only returned for top-level posts.
-	@LenientBool
 	public var canPin: Bool?
 
 	/// Whether this post is pinned on its owner’s wall.
 	/// - Note: Only returned for top-level posts.
-	@LenientBool
 	public var isPinned: Bool?
 
 	public init(
 		id: WallPostID,
 		ownerID: ActorID,
 		fromID: ActorID,
-		activityPubID: URL? = nil,
+		activityPubID: URL,
 		url: URL,
 		date: Date,
 		text: String? = nil,

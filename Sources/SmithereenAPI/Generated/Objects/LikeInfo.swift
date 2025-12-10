@@ -9,11 +9,9 @@ public struct LikeInfo: Hashable, Codable, Sendable {
 	public var count: Int
 
 	/// Whether the current user can like this object.
-	@LenientBool
 	public var canLike: Bool
 
 	/// Whether the current user likes this photo.
-	@LenientBool
 	public var userLikes: Bool?
 
 	public init(

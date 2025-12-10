@@ -10,8 +10,7 @@ public struct PhotoAlbum: Hashable, Codable, Sendable, Identifiable {
 
 	/// Globally unique ActivityPub identifier for this album.
 	/// Use this to match albums across servers.
-	/// Always non-nil for Smithereen, always nil for OpenVK
-	public var activityPubID: URL?
+	public var activityPubID: URL
 
 	/// The URL of the web page representing this album.
 	/// For albums owned by remote actors, points to their home server.
@@ -24,7 +23,6 @@ public struct PhotoAlbum: Hashable, Codable, Sendable, Identifiable {
 	/// special purposes, like “profile pictures” or “saved photos”.
 	/// They can’t be edited or deleted, and photos can’t be arbitrarily
 	/// uploaded to them.
-	@LenientBool
 	public var isSystem: Bool
 
 	/// The title of this album.
@@ -61,22 +59,19 @@ public struct PhotoAlbum: Hashable, Codable, Sendable, Identifiable {
 
 	/// Whether the current user can upload new photos to this album.
 	/// Only returned for non-system group albums.
-	@LenientBool
 	public var canUpload: Bool?
 
 	/// Whether uploading new photos to this album is restricted to the group managers.
 	/// Only returned for non-system albums in groups managed by the current user.
-	@LenientBool
 	public var uploadsByAdminsOnly: Bool?
 
 	/// Whether commenting on photos in this album is disabled.
 	/// Only returned for non-system albums in groups managed by the current user.
-	@LenientBool
 	public var commentsDisabled: Bool?
 
 	public init(
 		id: PhotoAlbumID,
-		activityPubID: URL? = nil,
+		activityPubID: URL,
 		url: URL,
 		ownerID: ActorID,
 		isSystem: Bool,

@@ -14,7 +14,6 @@ public struct FriendList: Hashable, Codable, Sendable, Identifiable {
 	/// Whether this is a public/system list. Such lists are visible to
 	/// everyone, can’t be deleted, and and have localized names that
 	/// can’t be edited.
-	@LenientBool
 	public var isSystem: Bool
 
 	public init(

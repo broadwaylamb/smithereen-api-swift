@@ -14,7 +14,6 @@ extension Friends {
 		public var userIDs: [UserID]
 
 		/// Whether to return ``FriendshipInfo/isRequestUnread``.
-		@LenientBool
 		public var extended: Bool
 
 		public struct FriendshipInfo: Hashable, Codable, Sendable {
@@ -80,7 +79,6 @@ extension Friends {
 			/// Whether there’s an incoming friend request from this user.
 			/// Only returned when ``extended`` is `true` and ``friendStatus``
 			/// is ``followedBy``.
-			@LenientBool
 			public var isRequestUnread: Bool?
 
 			public init(

@@ -3,11 +3,11 @@ let group = StructDef("Group") {
 		.id()
 		.required()
 		.doc("Unique (within the server) identifier for this group.")
-	
+
 	FieldDef("name", type: .string)
 		.required()
 		.doc("The name of this group or event.")
-	
+
 	deactivatedStatusField("group")
 	activityPubIDField("group")
 
@@ -33,7 +33,6 @@ let group = StructDef("Group") {
 		""")
 
 	FieldDef("access_type", type: .def(accessTypeEnum))
-		.alternativeNames("is_closed")
 		.required()
 		.doc(accessTypeEnum.doc)
 	accessTypeEnum
@@ -42,7 +41,7 @@ let group = StructDef("Group") {
 		EnumCaseDef("group")
 		EnumCaseDef("event")
 	}
-	
+
 	FieldDef("type", type: .def(groupTypeEnum))
 		.required()
 		.doc("The type of this community.")
@@ -52,14 +51,14 @@ let group = StructDef("Group") {
 		.optionalFieldDoc(
 			"For a group from a remote server, the domain of its home server."
 		)
-	
+
 	FieldDef("screen_name", type: .string)
 		.optionalFieldDoc("""
 			The profile URL a.k.a. the username.
 			If the community doesn’t have one set, defaults to `clubXXX`
 			for groups and `eventXXX` for events.
 			""")
-	
+
 	statusField("group")
 
 	FieldDef("url", type: .url)
@@ -67,10 +66,10 @@ let group = StructDef("Group") {
 			The URL of this group’s profile page on the web.
 			For remote groups, this points to its home server.
 			""")
-	
+
 	FieldDef("is_admin", type: .bool)
 		.optionalFieldDoc("Whether the current user can manage this group.")
-	
+
 	let adminLevelEnum = EnumDef<String>("AdminLevel") {
 		EnumCaseDef("moderator")
 		EnumCaseDef("admin")
@@ -87,7 +86,7 @@ let group = StructDef("Group") {
 		.optionalFieldDoc(
 			"Whether the current user is a member of this group."
 		)
-	
+
 	profilePictureFields("group")
 
 	FieldDef("can_create_topic", type: .bool)
@@ -95,12 +94,12 @@ let group = StructDef("Group") {
 			Whether the current user can create new discussion board topics
 			in this group.
 			""")
-		
+
 	FieldDef("can_post", type: .bool)
 		.optionalFieldDoc("""
 			Whether the current user can create new posts on this group’s wall.
 			""")
-	
+
 	FieldDef("management", type: TypeRef(name: "[ManagementItem]"))
 		.optionalFieldDoc("""
 			Information about users who manage this group.
@@ -137,16 +136,16 @@ let group = StructDef("Group") {
 
 	FieldDef("description", type: .string)
 		.optionalFieldDoc("The description text of this group, as HTML.")
-	
+
 	FieldDef("has_photo", type: .bool)
 		.optionalFieldDoc("Whether this group has a profile picture.")
-	
+
 	FieldDef("is_favorite", type: .bool)
 		.optionalFieldDoc("""
 			Whether this group is in the current user’s bookmarks.
 			Requires the `likes:read` permission.
 			""")
-	
+
 	let linkStruct = StructDef("Link") {
 		FieldDef("id", type: .def(groupLinkID))
 			.id()
@@ -161,7 +160,7 @@ let group = StructDef("Group") {
 		FieldDef("description", type: .string)
 			.required()
 			.doc("The description of this link.")
-		
+
 		for size in photoSizes(50, 100, 200) {
 			FieldDef("photo_\(size)", type: .url)
 				.doc("\(size)x\(size) preview image URL.")
@@ -203,13 +202,13 @@ let group = StructDef("Group") {
 			The name of the place and/or address where this event will take
 			place.
 			""")
-	
+
 	FieldDef("site", type: .string)
 		.optionalFieldDoc("The website URL from the group’s profile.")
-	
+
 	FieldDef("start_date", type: .unixTimestamp)
 		.optionalFieldDoc("The time when the event starts.")
-	
+
 	FieldDef("finish_date", type: .unixTimestamp)
 		.optionalFieldDoc("The time when the event ends.")
 }

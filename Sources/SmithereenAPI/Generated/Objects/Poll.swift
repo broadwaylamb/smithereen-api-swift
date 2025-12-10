@@ -54,11 +54,9 @@ public struct Poll: Hashable, Codable, Sendable, Identifiable {
 
 	/// Whether this poll is anonymous (i.e. no one can see who voted on it
 	/// and for what).
-	@LenientBool
 	public var anonymous: Bool
 
 	/// Whether this poll is multiple-choice.
-	@LenientBool
 	public var multiple: Bool
 
 	/// If the current user has voted in this poll, the IDs of the options
@@ -71,15 +69,12 @@ public struct Poll: Hashable, Codable, Sendable, Identifiable {
 	public var endDate: Date
 
 	/// Whether this poll has ended.
-	@LenientBool
 	public var closed: Bool
 
 	/// Whether the current user can edit this poll.
-	@LenientBool
 	public var canEdit: Bool
 
 	/// Whether the current user can vote in this poll.
-	@LenientBool
 	public var canVote: Bool
 
 	/// The identifier of the author of this poll.

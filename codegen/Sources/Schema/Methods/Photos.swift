@@ -155,4 +155,12 @@ let photos = Group("Photos") {
 	}
 	.doc("Deletes a photo album.")
 	.requiresPermissions("photos")
+
+	RequestDef("photos.deleteComment", resultType: .void) {
+		FieldDef("comment_id", type: .def(commentID))
+			.required()
+			.doc("Identifier of the comment to delete.")
+	}
+	.doc("Deletes a comment on a photo.")
+	.requiresPermissions("photos")
 }

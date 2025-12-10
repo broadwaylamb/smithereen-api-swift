@@ -25,4 +25,17 @@ let photos = Group("Photos") {
 	}
 	.doc("Confirms the current user’s tag on a photo.")
 	.requiresPermissions("photos")
+
+	RequestDef("photos.copy", resultType: .def(photoID)) {
+		FieldDef("photo_id", type: .def(photoID))
+			.required()
+			.doc("The identifier of the photo to be copied.")
+	}
+	.doc("""
+		Saves a copy of a photo to the current user’s “Saved photos” album.
+
+		Returns the identifier of the photo that was created in
+		the “Saved photos” album.
+		""")
+	.requiresPermissions("photos")
 }

@@ -26,7 +26,7 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 		public static let userAuthorizationFailed = Self(rawValue: 5)
 
 		/// You made more than 3 requests per second per token
-		/// (for authenticated requests) or per IPv4 address or IPv6 /64 
+		/// (for authenticated requests) or per IPv4 address or IPv6 /64
 		/// (for anonymous requests). If you need to make multiple requests
 		/// in a quick succession, use the ``Execute`` method.
 		public static let tooManyRequestsPerSecond = Self(rawValue: 6)
@@ -47,7 +47,7 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 		/// The server was unable to complete your request because of a bug
 		/// or a misconfiguration. Try again later, and if the error
 		/// persists, report it to the server staff.
-		/// If this is your server, see the server log 
+		/// If this is your server, see the server log
 		/// (`journalctl -u smithereen.service`) for details.
 		public static let internalServerError = Self(rawValue: 10)
 
@@ -97,6 +97,9 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 		/// Too many friends.
 		public static let tooManyFriends = Self(rawValue: 242)
 
+		/// Too many photo albums.
+		public static let tooManyPhotoAlbums = Self(rawValue: 302)
+
 		public static let allCases: [Code] = [
 			.other,
 			.unknownMethodPassed,
@@ -118,6 +121,7 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 			.cantAddAsFriendBecauseUserBlockedYou,
 			.cantAddAsFriendBecauseYouBlockedUser,
 			.tooManyFriends,
+			.tooManyPhotoAlbums,
 		]
 	}
 	public var message: String

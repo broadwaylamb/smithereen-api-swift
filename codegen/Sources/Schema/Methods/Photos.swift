@@ -38,4 +38,52 @@ let photos = Group("Photos") {
 		the “Saved photos” album.
 		""")
 	.requiresPermissions("photos")
+
+	RequestDef("photos.createAlbum", resultType: .def(photoAlbum)) {
+		FieldDef("title", type: .string)
+			.required()
+			.doc("The title of the album.")
+
+		FieldDef("description", type: .string)
+			.doc("The description of the album.")
+
+		FieldDef("group_id", type: .def(groupID))
+			.doc("""
+				If creating an album in a group, the identifier of that group.
+				Omit this parameter to create an album in the currentuser’s
+				profile.
+				""")
+
+		FieldDef("privacy_view", type: .def(privacySetting))
+			.doc("""
+				For a user-owned album, privacy setting determining who can
+				view this album.
+				By default, the album is publicly viewable.
+				""")
+
+		FieldDef("privacy_comment", type: .def(privacySetting))
+			.doc("""
+				For a user-owned album, privacy setting determining who can
+				comment on photos in this album.
+				By default, anyone can comment.
+				""")
+
+		FieldDef("upload_by_admins_only", type: .bool)
+			.doc("""
+				For a group-owned album, whether uploading new photos is
+				restricted to group managers.
+
+				By default `false`.
+				""")
+
+		FieldDef("comments_disabled", type: .bool)
+			.doc("""
+				For a group-owned album, whether commenting on photos in
+				this album is disabled
+
+				By default `false`..
+				""")
+	}
+	.doc("Creates a new photo album.")
+	.requiresPermissions("photos")
 }

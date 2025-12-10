@@ -17,7 +17,7 @@ let error = StructDef("SmithereenAPIError") {
 		EnumCaseDef(6, swiftName: "tooManyRequestsPerSecond")
 			.doc("""
 				You made more than 3 requests per second per token
-				(for authenticated requests) or per IPv4 address or IPv6 /64 
+				(for authenticated requests) or per IPv4 address or IPv6 /64
 				(for anonymous requests). If you need to make multiple requests
 				in a quick succession, use the ``Execute`` method.
 				""")
@@ -42,7 +42,7 @@ let error = StructDef("SmithereenAPIError") {
 				The server was unable to complete your request because of a bug
 				or a misconfiguration. Try again later, and if the error
 				persists, report it to the server staff.
-				If this is your server, see the server log 
+				If this is your server, see the server log
 				(`journalctl -u smithereen.service`) for details.
 				""")
 		EnumCaseDef(12, swiftName: "executeFailedToCompile")
@@ -93,6 +93,8 @@ let error = StructDef("SmithereenAPIError") {
 			.doc("Can't add this user as a friend because you blocked them.")
 		EnumCaseDef(242, swiftName: "tooManyFriends")
 			.doc("Too many friends.")
+		EnumCaseDef(302, swiftName: "tooManyPhotoAlbums")
+			.doc("Too many photo albums.")
 	}
 	FieldDef("error_code", type: .def(codeEnum))
 		.required()
@@ -102,7 +104,7 @@ let error = StructDef("SmithereenAPIError") {
 	FieldDef("error_msg", type: .string)
 		.required()
 		.swiftName("message")
-	
+
 	FieldDef("request_params", type: .dict(key: .string, value: .string))
 
 	FieldDef("method", type: .string)

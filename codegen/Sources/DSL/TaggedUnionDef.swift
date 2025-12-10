@@ -3,12 +3,16 @@ import SwiftSyntax
 struct TaggedUnionDef: Documentable {
 	var name: String
 	var doc: String?
-	var variants: [TaggedUnionVariantDef]
+	var decls: [any TaggedUnionDefPart]
 	var isFrozen: Bool = false
 
 	init(_ name: String, @TaggedUnionDefBuilder build: () -> any TaggedUnionDefPart) {
 		self.name = name
-		self.variants = build().components
+		self.decls = build().taggedUnionComponents
+	}
+
+	var variants: [TaggedUnionVariantDef] {
+		decls.compactMap { $0 as? TaggedUnionVariantDef }
 	}
 
 	func frozen() -> TaggedUnionDef {
@@ -23,16 +27,17 @@ struct TaggedUnionDefBuilder {
 	}
 
 	static func buildBlock(_ components: any TaggedUnionDefPart...) -> any TaggedUnionDefPart {
-		return CompositeTaggedUnionDefPart(components: components.flatMap { $0.components })
+		return CompositeTaggedUnionDefPart(taggedUnionComponents: components.flatMap { $0.taggedUnionComponents })
 	}
 
 	static func buildArray(_ components: [any TaggedUnionDefPart]) -> any TaggedUnionDefPart {
-		return CompositeTaggedUnionDefPart(components: components.flatMap { $0.components })
+		return CompositeTaggedUnionDefPart(taggedUnionComponents: components.flatMap { $0.taggedUnionComponents })
 	}
 }
 
 protocol TaggedUnionDefPart: Sendable {
-	var components: [TaggedUnionVariantDef] { get }
+	var taggedUnionComponents: [any TaggedUnionDefPart] { get }
+	func accept(_ visitor: PrinterVisitor) -> any DeclSyntaxProtocol
 }
 
 extension TaggedUnionDef: StructDefPart {
@@ -48,7 +53,10 @@ extension TaggedUnionDef: GroupPart {
 }
 
 private struct CompositeTaggedUnionDefPart: TaggedUnionDefPart {
-	var components: [TaggedUnionVariantDef]
+	var taggedUnionComponents: [any TaggedUnionDefPart]
+	func accept(_ visitor: PrinterVisitor) -> any DeclSyntaxProtocol {
+		fatalError("Not applicable")
+	}
 }
 
 struct TaggedUnionVariantDef: Documentable, HasSerialName {
@@ -57,6 +65,7 @@ struct TaggedUnionVariantDef: Documentable, HasSerialName {
 	var customSwiftName: String?
 	var doc: String?
 	var type: TypeRef
+	var isFlattened = false
 
 	var payloadFieldName: String {
 		customPayloadFieldName ?? serialName
@@ -67,10 +76,23 @@ struct TaggedUnionVariantDef: Documentable, HasSerialName {
 		self.customPayloadFieldName = payloadFieldName
 		self.type = type
 	}
+
+	func flatten() -> TaggedUnionVariantDef {
+		copyWith(self, \.isFlattened, true)
+	}
 }
 
 extension TaggedUnionVariantDef: TaggedUnionDefPart {
-	var components: [TaggedUnionVariantDef] {
+	var taggedUnionComponents: [any TaggedUnionDefPart] {
+		[self]
+	}
+	func accept(_ visitor: PrinterVisitor) -> any DeclSyntaxProtocol {
+		visitor.printTaggedUnionVariant(self)
+	}
+}
+
+extension StructDef: TaggedUnionDefPart {
+	var taggedUnionComponents: [any TaggedUnionDefPart] {
 		[self]
 	}
 }

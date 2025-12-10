@@ -9,7 +9,7 @@ extension TypeRef {
 	init(_ type: Any.Type) {
 		self.name = String(describing: type)
 	}
-	
+
 	func optional(_ optional: Bool = true) -> TypeRef {
 		copyWith(self, \.isOptional, optional)
 	}
@@ -30,6 +30,7 @@ extension TypeRef {
 	static let url = TypeRef(URL.self)
 	static let unixTimestamp = TypeRef(Date.self)
 	static let timeZone = TypeRef(TimeZone.self)
+	static let uuid = TypeRef(UUID.self)
 
 	static let hashable = TypeRef(name: "Hashable")
 	static let encodable = TypeRef(name: "Encodable")
@@ -37,6 +38,7 @@ extension TypeRef {
 	static let codable = TypeRef(name: "Codable")
 	static let sendable = TypeRef(name: "Sendable")
 	static let identifier = TypeRef(name: "Identifier")
+	static let rawRepresentable = TypeRef(name: "RawRepresentable")
 
 	static let blurhash = TypeRef(name: "BlurHash")
 	static let likeableObject = TypeRef(name: "LikeableObject")

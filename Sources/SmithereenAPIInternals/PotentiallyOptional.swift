@@ -1,4 +1,4 @@
-public protocol PotentiallyOptional<Wrapped> {
+	public protocol PotentiallyOptional<Wrapped> {
 	associatedtype Wrapped
 
 	var _optional: Wrapped? { get }
@@ -60,7 +60,7 @@ extension PropertyWrapperWithPotentiallyOptional {
 }
 
 extension PropertyWrapperWithPotentiallyOptional {
-	package func encode<R: Encodable>(to encoder: any Encoder, transformValue: (WrappedValue.Wrapped) -> R) throws {
+	package func encode<R: Encodable>(to encoder: any Encoder, transformValue: (WrappedValue.Wrapped) throws -> R) throws {
 		var container = encoder.singleValueContainer()
 		if let value = wrappedValue._optional {
 			try container.encode(transformValue(value))

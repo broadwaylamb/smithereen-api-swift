@@ -354,8 +354,8 @@ struct PrinterVisitor {
 				InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("Sendable")))
 			}
 		) {
-			for variant in def.variants {
-				enumCase(variant, payload: variant.type)
+			for decl in def.decls {
+				decl.accept(self)
 			}
 
 			if !def.isFrozen {
@@ -383,10 +383,17 @@ struct PrinterVisitor {
 							variant.payloadFieldName.convertFromSnakeCase(),
 							context: .memberAccess,
 						)
-						SwitchCaseSyntax("""
-							case "\(raw: variant.serialName)":
-								self = .\(caseName)(try container.decode(\(variant.type.syntax).self, forKey: .\(codingKey)))
-							""")
+						if variant.isFlattened {
+							SwitchCaseSyntax("""
+								case "\(raw: variant.serialName)":
+									self = .\(caseName)(try .init(from: decoder))
+								""")
+						} else {
+							SwitchCaseSyntax("""
+								case "\(raw: variant.serialName)":
+									self = .\(caseName)(try container.decode(\(variant.type.syntax).self, forKey: .\(codingKey)))
+								""")
+						}
 					}
 					if def.isFrozen {
 						SwitchCaseSyntax("""
@@ -432,6 +439,10 @@ struct PrinterVisitor {
 				"try container.encode(tag, forKey: .type)"
 			}
 		}
+	}
+
+	func printTaggedUnionVariant(_ def: TaggedUnionVariantDef) -> EnumCaseDeclSyntax {
+		enumCase(def, payload: def.type)
 	}
 }
 

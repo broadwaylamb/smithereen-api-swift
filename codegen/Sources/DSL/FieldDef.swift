@@ -33,6 +33,12 @@ struct FieldDef: Documentable, HasSerialName {
 	func flatten() -> FieldDef {
 		copyWith(self, \.isFlattened, true)
 	}
+
+	func json() -> FieldDef {
+		var r = self
+		r.propertyWrappers.append("EncodeAsJSONString")
+		return r
+	}
 }
 
 extension FieldDef: StructDefPart {

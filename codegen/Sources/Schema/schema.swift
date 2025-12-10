@@ -15,9 +15,12 @@ let schema = Group {
 		commentID
 		photoFeedEntryID
 		photoTagID
+		uploadedAttachmentID
+		uploadedAttachmentHash
 	}
 	Group("Objects") {
 		attachment
+		attachmentToCreate
 		audio
 		boardTopic
 		comment
@@ -51,5 +54,6 @@ let schema = Group {
 	communityType
 	actorField
 	commentView
+	textFormat
 	error
 }

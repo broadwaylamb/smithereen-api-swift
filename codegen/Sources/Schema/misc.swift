@@ -16,6 +16,16 @@ let commentID = IdentifierStruct("CommentID", rawValue: .string)
 	.doc("And identifier of a comment on anything except a wall post.")
 let photoFeedEntryID = IdentifierStruct("PhotoFeedEntryID", rawValue: .string)
 let photoTagID = IdentifierStruct("PhotoTagID", rawValue: .int)
+let uploadedAttachmentID = IdentifierStruct("UploadedAttachmentID", rawValue: .string)
+	.doc("""
+		The identifier returned by the upload endpoint after
+		[uploading the image](https://smithereen.software/docs/api/uploads).
+		""")
+let uploadedAttachmentHash = IdentifierStruct("UploadedAttachmentHash", rawValue: .string)
+	.doc("""
+		The hash returned by the upload endpoint after
+		[uploading the image](https://smithereen.software/docs/api/uploads).
+		""")
 
 let serverSignupMode = EnumDef<String>("ServerSignupMode") {
 	EnumCaseDef("open")
@@ -105,6 +115,13 @@ let photoFeedUpdate = StructDef("PhotoUpdate") {
 			""")
 }
 .doc("The information about photos added to an album or a user was tagged in.")
+
+let textFormat = EnumDef<String>("TextFormat") {
+	EnumCaseDef("markdown")
+	EnumCaseDef("html")
+	EnumCaseDef("plain")
+}
+.frozen()
 
 func deactivatedStatusField(_ entity: String) -> FieldDef {
 	FieldDef("deactivated", type: .def(deactivatedStatus))

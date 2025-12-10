@@ -139,4 +139,12 @@ let photos = Group("Photos") {
 		Returns the identifier of the newly created comment.
 		""")
 	.requiresPermissions("photos")
+
+	RequestDef("photos.delete", resultType: .void) {
+		FieldDef("photo_id", type: .def(photoID))
+			.required()
+			.doc("Identifier of the photo.")
+	}
+	.doc("Deletes a photo.")
+	.requiresPermissions("photos")
 }

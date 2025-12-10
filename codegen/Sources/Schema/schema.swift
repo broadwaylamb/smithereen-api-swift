@@ -5,7 +5,7 @@ let schema = Group {
 		actorID
 		friendListID
 		photoID
-		albumID
+		photoAlbumID
 		serverRuleID
 		groupLinkID
 		pollID
@@ -28,6 +28,7 @@ let schema = Group {
 		likeInfo
 		likeableObject
 		photo
+		photoAlbum
 		photoFeedUpdate
 		platform
 		poll

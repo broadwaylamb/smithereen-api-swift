@@ -13,7 +13,7 @@ let photo = StructDef("Photo") {
 				For photos uploaded by remote users, points to their home server.
 				""")
 
-	FieldDef("album_id", type: .def(albumID))
+	FieldDef("album_id", type: .def(photoAlbumID))
 		.doc("If this photo is in an album, the identifier of that album.")
 
 	FieldDef("owner_id", type: .def(actorID))

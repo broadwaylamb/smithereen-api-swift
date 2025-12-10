@@ -44,7 +44,7 @@ public struct PhotoID: Identifier {
 	}
 }
 
-public struct AlbumID: Identifier {
+public struct PhotoAlbumID: Identifier {
 	public var rawValue: String
 
 	public init(rawValue: String) {

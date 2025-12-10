@@ -18,7 +18,7 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 	public var url: URL
 
 	/// If this photo is in an album, the identifier of that album.
-	public var albumID: AlbumID?
+	public var albumID: PhotoAlbumID?
 
 	/// The identifier of the owner of this photo.
 	public var ownerID: ActorID
@@ -154,7 +154,7 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 		id: PhotoID,
 		activityPubID: URL? = nil,
 		url: URL,
-		albumID: AlbumID? = nil,
+		albumID: PhotoAlbumID? = nil,
 		ownerID: ActorID,
 		userID: UserID? = nil,
 		text: String? = nil,

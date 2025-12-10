@@ -15,6 +15,7 @@ let schema = Group {
 		photoCommentID
 		topicCommentID
 		photoFeedEntryID
+		photoTagID
 	}
 	Group("Objects") {
 		attachment

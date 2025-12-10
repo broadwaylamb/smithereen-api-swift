@@ -123,3 +123,11 @@ public struct PhotoFeedEntryID: Identifier {
 		self.rawValue = rawValue
 	}
 }
+
+public struct PhotoTagID: Identifier {
+	public var rawValue: Int
+
+	public init(rawValue: Int) {
+		self.rawValue = rawValue
+	}
+}

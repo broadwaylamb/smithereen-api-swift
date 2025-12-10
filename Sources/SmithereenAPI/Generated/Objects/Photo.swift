@@ -39,10 +39,6 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 	/// The [BlurHash](https://blurha.sh/) for the thumbnail.
 	public var blurhash: BlurHash?
 
-	/// Whether there are tagged people in this photo.
-	@LenientBool
-	public var hasTags: Bool
-
 	/// An array describing the differently-sized images available for this
 	/// photo.
 	public var sizes: [Size]
@@ -141,6 +137,19 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 	/// 	to `true`.
 	public var tags: Int?
 
+	/// Identifier of the user who added the tag.
+	/// Returned by the ``Photos/GetNewTags`` method.
+	public var placerID: UserID?
+
+	/// Unixtime of when the tag was created.
+	/// Returned by the ``Photos/GetNewTags`` method.
+	@UnixTimestamp
+	public var tagCreated: Date?
+
+	/// Unixtime of when the tag was created.
+	/// Returned by the ``Photos/GetNewTags`` method.
+	public var tagID: PhotoTagID?
+
 	public init(
 		id: PhotoID,
 		activityPubID: URL? = nil,
@@ -151,7 +160,6 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 		text: String? = nil,
 		date: Date,
 		blurhash: BlurHash? = nil,
-		hasTags: Bool,
 		sizes: [Size],
 		width: Int,
 		height: Int,
@@ -159,6 +167,9 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 		comments: Int? = nil,
 		canComment: Bool? = nil,
 		tags: Int? = nil,
+		placerID: UserID? = nil,
+		tagCreated: Date? = nil,
+		tagID: PhotoTagID? = nil,
 	) {
 		self.id = id
 		self.activityPubID = activityPubID
@@ -169,7 +180,6 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 		self.text = text
 		self.date = date
 		self.blurhash = blurhash
-		self.hasTags = hasTags
 		self.sizes = sizes
 		self.width = width
 		self.height = height
@@ -177,6 +187,9 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 		self.comments = comments
 		self.canComment = canComment
 		self.tags = tags
+		self.placerID = placerID
+		self.tagCreated = tagCreated
+		self.tagID = tagID
 	}
 
 	private enum CodingKeys: String, CodingKey {
@@ -189,7 +202,6 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 		case text
 		case date
 		case blurhash
-		case hasTags = "has_tags"
 		case sizes
 		case width
 		case height
@@ -197,5 +209,8 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 		case comments
 		case canComment = "can_comment"
 		case tags
+		case placerID = "placer_id"
+		case tagCreated = "tag_created"
+		case tagID = "tag_id"
 	}
 }

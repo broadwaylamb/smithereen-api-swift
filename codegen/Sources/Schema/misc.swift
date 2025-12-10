@@ -14,6 +14,7 @@ let wallPostID = IdentifierStruct("WallPostID", rawValue: .int)
 let photoCommentID = IdentifierStruct("PhotoCommentID", rawValue: .string)
 let topicCommentID = IdentifierStruct("TopicCommentID", rawValue: .string)
 let photoFeedEntryID = IdentifierStruct("PhotoFeedEntryID", rawValue: .string)
+let photoTagID = IdentifierStruct("PhotoTagID", rawValue: .int)
 
 let serverSignupMode = EnumDef<String>("ServerSignupMode") {
 	EnumCaseDef("open")
@@ -75,7 +76,7 @@ let communityType = EnumDef<String>("CommunityType") {
 let actorField = EnumDef<String>("ActorField") {
 	let cases = (user.requestableFieldCases + group.requestableFieldCases)
 		.distinct(by: \.swiftName)
-	
+
 	for `case` in cases {
 		`case`
 	}
@@ -137,8 +138,8 @@ func statusField(_ entity: String) -> FieldDef {
 @StructDefBuilder
 func profilePictureFields(_ entity: String) -> any StructDefPart {
 	for size in photoSizes(50, 100, 200, 400, .max) {
-		let doc = size == "max" 
-			? nil 
+		let doc = size == "max"
+			? nil
 			: "URL of a square \(size)x\(size) version of the profile picture."
 		FieldDef("photo_\(size)", type: .url)
 			.optionalFieldDoc(doc, objectName: entity.capitalized)
@@ -194,7 +195,7 @@ func offsetAndCountParams(
 ) -> any StructDefPart {
 	FieldDef("offset", type: .int)
 		.doc("Offset into the \(entity) list for pagination.")
-	
+
 	FieldDef("count", type: .int)
 		.doc("How many \(entity)s to return. By default \(defaultCount).")
 }
@@ -214,7 +215,7 @@ extension RequestDef {
 	func withGroupFields() -> RequestDef {
 		withExtendedVersion(
 			"WithFields",
-			extendedResultType: .paginatedList(.def(group)), 
+			extendedResultType: .paginatedList(.def(group)),
 		) {
 			FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
 				.required()

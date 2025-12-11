@@ -175,4 +175,44 @@ let photos = Group("Photos") {
 	}
 	.doc("Updates the caption of a photo.")
 	.requiresPermissions("photos")
+
+	RequestDef("photos.editAlbum", resultType: .void) {
+		FieldDef("album_id", type: .def(photoAlbumID))
+			.required()
+			.doc("Identifier of the target album.")
+
+		FieldDef("title", type: .string)
+			.doc("New title of the album.")
+
+		FieldDef("description", type: .string)
+			.doc("New description of the album.")
+
+		FieldDef("privacy_view", type: .def(privacySetting))
+			.json()
+			.doc("""
+				For a user-owned album, privacy setting determining
+				who can view this album.
+				""")
+
+		FieldDef("privacy_comment", type: .def(privacySetting))
+			.json()
+			.doc("""
+				For a user-owned album, privacy setting determining
+				who can comment on photos in this album.
+				""")
+
+		FieldDef("upload_by_admins_only", type: .bool)
+			.doc("""
+				For a group-owned album, whether uploading new photos
+				is restricted to group managers.
+				""")
+
+		FieldDef("comments_disabled", type: .bool)
+			.doc("""
+				For a group-owned album, whether commenting on photos
+				in this album is disabled.
+				""")
+	}
+	.doc("Updates a photo album.")
+	.requiresPermissions("photos")
 }

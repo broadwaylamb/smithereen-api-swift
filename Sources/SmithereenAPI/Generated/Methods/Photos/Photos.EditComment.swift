@@ -5,16 +5,12 @@ import SmithereenAPIInternals
 import Hammond
 extension Photos {
 
-	/// Creates a new comment on a photo.
-	/// Returns the identifier of the newly created comment.
+	/// Edits a comment on a photo.
 	/// - Note: This method requires the following permissions: `photos`.
-	public struct CreateComment: SmithereenAPIRequest, Hashable, Encodable, Sendable {
+	public struct EditComment: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
-		/// Identifier of the photo on which to comment.
-		public var photoID: PhotoID
-
-		/// Identifier of the comment to reply to.
-		public var replyToComment: CommentID?
+		/// The identifier of the comment to be updated.
+		public var commentID: CommentID
 
 		/// The text of the comment.
 		/// **Required** if there are no ``attachments``.
@@ -36,43 +32,29 @@ extension Photos {
 		/// This text will be shown instead of the content.
 		public var contentWarning: String?
 
-		/// A unique identifier used to prevent accidental double-posting
-		/// on unreliable connections.
-		/// If ``Photos/createComment`` was previously called with this
-		/// ``guid`` in the last hour, no new comment will be created,
-		/// the ID of that previously created comment will be returned
-		/// instead. Recommended for mobile apps.
-		public var guid: UUID?
-
 		public init(
-			photoID: PhotoID,
-			replyToComment: CommentID? = nil,
+			commentID: CommentID,
 			message: String? = nil,
 			textFormat: TextFormat? = nil,
 			attachments: [AttachmentToCreate]? = nil,
 			contentWarning: String? = nil,
-			guid: UUID? = nil,
 		) {
-			self.photoID = photoID
-			self.replyToComment = replyToComment
+			self.commentID = commentID
 			self.message = message
 			self.textFormat = textFormat
 			self.attachments = attachments
 			self.contentWarning = contentWarning
-			self.guid = guid
 		}
 
 		private enum CodingKeys: String, CodingKey {
-			case photoID = "photo_id"
-			case replyToComment = "reply_to_comment"
+			case commentID = "comment_id"
 			case message
 			case textFormat = "text_format"
 			case attachments
 			case contentWarning = "content_warning"
-			case guid
 		}
 		public var path: String {
-			"/method/photos.createComment"
+			"/method/photos.editComment"
 		}
 		public static var method: HTTPMethod {
 			.post

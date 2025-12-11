@@ -95,33 +95,7 @@ let photos = Group("Photos") {
 		FieldDef("reply_to_comment", type: .def(commentID))
 			.doc("Identifier of the comment to reply to.")
 
-		FieldDef("message", type: .string)
-			.doc("""
-				The text of the comment.
-				**Required** if there are no attachments.
-				This parameter supports formatted text, the format is
-				determined by the ``textFormat`` parameter.
-				""")
-
-		FieldDef("text_format", type: .def(textFormat))
-			.doc("""
-				The format of the comment text passed in ``message``.
-				By default, the user’s preference is used.
-				""")
-
-		FieldDef("attachments", type: .array(.def(attachmentToCreate)))
-			.json()
-			.doc("""
-				An array representing the media attachments to be added to this post.
-				**Required** if there is no message.
-				""")
-
-		FieldDef("content_warning", type: .string)
-			.doc("""
-				If this is not empty, make the content of the comment hidden
-				by default, requiring a click to reveal.
-				This text will be shown instead of the content.
-				""")
+		commentContent()
 
 		FieldDef("guid", type: .uuid)
 			.doc("""
@@ -215,4 +189,45 @@ let photos = Group("Photos") {
 	}
 	.doc("Updates a photo album.")
 	.requiresPermissions("photos")
+
+	RequestDef("photos.editComment", resultType: .def(commentID)) {
+		FieldDef("comment_id", type: .def(commentID))
+			.required()
+			.doc("The identifier of the comment to be updated.")
+
+		commentContent()
+	}
+	.doc("Edits a comment on a photo.")
+	.requiresPermissions("photos")
+}
+
+@StructDefBuilder
+private func commentContent() -> any StructDefPart {
+	FieldDef("message", type: .string)
+		.doc("""
+			The text of the comment.
+			**Required** if there are no ``attachments``.
+			This parameter supports formatted text, the format is
+			determined by the ``textFormat`` parameter.
+			""")
+
+	FieldDef("text_format", type: .def(textFormat))
+		.doc("""
+			The format of the comment text passed in ``message``.
+			By default, the user’s preference is used.
+			""")
+
+	FieldDef("attachments", type: .array(.def(attachmentToCreate)))
+		.json()
+		.doc("""
+			An array representing the media attachments to be added to this post.
+			**Required** if there is no ``message``.
+			""")
+
+	FieldDef("content_warning", type: .string)
+		.doc("""
+			If this is not empty, make the content of the comment hidden
+			by default, requiring a click to reveal.
+			This text will be shown instead of the content.
+			""")
 }

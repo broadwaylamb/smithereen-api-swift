@@ -19,7 +19,7 @@ private let jsonEncoder = JSONEncoder()
 
 extension EncodeAsJSONString: Encodable {
 	public func encode(to encoder: any Encoder) throws {
-		try encode(to: encoder) { try jsonEncoder.encode($0) }
+		try encode(to: encoder) { String(decoding: try jsonEncoder.encode($0), as: UTF8.self) }
 	}
 }
 

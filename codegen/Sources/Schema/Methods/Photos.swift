@@ -1,19 +1,4 @@
 let photos = Group("Photos") {
-	RequestDef("photos.getAttachmentUploadServer") {
-		StructDef("Result") {
-			FieldDef("upload_url", type: .url)
-				.required()
-				.doc("""
-					The URL to which to send the POST request to
-					[upload your image](https://smithereen.software/docs/api/uploads).
-					""")
-		}
-	}
-	.doc("""
-		Get the information required for uploading an image to be attached
-		to a wall post, comment, or message.
-		""")
-
 	RequestDef("photos.confirmTag", resultType: .void) {
 		FieldDef("photo_id", type: .def(photoID))
 			.required()
@@ -286,6 +271,36 @@ let photos = Group("Photos") {
 		Returns a user’s or group’s photo albums.
 
 		Getting non-public albums requires a token with `photos:read` permission.
+		""")
+
+	RequestDef("photos.getAttachmentUploadServer") {
+		StructDef("Result") {
+			FieldDef("upload_url", type: .url)
+				.required()
+				.doc("""
+					The URL to which to send the POST request to
+					[upload your image](https://smithereen.software/docs/api/uploads).
+					""")
+		}
+	}
+	.doc("""
+		Get the information required for uploading an image to be attached
+		to a wall post, comment, or message.
+		""")
+
+	RequestDef("photos.getById", resultType: .array(.def(photo))) {
+		FieldDef("photo_ids", type: .array(.def(photoID)))
+			.required()
+			.doc("""
+				A list of up to 1000 photo identifiers.
+				""")
+		extendedField()
+	}
+	.doc("""
+		Returns photos.
+
+		Photos that are in non-public albums require a token and
+		the `photos:read` permission.
 		""")
 }
 

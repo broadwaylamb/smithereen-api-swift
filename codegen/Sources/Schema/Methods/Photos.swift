@@ -269,6 +269,24 @@ let photos = Group("Photos") {
 
 		Getting non-public albums requires a token with `photos:read` permission.
 		""")
+
+	RequestDef("photos.getAlbumsById", resultType: .array(.def(photoAlbum))) {
+		FieldDef("album_ids", type: .array(.def(photoAlbumID)))
+			.required()
+			.doc("A list of up to 100 album identifiers.")
+
+		FieldDef("need_covers", type: .bool)
+			.doc("""
+				Whether to return a cover photo for each album.
+
+				By default `false`.
+				""")
+	}
+	.doc("""
+		Returns photo albums.
+
+		Getting non-public albums requires a token with `photos:read` permission.
+		""")
 }
 
 @StructDefBuilder

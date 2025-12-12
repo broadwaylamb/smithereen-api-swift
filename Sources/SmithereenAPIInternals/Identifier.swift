@@ -1,4 +1,11 @@
-public protocol Identifier: RawRepresentable, Equatable, Hashable, Codable, Sendable, CustomStringConvertible, CustomDebugStringConvertible {}
+package protocol Identifier
+	:	RawRepresentable,
+		Equatable,
+		Hashable,
+		Codable,
+		Sendable,
+		CustomStringConvertible,
+		CustomDebugStringConvertible {}
 
 extension Identifier {
 	public var description: String {

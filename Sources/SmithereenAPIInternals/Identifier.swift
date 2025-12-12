@@ -6,6 +6,6 @@ extension Identifier {
 	}
 
 	public var debugDescription: String {
-		String(describing: rawValue)
+		String(reflecting: rawValue)
 	}
 }

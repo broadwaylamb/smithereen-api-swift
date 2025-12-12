@@ -24,6 +24,7 @@ let schema = Group {
 		audio
 		boardTopic
 		comment
+		cropPhoto
 		deactivatedStatus
 		friendList
 		graffiti
@@ -32,6 +33,7 @@ let schema = Group {
 		likeableObject
 		photo
 		photoAlbum
+		imageRect
 		photoFeedUpdate
 		platform
 		poll

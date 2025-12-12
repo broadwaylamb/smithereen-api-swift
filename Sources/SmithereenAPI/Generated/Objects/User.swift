@@ -911,6 +911,21 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public var photoID: PhotoID?
+
+	/// Whether this user has a profile picture.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
+	public var hasPhoto: Bool?
+
+	/// If this user has a “profile pictures” system photo album,
+	/// information about their profile photo
+	/// and the coordinates used for cropping it down to the “medium”
+	/// rectangular and “small” square sizes.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
+	public var cropPhoto: CropPhoto?
 	public var timezone: TimeZone?
 
 	/// First name in nominative case
@@ -1396,6 +1411,21 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
 		public static let photoID = Self(rawValue: "photo_id")
+
+		/// Whether this user has a profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
+		public static let hasPhoto = Self(rawValue: "has_photo")
+
+		/// If this user has a “profile pictures” system photo album,
+		/// information about their profile photo
+		/// and the coordinates used for cropping it down to the “medium”
+		/// rectangular and “small” square sizes.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``User`` objects.
+		public static let cropPhoto = Self(rawValue: "crop_photo")
 		public static let timezone = Self(rawValue: "timezone")
 
 		/// First name in nominative case
@@ -1558,6 +1588,8 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			.photo400Orig,
 			.photoMaxOrig,
 			.photoID,
+			.hasPhoto,
+			.cropPhoto,
 			.timezone,
 			.firstNameNom,
 			.nicknameNom,
@@ -1639,6 +1671,8 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		photo400Orig: URL? = nil,
 		photoMaxOrig: URL? = nil,
 		photoID: PhotoID? = nil,
+		hasPhoto: Bool? = nil,
+		cropPhoto: CropPhoto? = nil,
 		timezone: TimeZone? = nil,
 		firstNameNom: String? = nil,
 		nicknameNom: String? = nil,
@@ -1718,6 +1752,8 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		self.photo400Orig = photo400Orig
 		self.photoMaxOrig = photoMaxOrig
 		self.photoID = photoID
+		self.hasPhoto = hasPhoto
+		self.cropPhoto = cropPhoto
 		self.timezone = timezone
 		self.firstNameNom = firstNameNom
 		self.nicknameNom = nicknameNom
@@ -1799,6 +1835,8 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		case photo400Orig = "photo_400_orig"
 		case photoMaxOrig = "photo_max_orig"
 		case photoID = "photo_id"
+		case hasPhoto = "has_photo"
+		case cropPhoto = "crop_photo"
 		case timezone
 		case firstNameNom = "first_name_nom"
 		case nicknameNom = "nickname_nom"

@@ -298,6 +298,21 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let photoID = Self(rawValue: "photo_id")
+
+	/// Whether this user has a profile picture.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
+	public static let hasPhoto = Self(rawValue: "has_photo")
+
+	/// If this user has a “profile pictures” system photo album,
+	/// information about their profile photo
+	/// and the coordinates used for cropping it down to the “medium”
+	/// rectangular and “small” square sizes.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``User`` objects.
+	public static let cropPhoto = Self(rawValue: "crop_photo")
 	public static let timezone = Self(rawValue: "timezone")
 
 	/// First name in nominative case
@@ -447,12 +462,6 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 	/// ``Group`` objects.
 	public static let description = Self(rawValue: "description")
 
-	/// Whether this group has a profile picture.
-	/// - Note: This is an **optional** field.
-	/// Request it by passing it in `fields` to any method that returns
-	/// ``Group`` objects.
-	public static let hasPhoto = Self(rawValue: "has_photo")
-
 	/// Information from the “Links” block in this group.
 	/// Only returned when a single group is requested.
 	/// - Note: This is an **optional** field.
@@ -536,6 +545,8 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 		.photo400Orig,
 		.photoMaxOrig,
 		.photoID,
+		.hasPhoto,
+		.cropPhoto,
 		.timezone,
 		.firstNameNom,
 		.nicknameNom,
@@ -562,7 +573,6 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 		.canCreateTopic,
 		.management,
 		.description,
-		.hasPhoto,
 		.links,
 		.memberStatus,
 		.place,

@@ -137,9 +137,6 @@ let group = StructDef("Group") {
 	FieldDef("description", type: .string)
 		.optionalFieldDoc("The description text of this group, as HTML.")
 
-	FieldDef("has_photo", type: .bool)
-		.optionalFieldDoc("Whether this group has a profile picture.")
-
 	FieldDef("is_favorite", type: .bool)
 		.optionalFieldDoc("""
 			Whether this group is in the current user’s bookmarks.

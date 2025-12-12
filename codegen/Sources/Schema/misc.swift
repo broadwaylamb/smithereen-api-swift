@@ -84,6 +84,21 @@ let communityType = EnumDef<String>("CommunityType") {
 	EnumCaseDef("events")
 }
 
+let imageRect = StructDef("ImageRect") {
+	FieldDef("x1", type: .double)
+		.required()
+		.doc("The X coordinate of the top left corner, from 0 to 1.")
+	FieldDef("y1", type: .double)
+		.required()
+		.doc("The Y coordinate of the top left corner, from 0 to 1.")
+	FieldDef("x2", type: .double)
+		.required()
+		.doc("The X coordinate of the bottom right corner, from 0 to 1.")
+	FieldDef("y2", type: .double)
+		.required()
+		.doc("The Y coordinate of the bottom right corner, from 0 to 1.")
+}
+
 let actorField = EnumDef<String>("ActorField") {
 	let cases = (user.requestableFieldCases + group.requestableFieldCases)
 		.distinct(by: \.swiftName)
@@ -152,6 +167,27 @@ func statusField(_ entity: String) -> FieldDef {
 			""", objectName: entity.capitalized)
 }
 
+let cropPhoto = StructDef("CropPhoto") {
+	FieldDef("photo", type: .def(photo))
+		.required()
+		.doc("A photo object representing the profile photo.")
+
+	FieldDef("crop", type: .def(imageRect))
+		.required()
+		.doc("""
+			An object decribing the coordinates for cropping the photo
+			to obtain the medium rectangular version, as used in profiles on
+			the desktop website.
+			""")
+
+	FieldDef("square_crop", type: .def(imageRect))
+		.required()
+		.doc("""
+			An object decribing the coordinates for cropping the medium
+			rectangular crop photo to obtain the small square version.
+			""")
+}
+
 @StructDefBuilder
 func profilePictureFields(_ entity: String) -> any StructDefPart {
 	for size in photoSizes(50, 100, 200, 400, .max) {
@@ -174,6 +210,20 @@ func profilePictureFields(_ entity: String) -> any StructDefPart {
 		.optionalFieldDoc("""
 			If this \(entity) has a “profile pictures” system photo album,
 			ID of the photo used for the current profile picture in that album.
+			""", objectName: entity.capitalized)
+
+	FieldDef("has_photo", type: .bool)
+		.optionalFieldDoc(
+			"Whether this \(entity) has a profile picture.",
+			objectName: entity.capitalized,
+		)
+
+	FieldDef("crop_photo", type: .def(cropPhoto))
+		.optionalFieldDoc("""
+			If this \(entity) has a “profile pictures” system photo album,
+			information about \(entity == "user" ? "their" : "its") profile photo
+			and the coordinates used for cropping it down to the “medium”
+			rectangular and “small” square sizes.
 			""", objectName: entity.capitalized)
 }
 

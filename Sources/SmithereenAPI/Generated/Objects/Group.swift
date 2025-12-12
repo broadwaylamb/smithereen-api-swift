@@ -196,6 +196,21 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// ``Group`` objects.
 	public var photoID: PhotoID?
 
+	/// Whether this group has a profile picture.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``Group`` objects.
+	public var hasPhoto: Bool?
+
+	/// If this group has a “profile pictures” system photo album,
+	/// information about its profile photo
+	/// and the coordinates used for cropping it down to the “medium”
+	/// rectangular and “small” square sizes.
+	/// - Note: This is an **optional** field.
+	/// Request it by passing it in `fields` to any method that returns
+	/// ``Group`` objects.
+	public var cropPhoto: CropPhoto?
+
 	/// Whether the current user can create new discussion board topics
 	/// in this group.
 	/// - Note: This is an **optional** field.
@@ -274,12 +289,6 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public var description: String?
-
-	/// Whether this group has a profile picture.
-	/// - Note: This is an **optional** field.
-	/// Request it by passing it in `fields` to any method that returns
-	/// ``Group`` objects.
-	public var hasPhoto: Bool?
 
 	/// Whether this group is in the current user’s bookmarks.
 	/// Requires the `likes:read` permission.
@@ -510,6 +519,21 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// ``Group`` objects.
 		public static let photoID = Self(rawValue: "photo_id")
 
+		/// Whether this group has a profile picture.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let hasPhoto = Self(rawValue: "has_photo")
+
+		/// If this group has a “profile pictures” system photo album,
+		/// information about its profile photo
+		/// and the coordinates used for cropping it down to the “medium”
+		/// rectangular and “small” square sizes.
+		/// - Note: This is an **optional** field.
+		/// Request it by passing it in `fields` to any method that returns
+		/// ``Group`` objects.
+		public static let cropPhoto = Self(rawValue: "crop_photo")
+
 		/// Whether the current user can create new discussion board topics
 		/// in this group.
 		/// - Note: This is an **optional** field.
@@ -542,12 +566,6 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let description = Self(rawValue: "description")
-
-		/// Whether this group has a profile picture.
-		/// - Note: This is an **optional** field.
-		/// Request it by passing it in `fields` to any method that returns
-		/// ``Group`` objects.
-		public static let hasPhoto = Self(rawValue: "has_photo")
 
 		/// Whether this group is in the current user’s bookmarks.
 		/// Requires the `likes:read` permission.
@@ -611,12 +629,13 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 			.photo400Orig,
 			.photoMaxOrig,
 			.photoID,
+			.hasPhoto,
+			.cropPhoto,
 			.canCreateTopic,
 			.canPost,
 			.management,
 			.counters,
 			.description,
-			.hasPhoto,
 			.isFavorite,
 			.links,
 			.memberStatus,
@@ -650,12 +669,13 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		photo400Orig: URL? = nil,
 		photoMaxOrig: URL? = nil,
 		photoID: PhotoID? = nil,
+		hasPhoto: Bool? = nil,
+		cropPhoto: CropPhoto? = nil,
 		canCreateTopic: Bool? = nil,
 		canPost: Bool? = nil,
 		management: [ManagementItem]? = nil,
 		counters: Counters? = nil,
 		description: String? = nil,
-		hasPhoto: Bool? = nil,
 		isFavorite: Bool? = nil,
 		links: [Link]? = nil,
 		memberStatus: MembershipStatus? = nil,
@@ -686,12 +706,13 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		self.photo400Orig = photo400Orig
 		self.photoMaxOrig = photoMaxOrig
 		self.photoID = photoID
+		self.hasPhoto = hasPhoto
+		self.cropPhoto = cropPhoto
 		self.canCreateTopic = canCreateTopic
 		self.canPost = canPost
 		self.management = management
 		self.counters = counters
 		self.description = description
-		self.hasPhoto = hasPhoto
 		self.isFavorite = isFavorite
 		self.links = links
 		self.memberStatus = memberStatus
@@ -724,12 +745,13 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		case photo400Orig = "photo_400_orig"
 		case photoMaxOrig = "photo_max_orig"
 		case photoID = "photo_id"
+		case hasPhoto = "has_photo"
+		case cropPhoto = "crop_photo"
 		case canCreateTopic = "can_create_topic"
 		case canPost = "can_post"
 		case management
 		case counters
 		case description
-		case hasPhoto = "has_photo"
 		case isFavorite = "is_favorite"
 		case links
 		case memberStatus = "member_status"

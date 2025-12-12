@@ -199,6 +199,44 @@ let photos = Group("Photos") {
 	}
 	.doc("Edits a comment on a photo.")
 	.requiresPermissions("photos")
+
+	RequestDef("photos.get", resultType: .paginatedList(.def(photo))) {
+		FieldDef("album_id", type: .def(photoAlbumID))
+			.required()
+			.doc("""
+				Identifier of the photo album.
+
+				For system albums, pass ``PhotoAlbumID/profile`` or ``PhotoAlbumID/saved`` here.
+				""")
+
+		FieldDef("owner_id", type: .def(actorID))
+			.doc("""
+				When getting photos from a system album, whose album it is.
+
+				If omitted, returns the system album for the current user.
+				""")
+
+		offsetAndCountParams("photo", defaultCount: 50)
+
+		FieldDef("extended", type: .bool)
+			.doc("""
+				Whether to return extra fields about likes, comments, and tags for each photo.
+
+				By default `false`.
+				""")
+
+		FieldDef("rev", type: .bool)
+			.doc("""
+				Whether to return the photos in reverse order.
+
+				By default `false`.
+				""")
+	}
+	.doc("""
+		Returns photos from an album.
+
+		Non-public albums require a token and the `photos:read` permission.
+		""")
 }
 
 @StructDefBuilder

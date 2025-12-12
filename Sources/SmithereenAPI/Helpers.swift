@@ -72,7 +72,7 @@ extension ActorID {
 		}
 		return nil
 	}
-	
+
 	public func map<R>(userID: (UserID) -> R, groupID: (GroupID) -> R) -> R {
 		if rawValue >= 0 {
 			return userID(UserID(rawValue: rawValue))
@@ -119,7 +119,7 @@ extension Photo.SizeType {
 			return 1280
 		case .original:
 			return 2560
-		default: 
+		default:
 			return 0
 		}
 	}
@@ -159,4 +159,14 @@ extension Groups.GetMembers {
 		case ids(PaginatedList<UserID>)
 		case managers(PaginatedList<User.GroupAdmin>)
 	}
+}
+
+extension PhotoAlbumID {
+	/// A "magic" identifier to request photos from the system album
+	/// using ``Photos.Get``.
+	public static let profile = PhotoAlbumID(rawValue: "profile")
+
+	/// A "magic" identifier to request photos from the system album
+	/// using ``Photos.Get``.
+	public static let saved = PhotoAlbumID(rawValue: "saved")
 }

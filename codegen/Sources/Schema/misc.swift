@@ -208,13 +208,15 @@ func blurhashField() -> FieldDef {
 @StructDefBuilder
 func offsetAndCountParams(
 	_ entity: String,
-	defaultCount: Int
+	defaultCount: Int?,
 ) -> any StructDefPart {
 	FieldDef("offset", type: .int)
 		.doc("Offset into the \(entity) list for pagination.")
 
+	let byDefault = defaultCount.map { " By default \($0)." } ?? ""
+
 	FieldDef("count", type: .int)
-		.doc("How many \(entity)s to return. By default \(defaultCount).")
+		.doc("How many \(entity)s to return.\(byDefault)")
 }
 
 extension RequestDef {

@@ -237,6 +237,38 @@ let photos = Group("Photos") {
 
 		Non-public albums require a token and the `photos:read` permission.
 		""")
+
+	RequestDef("photos.getAlbums", resultType: .paginatedList(.def(photoAlbum))) {
+		FieldDef("owner_id", type: .def(actorID))
+			.doc("""
+				Identifier of the user or minus identifier of the group whose
+				albums need to be returned.
+
+				Current user by default. Required if called without a token.
+				""")
+
+		offsetAndCountParams("album", defaultCount: nil)
+
+		FieldDef("need_system", type: .bool)
+			.doc("""
+				Whether to return system albums (profile pictures, saved photos,
+				etc).
+
+				By default `false`.
+				""")
+
+		FieldDef("need_covers", type: .bool)
+			.doc("""
+				Whether to return a cover photo for each album.
+
+				By default `false`.
+				""")
+	}
+	.doc("""
+		Returns a user’s or group’s photo albums.
+
+		Getting non-public albums requires a token with `photos:read` permission.
+		""")
 }
 
 @StructDefBuilder

@@ -217,13 +217,7 @@ let photos = Group("Photos") {
 				""")
 
 		offsetAndCountParams("photo", defaultCount: 50)
-
-		FieldDef("extended", type: .bool)
-			.doc("""
-				Whether to return extra fields about likes, comments, and tags for each photo.
-
-				By default `false`.
-				""")
+		extendedField()
 
 		FieldDef("rev", type: .bool)
 			.doc("""
@@ -256,13 +250,7 @@ let photos = Group("Photos") {
 
 				By default `false`.
 				""")
-
-		FieldDef("need_covers", type: .bool)
-			.doc("""
-				Whether to return a cover photo for each album.
-
-				By default `false`.
-				""")
+		needCoversField()
 	}
 	.doc("""
 		Returns a user’s or group’s photo albums.
@@ -275,15 +263,27 @@ let photos = Group("Photos") {
 			.required()
 			.doc("A list of up to 100 album identifiers.")
 
-		FieldDef("need_covers", type: .bool)
-			.doc("""
-				Whether to return a cover photo for each album.
-
-				By default `false`.
-				""")
+		needCoversField()
 	}
 	.doc("""
 		Returns photo albums.
+
+		Getting non-public albums requires a token with `photos:read` permission.
+		""")
+
+	RequestDef("photos.getAll", resultType: .paginatedList(.def(photo))) {
+		FieldDef("owner_id", type: .def(actorID))
+			.doc("""
+				Identifier of the user or group whose albums need to be returned.
+
+				Current user by default. Required if called without a token.
+				""")
+
+		offsetAndCountParams("photo", defaultCount: 50)
+		extendedField()
+	}
+	.doc("""
+		Returns a user’s or group’s photo albums.
 
 		Getting non-public albums requires a token with `photos:read` permission.
 		""")
@@ -317,5 +317,24 @@ private func commentContent() -> any StructDefPart {
 			If this is not empty, make the content of the comment hidden
 			by default, requiring a click to reveal.
 			This text will be shown instead of the content.
+			""")
+}
+
+private func needCoversField() -> FieldDef {
+	FieldDef("need_covers", type: .bool)
+		.doc("""
+			Whether to return a cover photo for each album.
+
+			By default `false`.
+			""")
+}
+
+private func extendedField() -> FieldDef {
+	FieldDef("extended", type: .bool)
+		.doc("""
+			Whether to return extra fields about likes, comments,
+			and tags for each photo.
+
+			By default `false`.
 			""")
 }

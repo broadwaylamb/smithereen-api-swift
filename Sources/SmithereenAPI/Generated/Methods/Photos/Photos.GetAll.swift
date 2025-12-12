@@ -5,16 +5,12 @@ import SmithereenAPIInternals
 import Hammond
 extension Photos {
 
-	/// Returns photos from an album.
-	/// Non-public albums require a token and the `photos:read` permission.
-	public struct Get: SmithereenAPIRequest, Hashable, Encodable, Sendable {
+	/// Returns a user’s or group’s photo albums.
+	/// Getting non-public albums requires a token with `photos:read` permission.
+	public struct GetAll: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
-		/// Identifier of the photo album.
-		/// For system albums, pass ``PhotoAlbumID/profile`` or ``PhotoAlbumID/saved`` here.
-		public var albumID: PhotoAlbumID
-
-		/// When getting photos from a system album, whose album it is.
-		/// If omitted, returns the system album for the current user.
+		/// Identifier of the user or group whose albums need to be returned.
+		/// Current user by default. Required if called without a token.
 		public var ownerID: ActorID?
 
 		/// Offset into the photo list for pagination.
@@ -28,36 +24,26 @@ extension Photos {
 		/// By default `false`.
 		public var extended: Bool?
 
-		/// Whether to return the photos in reverse order.
-		/// By default `false`.
-		public var rev: Bool?
-
 		public init(
-			albumID: PhotoAlbumID,
 			ownerID: ActorID? = nil,
 			offset: Int? = nil,
 			count: Int? = nil,
 			extended: Bool? = nil,
-			rev: Bool? = nil,
 		) {
-			self.albumID = albumID
 			self.ownerID = ownerID
 			self.offset = offset
 			self.count = count
 			self.extended = extended
-			self.rev = rev
 		}
 
 		private enum CodingKeys: String, CodingKey {
-			case albumID = "album_id"
 			case ownerID = "owner_id"
 			case offset
 			case count
 			case extended
-			case rev
 		}
 		public var path: String {
-			"/method/photos.get"
+			"/method/photos.getAll"
 		}
 		public static var method: HTTPMethod {
 			.post

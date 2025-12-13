@@ -67,6 +67,6 @@ extension Server {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = PaginatedList<RestrictedServer>
+		public typealias Result = PaginatedList<RestrictedServer, PaginatedListExtras.Empty>
 	}
 }

@@ -19,25 +19,60 @@ extension Groups {
 		/// How many invitations to return. By default 20.
 		public var count: Int?
 
-		/// Whether to also return users that sent the invitations.
-		public var extended: Bool?
-
 		/// A list of group profile fields to return.
-		/// If ``extended`` is `true`, also user profile fields for
-		/// the inviters.
-		public var fields: [ActorField]?
+		public var fields: [Group.Field]?
+
+		/// Returns the group invitations for the current user.
+		/// - Note: This method requires the following permissions: `groups`.
+		public struct Extended: SmithereenAPIRequest, Hashable, Encodable, Sendable {
+
+			/// Whether to return invitations to groups or to events.
+			/// By default ``CommunityType/groups``.
+			public var type: CommunityType?
+
+			/// Offset into the invitation list for pagination.
+			public var offset: Int?
+
+			/// How many invitations to return. By default 20.
+			public var count: Int?
+			private let extended: Bool = true
+
+			/// A list of group profile fields to return, as well as
+			/// user profile fields for the inviters.
+			public var fields: [ActorField]?
+
+			public init(
+				type: CommunityType? = nil,
+				offset: Int? = nil,
+				count: Int? = nil,
+				fields: [ActorField]? = nil,
+			) {
+				self.type = type
+				self.offset = offset
+				self.count = count
+				self.fields = fields
+			}
+			public var path: String {
+				"/method/groups.getInvites"
+			}
+			public static var method: HTTPMethod {
+				.post
+			}
+			public var encodableBody: Self {
+				self
+			}
+			public typealias Result = PaginatedList<Group, PaginatedListExtras.Profiles>
+		}
 
 		public init(
 			type: CommunityType? = nil,
 			offset: Int? = nil,
 			count: Int? = nil,
-			extended: Bool? = nil,
-			fields: [ActorField]? = nil,
+			fields: [Group.Field]? = nil,
 		) {
 			self.type = type
 			self.offset = offset
 			self.count = count
-			self.extended = extended
 			self.fields = fields
 		}
 		public var path: String {
@@ -49,6 +84,15 @@ extension Groups {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = PaginatedList<Group>
+		public typealias Result = PaginatedList<Group, PaginatedListExtras.Empty>
+
+		public func extended(fields: [ActorField]? = nil) -> Extended {
+			Extended(
+				type: type,
+				offset: offset,
+				count: count,
+				fields: fields,
+			)
+		}
 	}
 }

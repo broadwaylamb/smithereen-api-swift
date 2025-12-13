@@ -43,8 +43,22 @@ extension TypeRef {
 	static let blurhash = TypeRef(name: "BlurHash")
 	static let likeableObject = TypeRef(name: "LikeableObject")
 
-	static func paginatedList(_ element: TypeRef) -> TypeRef {
-		return TypeRef(name: "PaginatedList<\(element)>")
+	static let paginatedListEmptyExtras =
+		TypeRef(name: "PaginatedListExtras.Empty")
+	static let paginatedListExtrasProfiles =
+		TypeRef(name: "PaginatedListExtras.Profiles")
+	static let paginatedListExtrasProfilesAndGroups =
+		TypeRef(name: "PaginatedListExtras.ProfilesAndGroups")
+	static let paginatedListExtrasCommentView =
+		TypeRef(name: "PaginatedListExtras.CommentView")
+	static let paginatedListExtrasCommentViewWithProfilesAndGroups =
+		TypeRef(name: "PaginatedListExtras.CommentViewWithProfilesAndGroups")
+
+	static func paginatedList(
+		_ element: TypeRef,
+		extras: TypeRef = .paginatedListEmptyExtras
+	) -> TypeRef {
+		return TypeRef(name: "PaginatedList<\(element), \(extras)>")
 	}
 
 	static func array(_ element: TypeRef) -> TypeRef {

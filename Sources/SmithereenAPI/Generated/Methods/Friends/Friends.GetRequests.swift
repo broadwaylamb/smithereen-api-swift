@@ -121,7 +121,7 @@ extension Friends {
 			public var encodableBody: Self {
 				self
 			}
-			public typealias Result = PaginatedList<FriendRequest>
+			public typealias Result = PaginatedList<FriendRequest, PaginatedListExtras.Empty>
 		}
 
 		public init(
@@ -140,7 +140,7 @@ extension Friends {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = PaginatedList<UserID>
+		public typealias Result = PaginatedList<UserID, PaginatedListExtras.Empty>
 
 		public func extended(
 			extended: Bool? = nil,

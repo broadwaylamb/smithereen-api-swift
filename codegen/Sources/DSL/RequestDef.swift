@@ -16,7 +16,7 @@ struct RequestDef: Documentable {
 			self.request = request
 		}
 	}
-	
+
 	var doc: String? {
 		get {
 			structDef.doc
@@ -57,19 +57,21 @@ struct RequestDef: Documentable {
 		@StructDefBuilder extendedFields: () -> any StructDefPart,
 	) -> Self {
 		let newDecls = extendedFields()
+		let newFields = newDecls.components.compactMap { $0 as? FieldDef }
 		let extendedRequestDef = RequestDef(
 			name,
 			swiftName: extendedName,
 			resultType: extendedResultType,
 			conformances: Self.defaultConformances,
 		) {
-			for field in structDef.fields {
+			let extendedFieldNames = Set(newFields.map { $0.swiftName })
+			for field in structDef.fields where !extendedFieldNames.contains(field.swiftName)  {
 				field
 			}
 			newDecls
 		}
 		.doc(doc)
-		
+
 		var copyWithExtended = RequestDef(
 			name,
 			swiftName: customSwiftName,
@@ -84,7 +86,7 @@ struct RequestDef: Documentable {
 		.doc(doc)
 
 		copyWithExtended.extended = Extended(
-			newFields: newDecls.components.compactMap { $0 as? FieldDef },
+			newFields: newFields,
 			request: extendedRequestDef,
 		)
 		return copyWithExtended

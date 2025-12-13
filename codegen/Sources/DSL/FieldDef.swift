@@ -9,6 +9,7 @@ struct FieldDef: Documentable, HasSerialName {
 	var propertyWrappers: [String] = []
 	var isExcludedFromFields: Bool = false
 	var isFlattened: Bool = false
+	var constantValue: String? = nil
 
 	init(_ serialName: String, type: TypeRef) {
 		self.serialName = serialName
@@ -38,6 +39,10 @@ struct FieldDef: Documentable, HasSerialName {
 		var r = self
 		r.propertyWrappers.append("EncodeAsJSONString")
 		return r
+	}
+
+	func constantValue(_ value: String) -> FieldDef {
+		copyWith(self, \.constantValue, value)
 	}
 }
 

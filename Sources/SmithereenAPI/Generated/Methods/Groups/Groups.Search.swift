@@ -54,6 +54,6 @@ extension Groups {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = PaginatedList<Group>
+		public typealias Result = PaginatedList<Group, PaginatedListExtras.Empty>
 	}
 }

@@ -94,7 +94,7 @@ extension Groups {
 			public var encodableBody: Self {
 				self
 			}
-			public typealias Result = PaginatedList<Group>
+			public typealias Result = PaginatedList<Group, PaginatedListExtras.Empty>
 		}
 
 		public init(
@@ -124,7 +124,7 @@ extension Groups {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = PaginatedList<GroupID>
+		public typealias Result = PaginatedList<GroupID, PaginatedListExtras.Empty>
 
 		public func withFields(fields: [Group.Field]) -> WithFields {
 			WithFields(

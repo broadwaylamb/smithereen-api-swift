@@ -123,7 +123,7 @@ extension Groups {
 			public var encodableBody: Self {
 				self
 			}
-			public typealias Result = PaginatedList<User>
+			public typealias Result = PaginatedList<User, PaginatedListExtras.Empty>
 		}
 
 		public init(

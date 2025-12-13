@@ -65,6 +65,6 @@ extension Photos {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = PaginatedList<Photo>
+		public typealias Result = PaginatedList<Photo, PaginatedListExtras.Empty>
 	}
 }

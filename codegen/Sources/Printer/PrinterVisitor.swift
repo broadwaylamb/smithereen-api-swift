@@ -56,7 +56,7 @@ struct PrinterVisitor {
 					parameterClause: parametersForFields(fields)
 				)
 			) {
-				for field in fields {
+				for field in fields where field.constantValue == nil {
 					InfixOperatorExprSyntax(
 						leftOperand: MemberAccessExprSyntax(
 							base: DeclReferenceExprSyntax(baseName: .identifier("self")),
@@ -105,7 +105,7 @@ struct PrinterVisitor {
 						if !allFieldsAreFlattened {
 							"let container = try decoder.container(keyedBy: CodingKeys.self)"
 						}
-						for field in fields {
+						for field in fields where field.constantValue == nil {
 							let fieldIdentifier = field.swiftIdentifier(for: .memberAccess)
 							let typeSyntax = field.type.optional(false).syntax
 							if field.isFlattened {
@@ -154,7 +154,7 @@ struct PrinterVisitor {
 						rightParen: .rightParenToken(),
 					) {
 						var isFirst = true
-						for field in extended.request.structDef.fields {
+						for field in extended.request.structDef.fields where field.constantValue == nil {
 							let id = field.swiftIdentifier(for: .memberAccess)
 							LabeledExprSyntax(
 								leadingTrivia: isFirst ? .newline : nil,
@@ -207,13 +207,15 @@ struct PrinterVisitor {
 				AttributeSyntax(attributeName: IdentifierTypeSyntax(name: .identifier(wrapper)), trailingTrivia: .newline)
 			}
 		}
+
 		return property(
 			leadingTrivia: def.leadingTrivia(alwaysSeparate: !attributes.isEmpty),
 			attributes: attributes,
 			name: def.swiftName,
-			modifiers: .public,
-			bindingSpecifier: .var,
+			modifiers: def.constantValue == nil ? .public : .private,
+			bindingSpecifier: def.constantValue == nil ? .var : .let,
 			type: def.type.syntax,
+			initializer: def.constantValue.map { "\(raw: $0)" },
 		)
 	}
 
@@ -604,7 +606,8 @@ private func enumCase(
 }
 
 private func parametersForFields(_ fields: [FieldDef]) -> FunctionParameterClauseSyntax {
-	FunctionParameterClauseSyntax {
+	let fields = fields.filter { $0.constantValue == nil }
+	return FunctionParameterClauseSyntax {
 		for (i, field) in fields.enumerated() {
 			FunctionParameterSyntax(
 				leadingTrivia: fields.count > 1 ? .newline : nil,

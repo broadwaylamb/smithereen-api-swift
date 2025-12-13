@@ -102,7 +102,7 @@ extension Friends {
 			public var encodableBody: Self {
 				self
 			}
-			public typealias Result = PaginatedList<User>
+			public typealias Result = PaginatedList<User, PaginatedListExtras.Empty>
 		}
 
 		public init(
@@ -135,7 +135,7 @@ extension Friends {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = PaginatedList<UserID>
+		public typealias Result = PaginatedList<UserID, PaginatedListExtras.Empty>
 
 		public func withFields(fields: [User.Field]) -> WithFields {
 			WithFields(

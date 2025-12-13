@@ -5,7 +5,7 @@ let groups = Group("Groups") {
 				User identifier for which to return groups.
 				Current user ID by default, required if not using a token.
 				""")
-		
+
 		let filterEnum = EnumDef<String>("Filter") {
 			EnumCaseDef("admin")
 				.doc("""
@@ -57,25 +57,35 @@ let groups = Group("Groups") {
 
 		offsetAndCountParams("invitation", defaultCount: 20)
 
-		FieldDef("extended", type: .bool)
-			.doc("Whether to also return users that sent the invitations.")
-		
-		FieldDef("fields", type: .array(.def(actorField)))
+		FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
 			.doc("""
 				A list of group profile fields to return.
-
-				If ``extended`` is `true`, also user profile fields for
-				the inviters.
 				""")
 	}
 	.doc("Returns the group invitations for the current user.")
 	.requiresPermissions("groups")
+	.withExtendedVersion(
+		"Extended",
+		extendedResultType: .paginatedList(
+			.def(group),
+			extras: .paginatedListExtrasProfiles,
+		),
+	) {
+		FieldDef("extended", type: .bool)
+			.required()
+			.constantValue("true")
+		FieldDef("fields", type: .array(.def(actorField)))
+			.doc("""
+				A list of group profile fields to return, as well as
+				user profile fields for the inviters.
+				""")
+	}
 
 	RequestDef("groups.getMembers") {
 		FieldDef("group_id", type: .def(groupID))
 			.required()
 			.doc("Group identifier.")
-		
+
 		let sortingEnum = EnumDef<String>("Sorting") {
 			EnumCaseDef("id_asc")
 				.swiftName("idAscending")
@@ -144,7 +154,7 @@ let groups = Group("Groups") {
 	.withUserFields()
 
 	FileDef("Groups.IsMember", additionalImports: ["Hammond"]) {
-		let isMemberDoc = 
+		let isMemberDoc =
 			"Checks whether a user is a member of a group or an event."
 		let isMemberGroupIDField = FieldDef("group_id", type: .def(groupID))
 			.required()
@@ -160,7 +170,7 @@ let groups = Group("Groups") {
 				.doc("User identifier to check.")
 		}
 		.doc(isMemberDoc)
-		
+
 		let membershipStruct = StructDef("Membership") {
 			FieldDef("user_id", type: .def(userID))
 				.required()
@@ -200,7 +210,7 @@ let groups = Group("Groups") {
 
 					By default `false`.
 					""")
-			
+
 			membershipStruct
 		}
 		.doc(isMemberDoc)
@@ -238,13 +248,13 @@ let groups = Group("Groups") {
 			.swiftName("query")
 			.required()
 			.doc("The search query.")
-		
+
 		FieldDef("type", type: .def(communityType))
 			.doc("""
 				Whether to search for groups or to events.
 				By default ``CommunityType/groups``.
 				""")
-		
+
 		offsetAndCountParams("group", defaultCount: 100)
 
 		FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))

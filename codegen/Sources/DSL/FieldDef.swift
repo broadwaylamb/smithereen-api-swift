@@ -46,7 +46,49 @@ struct FieldDef: Documentable, HasSerialName {
 	}
 }
 
-extension FieldDef: StructDefPart {
+@resultBuilder
+struct FieldContainerBuilder {
+	static func buildExpression(_ expression: any FieldContainerPart) -> any FieldContainerPart {
+		return expression
+	}
+
+	static func buildBlock(_ components: any FieldContainerPart...) -> any FieldContainerPart {
+		return CompositeFieldContainerPart(fields: components.flatMap { $0.fields })
+	}
+
+	static func buildArray(_ components: [any FieldContainerPart]) -> any FieldContainerPart {
+		return CompositeFieldContainerPart(fields: components.flatMap { $0.fields })
+	}
+}
+
+protocol FieldContainerPart: StructDefPart, ProtocolDefPart {
+	var fields: [FieldDef] { get }
+}
+
+extension FieldContainerPart {
+	var structComponents: [any StructDefPart] {
+		return fields
+	}
+
+	var protocolComponents: [any ProtocolDefPart] {
+		return fields
+	}
+}
+
+extension FieldDef: FieldContainerPart {
+	var fields: [FieldDef] {
+		return [self]
+ 	}
+}
+
+private struct CompositeFieldContainerPart: FieldContainerPart {
+	var fields: [FieldDef]
+	func accept(_ visitor: PrinterVisitor) -> any DeclSyntaxProtocol {
+		fatalError("Not applicable")
+	}
+}
+
+extension FieldDef: StructDefPart, ProtocolDefPart {
 	func accept(_ visitor: PrinterVisitor) -> any DeclSyntaxProtocol {
 		visitor.printField(self)
 	}

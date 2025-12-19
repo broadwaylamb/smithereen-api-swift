@@ -1,9 +1,9 @@
-let wallPost = StructDef("WallPost") {
+let wallPost = StructDef("WallPost", conformances: [.def(commentProtocol)]) {
 	postAndCommentCommonFields(
 		entity: "post",
 		entityTypeName: "WallPost",
 		parentObject: "wall",
-		idType: wallPostID,
+		idType: .def(wallPostID),
 	) {
 		"""
 		\($0)

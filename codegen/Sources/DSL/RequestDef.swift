@@ -57,7 +57,7 @@ struct RequestDef: Documentable {
 		@StructDefBuilder extendedFields: () -> any StructDefPart,
 	) -> Self {
 		let newDecls = extendedFields()
-		let newFields = newDecls.components.compactMap { $0 as? FieldDef }
+		let newFields = newDecls.structComponents.compactMap { $0 as? FieldDef }
 		let extendedRequestDef = RequestDef(
 			name,
 			swiftName: extendedName,
@@ -108,7 +108,7 @@ extension RequestDef: GroupPart {
 }
 
 extension RequestDef: StructDefPart {
-	var components: [any StructDefPart] { [self] }
+	var structComponents: [any StructDefPart] { [self] }
 
 	func accept(_ visitor: PrinterVisitor) -> any DeclSyntaxProtocol {
 		visitor.printRequest(self)

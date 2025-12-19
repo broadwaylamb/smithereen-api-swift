@@ -2,13 +2,13 @@ import SwiftSyntax
 
 struct FileDef {
 	var path: String
-	var decls: [any StructDefPart]
+	var decls: [any DeclarationDef]
 	var additionalImports: [String] = []
 
 	init(
 		_ path: String,
 		additionalImports: [String] = [],
-		@FileDefBuilder build: () -> [any StructDefPart],
+		@FileDefBuilder build: () -> [any DeclarationDef],
 	) {
 		self.path = path.hasSuffix(".swift") ? path : path + ".swift"
 		self.additionalImports = additionalImports
@@ -18,7 +18,7 @@ struct FileDef {
 
 @resultBuilder
 struct FileDefBuilder {
-	static func buildBlock(_ components: any StructDefPart...) -> [any StructDefPart] {
+	static func buildBlock(_ components: any DeclarationDef...) -> [any DeclarationDef] {
 		return components
 	}
 }

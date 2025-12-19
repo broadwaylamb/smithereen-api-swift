@@ -24,6 +24,8 @@ let schema = Group {
 		attachmentToCreate
 		audio
 		boardTopic
+		commentProtocol
+		commentThread
 		photoComment
 		cropPhoto
 		deactivatedStatus

@@ -4,7 +4,7 @@ import Foundation
 import SmithereenAPIInternals
 
 /// A comment on a photo in a photo album.
-public struct PhotoComment: Hashable, Codable, Sendable, Identifiable {
+public struct PhotoComment: CommentProtocol, Identifiable {
 
 	/// Unique (server-wide) identifier of this comment.
 	public var id: PhotoCommentID
@@ -62,35 +62,7 @@ public struct PhotoComment: Hashable, Codable, Sendable, Identifiable {
 
 	/// An object describing the reply thread of this comment.
 	/// Only returned when `view_type` is `threaded` or `two_level`.
-	public var thread: Thread?
-
-	public struct Thread: Hashable, Codable, Sendable {
-
-		/// The total number of comments in this branch.
-		public var count: Int
-
-		/// The total number of replies to this comment.
-		public var replyCount: Int
-
-		/// The replies to this comment.
-		public var items: [PhotoComment]
-
-		public init(
-			count: Int,
-			replyCount: Int,
-			items: [PhotoComment],
-		) {
-			self.count = count
-			self.replyCount = replyCount
-			self.items = items
-		}
-
-		private enum CodingKeys: String, CodingKey {
-			case count
-			case replyCount = "reply_count"
-			case items
-		}
-	}
+	public var thread: CommentThread<PhotoComment>?
 
 	public init(
 		id: PhotoCommentID,
@@ -109,7 +81,7 @@ public struct PhotoComment: Hashable, Codable, Sendable, Identifiable {
 		parentsStack: [PhotoCommentID]? = nil,
 		replyToComment: PhotoCommentID? = nil,
 		replyToUser: ActorID? = nil,
-		thread: Thread? = nil,
+		thread: CommentThread<PhotoComment>? = nil,
 	) {
 		self.id = id
 		self.ownerID = ownerID

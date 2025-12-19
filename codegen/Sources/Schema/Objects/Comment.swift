@@ -1,19 +1,31 @@
-let photoComment = StructDef("PhotoComment") {
+let commentProtocol = ProtocolDef(
+	"CommentProtocol",
+	conformances: StructDef.defaultConformances + [.identifiable],
+) {
+	postAndCommentCommonFields(
+		entity: "comment",
+		entityTypeName: "Self",
+		parentObject: "parent object",
+		idType: TypeRef(name: "ID"),
+	)
+}
+
+let photoComment = StructDef("PhotoComment", conformances: [.def(commentProtocol)]) {
 	postAndCommentCommonFields(
 		entity: "comment",
 		entityTypeName: "PhotoComment",
 		parentObject: "photo",
-		idType: photoCommentID,
+		idType: .def(photoCommentID),
 	)
 }
 .doc("A comment on a photo in a photo album.")
 
-let topicComment = StructDef("TopicComment") {
+let topicComment = StructDef("TopicComment", conformances: [.def(commentProtocol)]) {
 	postAndCommentCommonFields(
 		entity: "comment",
 		entityTypeName: "TopicComment",
 		parentObject: "topic",
-		idType: topicCommentID,
+		idType: .def(topicCommentID),
 	)
 }
 .doc("A comment in a discussion board topic.")
@@ -24,15 +36,15 @@ extension FieldDef {
 	}
 }
 
-@StructDefBuilder
+@FieldContainerBuilder
 func postAndCommentCommonFields(
 	entity: String,
 	entityTypeName: String,
 	parentObject: String,
-	idType: StructDef,
+	idType: TypeRef,
 	commentOnlyDoc: (String) -> String = { $0 },
- ) -> any StructDefPart {
-	FieldDef("id", type: .def(idType))
+ ) -> any FieldContainerPart {
+	FieldDef("id", type: idType)
 		.required()
 		.id()
 		.doc("Unique (server-wide) identifier of this \(entity).")
@@ -90,10 +102,10 @@ func postAndCommentCommonFields(
 			An array of user IDs corresponding to users mentioned in this \(entity).
 			""")
 
-	FieldDef("parents_stack", type: .array(.def(idType)))
+	FieldDef("parents_stack", type: .array(idType))
 		.docWithTransformation("Array of identifiers of parent comments.", transformation: commentOnlyDoc)
 
-	FieldDef("reply_to_comment", type: .def(idType))
+	FieldDef("reply_to_comment", type: idType)
 		.docWithTransformation(
 			"Identifier of the comment this is in reply to, if applicable.",
 			transformation: commentOnlyDoc,
@@ -105,20 +117,7 @@ func postAndCommentCommonFields(
 			transformation: commentOnlyDoc,
 		)
 
-	let threadStruct = StructDef("Thread") {
-		FieldDef("count", type: .int)
-			.required()
-			.doc("The total number of comments in this branch.")
-
-		FieldDef("reply_count", type: .int)
-			.required()
-			.doc("The total number of replies to this comment.")
-
-		FieldDef("items", type: .array(TypeRef(name: entityTypeName)))
-			.required()
-			.doc("The replies to this comment.")
-	}
-	FieldDef("thread", type: .def(threadStruct))
+	FieldDef("thread", type: .def(commentThread).withArgs(TypeRef(name: entityTypeName)))
 		.docWithTransformation(
 			"""
 			An object describing the reply thread of this comment.
@@ -126,5 +125,4 @@ func postAndCommentCommonFields(
 			""",
 			transformation: commentOnlyDoc,
 		)
-	threadStruct
 }

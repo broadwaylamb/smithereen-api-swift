@@ -4,7 +4,7 @@ import Foundation
 import SmithereenAPIInternals
 
 /// A post or a comment on a wall.
-public struct WallPost: Hashable, Codable, Sendable, Identifiable {
+public struct WallPost: CommentProtocol, Identifiable {
 
 	/// Unique (server-wide) identifier of this post.
 	public var id: WallPostID
@@ -66,35 +66,7 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 	/// An object describing the reply thread of this comment.
 	/// Only returned when `view_type` is `threaded` or `two_level`.
 	/// - Note: Only returned for comments.
-	public var thread: Thread?
-
-	public struct Thread: Hashable, Codable, Sendable {
-
-		/// The total number of comments in this branch.
-		public var count: Int
-
-		/// The total number of replies to this comment.
-		public var replyCount: Int
-
-		/// The replies to this comment.
-		public var items: [WallPost]
-
-		public init(
-			count: Int,
-			replyCount: Int,
-			items: [WallPost],
-		) {
-			self.count = count
-			self.replyCount = replyCount
-			self.items = items
-		}
-
-		private enum CodingKeys: String, CodingKey {
-			case count
-			case replyCount = "reply_count"
-			case items
-		}
-	}
+	public var thread: CommentThread<WallPost>?
 
 	/// If this post isn’t publicly visible, the visibility setting specified by the author.
 	public var privacy: Privacy?
@@ -215,7 +187,7 @@ public struct WallPost: Hashable, Codable, Sendable, Identifiable {
 		parentsStack: [WallPostID]? = nil,
 		replyToComment: WallPostID? = nil,
 		replyToUser: ActorID? = nil,
-		thread: Thread? = nil,
+		thread: CommentThread<WallPost>? = nil,
 		privacy: Privacy? = nil,
 		reposts: Reposts? = nil,
 		comments: Comments? = nil,

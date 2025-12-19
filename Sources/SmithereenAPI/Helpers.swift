@@ -156,8 +156,8 @@ extension Groups.GetMembers {
 	}
 
 	public enum Result: Hashable, Sendable {
-		case ids(PaginatedList<UserID>)
-		case managers(PaginatedList<User.GroupAdmin>)
+		case ids(PaginatedList<UserID, PaginatedListExtras.Empty>)
+		case managers(PaginatedList<User.GroupAdmin, PaginatedListExtras.Empty>)
 	}
 }
 

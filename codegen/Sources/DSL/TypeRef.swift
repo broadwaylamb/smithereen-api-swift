@@ -1,8 +1,9 @@
 import Foundation
 
-struct TypeRef: Equatable {
+struct TypeRef: Equatable, Sendable {
 	var name: String
 	var isOptional: Bool = false
+	var arguments: [TypeRef] = []
 }
 
 extension TypeRef {
@@ -12,6 +13,10 @@ extension TypeRef {
 
 	func optional(_ optional: Bool = true) -> TypeRef {
 		copyWith(self, \.isOptional, optional)
+	}
+
+	func withArgs(_ args: TypeRef...) -> TypeRef {
+		copyWith(self, \.arguments, args)
 	}
 }
 
@@ -39,6 +44,7 @@ extension TypeRef {
 	static let sendable = TypeRef(name: "Sendable")
 	static let identifier = TypeRef(name: "Identifier")
 	static let rawRepresentable = TypeRef(name: "RawRepresentable")
+	static let identifiable = TypeRef(name: "Identifiable")
 
 	static let blurhash = TypeRef(name: "BlurHash")
 	static let likeableObject = TypeRef(name: "LikeableObject")
@@ -58,7 +64,7 @@ extension TypeRef {
 		_ element: TypeRef,
 		extras: TypeRef = .paginatedListEmptyExtras
 	) -> TypeRef {
-		return TypeRef(name: "PaginatedList<\(element), \(extras)>")
+		return TypeRef(name: "PaginatedList").withArgs(element, extras)
 	}
 
 	static func array(_ element: TypeRef) -> TypeRef {
@@ -79,5 +85,13 @@ extension TypeRef {
 
 	static func def(_ s: TaggedUnionDef) -> TypeRef {
 		return TypeRef(name: s.name)
+	}
+
+	static func def(_ tp: TypeParameterDef) -> TypeRef {
+		return TypeRef(name: tp.name)
+	}
+
+	static func def(_ p: ProtocolDef) -> TypeRef {
+		return TypeRef(name: p.name)
 	}
 }

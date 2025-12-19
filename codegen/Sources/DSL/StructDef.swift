@@ -5,17 +5,24 @@ struct StructDef: Documentable {
 	var doc: String?
 	var decls: [any StructDefPart]
 	var conformances: [TypeRef]
+	var typeParameters: [TypeParameterDef]
 
 	static let defaultConformances: [TypeRef] = [
 		.hashable,
 		.codable,
 		.sendable,
 	]
-	
-	init(_ name: String, conformances: [TypeRef] = defaultConformances, @StructDefBuilder build: () -> any StructDefPart) {
+
+	init(
+		_ name: String,
+		conformances: [TypeRef] = defaultConformances,
+		typeParameters: [TypeParameterDef] = [],
+		@StructDefBuilder build: () -> any StructDefPart
+	) {
 		self.name = name
-		self.decls = build().components
+		self.decls = build().structComponents
 		self.conformances = conformances
+		self.typeParameters = typeParameters
 	}
 
 	var fields: [FieldDef] {
@@ -25,11 +32,11 @@ struct StructDef: Documentable {
 	var requestableFieldCases: [EnumCaseDef<String>] {
 		fields
 			.filter { !$0.isExcludedFromFields && $0.type.isOptional }
-			.map { 
+			.map {
 				EnumCaseDef($0.serialName)
 					.swiftName($0.customSwiftName)
 					.doc($0.doc)
-			 }
+			}
 	}
 
 	func generateFieldsStruct() -> StructDef {
@@ -55,27 +62,26 @@ struct StructDefBuilder {
 	}
 
 	static func buildBlock(_ components: any StructDefPart...) -> any StructDefPart {
-		return CompositeStructDefPart(components: components.flatMap { $0.components })
+		return CompositeStructDefPart(structComponents: components.flatMap { $0.structComponents })
 	}
 
 	static func buildArray(_ components: [any StructDefPart]) -> any StructDefPart {
-		return CompositeStructDefPart(components: components.flatMap { $0.components })
+		return CompositeStructDefPart(structComponents: components.flatMap { $0.structComponents })
 	}
 }
 
-protocol StructDefPart: Sendable {
-	var components: [any StructDefPart] { get }
-	func accept(_ visitor: PrinterVisitor) -> any DeclSyntaxProtocol
+protocol StructDefPart: DeclarationDef {
+	var structComponents: [any StructDefPart] { get }
 }
 
 extension StructDefPart {
-	var components: [any StructDefPart] { 
+	var structComponents: [any StructDefPart] {
 		return [self]
-	 }
+	}
 }
 
 private struct CompositeStructDefPart: StructDefPart {
-	var components: [any StructDefPart]
+	var structComponents: [any StructDefPart]
 	func accept(_ visitor: PrinterVisitor) -> any DeclSyntaxProtocol {
 		fatalError("Not applicable")
 	}

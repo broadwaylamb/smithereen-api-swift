@@ -1,20 +1,29 @@
 // Project tasks configuration. See https://zed.dev/docs/tasks for documentation.
 [
 	{
+		"label": "Build library with tests",
+		"command": "swift",
+		"args": ["build", "--build-tests"],
+		"cwd": "$ZED_WORKTREE_ROOT",
+		"use_new_terminal": true,
+		"allow_concurrent_runs": false,
+		"reveal": "no_focus",
+		"reveal_target": "dock",
+		"hide": "on_success",
+	},
+	{
 		"label": "Generate DTOs",
 		"command": "swift",
 		"args": [
 			"run",
 			"SmithereenAPICodegen",
-			"${ZED_WORKTREE_ROOT}/Sources/SmithereenAPI/Generated"
+			"$ZED_WORKTREE_ROOT/Sources/SmithereenAPI/Generated",
 		],
-		"cwd": "${ZED_WORKTREE_ROOT}/codegen",
+		"cwd": "$ZED_WORKTREE_ROOT/codegen",
+		"use_new_terminal": true,
 		"allow_concurrent_runs": false,
-		"reveal": "always",
+		"reveal": "no_focus",
 		"reveal_target": "dock",
 		"hide": "on_success",
-		"shell": "system",
-		"show_summary": true,
-		"show_command": true
-	}
+	},
 ]

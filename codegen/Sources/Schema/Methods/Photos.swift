@@ -336,6 +336,22 @@ let photos = Group("Photos") {
 			.required()
 			.doc("The identifier of the photo.")
 	)
+
+	RequestDef("photos.getFeedEntry", resultType: .paginatedList(.def(photo))) {
+		FieldDef("list_id", type: .def(photoFeedEntryID))
+			.required()
+			.doc("A list ID returned by ``Newsfeed/Get`` or ``Newsfeed/GetGroups``.")
+
+		offsetAndCountParams("photo", defaultCount: 50)
+
+		FieldDef("extended", type: .bool)
+			.doc("""
+				Whether to return extra fields about likes, comments, and tags for each photo.
+
+				By default `false`.
+				""")
+	}
+	.doc("Returns a complete list of photos for a newsfeed entry.")
 }
 
 @StructDefBuilder

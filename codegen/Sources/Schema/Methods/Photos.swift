@@ -343,15 +343,15 @@ let photos = Group("Photos") {
 			.doc("A list ID returned by ``Newsfeed/Get`` or ``Newsfeed/GetGroups``.")
 
 		offsetAndCountParams("photo", defaultCount: 50)
-
-		FieldDef("extended", type: .bool)
-			.doc("""
-				Whether to return extra fields about likes, comments, and tags for each photo.
-
-				By default `false`.
-				""")
+		extendedField()
 	}
 	.doc("Returns a complete list of photos for a newsfeed entry.")
+
+	RequestDef("photos.getNewTags", resultType: .paginatedList(.def(photo))) {
+		offsetAndCountParams("photo", defaultCount: 50)
+		extendedField()
+	}
+	.doc("Returns photos with unconfirmed tags of the current user.")
 }
 
 @StructDefBuilder

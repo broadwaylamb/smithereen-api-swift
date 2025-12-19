@@ -5,11 +5,8 @@ import SmithereenAPIInternals
 import Hammond
 extension Photos {
 
-	/// Returns a complete list of photos for a newsfeed entry.
-	public struct GetFeedEntry: SmithereenAPIRequest, Hashable, Encodable, Sendable {
-
-		/// A list ID returned by ``Newsfeed/Get`` or ``Newsfeed/GetGroups``.
-		public var listID: PhotoFeedEntryID
+	/// Returns photos with unconfirmed tags of the current user.
+	public struct GetNewTags: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// Offset into the photo list for pagination.
 		public var offset: Int?
@@ -23,25 +20,16 @@ extension Photos {
 		public var extended: Bool?
 
 		public init(
-			listID: PhotoFeedEntryID,
 			offset: Int? = nil,
 			count: Int? = nil,
 			extended: Bool? = nil,
 		) {
-			self.listID = listID
 			self.offset = offset
 			self.count = count
 			self.extended = extended
 		}
-
-		private enum CodingKeys: String, CodingKey {
-			case listID = "list_id"
-			case offset
-			case count
-			case extended
-		}
 		public var path: String {
-			"/method/photos.getFeedEntry"
+			"/method/photos.getNewTags"
 		}
 		public static var method: HTTPMethod {
 			.post

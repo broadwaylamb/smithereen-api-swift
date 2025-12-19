@@ -292,3 +292,94 @@ extension RequestDef {
 		}
 	}
 }
+
+let commentSortOrder = EnumDef<String>("CommentSortOrder") {
+	EnumCaseDef("asc")
+		.swiftName("ascending")
+		.doc("Oldest first.")
+	EnumCaseDef("desc")
+		.swiftName("descending")
+		.doc("Newest first.")
+}
+.frozen()
+.doc("The sort order for the comments.")
+
+func commentsRequest(
+	_ name: String,
+	commentID: StructDef,
+	targetField: FieldDef,
+) -> RequestDef {
+	RequestDef(
+		name,
+		resultType: .paginatedList(
+			.def(comment),
+			extras: .paginatedListExtrasCommentView,
+		)
+	) {
+		targetField
+
+		FieldDef("view_type", type: .def(commentView))
+			.doc("""
+				How to structure the comments.
+				By default uses the user preference.
+				If no token is used, defaults to ``CommentView/flat``.
+				""")
+
+		FieldDef("offset", type: .int)
+			.doc("Offset into the comments.")
+
+		FieldDef("count", type: .int)
+			.doc("""
+				How many comments to return.
+				When ``viewType`` is ``CommentView/threaded` or
+				``CommentView/twoLevel`, how many **top-level** comments
+				to return.
+
+				From 1 to 100. By default 20.
+				""")
+
+		FieldDef("secondary_count", type: .int)
+			.doc("""
+				How many replies to return, combined, in all threads, when
+				``viewType`` is ``CommentView/threaded` or
+				``CommentView/twoLevel`. Ignored for ``CommentView/flat``.
+
+				From 1 to 100. By default 20.
+				""")
+
+		FieldDef("comment_id", type: .def(commentID))
+			.doc("""
+				To retrieve a reply thread, the identifier of the comment
+				whose replies you would like to get.
+				**Important**: if you’re displaying comments as two levels,
+				you need to pass ``CommentView/flat`` to ``viewType`` when
+				loading reply threads.
+				""")
+
+		FieldDef("sort", type: .def(commentSortOrder))
+			.doc("""
+				The sort order for the comments.
+
+				By default ``CommentSortOrder/ascending``.
+				""")
+
+		FieldDef("need_likes", type: .bool)
+			.doc("Whether to return information about likes.")
+	}
+	.withExtendedVersion(
+		"Extended",
+		extendedResultType: .paginatedList(
+			.def(comment),
+		 	extras: .paginatedListExtrasCommentViewWithProfilesAndGroups,
+		)
+	) {
+		FieldDef("extended", type: .bool)
+			.required()
+			.constantValue("true")
+
+		FieldDef("fields", type: .array(.def(actorField)))
+			.doc("""
+				A list of user and group profile fields to be returned.
+				""")
+	}
+}

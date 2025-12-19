@@ -57,5 +57,6 @@ let schema = Group {
 	actorField
 	commentView
 	textFormat
+	commentSortOrder
 	error
 }

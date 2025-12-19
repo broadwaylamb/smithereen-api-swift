@@ -328,6 +328,14 @@ let photos = Group("Photos") {
 		as submitted when creating it, so they could be used for editing.
 		""")
 	.requiresPermissions("photos")
+
+	commentsRequest(
+		"photos.getComments",
+		commentID: commentID,
+		targetField: FieldDef("photo_id", type: .def(photoID))
+			.required()
+			.doc("The identifier of the photo.")
+	)
 }
 
 @StructDefBuilder

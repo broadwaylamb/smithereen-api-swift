@@ -273,20 +273,11 @@ let photos = Group("Photos") {
 		Getting non-public albums requires a token with `photos:read` permission.
 		""")
 
-	RequestDef("photos.getAttachmentUploadServer") {
-		StructDef("Result") {
-			FieldDef("upload_url", type: .url)
-				.required()
-				.doc("""
-					The URL to which to send the POST request to
-					[upload your image](https://smithereen.software/docs/api/uploads).
-					""")
-		}
-	}
-	.doc("""
-		Get the information required for uploading an image to be attached
-		to a wall post, comment, or message.
-		""")
+	getUploadServerRequest("photos.getAttachmentUploadServer")
+		.doc("""
+			Get the information required for uploading an image to be attached
+			to a wall post, comment, or message.
+			""")
 
 	RequestDef("photos.getById", resultType: .array(.def(photo))) {
 		FieldDef("photo_ids", type: .array(.def(photoID)))
@@ -352,6 +343,15 @@ let photos = Group("Photos") {
 		extendedField()
 	}
 	.doc("Returns photos with unconfirmed tags of the current user.")
+
+	getUploadServerRequest("photos.getOwnerPhotoUploadServer")
+		.doc("""
+			Returns a URL for uploading a new profile picture for the current
+			user or a group they manage.
+
+			If updating a group’s profile picture, `groups` permission is
+			also required.
+			""")
 }
 
 @StructDefBuilder
@@ -402,4 +402,17 @@ private func extendedField() -> FieldDef {
 
 			By default `false`.
 			""")
+}
+
+private func getUploadServerRequest(_ name: String) -> RequestDef {
+	RequestDef(name) {
+		StructDef("Result") {
+			FieldDef("upload_url", type: .url)
+				.required()
+				.doc("""
+					The URL to which to send the POST request to
+					[upload your image](https://smithereen.software/docs/api/uploads).
+					""")
+		}
+	}
 }

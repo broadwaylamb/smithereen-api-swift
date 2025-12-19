@@ -3,13 +3,13 @@
 import Foundation
 import SmithereenAPIInternals
 
-/// A comment on anything except a wall post.
-public struct Comment: Hashable, Codable, Sendable, Identifiable {
+/// A comment in a discussion board topic.
+public struct TopicComment: Hashable, Codable, Sendable, Identifiable {
 
 	/// Unique (server-wide) identifier of this comment.
-	public var id: CommentID
+	public var id: TopicCommentID
 
-	/// Identifier of the parent object owner.
+	/// Identifier of the topic owner.
 	public var ownerID: ActorID
 
 	/// Identifier of the user who made this comment.
@@ -52,10 +52,10 @@ public struct Comment: Hashable, Codable, Sendable, Identifiable {
 	public var mentionedUsers: [ActorID]?
 
 	/// Array of identifiers of parent comments.
-	public var parentsStack: [CommentID]?
+	public var parentsStack: [TopicCommentID]?
 
 	/// Identifier of the comment this is in reply to, if applicable.
-	public var replyToComment: CommentID?
+	public var replyToComment: TopicCommentID?
 
 	/// Identifier of the user this is in reply to, if applicable.
 	public var replyToUser: ActorID?
@@ -73,12 +73,12 @@ public struct Comment: Hashable, Codable, Sendable, Identifiable {
 		public var replyCount: Int
 
 		/// The replies to this comment.
-		public var items: [Comment]
+		public var items: [TopicComment]
 
 		public init(
 			count: Int,
 			replyCount: Int,
-			items: [Comment],
+			items: [TopicComment],
 		) {
 			self.count = count
 			self.replyCount = replyCount
@@ -93,7 +93,7 @@ public struct Comment: Hashable, Codable, Sendable, Identifiable {
 	}
 
 	public init(
-		id: CommentID,
+		id: TopicCommentID,
 		ownerID: ActorID,
 		fromID: ActorID,
 		activityPubID: URL,
@@ -106,8 +106,8 @@ public struct Comment: Hashable, Codable, Sendable, Identifiable {
 		canDelete: Bool,
 		canEdit: Bool,
 		mentionedUsers: [ActorID]? = nil,
-		parentsStack: [CommentID]? = nil,
-		replyToComment: CommentID? = nil,
+		parentsStack: [TopicCommentID]? = nil,
+		replyToComment: TopicCommentID? = nil,
 		replyToUser: ActorID? = nil,
 		thread: Thread? = nil,
 	) {

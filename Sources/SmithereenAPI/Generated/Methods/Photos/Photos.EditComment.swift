@@ -10,7 +10,7 @@ extension Photos {
 	public struct EditComment: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// The identifier of the comment to be updated.
-		public var commentID: CommentID
+		public var commentID: PhotoCommentID
 
 		/// The text of the comment.
 		/// **Required** if there are no ``attachments``.
@@ -33,7 +33,7 @@ extension Photos {
 		public var contentWarning: String?
 
 		public init(
-			commentID: CommentID,
+			commentID: PhotoCommentID,
 			message: String? = nil,
 			textFormat: TextFormat? = nil,
 			attachments: [AttachmentToCreate]? = nil,
@@ -62,6 +62,6 @@ extension Photos {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = CommentID
+		public typealias Result = PhotoCommentID
 	}
 }

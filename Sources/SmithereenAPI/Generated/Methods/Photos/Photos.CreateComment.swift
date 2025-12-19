@@ -14,7 +14,7 @@ extension Photos {
 		public var photoID: PhotoID
 
 		/// Identifier of the comment to reply to.
-		public var replyToComment: CommentID?
+		public var replyToComment: PhotoCommentID?
 
 		/// The text of the comment.
 		/// **Required** if there are no ``attachments``.
@@ -46,7 +46,7 @@ extension Photos {
 
 		public init(
 			photoID: PhotoID,
-			replyToComment: CommentID? = nil,
+			replyToComment: PhotoCommentID? = nil,
 			message: String? = nil,
 			textFormat: TextFormat? = nil,
 			attachments: [AttachmentToCreate]? = nil,
@@ -80,6 +80,6 @@ extension Photos {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = CommentID
+		public typealias Result = PhotoCommentID
 	}
 }

@@ -36,7 +36,7 @@ extension Photos {
 		/// **Important**: if you’re displaying comments as two levels,
 		/// you need to pass ``CommentView/flat`` to ``viewType`` when
 		/// loading reply threads.
-		public var commentID: CommentID?
+		public var commentID: PhotoCommentID?
 
 		/// The sort order for the comments.
 		/// By default ``CommentSortOrder/ascending``.
@@ -76,7 +76,7 @@ extension Photos {
 			/// **Important**: if you’re displaying comments as two levels,
 			/// you need to pass ``CommentView/flat`` to ``viewType`` when
 			/// loading reply threads.
-			public var commentID: CommentID?
+			public var commentID: PhotoCommentID?
 
 			/// The sort order for the comments.
 			/// By default ``CommentSortOrder/ascending``.
@@ -95,7 +95,7 @@ extension Photos {
 				offset: Int? = nil,
 				count: Int? = nil,
 				secondaryCount: Int? = nil,
-				commentID: CommentID? = nil,
+				commentID: PhotoCommentID? = nil,
 				sort: CommentSortOrder? = nil,
 				needLikes: Bool? = nil,
 				fields: [ActorField]? = nil,
@@ -132,7 +132,7 @@ extension Photos {
 			public var encodableBody: Self {
 				self
 			}
-			public typealias Result = PaginatedList<Comment, PaginatedListExtras.CommentViewWithProfilesAndGroups>
+			public typealias Result = PaginatedList<PhotoComment, PaginatedListExtras.CommentViewWithProfilesAndGroups>
 		}
 
 		public init(
@@ -141,7 +141,7 @@ extension Photos {
 			offset: Int? = nil,
 			count: Int? = nil,
 			secondaryCount: Int? = nil,
-			commentID: CommentID? = nil,
+			commentID: PhotoCommentID? = nil,
 			sort: CommentSortOrder? = nil,
 			needLikes: Bool? = nil,
 		) {
@@ -174,7 +174,7 @@ extension Photos {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = PaginatedList<Comment, PaginatedListExtras.CommentView>
+		public typealias Result = PaginatedList<PhotoComment, PaginatedListExtras.CommentView>
 
 		public func extended(fields: [ActorField]? = nil) -> Extended {
 			Extended(

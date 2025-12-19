@@ -6,8 +6,8 @@ import SmithereenAPIInternals
 public enum LikeableObject: Hashable, Codable, Sendable {
 	case post(WallPostID)
 	case photo(PhotoID)
-	case photoComment(CommentID)
-	case topicComment(CommentID)
+	case photoComment(PhotoCommentID)
+	case topicComment(TopicCommentID)
 
 	private enum CodingKeys: String, CodingKey {
 		case type
@@ -23,9 +23,9 @@ public enum LikeableObject: Hashable, Codable, Sendable {
 		case "photo":
 			self = .photo(try container.decode(PhotoID.self, forKey: .itemID))
 		case "photo_comment":
-			self = .photoComment(try container.decode(CommentID.self, forKey: .itemID))
+			self = .photoComment(try container.decode(PhotoCommentID.self, forKey: .itemID))
 		case "topic_comment":
-			self = .topicComment(try container.decode(CommentID.self, forKey: .itemID))
+			self = .topicComment(try container.decode(TopicCommentID.self, forKey: .itemID))
 		default:
 			throw DecodingError.dataCorruptedError(
 				forKey: .type,

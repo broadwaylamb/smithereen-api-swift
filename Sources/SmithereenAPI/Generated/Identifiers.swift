@@ -101,8 +101,17 @@ public struct WallPostID: Identifier {
 	}
 }
 
-/// And identifier of a comment on anything except a wall post.
-public struct CommentID: Identifier {
+/// And identifier of a comment on a photo in a photo album.
+public struct PhotoCommentID: Identifier {
+	public var rawValue: String
+
+	public init(rawValue: String) {
+		self.rawValue = rawValue
+	}
+}
+
+/// And identifier of a comment in a discussion board topic.
+public struct TopicCommentID: Identifier {
 	public var rawValue: String
 
 	public init(rawValue: String) {

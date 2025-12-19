@@ -12,7 +12,8 @@ let schema = Group {
 		pollOptionID
 		boardTopicID
 		wallPostID
-		commentID
+		photoCommentID
+		topicCommentID
 		photoFeedEntryID
 		photoTagID
 		uploadedAttachmentID
@@ -23,7 +24,7 @@ let schema = Group {
 		attachmentToCreate
 		audio
 		boardTopic
-		comment
+		photoComment
 		cropPhoto
 		deactivatedStatus
 		friendList
@@ -39,6 +40,7 @@ let schema = Group {
 		poll
 		privacySetting
 		serverSignupMode
+		topicComment
 		user
 		video
 		wallPost

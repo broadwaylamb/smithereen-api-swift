@@ -10,9 +10,9 @@ extension Photos {
 	public struct DeleteComment: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// Identifier of the comment to delete.
-		public var commentID: CommentID
+		public var commentID: PhotoCommentID
 
-		public init(commentID: CommentID) {
+		public init(commentID: PhotoCommentID) {
 			self.commentID = commentID
 		}
 

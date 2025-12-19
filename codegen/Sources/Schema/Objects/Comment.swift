@@ -1,12 +1,22 @@
-let comment = StructDef("Comment") {
+let photoComment = StructDef("PhotoComment") {
 	postAndCommentCommonFields(
 		entity: "comment",
-		entityTypeName: "Comment",
-		parentObject: "parent object",
-		idType: commentID,
+		entityTypeName: "PhotoComment",
+		parentObject: "photo",
+		idType: photoCommentID,
 	)
 }
-.doc("A comment on anything except a wall post.")
+.doc("A comment on a photo in a photo album.")
+
+let topicComment = StructDef("TopicComment") {
+	postAndCommentCommonFields(
+		entity: "comment",
+		entityTypeName: "TopicComment",
+		parentObject: "topic",
+		idType: topicCommentID,
+	)
+}
+.doc("A comment in a discussion board topic.")
 
 extension FieldDef {
 	fileprivate func docWithTransformation(_ text: String, transformation: (String) -> String) -> FieldDef {

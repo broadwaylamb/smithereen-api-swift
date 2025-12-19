@@ -12,8 +12,10 @@ let pollOptionID = IdentifierStruct("PollOptionID", rawValue: .int)
 let boardTopicID = IdentifierStruct(("BoardTopicID"), rawValue: .string)
 let wallPostID = IdentifierStruct("WallPostID", rawValue: .int)
 	.doc("An identifier of a wall post or a comment on a wall post.")
-let commentID = IdentifierStruct("CommentID", rawValue: .string)
-	.doc("And identifier of a comment on anything except a wall post.")
+let photoCommentID = IdentifierStruct("PhotoCommentID", rawValue: .string)
+	.doc("And identifier of a comment on a photo in a photo album.")
+let topicCommentID = IdentifierStruct("TopicCommentID", rawValue: .string)
+	.doc("And identifier of a comment in a discussion board topic.")
 let photoFeedEntryID = IdentifierStruct("PhotoFeedEntryID", rawValue: .string)
 let photoTagID = IdentifierStruct("PhotoTagID", rawValue: .int)
 let uploadedAttachmentID = IdentifierStruct("UploadedAttachmentID", rawValue: .string)
@@ -307,6 +309,7 @@ let commentSortOrder = EnumDef<String>("CommentSortOrder") {
 func commentsRequest(
 	_ name: String,
 	commentID: StructDef,
+	comment: StructDef,
 	targetField: FieldDef,
 ) -> RequestDef {
 	RequestDef(

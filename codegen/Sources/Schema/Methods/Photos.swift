@@ -72,12 +72,12 @@ let photos = Group("Photos") {
 	.doc("Creates a new photo album.")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.createComment", resultType: .def(commentID)) {
+	RequestDef("photos.createComment", resultType: .def(photoCommentID)) {
 		FieldDef("photo_id", type: .def(photoID))
 			.required()
 			.doc("Identifier of the photo on which to comment.")
 
-		FieldDef("reply_to_comment", type: .def(commentID))
+		FieldDef("reply_to_comment", type: .def(photoCommentID))
 			.doc("Identifier of the comment to reply to.")
 
 		commentContent()
@@ -116,7 +116,7 @@ let photos = Group("Photos") {
 	.requiresPermissions("photos")
 
 	RequestDef("photos.deleteComment", resultType: .void) {
-		FieldDef("comment_id", type: .def(commentID))
+		FieldDef("comment_id", type: .def(photoCommentID))
 			.required()
 			.doc("Identifier of the comment to delete.")
 	}
@@ -175,8 +175,8 @@ let photos = Group("Photos") {
 	.doc("Updates a photo album.")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.editComment", resultType: .def(commentID)) {
-		FieldDef("comment_id", type: .def(commentID))
+	RequestDef("photos.editComment", resultType: .def(photoCommentID)) {
+		FieldDef("comment_id", type: .def(photoCommentID))
 			.required()
 			.doc("The identifier of the comment to be updated.")
 
@@ -294,9 +294,8 @@ let photos = Group("Photos") {
 		the `photos:read` permission.
 		""")
 
-
 	RequestDef("photos.getCommentEditSource") {
-		FieldDef("comment_id", type: .def(commentID))
+		FieldDef("comment_id", type: .def(photoCommentID))
 			.required()
 			.doc("""
 				The identifier of the comment for which the source needs
@@ -322,7 +321,8 @@ let photos = Group("Photos") {
 
 	commentsRequest(
 		"photos.getComments",
-		commentID: commentID,
+		commentID: photoCommentID,
+		comment: photoComment,
 		targetField: FieldDef("photo_id", type: .def(photoID))
 			.required()
 			.doc("The identifier of the photo.")

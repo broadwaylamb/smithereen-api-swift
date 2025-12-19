@@ -12,7 +12,7 @@ extension Photos {
 
 		/// The identifier of the comment for which the source needs
 		/// to be returned.
-		public var commentID: CommentID
+		public var commentID: PhotoCommentID
 
 		public struct Result: Hashable, Codable, Sendable {
 
@@ -36,7 +36,7 @@ extension Photos {
 			}
 		}
 
-		public init(commentID: CommentID) {
+		public init(commentID: PhotoCommentID) {
 			self.commentID = commentID
 		}
 

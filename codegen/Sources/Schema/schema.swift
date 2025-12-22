@@ -49,6 +49,7 @@ let schema = Group {
 	}
 
 	Group("Methods") {
+		execute
 		friends
 		groups
 		likes

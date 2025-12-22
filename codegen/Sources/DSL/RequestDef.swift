@@ -38,6 +38,7 @@ struct RequestDef: Documentable {
 		swiftName: String? = nil,
 		resultType: TypeRef? = nil,
 		conformances: [TypeRef] = defaultConformances,
+		typeParameters: [TypeParameterDef] = [],
 		@StructDefBuilder build: () -> any StructDefPart,
 	) {
 		self.name = name
@@ -47,6 +48,7 @@ struct RequestDef: Documentable {
 		structDef = StructDef(
 			(swiftName.split(separator: ".").last.map(String.init) ?? swiftName).uppercasedFirstChar,
 			conformances: conformances,
+			typeParameters: typeParameters,
 			build: build,
 		)
 	}

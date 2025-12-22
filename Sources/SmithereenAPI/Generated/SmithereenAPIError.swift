@@ -100,6 +100,21 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 		/// Too many photo albums.
 		public static let tooManyPhotoAlbums = Self(rawValue: 302)
 
+		/// Failed to fetch remote object due to a network error.
+		public static let remoteObjectNetworkError = Self(rawValue: 401)
+
+		/// Remote object is of an unsupported type.
+		public static let remoteObjectUnsupportedType = Self(rawValue: 402)
+
+		/// Request to the remote server timed out 
+		public static let remoteObjectServerTimeOut = Self(rawValue: 403)
+
+		/// Remote object not found.
+		public static let remoteObjectNotFound = Self(rawValue: 404)
+
+		/// Failed to fetch remote object due to other error.
+		public static let remoteObjectOtherError = Self(rawValue: 405)
+
 		public static let allCases: [Code] = [
 			.other,
 			.unknownMethodPassed,
@@ -122,6 +137,11 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 			.cantAddAsFriendBecauseYouBlockedUser,
 			.tooManyFriends,
 			.tooManyPhotoAlbums,
+			.remoteObjectNetworkError,
+			.remoteObjectUnsupportedType,
+			.remoteObjectServerTimeOut,
+			.remoteObjectNotFound,
+			.remoteObjectOtherError,
 		]
 	}
 	public var message: String

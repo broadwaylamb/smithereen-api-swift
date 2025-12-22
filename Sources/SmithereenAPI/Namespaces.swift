@@ -4,3 +4,4 @@ public enum Likes {}
 public enum Newsfeed {}
 public enum Photos {}
 public enum Server {}
+public enum Status {}

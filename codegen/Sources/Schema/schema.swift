@@ -56,6 +56,7 @@ let schema = Group {
 		newsfeed
 		photos
 		server
+		status
 	}
 
 	communityType

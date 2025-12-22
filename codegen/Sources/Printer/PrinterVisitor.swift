@@ -362,9 +362,9 @@ final class PrinterVisitor {
 			modifiers: [DeclModifierSyntax(name: .keyword(.public))],
 			name: .identifier(def.name),
 			inheritanceClause: InheritanceClauseSyntax {
-				InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("Hashable")))
-				InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("Codable")))
-				InheritedTypeSyntax(type: IdentifierTypeSyntax(name: .identifier("Sendable")))
+				for supertype in def.conformances {
+					InheritedTypeSyntax(type: supertype.syntax)
+				}
 			}
 		) {
 			for decl in def.decls {
@@ -379,77 +379,89 @@ final class PrinterVisitor {
 				)
 			}
 
-			codingKeys(
-				for: [CustomCodingKey(serialName: "type")] +
-					def.variants
-						.distinct { $0.payloadFieldName }
-						.map { CustomCodingKey(serialName: $0.payloadFieldName) }
-			)
+			var keys = def.variants
+				.distinct { $0.payloadFieldName }
+				.map { CustomCodingKey(serialName: $0.payloadFieldName) }
 
-			initFromDecoderDecl {
-				"let container = try decoder.container(keyedBy: CodingKeys.self)"
-        		"let type = try container.decode(String.self, forKey: .type)"
-				try! SwitchExprSyntax("switch type") {
-					for variant in def.variants {
-						let caseName = variant.swiftIdentifier(for: .memberAccess)
-						let codingKey = identifier(
-							variant.payloadFieldName.convertFromSnakeCase(),
-							context: .memberAccess,
-						)
-						if variant.isFlattened {
+			if def.hasTag {
+				let _ = keys.insert(CustomCodingKey(serialName: "type"), at: 0)
+			}
+
+			codingKeys(for: keys)
+
+			if def.conformances.contains(.decodable) || def.conformances.contains(.codable) {
+				initFromDecoderDecl {
+					"let container = try decoder.container(keyedBy: CodingKeys.self)"
+	        		"let type = try container.decode(String.self, forKey: .type)"
+					try! SwitchExprSyntax("switch type") {
+						for variant in def.variants {
+							let caseName = variant.swiftIdentifier(for: .memberAccess)
+							let codingKey = identifier(
+								variant.payloadFieldName.convertFromSnakeCase(),
+								context: .memberAccess,
+							)
+							if variant.isFlattened {
+								SwitchCaseSyntax("""
+									case "\(raw: variant.serialName)":
+										self = .\(caseName)(try .init(from: decoder))
+									""")
+							} else {
+								SwitchCaseSyntax("""
+									case "\(raw: variant.serialName)":
+										self = .\(caseName)(try container.decode(\(variant.type.syntax).self, forKey: .\(codingKey)))
+									""")
+							}
+						}
+						if def.isFrozen {
 							SwitchCaseSyntax("""
-								case "\(raw: variant.serialName)":
-									self = .\(caseName)(try .init(from: decoder))
+								default:
+									throw DecodingError.dataCorruptedError(
+										forKey: .type,
+										in: container,
+										debugDescription: "Unknown payload type",
+									)
 								""")
 						} else {
 							SwitchCaseSyntax("""
-								case "\(raw: variant.serialName)":
-									self = .\(caseName)(try container.decode(\(variant.type.syntax).self, forKey: .\(codingKey)))
+								default:
+									self = .unknown(type)
 								""")
 						}
-					}
-					if def.isFrozen {
-						SwitchCaseSyntax("""
-							default:
-								throw DecodingError.dataCorruptedError(
-									forKey: .type,
-									in: container,
-									debugDescription: "Unknown payload type",
-								)
-							""")
-					} else {
-						SwitchCaseSyntax("""
-							default:
-								self = .unknown(type)
-							""")
 					}
 				}
 			}
 
-			try! FunctionDeclSyntax("public func encode(to encoder: any Encoder) throws") {
-				"var container = encoder.container(keyedBy: CodingKeys.self)"
-				"let tag: String"
-				try! SwitchExprSyntax("switch self") {
-					for variant in def.variants {
-						let caseName = variant.swiftIdentifier(for: .memberAccess)
-						let codingKey = identifier(
-							variant.payloadFieldName.convertFromSnakeCase(),
-							context: .memberAccess,
-						)
-						SwitchCaseSyntax("""
-							case .\(caseName)(let payload):
-								tag = "\(raw: variant.serialName)"
-								try container.encode(payload, forKey: .\(codingKey))
-							""")
+			if def.conformances.contains(.encodable) || def.conformances.contains(.codable) {
+				try! FunctionDeclSyntax("public func encode(to encoder: any Encoder) throws") {
+					"var container = encoder.container(keyedBy: CodingKeys.self)"
+					if def.hasTag {
+						"let tag: String"
 					}
-					if !def.isFrozen {
-						SwitchCaseSyntax("""
-							case .unknown(let _tag):
-								tag = _tag
-							""")
+					try! SwitchExprSyntax("switch self") {
+						for variant in def.variants {
+							let caseName = variant.swiftIdentifier(for: .memberAccess)
+							let codingKey = identifier(
+								variant.payloadFieldName.convertFromSnakeCase(),
+								context: .memberAccess,
+							)
+							SwitchCaseSyntax("case .\(caseName)(let payload):") {
+								if def.hasTag {
+									"tag = \"\(raw: variant.serialName)\""
+								}
+								"try container.encode(payload, forKey: .\(codingKey))"
+							}
+						}
+						if !def.isFrozen && def.hasTag {
+							SwitchCaseSyntax("""
+								case .unknown(let _tag):
+									tag = _tag
+								""")
+						}
+					}
+					if def.hasTag {
+						"try container.encode(tag, forKey: .type)"
 					}
 				}
-				"try container.encode(tag, forKey: .type)"
 			}
 		}
 	}

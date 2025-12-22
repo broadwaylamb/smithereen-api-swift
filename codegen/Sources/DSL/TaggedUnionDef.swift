@@ -4,10 +4,23 @@ struct TaggedUnionDef: Documentable {
 	var name: String
 	var doc: String?
 	var decls: [any TaggedUnionDefPart]
+	var conformances: [TypeRef]
 	var isFrozen: Bool = false
+	var hasTag: Bool = true
 
-	init(_ name: String, @TaggedUnionDefBuilder build: () -> any TaggedUnionDefPart) {
+	static let defaultConformances: [TypeRef] = [
+		.hashable,
+		.codable,
+		.sendable,
+	]
+
+	init(
+		_ name: String,
+		conformances: [TypeRef] = Self.defaultConformances,
+		@TaggedUnionDefBuilder build: () -> any TaggedUnionDefPart,
+	) {
 		self.name = name
+		self.conformances = conformances
 		self.decls = build().taggedUnionComponents
 	}
 
@@ -17,6 +30,10 @@ struct TaggedUnionDef: Documentable {
 
 	func frozen() -> TaggedUnionDef {
 		copyWith(self, \.isFrozen, true)
+	}
+
+	func tagless() -> TaggedUnionDef {
+		copyWith(self, \.hasTag, false)
 	}
 }
 

@@ -432,6 +432,46 @@ let photos = Group("Photos") {
 	}
 	.doc("Sets a photo as the album cover.")
 	.requiresPermissions("photos")
+
+	RequestDef("photos.putTag", resultType: .def(photoTagID)) {
+		FieldDef("photo_id", type: .def(photoID))
+			.required()
+			.doc("Identifier of the photo.")
+
+		let taggeeDef = TaggedUnionDef(
+			"Taggee",
+			conformances: [.hashable, .encodable, .sendable],
+		) {
+			TaggedUnionVariantDef("user", payloadFieldName: "user_id", type: .def(userID))
+				.doc("""
+					Identifier of the user to tag.
+					The user must be the current user’s friend.
+					""")
+			TaggedUnionVariantDef("name", payloadFieldName: "name", type: .string)
+				.doc("""
+					The name to tag. Pass instead of ``user`` to create a tag with
+					just a name, without linking to anyone’s profile.
+					""")
+		}
+		.frozen()
+		.tagless()
+		FieldDef("taggee", type: .def(taggeeDef))
+			.required()
+			.flatten()
+			.doc("Who to tag.")
+		taggeeDef
+		FieldDef("area", type: .def(imageRect))
+			.required()
+			.flatten()
+			.doc("The tag area.")
+	}
+	.doc("""
+		Creates a new tag on a photo.
+
+		You can only create tags on photos owned or uploaded to a group by
+		the current user, or owned by a group managed by the current user.
+		""")
+	.requiresPermissions("photos")
 }
 
 @StructDefBuilder

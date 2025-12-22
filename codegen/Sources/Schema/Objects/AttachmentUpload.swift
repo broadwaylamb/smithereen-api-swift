@@ -1,12 +1,12 @@
 let attachmentToCreate = TaggedUnionDef("AttachmentToCreate") {
 	let imageDef = StructDef("Image") {
-		FieldDef("file_id", type: .def(uploadedAttachmentID))
+		FieldDef("file_id", type: .def(uploadedImageID))
 			.required()
 			.doc("""
 				The identifier returned by the upload endpoint after
 				[uploading the image](https://smithereen.software/docs/api/uploads).
 				""")
-		FieldDef("hash", type: .def(uploadedAttachmentHash))
+		FieldDef("hash", type: .def(uploadedImageHash))
 			.required()
 			.doc("""
 				The hash returned by the upload endpoint after

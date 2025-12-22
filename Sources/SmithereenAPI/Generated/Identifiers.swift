@@ -137,7 +137,7 @@ public struct PhotoTagID: Identifier {
 
 /// The identifier returned by the upload endpoint after
 /// [uploading the image](https://smithereen.software/docs/api/uploads).
-public struct UploadedAttachmentID: Identifier {
+public struct UploadedImageID: Identifier {
 	public var rawValue: String
 
 	public init(rawValue: String) {
@@ -147,7 +147,7 @@ public struct UploadedAttachmentID: Identifier {
 
 /// The hash returned by the upload endpoint after
 /// [uploading the image](https://smithereen.software/docs/api/uploads).
-public struct UploadedAttachmentHash: Identifier {
+public struct UploadedImageHash: Identifier {
 	public var rawValue: String
 
 	public init(rawValue: String) {

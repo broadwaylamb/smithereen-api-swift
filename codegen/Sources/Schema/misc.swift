@@ -18,12 +18,12 @@ let topicCommentID = IdentifierStruct("TopicCommentID", rawValue: .string)
 	.doc("And identifier of a comment in a discussion board topic.")
 let photoFeedEntryID = IdentifierStruct("PhotoFeedEntryID", rawValue: .string)
 let photoTagID = IdentifierStruct("PhotoTagID", rawValue: .int)
-let uploadedAttachmentID = IdentifierStruct("UploadedAttachmentID", rawValue: .string)
+let uploadedImageID = IdentifierStruct("UploadedImageID", rawValue: .string)
 	.doc("""
 		The identifier returned by the upload endpoint after
 		[uploading the image](https://smithereen.software/docs/api/uploads).
 		""")
-let uploadedAttachmentHash = IdentifierStruct("UploadedAttachmentHash", rawValue: .string)
+let uploadedImageHash = IdentifierStruct("UploadedImageHash", rawValue: .string)
 	.doc("""
 		The hash returned by the upload endpoint after
 		[uploading the image](https://smithereen.software/docs/api/uploads).

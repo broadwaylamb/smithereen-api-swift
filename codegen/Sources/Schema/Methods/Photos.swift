@@ -483,6 +483,24 @@ let photos = Group("Photos") {
 	}
 	.doc("Deletes a tag from a photo.")
 	.requiresPermissions("photos")
+
+	RequestDef("photos.save", resultType: .def(photo)) {
+		FieldDef("album_id", type: .def(photoAlbumID))
+			.required()
+			.doc("Identifier of the photo album.")
+		FieldDef("id", type: .def(uploadedImageID))
+			.required()
+			.doc("A parameter returned by the upload endpoint.")
+		FieldDef("hash", type: .def(uploadedImageHash))
+			.required()
+			.doc("A parameter returned by the upload endpoint.")
+		FieldDef("caption", type: .string)
+			.doc("The caption for the photo.")
+		FieldDef("text_format", type: .def(textFormat))
+			.doc("The format of the text in ``caption``.")
+	}
+	.doc("Saves a newly uploaded photo to an album.")
+	.requiresPermissions("photos")
 }
 
 @StructDefBuilder

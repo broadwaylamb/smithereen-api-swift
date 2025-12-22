@@ -16,8 +16,8 @@ let schema = Group {
 		topicCommentID
 		photoFeedEntryID
 		photoTagID
-		uploadedAttachmentID
-		uploadedAttachmentHash
+		uploadedImageID
+		uploadedImageHash
 	}
 	Group("Objects") {
 		attachment

@@ -9,18 +9,18 @@ public enum AttachmentToCreate: Hashable, Codable, Sendable {
 
 		/// The identifier returned by the upload endpoint after
 		/// [uploading the image](https://smithereen.software/docs/api/uploads).
-		public var fileID: UploadedAttachmentID
+		public var fileID: UploadedImageID
 
 		/// The hash returned by the upload endpoint after
 		/// [uploading the image](https://smithereen.software/docs/api/uploads).
-		public var hash: UploadedAttachmentHash
+		public var hash: UploadedImageHash
 
 		/// An optional caption or alt text for this image.
 		public var text: String?
 
 		public init(
-			fileID: UploadedAttachmentID,
-			hash: UploadedAttachmentHash,
+			fileID: UploadedImageID,
+			hash: UploadedImageHash,
 			text: String? = nil,
 		) {
 			self.fileID = fileID

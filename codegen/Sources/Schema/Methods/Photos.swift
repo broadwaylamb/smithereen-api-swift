@@ -352,6 +352,49 @@ let photos = Group("Photos") {
 			If updating a group’s profile picture, `groups` permission is
 			also required.
 			""")
+
+	let tagDef = StructDef("Tag") {
+		FieldDef("user_id", type: .def(userID))
+			.doc("""
+				Identifier of the tagged user. If the tag is unconfirmed or if
+				it was created by entering a name instead of selecting a user
+				from the friend list, this field will be absent.
+				""")
+		FieldDef("id", type: .def(photoTagID))
+			.required()
+			.id()
+			.doc("Tag identifier.")
+		FieldDef("placer_id", type: .def(userID))
+			.required()
+			.doc("Identifier of the user who created the tag.")
+		FieldDef("name", type: .string)
+			.required()
+			.doc("The name of the tagged person.")
+		FieldDef("area", type: .def(imageRect))
+			.required()
+			.flatten()
+			.doc("The coordinates of the tag area.")
+		FieldDef("date", type: .unixTimestamp)
+			.required()
+			.doc("When this tag was created.")
+		FieldDef("confirmed", type: .bool)
+			.doc("""
+				Whether this tag was confirmed by the tagged user.
+				`nil` iff ``userID`` is `nil`.
+				""")
+	}
+	RequestDef("photos.getTags", resultType: .array(.def(tagDef))) {
+		FieldDef("photo_id", type: .def(photoID))
+			.required()
+			.doc("Identifier of the photo.")
+
+		tagDef
+	}
+	.doc("""
+		Returns tags for a photo.
+
+		Photos in non-public albums require a token and the `photos:read` permission.
+		""")
 }
 
 @StructDefBuilder

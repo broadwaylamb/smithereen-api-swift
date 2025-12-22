@@ -53,4 +53,19 @@ let users = Group("Users") {
 	}
 	.doc("Returns the list of users followed by a user.")
 	.withUserFields()
+
+	RequestDef("users.search", resultType: .paginatedList(.def(userID))) {
+		FieldDef("q", type: .string)
+			.swiftName("query")
+			.required()
+			.doc("The search query.")
+		FieldDef("count", type: .int)
+			.doc("""
+				How many search results to return, from 1 to 100.
+
+				By default 100.
+				""")
+	}
+	.doc("Returns a list of users matching search criteria.")
+	.withUserFields()
 }

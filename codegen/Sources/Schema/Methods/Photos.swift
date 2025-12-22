@@ -421,6 +421,17 @@ let photos = Group("Photos") {
 		If the target user has the “who can see photos of me” privacy setting set
 		to prevent public access, a token and the `photos:read` permission are required.
 		""")
+
+	RequestDef("photos.makeCover", resultType: .void) {
+		FieldDef("photo_id", type: .def(photoID))
+			.required()
+			.doc("Identifier of the photo.")
+		FieldDef("album_id", type: .def(photoAlbumID))
+			.required()
+			.doc("Identifier of the album.")
+	}
+	.doc("Sets a photo as the album cover.")
+	.requiresPermissions("photos")
 }
 
 @StructDefBuilder

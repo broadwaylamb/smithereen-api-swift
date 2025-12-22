@@ -257,7 +257,7 @@ final class PrinterVisitor {
 					}
 					EnumCaseDeclSyntax(leadingTrivia: `case`.leadingTrivia) {
 						EnumCaseElementSyntax(
-							name: .identifier(`case`.swiftName),
+							name: identifier(`case`.swiftName, context: .variableName),
 							rawValue: rawValue.map {
 								InitializerClauseSyntax(value: $0)
 							}

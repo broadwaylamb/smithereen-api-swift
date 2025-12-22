@@ -1,0 +1,32 @@
+let users = Group("Users") {
+	RequestDef("users.get", resultType: .array(.def(user))) {
+		FieldDef("user_ids", type: .array(.def(userID)))
+			.doc("""
+				A list of user IDs or screen names.
+				If the method is called with an access token,
+				defaults to the current user’s ID.
+				Required if no token is used.
+				""")
+		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
+			.doc("A list of user profile fields to be returned.")
+		let caseDef = EnumDef<String>("RelationCase") {
+			EnumCaseDef("def", swiftName: "default")
+				.doc("The default case used in the web interface with the current language.")
+			EnumCaseDef("nom", swiftName: "nominative")
+			EnumCaseDef("gen", swiftName: "genitive")
+			EnumCaseDef("dat", swiftName: "dative")
+			EnumCaseDef("acc", swiftName: "accusative")
+			EnumCaseDef("ins", swiftName: "instrumental")
+			EnumCaseDef("pre", swiftName: "prepositional")
+		}
+		.frozen()
+		FieldDef("relation_case", type: .def(caseDef))
+			.doc("""
+				For Slavic languages and when the ``User/Field/relation``
+				field is requested, the grammatical case for
+				the relationship partner’s name.
+				""")
+		caseDef
+	}
+	.doc("Returns information about users.")
+}

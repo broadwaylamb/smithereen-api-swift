@@ -13,4 +13,18 @@ let status = Group("Status") {
 		}
 	}
 	.doc("Returns a user’s or group’s status text.")
+
+	RequestDef("status.set", resultType: .void) {
+		FieldDef("group_id", type: .def(groupID))
+			.doc("""
+				Which group to update the status in.
+				Updating a group’s status requires the `groups` permission.
+
+				If not specified, updates the current user’s status.
+				""")
+		FieldDef("text", type: .string)
+			.doc("The status text. The status is cleared if this is not specified.")
+	}
+	.doc("Updates the current user’s or their managed group’s status.")
+	.requiresPermissions("account")
 }

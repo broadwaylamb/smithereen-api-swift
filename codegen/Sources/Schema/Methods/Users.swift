@@ -41,4 +41,16 @@ let users = Group("Users") {
 	}
 	.doc("Returns the list of a user’s followers.")
 	.withUserFields()
+
+	RequestDef("users.getSubscriptions", resultType: .paginatedList(.def(userID))) {
+		FieldDef("user_id", type: .def(userID))
+			.doc("""
+				ID of the user whose subscriptions you’re requesting.
+				If the method is called with an access token,
+				defaults to the current user’s ID. Required if no token is used.
+				""")
+			offsetAndCountParams("follower", defaultCount: 100)
+	}
+	.doc("Returns the list of users followed by a user.")
+	.withUserFields()
 }

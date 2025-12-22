@@ -472,6 +472,17 @@ let photos = Group("Photos") {
 		the current user, or owned by a group managed by the current user.
 		""")
 	.requiresPermissions("photos")
+
+	RequestDef("photos.removeTag", resultType: .void) {
+		FieldDef("photo_id", type: .def(photoID))
+			.required()
+			.doc("Identifier of the photo.")
+		FieldDef("tag_id", type: .def(photoTagID))
+			.required()
+			.doc("Identifier of the tag.")
+	}
+	.doc("Deletes a tag from a photo.")
+	.requiresPermissions("photos")
 }
 
 @StructDefBuilder

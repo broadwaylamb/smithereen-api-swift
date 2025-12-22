@@ -273,7 +273,7 @@ let photos = Group("Photos") {
 		Getting non-public albums requires a token with `photos:read` permission.
 		""")
 
-	getUploadServerRequest("photos.getAttachmentUploadServer")
+	getUploadServerRequest("photos.getAttachmentUploadServer", parameters: {})
 		.doc("""
 			Get the information required for uploading an image to be attached
 			to a wall post, comment, or message.
@@ -344,7 +344,7 @@ let photos = Group("Photos") {
 	}
 	.doc("Returns photos with unconfirmed tags of the current user.")
 
-	getUploadServerRequest("photos.getOwnerPhotoUploadServer")
+	getUploadServerRequest("photos.getOwnerPhotoUploadServer", parameters: {})
 		.doc("""
 			Returns a URL for uploading a new profile picture for the current
 			user or a group they manage.
@@ -395,6 +395,19 @@ let photos = Group("Photos") {
 
 		Photos in non-public albums require a token and the `photos:read` permission.
 		""")
+
+	getUploadServerRequest("photos.getUploadServer") {
+		FieldDef("album_id", type: .def(photoAlbumID))
+			.required()
+			.doc("Identifier of the photo album to which to upload the photo.")
+	}
+	.doc("""
+		Returns a URL for uploading a new photo to a photo album.
+
+		Photos can’t be uploaded to system albums using this method.
+		System albums are special and each has its own way of adding new photos.
+		""")
+	.requiresPermissions("photos")
 }
 
 @StructDefBuilder
@@ -447,8 +460,9 @@ private func extendedField() -> FieldDef {
 			""")
 }
 
-private func getUploadServerRequest(_ name: String) -> RequestDef {
+private func getUploadServerRequest(_ name: String, @StructDefBuilder parameters: () -> any StructDefPart) -> RequestDef {
 	RequestDef(name) {
+		parameters()
 		StructDef("Result") {
 			FieldDef("upload_url", type: .url)
 				.required()

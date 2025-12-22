@@ -1,5 +1,6 @@
 let userID = IdentifierStruct("UserID", rawValue: .int)
 let groupID = IdentifierStruct("GroupID", rawValue: .int)
+let applicationID = IdentifierStruct("ApplicationID", rawValue: .int)
 let actorID = IdentifierStruct("ActorID", rawValue: .int)
 	.doc("Represents either ``UserID`` or ``GroupID``.")
 let friendListID = IdentifierStruct("FriendListID", rawValue: .int)

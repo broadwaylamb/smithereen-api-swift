@@ -17,4 +17,24 @@ let utils = Group("Utils") {
 
 		Note that a call to this method may potentially take 30 seconds or more.
 		""")
+
+	RequestDef("utils.resolveScreenName") {
+		FieldDef("screen_name", type: .string)
+			.required()
+			.doc("The username or `username@domain` to resolve.")
+
+		TaggedUnionDef("Result") {
+			TaggedUnionVariantDef("user", payloadFieldName: "id", type: .def(userID))
+			TaggedUnionVariantDef("group", payloadFieldName: "id", type: .def(groupID))
+			TaggedUnionVariantDef("application", payloadFieldName: "id", type: .def(applicationID))
+		}
+		.frozen()
+	}
+	.doc("""
+		Returns the user, group, or app ID by its screen name (username).
+
+		This method only works with actors that are already present
+		in the server’s database. If you need to load a remote actor that
+		the server may not know about, use ``LoadRemoteObject`` instead.
+		""")
 }

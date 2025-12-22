@@ -501,6 +501,28 @@ let photos = Group("Photos") {
 	}
 	.doc("Saves a newly uploaded photo to an album.")
 	.requiresPermissions("photos")
+
+	RequestDef("photos.saveOwnerPhoto", resultType: .def(photo)) {
+		FieldDef("group_id", type: .def(groupID))
+			.doc("If updating a group’s profile picture, identifier of that group.")
+		FieldDef("id", type: .def(uploadedImageID))
+			.required()
+			.doc("A parameter returned by the upload endpoint.")
+		FieldDef("hash", type: .def(uploadedImageHash))
+			.required()
+			.doc("A parameter returned by the upload endpoint.")
+		FieldDef("cropRects", type: TypeRef(name: "AvatarCropRects"))
+			.flatten()
+			.doc("""
+				If this parameter is `nil`:
+
+				- The entire photo will be used for the rectangular version
+				- The square will be taken from the top of the rectangular version
+				  if it’s vertical, or from its center if it’s horizontal
+				""")
+	}
+	.doc("Saves a newly uploaded profile picture")
+	.requiresPermissions("photos")
 }
 
 @StructDefBuilder

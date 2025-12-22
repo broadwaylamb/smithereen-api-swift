@@ -203,13 +203,7 @@ let photos = Group("Photos") {
 
 		offsetAndCountParams("photo", defaultCount: 50)
 		extendedField()
-
-		FieldDef("rev", type: .bool)
-			.doc("""
-				Whether to return the photos in reverse order.
-
-				By default `false`.
-				""")
+		revField()
 	}
 	.doc("""
 		Returns photos from an album.
@@ -408,6 +402,25 @@ let photos = Group("Photos") {
 		System albums are special and each has its own way of adding new photos.
 		""")
 	.requiresPermissions("photos")
+
+	RequestDef("photos.getUserPhotos", resultType: .paginatedList(.def(photo))) {
+		FieldDef("user_id", type: .def(userID))
+			.doc("""
+				Identifier of the user whose tagged photos need to be returned.
+
+				By default, the current user. Required when called without a token.
+				""")
+
+		offsetAndCountParams("photo", defaultCount: 50)
+		extendedField()
+		revField()
+	}
+	.doc("""
+		Returns photos that a user is tagged in.
+
+		If the target user has the “who can see photos of me” privacy setting set
+		to prevent public access, a token and the `photos:read` permission are required.
+		""")
 }
 
 @StructDefBuilder
@@ -455,6 +468,15 @@ private func extendedField() -> FieldDef {
 		.doc("""
 			Whether to return extra fields about likes, comments,
 			and tags for each photo.
+
+			By default `false`.
+			""")
+}
+
+private func revField() -> FieldDef {
+	FieldDef("rev", type: .bool)
+		.doc("""
+			Whether to return the photos in reverse order.
 
 			By default `false`.
 			""")

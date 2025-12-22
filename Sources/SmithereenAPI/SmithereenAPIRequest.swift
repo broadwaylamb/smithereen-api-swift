@@ -4,22 +4,26 @@ import Hammond
 public protocol SmithereenAPIRequest
 	:	EncodableRequestProtocol,
 		DecodableRequestProtocol
-	where ServerError == SmithereenAPIError, ResponseBody == Data 
+	where ServerError == SmithereenAPIError, ResponseBody == Data
 {
 	associatedtype Result
 }
 
-private let smithereenJSONDecoder = JSONDecoder()
+private let smithereenJSONDecoder: JSONDecoder = {
+	let decoder = JSONDecoder()
+	decoder.dateDecodingStrategy = .secondsSince1970
+	return decoder
+}()
 
 extension SmithereenAPIRequest {
 	public func deserializeError(from body: Data) throws -> SmithereenAPIError {
 		let response = try smithereenJSONDecoder
 			.decode(SmithereenAPIResponse<NeverCodable>.self, from: body)
-		
+
 		if let error = response.error {
 			return error
 		}
-		
+
 		throw DecodingError.valueNotFound(
 			SmithereenAPIError.self,
 			DecodingError.Context(
@@ -41,7 +45,7 @@ internal func deserializeRequestResult<Result: Decodable>(
 ) throws -> Result {
 	let response = try smithereenJSONDecoder
 		.decode(SmithereenAPIResponse<Result>.self, from: body)
-	
+
 	if let result = response.response {
 		return result
 	}

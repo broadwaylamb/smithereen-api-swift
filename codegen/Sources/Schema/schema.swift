@@ -58,6 +58,7 @@ let schema = Group {
 		server
 		status
 		users
+		utils
 	}
 
 	communityType

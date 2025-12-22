@@ -6,3 +6,4 @@ public enum Photos {}
 public enum Server {}
 public enum Status {}
 public enum Users {}
+public enum Utils {}

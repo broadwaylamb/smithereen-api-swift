@@ -147,6 +147,14 @@ let board = Group("Board") {
 				.required()
 		}
 	}
+
+	RequestDef("board.openTopic", resultType: .void) {
+		FieldDef("topic_id", type: .def(boardTopicID))
+			.required()
+			.doc("The topic identifier.")
+	}
+	.doc("Reopens a previously closed topic.")
+	.requiresPermissions("groups")
 }
 
 @StructDefBuilder

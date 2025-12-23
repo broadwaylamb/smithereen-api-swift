@@ -3,51 +3,58 @@
 import Foundation
 import SmithereenAPIInternals
 import Hammond
-extension Wall {
+extension Messages {
 
-	public struct Repost: SmithereenAPIRequest, Hashable, Encodable, Sendable {
+	/// Sends a new message.
+	/// - Note: This method requires the following permissions: `messages`.
+	public struct Send: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
-		/// The identifier of the post or comment to be reposted.
-		public var postID: WallPostID
+		/// A list of user identifiers for recipients.
+		public var to: [UserID]
 
-		/// The text of the repost.
+		/// The subject line of the message.
+		public var subject: String?
+
+		/// The text of the message.
 		/// **Required** if there are no ``attachments``.
 		/// This parameter supports formatted text, the format is
 		/// determined by the ``textFormat`` parameter.
-		public var message: String?
+		public var body: String?
 
-		/// The format of the repost text passed in ``message``.
+		/// The format of the message text passed in ``message``.
 		/// By default, the user’s preference is used.
 		public var textFormat: TextFormat?
 
-		/// An array representing the media attachments to be added to this repost.
+		/// An array representing the media attachments to be added to this message.
 		/// **Required** if there is no ``message``.
 		@EncodeAsJSONString
 		public var attachments: [AttachmentToCreate]?
 
-		/// If this is not empty, make the content of the repost hidden
+		/// If this is not empty, make the content of the message hidden
 		/// by default, requiring a click to reveal.
 		/// This text will be shown instead of the content.
 		public var contentWarning: String?
 
 		/// A unique identifier used to prevent accidental double-posting
 		/// on unreliable connections.
-		/// If ``Wall/Repost`` was previously called with this
-		/// ``guid`` in the last hour, no new post will be created,
-		/// the ID of that previously created post will be returned
+		/// If ``Messages/Send`` was previously called with this
+		/// ``guid`` in the last hour, no new message will be created,
+		/// the ID of that previously created message will be returned
 		/// instead. Recommended for mobile apps.
 		public var guid: UUID?
 
 		public init(
-			postID: WallPostID,
-			message: String? = nil,
+			to: [UserID],
+			subject: String? = nil,
+			body: String? = nil,
 			textFormat: TextFormat? = nil,
 			attachments: [AttachmentToCreate]? = nil,
 			contentWarning: String? = nil,
 			guid: UUID? = nil,
 		) {
-			self.postID = postID
-			self.message = message
+			self.to = to
+			self.subject = subject
+			self.body = body
 			self.textFormat = textFormat
 			self.attachments = attachments
 			self.contentWarning = contentWarning
@@ -55,15 +62,16 @@ extension Wall {
 		}
 
 		private enum CodingKeys: String, CodingKey {
-			case postID = "post_id"
-			case message
+			case to
+			case subject
+			case body
 			case textFormat = "text_format"
 			case attachments
 			case contentWarning = "content_warning"
 			case guid
 		}
 		public var path: String {
-			"/method/wall.repost"
+			"/method/messages.send"
 		}
 		public static var method: HTTPMethod {
 			.post
@@ -71,6 +79,6 @@ extension Wall {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = WallPostID
+		public typealias Result = MessageID
 	}
 }

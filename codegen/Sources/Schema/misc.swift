@@ -419,8 +419,8 @@ func commentsRequest(
 }
 
 @StructDefBuilder
-func postParameters(postKind: String) -> any StructDefPart {
-	FieldDef("message", type: .string)
+func postParameters(postKind: String, bodyFieldName: String = "message") -> any StructDefPart {
+	FieldDef(bodyFieldName, type: .string)
 		.doc("""
 			The text of the \(postKind).
 			**Required** if there are no ``attachments``.
@@ -454,17 +454,17 @@ func commentCreationParameters(method: String, replyToID: StructDef) -> any Stru
 	FieldDef("reply_to_comment", type: .def(replyToID))
 		.doc("Identifier of the comment to reply to.")
 	postParameters(postKind: "comment")
-	guidField(method: method)
+	guidField(method: method, entity: "comment")
 }
 
-func guidField(method: String) -> FieldDef {
+func guidField(method: String, entity: String) -> FieldDef {
 	FieldDef("guid", type: .uuid)
 		.doc("""
 			A unique identifier used to prevent accidental double-posting
 			on unreliable connections.
 			If ``\(method)`` was previously called with this
-			``guid`` in the last hour, no new comment will be created,
-			the ID of that previously created comment will be returned
+			``guid`` in the last hour, no new \(entity) will be created,
+			the ID of that previously created \(entity) will be returned
 			instead. Recommended for mobile apps.
 			""")
 }

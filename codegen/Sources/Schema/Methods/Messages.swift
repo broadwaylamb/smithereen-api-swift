@@ -93,6 +93,18 @@ let messages = Group("Messages") {
 		after which it is deleted irreversibly.
 		""")
 	.requiresPermissions("messages")
+
+	RequestDef("messages.send", resultType: .def(messageID)) {
+		FieldDef("to", type: .array(.def(userID)))
+			.required()
+			.doc("A list of user identifiers for recipients.")
+		FieldDef("subject", type: .string)
+			.doc("The subject line of the message.")
+		postParameters(postKind: "message", bodyFieldName: "body")
+		guidField(method: "Messages/Send", entity: "message")
+	}
+	.doc("Sends a new message.")
+	.requiresPermissions("messages")
 }
 
 @StructDefBuilder

@@ -24,7 +24,7 @@ let board = Group("Board") {
 			.required()
 			.doc("The title of the topic.")
 		postParameters(postKind: "comment")
-		guidField(method: "Board/CreateTopic")
+		guidField(method: "Board/CreateTopic", entity: "topic")
 	}
 	.doc("Creates a new topic in a group.")
 	.requiresPermissions("groups")

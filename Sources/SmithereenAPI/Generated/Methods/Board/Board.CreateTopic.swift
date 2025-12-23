@@ -38,8 +38,8 @@ extension Board {
 		/// A unique identifier used to prevent accidental double-posting
 		/// on unreliable connections.
 		/// If ``Board/CreateTopic`` was previously called with this
-		/// ``guid`` in the last hour, no new comment will be created,
-		/// the ID of that previously created comment will be returned
+		/// ``guid`` in the last hour, no new topic will be created,
+		/// the ID of that previously created topic will be returned
 		/// instead. Recommended for mobile apps.
 		public var guid: UUID?
 

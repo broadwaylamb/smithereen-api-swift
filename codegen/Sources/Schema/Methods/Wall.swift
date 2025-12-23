@@ -135,7 +135,7 @@ let wall = Group("Wall") {
 			.required()
 			.doc("User or group ID on whose wall the post is to be created.")
 		postParameters(postKind: "post")
-		guidField(method: "Wall/Post")
+		guidField(method: "Wall/Post", entity: "post")
 	}
 	.doc("Creates a new wall post.")
 	.requiresPermissions("wall")
@@ -145,7 +145,7 @@ let wall = Group("Wall") {
 			.required()
 			.doc("The identifier of the post or comment to be reposted.")
 		postParameters(postKind: "repost")
-		guidField(method: "Wall/Repost")
+		guidField(method: "Wall/Repost", entity: "post")
 	}
 
 	RequestDef("wall.unpin", resultType: .void) {

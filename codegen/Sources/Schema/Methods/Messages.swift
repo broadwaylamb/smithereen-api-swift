@@ -18,4 +18,27 @@ let messages = Group("Messages") {
 	}
 	.doc("Deletes a message.")
 	.requiresPermissions("messages")
+
+	RequestDef("messages.get", resultType: .paginatedList(.def(message))) {
+		FieldDef("out", type: .bool)
+			.doc("""
+				Whether to return outgoing or incoming messages.
+
+				By default `false`.
+				""")
+		offsetAndCountParams("message", defaultCount: 20)
+	}
+	.withExtendedVersion(
+		"Extended",
+		extendedResultType: .paginatedList(
+			.def(message),
+			extras: .paginatedListExtrasProfiles
+		),
+	) {
+		FieldDef("extended", type: .bool)
+			.required()
+			.constantValue("true")
+		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
+			.doc("A list of user profile fields to be returned.")
+	}
 }

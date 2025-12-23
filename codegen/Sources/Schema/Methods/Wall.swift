@@ -79,6 +79,14 @@ let wall = Group("Wall") {
 				.required()
 		}
 	}
+
+	commentsRequest(
+		"wall.getComments",
+		commentID: wallPostID,
+		comment: wallPost,
+		targetField: FieldDef("post_id", type: .def(wallPostID))
+			.doc("The identifier of the post."),
+	)
 }
 
 private func repostHistoryDepth() -> FieldDef {

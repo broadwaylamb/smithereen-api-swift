@@ -321,6 +321,7 @@ func commentsRequest(
 		)
 	) {
 		targetField
+			.required()
 
 		FieldDef("view_type", type: .def(commentView))
 			.doc("""

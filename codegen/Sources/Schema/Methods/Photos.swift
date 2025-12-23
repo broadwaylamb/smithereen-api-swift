@@ -305,7 +305,6 @@ let photos = Group("Photos") {
 		commentID: photoCommentID,
 		comment: photoComment,
 		targetField: FieldDef("photo_id", type: .def(photoID))
-			.required()
 			.doc("The identifier of the photo.")
 	)
 

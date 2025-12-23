@@ -64,4 +64,13 @@ let board = Group("Board") {
 	}
 	.doc("Edits the title of a topic.")
 	.requiresPermissions("groups")
+
+	RequestDef("board.getCommentEditSource", resultType: .def(postEditSource)) {
+		FieldDef("comment_id", type: .def(topicCommentID))
+			.required()
+			.doc("""
+				The identifier of the comment for which the source needs to be
+				returned.
+				""")
+	}
 }

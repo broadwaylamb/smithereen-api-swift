@@ -36,4 +36,12 @@ let board = Group("Board") {
 	}
 	.doc("Deletes a comment in a topic.")
 	.requiresPermissions("groups")
+
+	RequestDef("board.deleteTopic", resultType: .void) {
+		FieldDef("topic_id", type: .def(boardTopicID))
+			.required()
+			.doc("The topic identifier.")
+	}
+	.doc("Deletes a topic.")
+	.requiresPermissions("groups")
 }

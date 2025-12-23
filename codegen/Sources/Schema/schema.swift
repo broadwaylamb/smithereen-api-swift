@@ -36,6 +36,7 @@ let schema = Group {
 		group
 		likeInfo
 		likeableObject
+		message
 		photo
 		photoAlbum
 		imageRect

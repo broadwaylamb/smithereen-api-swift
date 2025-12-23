@@ -102,6 +102,25 @@ let wall = Group("Wall") {
 		for editing.
 		""")
 	.requiresPermissions("wall")
+
+	RequestDef("wall.getReposts", resultType: .paginatedList(.def(wallPost))) {
+		FieldDef("post_id", type: .def(wallPostID))
+			.required()
+			.doc("The post identifier.")
+
+		offsetAndCountParams("post", defaultCount: 20)
+		repostHistoryDepth()
+	}
+	.doc("Returns the list of reposts for a wall post or comment.")
+	.withExtendedVersion(
+		"Extended",
+		extendedResultType: .paginatedList(
+			.def(wallPost),
+			extras: .paginatedListExtrasProfilesAndGroups,
+		)
+	) {
+		extendedParameters()
+	}
 }
 
 private func repostHistoryDepth() -> FieldDef {

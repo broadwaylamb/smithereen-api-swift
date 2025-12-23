@@ -147,6 +147,14 @@ let wall = Group("Wall") {
 		postParameters(postKind: "repost")
 		guidField(method: "Wall/Repost")
 	}
+
+	RequestDef("wall.unpin", resultType: .void) {
+		FieldDef("post_id", type: .def(wallPostID))
+			.required()
+			.doc("Identifier of the post to unpin.")
+	}
+	.doc("Unpins a previously pinned wall post.")
+	.requiresPermissions("wall")
 }
 
 private func repostHistoryDepth() -> FieldDef {

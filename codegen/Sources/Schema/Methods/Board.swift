@@ -15,4 +15,17 @@ let board = Group("Board") {
 	}
 	.doc("Creates a new comment in a topic.")
 	.requiresPermissions("groups")
+
+	RequestDef("board.createTopic", resultType: .def(boardTopicID)) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Identifier of the group where to create the topic.")
+		FieldDef("title", type: .string)
+			.required()
+			.doc("The title of the topic.")
+		postParameters(postKind: "comment")
+		guidField(method: "Board/CreateTopic")
+	}
+	.doc("Creates a new topic in a group.")
+	.requiresPermissions("groups")
 }

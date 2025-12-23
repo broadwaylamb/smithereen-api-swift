@@ -55,7 +55,7 @@ struct RequestDef: Documentable {
 
 	func withExtendedVersion(
 		_ extendedName: String,
-		extendedResultType: TypeRef,
+		extendedResultType: TypeRef? = nil,
 		@StructDefBuilder extendedFields: () -> any StructDefPart,
 	) -> Self {
 		let newDecls = extendedFields()

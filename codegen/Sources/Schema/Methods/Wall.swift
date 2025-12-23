@@ -47,15 +47,7 @@ let wall = Group("Wall") {
 			.doc("Which posts to return. By default ``Filter/all``.")
 		filterDef
 
-		FieldDef("repost_history_depth", type: .int)
-			.doc("""
-				Determines the size of the ``User/repostHistory`` array.
-				For example, if a post is a repost of another repost,
-				with ``repostHistoryDepth`` = 1, only the first repost
-				will be returned.
-
-				From 0 to 10. By default 2.
-				""")
+		repostHistoryDepth()
 	}
 	.doc("Returns the posts on a user’s or group’s wall.")
 	.withExtendedVersion(
@@ -65,10 +57,47 @@ let wall = Group("Wall") {
 			extras: .paginatedListExtrasProfilesAndGroups,
 		)
 	) {
-		FieldDef("extended", type: .bool)
-			.required()
-			.constantValue("true")
-		FieldDef("fields", type: .array(.def(actorField)))
-			.doc("A list of ``User`` and ``Group`` profile fields to be returned.")
+		extendedParameters()
 	}
+
+	RequestDef("wall.getById", resultType: .array(.def(wallPost))) {
+		FieldDef("posts", type: .array(.def(wallPostID)))
+			.required()
+			.doc("A list of post IDs")
+		repostHistoryDepth()
+	}
+	.doc("Returns wall posts by their IDs.")
+	.withExtendedVersion("Extended") {
+		extendedParameters()
+
+		StructDef("Result") {
+			FieldDef("profiles", type: .array(.def(user)))
+				.required()
+			FieldDef("groups", type: .array(.def(group)))
+				.required()
+			FieldDef("items", type: .array(.def(wallPost)))
+				.required()
+		}
+	}
+}
+
+private func repostHistoryDepth() -> FieldDef {
+	FieldDef("repost_history_depth", type: .int)
+		.doc("""
+			Determines the size of the ``User/repostHistory`` array.
+			For example, if a post is a repost of another repost,
+			with ``repostHistoryDepth`` = 1, only the first repost
+			will be returned.
+
+			From 0 to 10. By default 2.
+			""")
+}
+
+@StructDefBuilder
+private func extendedParameters() -> any StructDefPart {
+	FieldDef("extended", type: .bool)
+		.required()
+		.constantValue("true")
+	FieldDef("fields", type: .array(.def(actorField)))
+		.doc("A list of ``User`` and ``Group`` profile fields to be returned.")
 }

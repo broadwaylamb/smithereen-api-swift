@@ -96,4 +96,12 @@ let account = Group("Account") {
 		Sets the current user’s presence status to “online”
 		for 5 minutes.
 		""")
+
+	RequestDef("account.unbanDomain", resultType: .void) {
+		FieldDef("domain", type: .string)
+			.required()
+			.doc("The domain name of the server to unblock.")
+	}
+	.doc("Unlocks a remote server on behalf of the current user.")
+	.requiresPermissions("account")
 }

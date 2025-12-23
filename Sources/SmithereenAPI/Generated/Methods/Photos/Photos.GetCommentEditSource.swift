@@ -14,28 +14,6 @@ extension Photos {
 		/// to be returned.
 		public var commentID: PhotoCommentID
 
-		public struct Result: Hashable, Codable, Sendable {
-
-			/// The text itself.
-			public var text: String?
-
-			/// The format of the text.
-			public var format: TextFormat
-
-			/// The array of input attachment objects.
-			public var attachments: [AttachmentToCreate]
-
-			public init(
-				text: String? = nil,
-				format: TextFormat,
-				attachments: [AttachmentToCreate],
-			) {
-				self.text = text
-				self.format = format
-				self.attachments = attachments
-			}
-		}
-
 		public init(commentID: PhotoCommentID) {
 			self.commentID = commentID
 		}
@@ -52,5 +30,6 @@ extension Photos {
 		public var encodableBody: Self {
 			self
 		}
+		public typealias Result = PostEditSource
 	}
 }

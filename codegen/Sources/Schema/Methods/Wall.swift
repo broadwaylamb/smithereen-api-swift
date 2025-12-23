@@ -87,6 +87,21 @@ let wall = Group("Wall") {
 		targetField: FieldDef("post_id", type: .def(wallPostID))
 			.doc("The identifier of the post."),
 	)
+
+	RequestDef("wall.getEditSource", resultType: .def(postEditSource)) {
+		FieldDef("post_id", type: .def(wallPostID))
+			.required()
+			.doc("""
+				The identifier of the post for which the source needs
+				to be returned.
+				""")
+	}
+	.doc("""
+		Returns the source of the text and attachments of a post or
+		a comment, as submitted when creating it, so they could be used
+		for editing.
+		""")
+	.requiresPermissions("wall")
 }
 
 private func repostHistoryDepth() -> FieldDef {

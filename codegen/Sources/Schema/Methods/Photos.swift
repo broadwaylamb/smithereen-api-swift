@@ -275,24 +275,13 @@ let photos = Group("Photos") {
 		the `photos:read` permission.
 		""")
 
-	RequestDef("photos.getCommentEditSource") {
+	RequestDef("photos.getCommentEditSource", resultType: .def(postEditSource)) {
 		FieldDef("comment_id", type: .def(photoCommentID))
 			.required()
 			.doc("""
 				The identifier of the comment for which the source needs
 				to be returned.
 				""")
-
-		StructDef("Result") {
-			FieldDef("text", type: .string)
-				.doc("The text itself.")
-			FieldDef("format", type: .def(textFormat))
-				.required()
-				.doc("The format of the text.")
-			FieldDef("attachments", type: .array(.def(attachmentToCreate)))
-				.required()
-				.doc("The array of input attachment objects.")
-		}
 	}
 	.doc("""
 		Returns the source of the text and attachments of a comment,

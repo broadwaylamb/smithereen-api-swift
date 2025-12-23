@@ -27,9 +27,9 @@ let schema = Group {
 		boardTopic
 		commentProtocol
 		commentThread
-		photoComment
 		cropPhoto
 		deactivatedStatus
+		postEditSource
 		friendList
 		graffiti
 		group
@@ -38,6 +38,7 @@ let schema = Group {
 		photo
 		photoAlbum
 		imageRect
+		photoComment
 		photoFeedUpdate
 		platform
 		poll

@@ -307,6 +307,17 @@ let commentSortOrder = EnumDef<String>("CommentSortOrder") {
 .frozen()
 .doc("The sort order for the comments.")
 
+let postEditSource = StructDef("PostEditSource") {
+	FieldDef("text", type: .string)
+		.doc("The text itself.")
+	FieldDef("format", type: .def(textFormat))
+		.required()
+		.doc("The format of the text.")
+	FieldDef("attachments", type: .array(.def(attachmentToCreate)))
+		.required()
+		.doc("The array of input attachment objects.")
+}
+
 func commentsRequest(
 	_ name: String,
 	commentID: StructDef,

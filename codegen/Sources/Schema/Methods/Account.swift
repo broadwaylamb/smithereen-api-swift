@@ -104,4 +104,12 @@ let account = Group("Account") {
 	}
 	.doc("Unlocks a remote server on behalf of the current user.")
 	.requiresPermissions("account")
+
+	RequestDef("account.unbanUser", resultType: .void) {
+		FieldDef("user_id", type: .def(userID))
+			.required()
+			.doc("The identifier of the user to unblock.")
+	}
+	.doc("Unblocks a user on behalf of the current user.")
+	.requiresPermissions("account")
 }

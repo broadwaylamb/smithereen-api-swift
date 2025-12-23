@@ -44,4 +44,13 @@ let board = Group("Board") {
 	}
 	.doc("Deletes a topic.")
 	.requiresPermissions("groups")
+
+	RequestDef("board.editComment", resultType: .def(topicCommentID)) {
+		FieldDef("comment_id", type: .def(topicCommentID))
+			.required()
+			.doc("The identifier of the comment to be updated.")
+		postParameters(postKind: "comment")
+	}
+	.doc("Edits a comment in a topic.")
+	.requiresPermissions("groups")
 }

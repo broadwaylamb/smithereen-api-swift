@@ -24,4 +24,51 @@ let wall = Group("Wall") {
 	}
 	.doc("Edits a wall post or comment.")
 	.requiresPermissions("wall")
+
+	RequestDef("wall.get", resultType: .paginatedList(.def(wallPost))) {
+		FieldDef("owner_id", type: .def(actorID))
+			.required()
+			.doc("""
+				The ID of the user or the group whose wall posts need
+				to be returned.
+				""")
+		offsetAndCountParams("post", defaultCount: 20)
+
+		let filterDef = EnumDef<String>("Filter") {
+			EnumCaseDef("owner")
+				.doc("Only posts made by the wall owner.")
+			EnumCaseDef("others")
+				.doc("Only posts made by users other than the wall owner.")
+			EnumCaseDef("all")
+				.doc("All posts (``owner`` + ``others``)")
+		}
+		.frozen()
+		FieldDef("filter", type: .def(filterDef))
+			.doc("Which posts to return. By default ``Filter/all``.")
+		filterDef
+
+		FieldDef("repost_history_depth", type: .int)
+			.doc("""
+				Determines the size of the ``User/repostHistory`` array.
+				For example, if a post is a repost of another repost,
+				with ``repostHistoryDepth`` = 1, only the first repost
+				will be returned.
+
+				From 0 to 10. By default 2.
+				""")
+	}
+	.doc("Returns the posts on a user’s or group’s wall.")
+	.withExtendedVersion(
+		"Extended",
+		extendedResultType: .paginatedList(
+			.def(wallPost),
+			extras: .paginatedListExtrasProfilesAndGroups,
+		)
+	) {
+		FieldDef("extended", type: .bool)
+			.required()
+			.constantValue("true")
+		FieldDef("fields", type: .array(.def(actorField)))
+			.doc("A list of ``User`` and ``Group`` profile fields to be returned.")
+	}
 }

@@ -143,6 +143,15 @@ public struct PhotoTagID: Identifier {
 	}
 }
 
+/// And identifier of a private message.
+public struct MessageID: Identifier {
+	public var rawValue: String
+
+	public init(rawValue: String) {
+		self.rawValue = rawValue
+	}
+}
+
 /// The identifier returned by the upload endpoint after
 /// [uploading the image](https://smithereen.software/docs/api/uploads).
 public struct UploadedImageID: Identifier {

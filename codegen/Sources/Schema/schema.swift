@@ -17,6 +17,7 @@ let schema = Group {
 		topicCommentID
 		photoFeedEntryID
 		photoTagID
+		messageID
 		uploadedImageID
 		uploadedImageHash
 	}
@@ -57,6 +58,7 @@ let schema = Group {
 		friends
 		groups
 		likes
+		messages
 		newsfeed
 		photos
 		server

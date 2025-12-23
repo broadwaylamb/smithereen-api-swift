@@ -57,6 +57,21 @@ let messages = Group("Messages") {
 				.required()
 		}
 	}
+
+	RequestDef("messages.getHistory", resultType: .paginatedList(.def(message))) {
+		FieldDef("user_id", type: .def(userID))
+			.required()
+			.doc("Identifier of the user.")
+		offsetAndCountParams("message", defaultCount: 20)
+	}
+	.doc("""
+		Returns the conversation history with a specified user.
+
+		Messages that have multiple recipients are included in all corresponding
+		conversations, so you may see the same message returned for different
+		``userID``s.
+		""")
+	.requiresPermissions("messages:read")
 }
 
 @StructDefBuilder

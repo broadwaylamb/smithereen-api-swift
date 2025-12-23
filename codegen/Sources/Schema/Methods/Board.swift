@@ -28,4 +28,12 @@ let board = Group("Board") {
 	}
 	.doc("Creates a new topic in a group.")
 	.requiresPermissions("groups")
+
+	RequestDef("board.deleteComment", resultType: .void) {
+		FieldDef("comment_id", type: .def(topicCommentID))
+			.required()
+			.doc("Identifier of the comment to delete.")
+	}
+	.doc("Deletes a comment in a topic.")
+	.requiresPermissions("groups")
 }

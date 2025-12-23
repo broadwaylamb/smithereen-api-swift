@@ -52,6 +52,7 @@ let schema = Group {
 
 	Group("Methods") {
 		account
+		board
 		execute
 		friends
 		groups

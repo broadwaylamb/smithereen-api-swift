@@ -15,4 +15,13 @@ let wall = Group("Wall") {
 	}
 	.doc("Deletes a wall post or comment.")
 	.requiresPermissions("wall")
+
+	RequestDef("wall.edit", resultType: .def(wallPostID)) {
+		FieldDef("post_id", type: .def(wallPostID))
+			.required()
+			.doc("The identifier of the post to be updated.")
+		commentParameters()
+	}
+	.doc("Edits a wall post or comment.")
+	.requiresPermissions("wall")
 }

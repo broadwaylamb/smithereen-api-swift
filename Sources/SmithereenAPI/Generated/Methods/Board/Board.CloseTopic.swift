@@ -6,6 +6,7 @@ import Hammond
 extension Board {
 
 	/// Closes a topic so that no more comments could be posted.
+	/// - Note: This method requires the following permissions: `groups`.
 	public struct CloseTopic: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// The topic identifier.

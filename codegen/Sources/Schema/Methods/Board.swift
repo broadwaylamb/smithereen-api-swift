@@ -81,4 +81,83 @@ let board = Group("Board") {
 		targetField: FieldDef("topic_id", type: .def(boardTopicID))
 			.doc("The identifier of the topic.")
 	)
+
+	RequestDef("board.getTopics", resultType: .paginatedList(.def(boardTopic))) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("The group for which topics need to be returned.")
+
+		let orderDef = EnumDef<String>("Order") {
+			EnumCaseDef("updated_desc", swiftName: "updatedDescending")
+				.doc("By last post time, newest to oldest.")
+			EnumCaseDef("created_desc", swiftName: "createdDescending")
+				.doc("By creation time, newest to oldest.")
+			EnumCaseDef("updated_asc", swiftName: "updatedAscending")
+				.doc("By last post time, oldest to newest.")
+			EnumCaseDef("created_asc", swiftName: "createdAscending")
+				.doc("By creation time, oldest to newest.")
+		}
+		.frozen()
+		FieldDef("order", type: .def(orderDef))
+			.doc("""
+				Sort order for the topics. Pinned topics, if any, will always
+				be returned first regardless of this parameter.
+
+				By default ``Order/updatedDescending``.
+				""")
+		orderDef
+
+		offsetAndCountParams("topic", defaultCount: 40)
+
+		let previewModeDef = EnumDef<String>("CommentPreviewMode") {
+			EnumCaseDef("first")
+				.doc("""
+					Return the text of the first comment in
+					``BoardTopic/commentPreview`` for each topic
+					""")
+			EnumCaseDef("last")
+				.doc("""
+					Return the text of the last comment in
+					``BoardTopic/commentPreview`` for each topic
+					""")
+			EnumCaseDef("none")
+				.doc("Do not return ``BoardTopic/commentPreview``.")
+		}
+		.frozen()
+
+		FieldDef("preview", type: .def(previewModeDef))
+			.doc("""
+				Comment preview mode.
+
+				By default ``CommentPreviewMode/none``.
+				""")
+
+		FieldDef("preview_length", type: .int)
+			.doc("""
+				If ``preview`` is not ``CommentPreviewMode/none``, how many
+				characters of the comment text to return.
+				The text will be truncated on a word boundary.
+				Pass 0 to return complete texts.
+
+				By default 90.
+				""")
+	}
+	.doc("""
+		Returns the list of topics in a group’s discussion board.
+
+		Accessing topics in private or closed groups requires the `groups:read`
+		permission.
+		""")
+	.withExtendedVersion(
+		"Extended",
+		extendedResultType: .paginatedList(
+			.def(boardTopic),
+			extras: .paginatedListExtrasProfiles)
+	) {
+		FieldDef("extended", type: .bool)
+			.required()
+			.constantValue("true")
+		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
+			.doc("A list of ``User`` profile fields to be returned.")
+	}
 }

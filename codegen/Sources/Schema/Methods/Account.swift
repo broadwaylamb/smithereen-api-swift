@@ -22,6 +22,12 @@ let account = Group("Account") {
 	}
 	.doc("Returns the list of permissions granted to the access token.")
 
+	RequestDef("account.getBannedDomains", resultType: .paginatedList(.string)) {
+		offsetAndCountParams("domain", defaultCount: 100)
+	}
+	.doc("Returns the list of remote server domains blocked by the current user.")
+	.requiresPermissions("account")
+
 	RequestDef("account.getCounters") {
 		StructDef("Result") {
 			FieldDef("friends", type: .int)

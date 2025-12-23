@@ -34,7 +34,7 @@ extension Wall {
 
 		/// A unique identifier used to prevent accidental double-posting
 		/// on unreliable connections.
-		/// If ``Wall/createComment`` was previously called with this
+		/// If ``Wall/Post`` was previously called with this
 		/// ``guid`` in the last hour, no new comment will be created,
 		/// the ID of that previously created comment will be returned
 		/// instead. Recommended for mobile apps.

@@ -3,7 +3,7 @@ let wall = Group("Wall") {
 		FieldDef("post_id", type: .def(wallPostID))
 			.required()
 			.doc("Identifier of the post on which to comment.")
-		commentCreationParameters(group: "Wall", replyToID: wallPostID)
+		commentCreationParameters(method: "Wall/CreateComment", replyToID: wallPostID)
 	}
 	.doc("Creates a new comment on a wall post.")
 	.requiresPermissions("wall")
@@ -134,11 +134,19 @@ let wall = Group("Wall") {
 		FieldDef("owner_id", type: .def(actorID))
 			.required()
 			.doc("User or group ID on whose wall the post is to be created.")
-			postParameters(postKind: "post")
-			guidField(group: "Wall")
+		postParameters(postKind: "post")
+		guidField(method: "Wall/Post")
 	}
 	.doc("Creates a new wall post.")
 	.requiresPermissions("wall")
+
+	RequestDef("wall.repost", resultType: .def(wallPostID)) {
+		FieldDef("post_id", type: .def(wallPostID))
+			.required()
+			.doc("The identifier of the post or comment to be reposted.")
+		postParameters(postKind: "repost")
+		guidField(method: "Wall/Repost")
+	}
 }
 
 private func repostHistoryDepth() -> FieldDef {

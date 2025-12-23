@@ -77,7 +77,7 @@ let photos = Group("Photos") {
 			.required()
 			.doc("Identifier of the photo on which to comment.")
 
-		commentCreationParameters(group: "Photos", replyToID: photoCommentID)
+		commentCreationParameters(method: "Photos/CreateComment", replyToID: photoCommentID)
 	}
 	.doc("""
 		Creates a new comment on a photo.

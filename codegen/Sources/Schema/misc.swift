@@ -432,19 +432,19 @@ func postParameters(postKind: String) -> any StructDefPart {
 }
 
 @StructDefBuilder
-func commentCreationParameters(group: String, replyToID: StructDef) -> any StructDefPart {
+func commentCreationParameters(method: String, replyToID: StructDef) -> any StructDefPart {
 	FieldDef("reply_to_comment", type: .def(replyToID))
 		.doc("Identifier of the comment to reply to.")
 	postParameters(postKind: "comment")
-	guidField(group: group)
+	guidField(method: method)
 }
 
-func guidField(group: String) -> FieldDef {
+func guidField(method: String) -> FieldDef {
 	FieldDef("guid", type: .uuid)
 		.doc("""
 			A unique identifier used to prevent accidental double-posting
 			on unreliable connections.
-			If ``\(group)/createComment`` was previously called with this
+			If ``\(method)`` was previously called with this
 			``guid`` in the last hour, no new comment will be created,
 			the ID of that previously created comment will be returned
 			instead. Recommended for mobile apps.

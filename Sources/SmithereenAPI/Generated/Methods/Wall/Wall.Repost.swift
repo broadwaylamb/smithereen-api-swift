@@ -3,58 +3,50 @@
 import Foundation
 import SmithereenAPIInternals
 import Hammond
-extension Photos {
+extension Wall {
 
-	/// Creates a new comment on a photo.
-	/// Returns the identifier of the newly created comment.
-	/// - Note: This method requires the following permissions: `photos`.
-	public struct CreateComment: SmithereenAPIRequest, Hashable, Encodable, Sendable {
+	public struct Repost: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
-		/// Identifier of the photo on which to comment.
-		public var photoID: PhotoID
+		/// The identifier of the post or comment to be reposted.
+		public var postID: WallPostID
 
-		/// Identifier of the comment to reply to.
-		public var replyToComment: PhotoCommentID?
-
-		/// The text of the comment.
+		/// The text of the repost.
 		/// **Required** if there are no ``attachments``.
 		/// This parameter supports formatted text, the format is
 		/// determined by the ``textFormat`` parameter.
 		public var message: String?
 
-		/// The format of the comment text passed in ``message``.
+		/// The format of the repost text passed in ``message``.
 		/// By default, the user’s preference is used.
 		public var textFormat: TextFormat?
 
-		/// An array representing the media attachments to be added to this comment.
+		/// An array representing the media attachments to be added to this repost.
 		/// **Required** if there is no ``message``.
 		@EncodeAsJSONString
 		public var attachments: [AttachmentToCreate]?
 
-		/// If this is not empty, make the content of the comment hidden
+		/// If this is not empty, make the content of the repost hidden
 		/// by default, requiring a click to reveal.
 		/// This text will be shown instead of the content.
 		public var contentWarning: String?
 
 		/// A unique identifier used to prevent accidental double-posting
 		/// on unreliable connections.
-		/// If ``Photos/CreateComment`` was previously called with this
+		/// If ``Wall/Repost`` was previously called with this
 		/// ``guid`` in the last hour, no new comment will be created,
 		/// the ID of that previously created comment will be returned
 		/// instead. Recommended for mobile apps.
 		public var guid: UUID?
 
 		public init(
-			photoID: PhotoID,
-			replyToComment: PhotoCommentID? = nil,
+			postID: WallPostID,
 			message: String? = nil,
 			textFormat: TextFormat? = nil,
 			attachments: [AttachmentToCreate]? = nil,
 			contentWarning: String? = nil,
 			guid: UUID? = nil,
 		) {
-			self.photoID = photoID
-			self.replyToComment = replyToComment
+			self.postID = postID
 			self.message = message
 			self.textFormat = textFormat
 			self.attachments = attachments
@@ -63,8 +55,7 @@ extension Photos {
 		}
 
 		private enum CodingKeys: String, CodingKey {
-			case photoID = "photo_id"
-			case replyToComment = "reply_to_comment"
+			case postID = "post_id"
 			case message
 			case textFormat = "text_format"
 			case attachments
@@ -72,7 +63,7 @@ extension Photos {
 			case guid
 		}
 		public var path: String {
-			"/method/photos.createComment"
+			"/method/wall.repost"
 		}
 		public static var method: HTTPMethod {
 			.post
@@ -80,6 +71,6 @@ extension Photos {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = PhotoCommentID
+		public typealias Result = WallPostID
 	}
 }

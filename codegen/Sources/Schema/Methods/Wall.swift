@@ -121,6 +121,14 @@ let wall = Group("Wall") {
 	) {
 		extendedParameters()
 	}
+
+	RequestDef("wall.pin", resultType: .void) {
+		FieldDef("post_id", type: .def(wallPostID))
+			.required()
+			.doc("Identifier of the post to pin.")
+	}
+	.doc("Pins a post so it appears at the top of the owner’s wall.")
+	.requiresPermissions("wall")
 }
 
 private func repostHistoryDepth() -> FieldDef {

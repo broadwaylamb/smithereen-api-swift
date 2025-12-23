@@ -5,12 +5,12 @@ import SmithereenAPIInternals
 import Hammond
 extension Wall {
 
-	/// Edits a wall post or comment.
+	/// Creates a new wall post.
 	/// - Note: This method requires the following permissions: `wall`.
-	public struct Edit: SmithereenAPIRequest, Hashable, Encodable, Sendable {
+	public struct Post: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
-		/// The identifier of the post to be updated.
-		public var postID: WallPostID
+		/// User or group ID on whose wall the post is to be created.
+		public var ownerID: ActorID
 
 		/// The text of the post.
 		/// **Required** if there are no ``attachments``.
@@ -32,29 +32,40 @@ extension Wall {
 		/// This text will be shown instead of the content.
 		public var contentWarning: String?
 
+		/// A unique identifier used to prevent accidental double-posting
+		/// on unreliable connections.
+		/// If ``Wall/createComment`` was previously called with this
+		/// ``guid`` in the last hour, no new comment will be created,
+		/// the ID of that previously created comment will be returned
+		/// instead. Recommended for mobile apps.
+		public var guid: UUID?
+
 		public init(
-			postID: WallPostID,
+			ownerID: ActorID,
 			message: String? = nil,
 			textFormat: TextFormat? = nil,
 			attachments: [AttachmentToCreate]? = nil,
 			contentWarning: String? = nil,
+			guid: UUID? = nil,
 		) {
-			self.postID = postID
+			self.ownerID = ownerID
 			self.message = message
 			self.textFormat = textFormat
 			self.attachments = attachments
 			self.contentWarning = contentWarning
+			self.guid = guid
 		}
 
 		private enum CodingKeys: String, CodingKey {
-			case postID = "post_id"
+			case ownerID = "owner_id"
 			case message
 			case textFormat = "text_format"
 			case attachments
 			case contentWarning = "content_warning"
+			case guid
 		}
 		public var path: String {
-			"/method/wall.edit"
+			"/method/wall.post"
 		}
 		public static var method: HTTPMethod {
 			.post

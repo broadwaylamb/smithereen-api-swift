@@ -25,7 +25,7 @@ extension Wall {
 		/// By default, the user’s preference is used.
 		public var textFormat: TextFormat?
 
-		/// An array representing the media attachments to be added to this post.
+		/// An array representing the media attachments to be added to this comment.
 		/// **Required** if there is no ``message``.
 		@EncodeAsJSONString
 		public var attachments: [AttachmentToCreate]?

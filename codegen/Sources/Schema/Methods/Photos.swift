@@ -167,7 +167,7 @@ let photos = Group("Photos") {
 			.required()
 			.doc("The identifier of the comment to be updated.")
 
-		commentParameters()
+		postParameters(postKind: "comment")
 	}
 	.doc("Edits a comment on a photo.")
 	.requiresPermissions("photos")

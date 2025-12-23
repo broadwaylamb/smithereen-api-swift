@@ -20,7 +20,7 @@ let wall = Group("Wall") {
 		FieldDef("post_id", type: .def(wallPostID))
 			.required()
 			.doc("The identifier of the post to be updated.")
-		commentParameters()
+		postParameters(postKind: "post")
 	}
 	.doc("Edits a wall post or comment.")
 	.requiresPermissions("wall")
@@ -128,6 +128,16 @@ let wall = Group("Wall") {
 			.doc("Identifier of the post to pin.")
 	}
 	.doc("Pins a post so it appears at the top of the owner’s wall.")
+	.requiresPermissions("wall")
+
+	RequestDef("wall.post", resultType: .def(wallPostID)) {
+		FieldDef("owner_id", type: .def(actorID))
+			.required()
+			.doc("User or group ID on whose wall the post is to be created.")
+			postParameters(postKind: "post")
+			guidField(group: "Wall")
+	}
+	.doc("Creates a new wall post.")
 	.requiresPermissions("wall")
 }
 

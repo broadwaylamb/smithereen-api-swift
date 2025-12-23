@@ -401,10 +401,10 @@ func commentsRequest(
 }
 
 @StructDefBuilder
-func commentParameters() -> any StructDefPart {
+func postParameters(postKind: String) -> any StructDefPart {
 	FieldDef("message", type: .string)
 		.doc("""
-			The text of the comment.
+			The text of the \(postKind).
 			**Required** if there are no ``attachments``.
 			This parameter supports formatted text, the format is
 			determined by the ``textFormat`` parameter.
@@ -412,20 +412,20 @@ func commentParameters() -> any StructDefPart {
 
 	FieldDef("text_format", type: .def(textFormat))
 		.doc("""
-			The format of the comment text passed in ``message``.
+			The format of the \(postKind) text passed in ``message``.
 			By default, the user’s preference is used.
 			""")
 
 	FieldDef("attachments", type: .array(.def(attachmentToCreate)))
 		.json()
 		.doc("""
-			An array representing the media attachments to be added to this post.
+			An array representing the media attachments to be added to this \(postKind).
 			**Required** if there is no ``message``.
 			""")
 
 	FieldDef("content_warning", type: .string)
 		.doc("""
-			If this is not empty, make the content of the comment hidden
+			If this is not empty, make the content of the \(postKind) hidden
 			by default, requiring a click to reveal.
 			This text will be shown instead of the content.
 			""")
@@ -435,7 +435,11 @@ func commentParameters() -> any StructDefPart {
 func commentCreationParameters(group: String, replyToID: StructDef) -> any StructDefPart {
 	FieldDef("reply_to_comment", type: .def(replyToID))
 		.doc("Identifier of the comment to reply to.")
-	commentParameters()
+	postParameters(postKind: "comment")
+	guidField(group: group)
+}
+
+func guidField(group: String) -> FieldDef {
 	FieldDef("guid", type: .uuid)
 		.doc("""
 			A unique identifier used to prevent accidental double-posting

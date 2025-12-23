@@ -80,6 +80,19 @@ let messages = Group("Messages") {
 	}
 	.doc("Marks a message as read.")
 	.requiresPermissions("messages")
+
+	RequestDef("messages.restore", resultType: .void) {
+		FieldDef("message_id", type: .def(messageID))
+			.required()
+			.doc("Identifier of the message to be restored.")
+	}
+	.doc("""
+		Restores a previously deleted message.
+
+		A message can be restored within 10 minutes of its deletion,
+		after which it is deleted irreversibly.
+		""")
+	.requiresPermissions("messages")
 }
 
 @StructDefBuilder

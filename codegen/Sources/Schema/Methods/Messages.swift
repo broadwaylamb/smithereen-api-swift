@@ -28,6 +28,8 @@ let messages = Group("Messages") {
 				""")
 		offsetAndCountParams("message", defaultCount: 20)
 	}
+	.doc("Returns the current user’s incoming or outgoing private messages.")
+	.requiresPermissions("messages:read")
 	.withExtendedVersion(
 		"Extended",
 		extendedResultType: .paginatedList(
@@ -43,6 +45,8 @@ let messages = Group("Messages") {
 			.required()
 			.doc("A list of up to 200 message identifiers.")
 	}
+	.doc("Returns messages by their identifiers.")
+	.requiresPermissions("messages:read")
 	.withExtendedVersion("Extended") {
 		extendedParameters()
 

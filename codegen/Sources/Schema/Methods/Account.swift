@@ -50,4 +50,20 @@ let account = Group("Account") {
 		``Account.SetOffline`` will have no effect since their current
 		online status will be associated with a different session.
 		""")
+
+	RequestDef("account.setOnline", resultType: .void) {
+		FieldDef("mobile", type: .bool)
+			.doc("""
+				Whether the user is using a mobile device.
+				Strongly recommended for apps that run on phones, tablets,
+				and other devices that are limited compared to desktop
+				and laptop computers.
+
+				By default `false`.
+				""")
+	}
+	.doc("""
+		Sets the current user’s presence status to “online”
+		for 5 minutes.
+		""")
 }

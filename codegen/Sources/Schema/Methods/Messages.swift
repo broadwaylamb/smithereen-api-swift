@@ -72,6 +72,14 @@ let messages = Group("Messages") {
 		``userID``s.
 		""")
 	.requiresPermissions("messages:read")
+
+	RequestDef("messages.markAsRead", resultType: .void) {
+		FieldDef("message_id", type: .def(messageID))
+			.required()
+			.doc("Identifier of the message to be marked as read.")
+	}
+	.doc("Marks a message as read.")
+	.requiresPermissions("messages")
 }
 
 @StructDefBuilder

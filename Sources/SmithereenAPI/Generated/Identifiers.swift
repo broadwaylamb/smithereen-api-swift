@@ -3,6 +3,14 @@
 import Foundation
 import SmithereenAPIInternals
 
+public struct ApplicationID: Identifier {
+	public var rawValue: Int
+
+	public init(rawValue: Int) {
+		self.rawValue = rawValue
+	}
+}
+
 public struct UserID: Identifier {
 	public var rawValue: Int
 

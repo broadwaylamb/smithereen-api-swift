@@ -1,5 +1,6 @@
 let schema = Group {
 	FileDef("Identifiers") {
+		applicationID
 		userID
 		groupID
 		actorID
@@ -59,6 +60,7 @@ let schema = Group {
 		status
 		users
 		utils
+		wall
 	}
 
 	communityType

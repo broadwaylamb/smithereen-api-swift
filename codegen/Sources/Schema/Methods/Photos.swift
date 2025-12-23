@@ -77,20 +77,7 @@ let photos = Group("Photos") {
 			.required()
 			.doc("Identifier of the photo on which to comment.")
 
-		FieldDef("reply_to_comment", type: .def(photoCommentID))
-			.doc("Identifier of the comment to reply to.")
-
-		commentContent()
-
-		FieldDef("guid", type: .uuid)
-			.doc("""
-				A unique identifier used to prevent accidental double-posting
-				on unreliable connections.
-				If ``Photos/createComment`` was previously called with this
-				``guid`` in the last hour, no new comment will be created,
-				the ID of that previously created comment will be returned
-				instead. Recommended for mobile apps.
-				""")
+		commentCreationParameters(group: "Photos", replyToID: photoCommentID)
 	}
 	.doc("""
 		Creates a new comment on a photo.
@@ -180,7 +167,7 @@ let photos = Group("Photos") {
 			.required()
 			.doc("The identifier of the comment to be updated.")
 
-		commentContent()
+		commentParameters()
 	}
 	.doc("Edits a comment on a photo.")
 	.requiresPermissions("photos")
@@ -523,37 +510,6 @@ let photos = Group("Photos") {
 	}
 	.doc("Saves a newly uploaded profile picture")
 	.requiresPermissions("photos")
-}
-
-@StructDefBuilder
-private func commentContent() -> any StructDefPart {
-	FieldDef("message", type: .string)
-		.doc("""
-			The text of the comment.
-			**Required** if there are no ``attachments``.
-			This parameter supports formatted text, the format is
-			determined by the ``textFormat`` parameter.
-			""")
-
-	FieldDef("text_format", type: .def(textFormat))
-		.doc("""
-			The format of the comment text passed in ``message``.
-			By default, the user’s preference is used.
-			""")
-
-	FieldDef("attachments", type: .array(.def(attachmentToCreate)))
-		.json()
-		.doc("""
-			An array representing the media attachments to be added to this post.
-			**Required** if there is no ``message``.
-			""")
-
-	FieldDef("content_warning", type: .string)
-		.doc("""
-			If this is not empty, make the content of the comment hidden
-			by default, requiring a click to reveal.
-			This text will be shown instead of the content.
-			""")
 }
 
 private func needCoversField() -> FieldDef {

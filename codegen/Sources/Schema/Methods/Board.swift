@@ -53,4 +53,15 @@ let board = Group("Board") {
 	}
 	.doc("Edits a comment in a topic.")
 	.requiresPermissions("groups")
+
+	RequestDef("board.editTopic", resultType: .void) {
+		FieldDef("topic_id", type: .def(boardTopicID))
+			.required()
+			.doc("The topic identifier.")
+		FieldDef("title", type: .string)
+			.required()
+			.doc("The new title.")
+	}
+	.doc("Edits the title of a topic.")
+	.requiresPermissions("groups")
 }

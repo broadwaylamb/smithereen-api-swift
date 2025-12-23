@@ -30,7 +30,7 @@ extension Messages {
 			public var count: Int?
 			private let extended: Bool = true
 
-			/// A list of user profile fields to be returned.
+			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]?
 
 			public init(

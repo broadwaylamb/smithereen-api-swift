@@ -35,10 +35,31 @@ let messages = Group("Messages") {
 			extras: .paginatedListExtrasProfiles
 		),
 	) {
-		FieldDef("extended", type: .bool)
-			.required()
-			.constantValue("true")
-		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
-			.doc("A list of user profile fields to be returned.")
+		extendedParameters()
 	}
+
+	RequestDef("messages.getById", resultType: .array(.def(message))) {
+		FieldDef("message_ids", type: .array(.def(messageID)))
+			.required()
+			.doc("A list of up to 200 message identifiers.")
+	}
+	.withExtendedVersion("Extended") {
+		extendedParameters()
+
+		StructDef("Result") {
+			FieldDef("items", type: .array(.def(message)))
+				.required()
+			FieldDef("profiles", type: .array(.def(user)))
+				.required()
+		}
+	}
+}
+
+@StructDefBuilder
+private func extendedParameters() -> any StructDefPart {
+	FieldDef("extended", type: .bool)
+		.required()
+		.constantValue("true")
+	FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
+		.doc("A list of ``User`` profile fields to be returned.")
 }

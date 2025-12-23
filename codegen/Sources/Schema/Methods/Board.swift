@@ -163,6 +163,14 @@ let board = Group("Board") {
 	}
 	.doc("Pins a topic so it’s always displayed at the top of the discussion board.")
 	.requiresPermissions("groups")
+
+	RequestDef("board.unpinTopic", resultType: .void) {
+		FieldDef("topic_id", type: .def(boardTopicID))
+			.required()
+			.doc("The topic identifier.")
+	}
+	.doc("Unpins a previously pinned topic.")
+	.requiresPermissions("groups")
 }
 
 @StructDefBuilder

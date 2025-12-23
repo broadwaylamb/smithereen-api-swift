@@ -71,5 +71,6 @@ let schema = Group {
 	commentView
 	textFormat
 	commentSortOrder
+	topicCommentPreviewMode
 	error
 }

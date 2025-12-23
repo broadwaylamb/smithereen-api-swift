@@ -5,39 +5,13 @@ import SmithereenAPIInternals
 import Hammond
 extension Board {
 
-	/// Returns the list of topics in a group’s discussion board.
+	/// Returns discussion board topics by their identifiers.
 	/// Accessing topics in private or closed groups requires the `groups:read`
 	/// permission.
-	public struct GetTopics: SmithereenAPIRequest, Hashable, Encodable, Sendable {
+	public struct GetTopicsById: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
-		/// The group for which topics need to be returned.
-		public var groupID: GroupID
-
-		/// Sort order for the topics. Pinned topics, if any, will always
-		/// be returned first regardless of this parameter.
-		/// By default ``Order/updatedDescending``.
-		public var order: Order?
-
-		public enum Order: String, Codable, Sendable, CaseIterable {
-
-			/// By last post time, newest to oldest.
-			case updatedDescending = "updated_desc"
-
-			/// By creation time, newest to oldest.
-			case createdDescending = "created_desc"
-
-			/// By last post time, oldest to newest.
-			case updatedAscending = "updated_asc"
-
-			/// By creation time, oldest to newest.
-			case createdAscending = "created_asc"
-		}
-
-		/// Offset into the topic list for pagination.
-		public var offset: Int?
-
-		/// How many topics to return. By default 40.
-		public var count: Int?
+		/// A list of topic identifiers.
+		public var topicIDs: [BoardTopicID]
 
 		/// Comment preview mode.
 		/// By default ``TopicCommentPreviewMode/none``.
@@ -50,24 +24,13 @@ extension Board {
 		/// By default 90.
 		public var previewLength: Int?
 
-		/// Returns the list of topics in a group’s discussion board.
+		/// Returns discussion board topics by their identifiers.
 		/// Accessing topics in private or closed groups requires the `groups:read`
 		/// permission.
 		public struct Extended: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
-			/// The group for which topics need to be returned.
-			public var groupID: GroupID
-
-			/// Sort order for the topics. Pinned topics, if any, will always
-			/// be returned first regardless of this parameter.
-			/// By default ``Order/updatedDescending``.
-			public var order: Order?
-
-			/// Offset into the topic list for pagination.
-			public var offset: Int?
-
-			/// How many topics to return. By default 40.
-			public var count: Int?
+			/// A list of topic identifiers.
+			public var topicIDs: [BoardTopicID]
 
 			/// Comment preview mode.
 			/// By default ``TopicCommentPreviewMode/none``.
@@ -84,36 +47,40 @@ extension Board {
 			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]?
 
+			public struct Result: Hashable, Codable, Sendable {
+				public var profiles: [User]
+				public var items: [BoardTopic]
+
+				public init(
+					profiles: [User],
+					items: [BoardTopic],
+				) {
+					self.profiles = profiles
+					self.items = items
+				}
+			}
+
 			public init(
-				groupID: GroupID,
-				order: Order? = nil,
-				offset: Int? = nil,
-				count: Int? = nil,
+				topicIDs: [BoardTopicID],
 				preview: TopicCommentPreviewMode? = nil,
 				previewLength: Int? = nil,
 				fields: [User.Field]? = nil,
 			) {
-				self.groupID = groupID
-				self.order = order
-				self.offset = offset
-				self.count = count
+				self.topicIDs = topicIDs
 				self.preview = preview
 				self.previewLength = previewLength
 				self.fields = fields
 			}
 
 			private enum CodingKeys: String, CodingKey {
-				case groupID = "group_id"
-				case order
-				case offset
-				case count
+				case topicIDs = "topic_ids"
 				case preview
 				case previewLength = "preview_length"
 				case extended
 				case fields
 			}
 			public var path: String {
-				"/method/board.getTopics"
+				"/method/board.getTopicsById"
 			}
 			public static var method: HTTPMethod {
 				.post
@@ -121,35 +88,25 @@ extension Board {
 			public var encodableBody: Self {
 				self
 			}
-			public typealias Result = PaginatedList<BoardTopic, PaginatedListExtras.Profiles>
 		}
 
 		public init(
-			groupID: GroupID,
-			order: Order? = nil,
-			offset: Int? = nil,
-			count: Int? = nil,
+			topicIDs: [BoardTopicID],
 			preview: TopicCommentPreviewMode? = nil,
 			previewLength: Int? = nil,
 		) {
-			self.groupID = groupID
-			self.order = order
-			self.offset = offset
-			self.count = count
+			self.topicIDs = topicIDs
 			self.preview = preview
 			self.previewLength = previewLength
 		}
 
 		private enum CodingKeys: String, CodingKey {
-			case groupID = "group_id"
-			case order
-			case offset
-			case count
+			case topicIDs = "topic_ids"
 			case preview
 			case previewLength = "preview_length"
 		}
 		public var path: String {
-			"/method/board.getTopics"
+			"/method/board.getTopicsById"
 		}
 		public static var method: HTTPMethod {
 			.post
@@ -157,14 +114,11 @@ extension Board {
 		public var encodableBody: Self {
 			self
 		}
-		public typealias Result = PaginatedList<BoardTopic, PaginatedListExtras.Empty>
+		public typealias Result = [BoardTopic]
 
 		public func extended(fields: [User.Field]? = nil) -> Extended {
 			Extended(
-				groupID: groupID,
-				order: order,
-				offset: offset,
-				count: count,
+				topicIDs: topicIDs,
 				preview: preview,
 				previewLength: previewLength,
 				fields: fields,

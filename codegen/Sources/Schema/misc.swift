@@ -307,6 +307,22 @@ let commentSortOrder = EnumDef<String>("CommentSortOrder") {
 .frozen()
 .doc("The sort order for the comments.")
 
+let topicCommentPreviewMode = EnumDef<String>("TopicCommentPreviewMode") {
+	EnumCaseDef("first")
+		.doc("""
+			Return the text of the first comment in
+			`commentPreview` for each topic
+			""")
+	EnumCaseDef("last")
+		.doc("""
+			Return the text of the last comment in
+			`commentPreview` for each topic
+			""")
+	EnumCaseDef("none")
+		.doc("Do not return `commentPreview`.")
+}
+.frozen()
+
 let postEditSource = StructDef("PostEditSource") {
 	FieldDef("text", type: .string)
 		.doc("The text itself.")

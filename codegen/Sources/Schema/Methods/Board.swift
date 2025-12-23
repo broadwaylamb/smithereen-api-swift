@@ -108,39 +108,7 @@ let board = Group("Board") {
 		orderDef
 
 		offsetAndCountParams("topic", defaultCount: 40)
-
-		let previewModeDef = EnumDef<String>("CommentPreviewMode") {
-			EnumCaseDef("first")
-				.doc("""
-					Return the text of the first comment in
-					``BoardTopic/commentPreview`` for each topic
-					""")
-			EnumCaseDef("last")
-				.doc("""
-					Return the text of the last comment in
-					``BoardTopic/commentPreview`` for each topic
-					""")
-			EnumCaseDef("none")
-				.doc("Do not return ``BoardTopic/commentPreview``.")
-		}
-		.frozen()
-
-		FieldDef("preview", type: .def(previewModeDef))
-			.doc("""
-				Comment preview mode.
-
-				By default ``CommentPreviewMode/none``.
-				""")
-
-		FieldDef("preview_length", type: .int)
-			.doc("""
-				If ``preview`` is not ``CommentPreviewMode/none``, how many
-				characters of the comment text to return.
-				The text will be truncated on a word boundary.
-				Pass 0 to return complete texts.
-
-				By default 90.
-				""")
+		commentPreviewParameters()
 	}
 	.doc("""
 		Returns the list of topics in a group’s discussion board.
@@ -154,10 +122,58 @@ let board = Group("Board") {
 			.def(boardTopic),
 			extras: .paginatedListExtrasProfiles)
 	) {
-		FieldDef("extended", type: .bool)
-			.required()
-			.constantValue("true")
-		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
-			.doc("A list of ``User`` profile fields to be returned.")
+		extendedParameters()
 	}
+
+	RequestDef("board.getTopicsById", resultType: .array(.def(boardTopic))) {
+		FieldDef("topic_ids", type: .array(.def(boardTopicID)))
+			.required()
+			.doc("A list of topic identifiers.")
+		commentPreviewParameters()
+	}
+	.doc("""
+		Returns discussion board topics by their identifiers.
+
+		Accessing topics in private or closed groups requires the `groups:read`
+		permission.
+		""")
+	.withExtendedVersion("Extended") {
+		extendedParameters()
+
+		StructDef("Result") {
+			FieldDef("profiles", type: .array(.def(user)))
+				.required()
+			FieldDef("items", type: .array(.def(boardTopic)))
+				.required()
+		}
+	}
+}
+
+@StructDefBuilder
+private func commentPreviewParameters() -> any StructDefPart {
+	FieldDef("preview", type: .def(topicCommentPreviewMode))
+		.doc("""
+			Comment preview mode.
+
+			By default ``TopicCommentPreviewMode/none``.
+			""")
+
+	FieldDef("preview_length", type: .int)
+		.doc("""
+			If ``preview`` is not ``CommentPreviewMode/none``, how many
+			characters of the comment text to return.
+			The text will be truncated on a word boundary.
+			Pass 0 to return complete texts.
+
+			By default 90.
+			""")
+}
+
+@StructDefBuilder
+private func extendedParameters() -> any StructDefPart {
+	FieldDef("extended", type: .bool)
+		.required()
+		.constantValue("true")
+	FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
+		.doc("A list of ``User`` profile fields to be returned.")
 }

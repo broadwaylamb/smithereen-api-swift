@@ -1,4 +1,12 @@
 let account = Group("Account") {
+	RequestDef("account.banDomain", resultType: .void) {
+		FieldDef("domain", type: .string)
+			.required()
+			.doc("The domain name of the server to block.")
+	}
+	.doc("Blocks a remote server on behalf of the current user.")
+	.requiresPermissions("account")
+
 	RequestDef(
 		"account.getAppPermissions",
 		resultType: .array(TypeRef(name: "Permission")),

@@ -28,6 +28,14 @@ let account = Group("Account") {
 	.doc("Returns the list of remote server domains blocked by the current user.")
 	.requiresPermissions("account")
 
+	RequestDef("account.getBannedUsers", resultType: .paginatedList(.def(user))) {
+		offsetAndCountParams("user", defaultCount: 100)
+		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
+			.doc("A list of user profile fields to be returned.")
+	}
+	.doc("Returns the list of users blocked by the current user.")
+	.requiresPermissions("account")
+
 	RequestDef("account.getCounters") {
 		StructDef("Result") {
 			FieldDef("friends", type: .int)

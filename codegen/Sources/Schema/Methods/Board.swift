@@ -73,4 +73,12 @@ let board = Group("Board") {
 				returned.
 				""")
 	}
+
+	commentsRequest(
+		"board.getComments",
+		commentID: topicCommentID,
+		comment: topicComment,
+		targetField: FieldDef("topic_id", type: .def(boardTopicID))
+			.doc("The identifier of the topic.")
+	)
 }

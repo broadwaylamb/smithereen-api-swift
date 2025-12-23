@@ -36,4 +36,18 @@ let account = Group("Account") {
 		Returns how many of each type of unread items the current user
 		has.
 		""")
+
+	RequestDef("account.setOffline", resultType: .void) {
+	}
+	.doc("""
+		Sets the current user’s presence status to “offline”,
+		even if the 5-minute timeout hasn’t expired yet.
+
+		This only has an effect if the user’s current online status was
+		set using the same token. For example, if they opened your app
+		on their phone, which called ``Account/SetOnline``, and then
+		switched to the web browser on their computer, your app calling
+		``Account.SetOffline`` will have no effect since their current
+		online status will be associated with a different session.
+		""")
 }

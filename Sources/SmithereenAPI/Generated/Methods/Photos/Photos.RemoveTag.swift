@@ -28,7 +28,7 @@ extension Photos {
 			case tagID = "tag_id"
 		}
 		public var path: String {
-			"/method/photos.removeTag"
+			"/api/method/photos.removeTag"
 		}
 		public static var method: HTTPMethod {
 			.post

@@ -29,7 +29,7 @@ extension Photos {
 			case needCovers = "need_covers"
 		}
 		public var path: String {
-			"/method/photos.getAlbumsById"
+			"/api/method/photos.getAlbumsById"
 		}
 		public static var method: HTTPMethod {
 			.post

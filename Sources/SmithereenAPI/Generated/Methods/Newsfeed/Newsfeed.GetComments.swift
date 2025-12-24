@@ -174,7 +174,7 @@ extension Newsfeed {
 			case fields
 		}
 		public var path: String {
-			"/method/newsfeed.getComments"
+			"/api/method/newsfeed.getComments"
 		}
 		public static var method: HTTPMethod {
 			.post

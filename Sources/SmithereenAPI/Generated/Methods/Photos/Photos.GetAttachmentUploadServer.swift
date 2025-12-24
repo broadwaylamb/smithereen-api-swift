@@ -27,7 +27,7 @@ extension Photos {
 		public init() {
 		}
 		public var path: String {
-			"/method/photos.getAttachmentUploadServer"
+			"/api/method/photos.getAttachmentUploadServer"
 		}
 		public static var method: HTTPMethod {
 			.post

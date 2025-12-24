@@ -30,7 +30,7 @@ extension Status {
 			case text
 		}
 		public var path: String {
-			"/method/status.set"
+			"/api/method/status.set"
 		}
 		public static var method: HTTPMethod {
 			.post

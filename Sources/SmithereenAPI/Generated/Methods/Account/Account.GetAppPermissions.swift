@@ -11,7 +11,7 @@ extension Account {
 		public init() {
 		}
 		public var path: String {
-			"/method/account.getAppPermissions"
+			"/api/method/account.getAppPermissions"
 		}
 		public static var method: HTTPMethod {
 			.post

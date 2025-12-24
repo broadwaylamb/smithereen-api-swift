@@ -16,7 +16,7 @@ extension Account {
 			self.domain = domain
 		}
 		public var path: String {
-			"/method/account.unbanDomain"
+			"/api/method/account.unbanDomain"
 		}
 		public static var method: HTTPMethod {
 			.post

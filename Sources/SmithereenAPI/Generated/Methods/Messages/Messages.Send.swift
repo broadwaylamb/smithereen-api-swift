@@ -71,7 +71,7 @@ extension Messages {
 			case guid
 		}
 		public var path: String {
-			"/method/messages.send"
+			"/api/method/messages.send"
 		}
 		public static var method: HTTPMethod {
 			.post

@@ -27,7 +27,7 @@ extension Groups {
 			case fields
 		}
 		public var path: String {
-			"/method/groups.getById"
+			"/api/method/groups.getById"
 		}
 		public static var method: HTTPMethod {
 			.post

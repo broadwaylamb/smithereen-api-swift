@@ -54,7 +54,7 @@ extension Board {
 			case contentWarning = "content_warning"
 		}
 		public var path: String {
-			"/method/board.editComment"
+			"/api/method/board.editComment"
 		}
 		public static var method: HTTPMethod {
 			.post

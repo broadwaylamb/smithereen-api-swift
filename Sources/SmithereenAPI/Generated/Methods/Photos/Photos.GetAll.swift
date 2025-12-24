@@ -43,7 +43,7 @@ extension Photos {
 			case extended
 		}
 		public var path: String {
-			"/method/photos.getAll"
+			"/api/method/photos.getAll"
 		}
 		public static var method: HTTPMethod {
 			.post

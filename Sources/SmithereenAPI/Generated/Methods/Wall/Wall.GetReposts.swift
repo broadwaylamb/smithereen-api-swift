@@ -70,7 +70,7 @@ extension Wall {
 				case fields
 			}
 			public var path: String {
-				"/method/wall.getReposts"
+				"/api/method/wall.getReposts"
 			}
 			public static var method: HTTPMethod {
 				.post
@@ -100,7 +100,7 @@ extension Wall {
 			case repostHistoryDepth = "repost_history_depth"
 		}
 		public var path: String {
-			"/method/wall.getReposts"
+			"/api/method/wall.getReposts"
 		}
 		public static var method: HTTPMethod {
 			.post

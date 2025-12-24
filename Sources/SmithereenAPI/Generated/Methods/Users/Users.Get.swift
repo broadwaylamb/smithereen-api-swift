@@ -50,7 +50,7 @@ extension Users {
 			case relationCase = "relation_case"
 		}
 		public var path: String {
-			"/method/users.get"
+			"/api/method/users.get"
 		}
 		public static var method: HTTPMethod {
 			.post

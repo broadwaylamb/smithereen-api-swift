@@ -30,7 +30,7 @@ extension Groups {
 			case notSure = "not_sure"
 		}
 		public var path: String {
-			"/method/groups.join"
+			"/api/method/groups.join"
 		}
 		public static var method: HTTPMethod {
 			.post

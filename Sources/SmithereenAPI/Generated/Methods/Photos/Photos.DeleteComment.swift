@@ -20,7 +20,7 @@ extension Photos {
 			case commentID = "comment_id"
 		}
 		public var path: String {
-			"/method/photos.deleteComment"
+			"/api/method/photos.deleteComment"
 		}
 		public static var method: HTTPMethod {
 			.post

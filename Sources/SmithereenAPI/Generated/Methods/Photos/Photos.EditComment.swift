@@ -54,7 +54,7 @@ extension Photos {
 			case contentWarning = "content_warning"
 		}
 		public var path: String {
-			"/method/photos.editComment"
+			"/api/method/photos.editComment"
 		}
 		public static var method: HTTPMethod {
 			.post

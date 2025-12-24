@@ -70,7 +70,7 @@ extension Friends {
 			case text
 		}
 		public var path: String {
-			"/method/friends.add"
+			"/api/method/friends.add"
 		}
 		public static var method: HTTPMethod {
 			.post

@@ -202,7 +202,7 @@ extension Newsfeed {
 			case fields
 		}
 		public var path: String {
-			"/method/newsfeed.getGroups"
+			"/api/method/newsfeed.getGroups"
 		}
 		public static var method: HTTPMethod {
 			.post

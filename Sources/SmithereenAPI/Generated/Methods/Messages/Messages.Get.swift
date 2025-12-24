@@ -49,7 +49,7 @@ extension Messages {
 				self.fields = fields
 			}
 			public var path: String {
-				"/method/messages.get"
+				"/api/method/messages.get"
 			}
 			public static var method: HTTPMethod {
 				.post
@@ -70,7 +70,7 @@ extension Messages {
 			self.count = count
 		}
 		public var path: String {
-			"/method/messages.get"
+			"/api/method/messages.get"
 		}
 		public static var method: HTTPMethod {
 			.post

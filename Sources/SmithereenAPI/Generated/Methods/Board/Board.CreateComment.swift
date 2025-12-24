@@ -71,7 +71,7 @@ extension Board {
 			case guid
 		}
 		public var path: String {
-			"/method/board.createComment"
+			"/api/method/board.createComment"
 		}
 		public static var method: HTTPMethod {
 			.post

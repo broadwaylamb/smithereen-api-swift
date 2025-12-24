@@ -22,7 +22,7 @@ extension Messages {
 			case messageID = "message_id"
 		}
 		public var path: String {
-			"/method/messages.restore"
+			"/api/method/messages.restore"
 		}
 		public static var method: HTTPMethod {
 			.post

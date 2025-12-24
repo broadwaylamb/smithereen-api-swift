@@ -23,7 +23,7 @@ extension Wall {
 			case postID = "post_id"
 		}
 		public var path: String {
-			"/method/wall.getEditSource"
+			"/api/method/wall.getEditSource"
 		}
 		public static var method: HTTPMethod {
 			.post

@@ -37,7 +37,7 @@ extension Messages {
 			case count
 		}
 		public var path: String {
-			"/method/messages.getHistory"
+			"/api/method/messages.getHistory"
 		}
 		public static var method: HTTPMethod {
 			.post

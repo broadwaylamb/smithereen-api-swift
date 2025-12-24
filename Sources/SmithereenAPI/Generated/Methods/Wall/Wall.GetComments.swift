@@ -124,7 +124,7 @@ extension Wall {
 				case fields
 			}
 			public var path: String {
-				"/method/wall.getComments"
+				"/api/method/wall.getComments"
 			}
 			public static var method: HTTPMethod {
 				.post
@@ -166,7 +166,7 @@ extension Wall {
 			case needLikes = "need_likes"
 		}
 		public var path: String {
-			"/method/wall.getComments"
+			"/api/method/wall.getComments"
 		}
 		public static var method: HTTPMethod {
 			.post

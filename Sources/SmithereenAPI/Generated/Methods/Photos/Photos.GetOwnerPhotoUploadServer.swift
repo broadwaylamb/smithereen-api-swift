@@ -29,7 +29,7 @@ extension Photos {
 		public init() {
 		}
 		public var path: String {
-			"/method/photos.getOwnerPhotoUploadServer"
+			"/api/method/photos.getOwnerPhotoUploadServer"
 		}
 		public static var method: HTTPMethod {
 			.post

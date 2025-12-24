@@ -29,7 +29,7 @@ extension Photos {
 			self.extended = extended
 		}
 		public var path: String {
-			"/method/photos.getNewTags"
+			"/api/method/photos.getNewTags"
 		}
 		public static var method: HTTPMethod {
 			.post

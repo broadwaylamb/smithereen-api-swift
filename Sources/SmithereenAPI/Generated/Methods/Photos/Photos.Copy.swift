@@ -22,7 +22,7 @@ extension Photos {
 			case photoID = "photo_id"
 		}
 		public var path: String {
-			"/method/photos.copy"
+			"/api/method/photos.copy"
 		}
 		public static var method: HTTPMethod {
 			.post

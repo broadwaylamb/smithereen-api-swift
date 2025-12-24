@@ -59,7 +59,7 @@ extension Server {
 			self.count = count
 		}
 		public var path: String {
-			"/method/server.getRestrictedServers"
+			"/api/method/server.getRestrictedServers"
 		}
 		public static var method: HTTPMethod {
 			.post

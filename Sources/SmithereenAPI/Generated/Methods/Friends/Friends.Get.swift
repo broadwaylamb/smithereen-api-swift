@@ -94,7 +94,7 @@ extension Friends {
 				case fields
 			}
 			public var path: String {
-				"/method/friends.get"
+				"/api/method/friends.get"
 			}
 			public static var method: HTTPMethod {
 				.post
@@ -127,7 +127,7 @@ extension Friends {
 			case count
 		}
 		public var path: String {
-			"/method/friends.get"
+			"/api/method/friends.get"
 		}
 		public static var method: HTTPMethod {
 			.post

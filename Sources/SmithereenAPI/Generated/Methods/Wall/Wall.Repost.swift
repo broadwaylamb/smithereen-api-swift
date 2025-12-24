@@ -63,7 +63,7 @@ extension Wall {
 			case guid
 		}
 		public var path: String {
-			"/method/wall.repost"
+			"/api/method/wall.repost"
 		}
 		public static var method: HTTPMethod {
 			.post

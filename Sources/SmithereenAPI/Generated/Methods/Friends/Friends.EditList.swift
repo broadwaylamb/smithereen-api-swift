@@ -50,7 +50,7 @@ extension Friends {
 			case deleteUserIDs = "delete_user_ids"
 		}
 		public var path: String {
-			"/method/friends.editList"
+			"/api/method/friends.editList"
 		}
 		public static var method: HTTPMethod {
 			.post

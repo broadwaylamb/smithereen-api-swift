@@ -21,7 +21,7 @@ extension Utils {
 			case query = "q"
 		}
 		public var path: String {
-			"/method/utils.loadRemoteObject"
+			"/api/method/utils.loadRemoteObject"
 		}
 		public static var method: HTTPMethod {
 			.post

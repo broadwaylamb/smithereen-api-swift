@@ -27,7 +27,7 @@ extension Groups {
 			case userID = "user_id"
 		}
 		public var path: String {
-			"/method/groups.isMember"
+			"/api/method/groups.isMember"
 		}
 		public static var method: HTTPMethod {
 			.post
@@ -111,7 +111,7 @@ extension Groups {
 			case extended
 		}
 		public var path: String {
-			"/method/groups.isMember"
+			"/api/method/groups.isMember"
 		}
 		public static var method: HTTPMethod {
 			.post

@@ -54,7 +54,7 @@ extension Wall {
 			case contentWarning = "content_warning"
 		}
 		public var path: String {
-			"/method/wall.edit"
+			"/api/method/wall.edit"
 		}
 		public static var method: HTTPMethod {
 			.post

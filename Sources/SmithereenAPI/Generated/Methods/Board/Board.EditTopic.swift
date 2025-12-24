@@ -28,7 +28,7 @@ extension Board {
 			case title
 		}
 		public var path: String {
-			"/method/board.editTopic"
+			"/api/method/board.editTopic"
 		}
 		public static var method: HTTPMethod {
 			.post

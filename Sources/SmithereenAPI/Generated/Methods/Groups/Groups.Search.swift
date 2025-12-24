@@ -46,7 +46,7 @@ extension Groups {
 			case fields
 		}
 		public var path: String {
-			"/method/groups.search"
+			"/api/method/groups.search"
 		}
 		public static var method: HTTPMethod {
 			.post

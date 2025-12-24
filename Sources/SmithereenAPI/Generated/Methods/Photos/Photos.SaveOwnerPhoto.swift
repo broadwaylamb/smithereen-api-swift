@@ -49,7 +49,7 @@ extension Photos {
 			try self.cropRects?.encode(to: encoder)
 		}
 		public var path: String {
-			"/method/photos.saveOwnerPhoto"
+			"/api/method/photos.saveOwnerPhoto"
 		}
 		public static var method: HTTPMethod {
 			.post

@@ -46,7 +46,7 @@ extension Photos {
 			case textFormat = "text_format"
 		}
 		public var path: String {
-			"/method/photos.save"
+			"/api/method/photos.save"
 		}
 		public static var method: HTTPMethod {
 			.post

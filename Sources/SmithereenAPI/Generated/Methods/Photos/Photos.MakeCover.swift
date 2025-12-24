@@ -28,7 +28,7 @@ extension Photos {
 			case albumID = "album_id"
 		}
 		public var path: String {
-			"/method/photos.makeCover"
+			"/api/method/photos.makeCover"
 		}
 		public static var method: HTTPMethod {
 			.post

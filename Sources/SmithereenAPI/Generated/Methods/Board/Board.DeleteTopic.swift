@@ -20,7 +20,7 @@ extension Board {
 			case topicID = "topic_id"
 		}
 		public var path: String {
-			"/method/board.deleteTopic"
+			"/api/method/board.deleteTopic"
 		}
 		public static var method: HTTPMethod {
 			.post

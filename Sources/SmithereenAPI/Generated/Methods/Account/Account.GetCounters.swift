@@ -51,7 +51,7 @@ extension Account {
 		public init() {
 		}
 		public var path: String {
-			"/method/account.getCounters"
+			"/api/method/account.getCounters"
 		}
 		public static var method: HTTPMethod {
 			.post

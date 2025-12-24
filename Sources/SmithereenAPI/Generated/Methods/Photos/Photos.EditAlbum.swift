@@ -64,7 +64,7 @@ extension Photos {
 			case commentsDisabled = "comments_disabled"
 		}
 		public var path: String {
-			"/method/photos.editAlbum"
+			"/api/method/photos.editAlbum"
 		}
 		public static var method: HTTPMethod {
 			.post

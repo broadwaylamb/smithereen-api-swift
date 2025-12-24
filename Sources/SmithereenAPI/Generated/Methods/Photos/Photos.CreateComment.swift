@@ -72,7 +72,7 @@ extension Photos {
 			case guid
 		}
 		public var path: String {
-			"/method/photos.createComment"
+			"/api/method/photos.createComment"
 		}
 		public static var method: HTTPMethod {
 			.post

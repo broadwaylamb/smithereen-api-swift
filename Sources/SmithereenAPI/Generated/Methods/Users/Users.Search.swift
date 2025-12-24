@@ -44,7 +44,7 @@ extension Users {
 				case fields
 			}
 			public var path: String {
-				"/method/users.search"
+				"/api/method/users.search"
 			}
 			public static var method: HTTPMethod {
 				.post
@@ -68,7 +68,7 @@ extension Users {
 			case count
 		}
 		public var path: String {
-			"/method/users.search"
+			"/api/method/users.search"
 		}
 		public static var method: HTTPMethod {
 			.post

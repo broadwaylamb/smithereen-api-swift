@@ -51,7 +51,7 @@ extension Photos {
 			case rev
 		}
 		public var path: String {
-			"/method/photos.getUserPhotos"
+			"/api/method/photos.getUserPhotos"
 		}
 		public static var method: HTTPMethod {
 			.post

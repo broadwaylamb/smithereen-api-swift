@@ -20,7 +20,7 @@ extension Account {
 			case userID = "user_id"
 		}
 		public var path: String {
-			"/method/account.unbanUser"
+			"/api/method/account.unbanUser"
 		}
 		public static var method: HTTPMethod {
 			.post

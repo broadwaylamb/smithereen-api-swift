@@ -23,7 +23,7 @@ extension Account {
 			self.count = count
 		}
 		public var path: String {
-			"/method/account.getBannedDomains"
+			"/api/method/account.getBannedDomains"
 		}
 		public static var method: HTTPMethod {
 			.post

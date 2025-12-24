@@ -20,7 +20,7 @@ extension Board {
 			case commentID = "comment_id"
 		}
 		public var path: String {
-			"/method/board.deleteComment"
+			"/api/method/board.deleteComment"
 		}
 		public static var method: HTTPMethod {
 			.post

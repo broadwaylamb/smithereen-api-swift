@@ -96,7 +96,7 @@ extension Photos {
 			case photoID = "photo_id"
 		}
 		public var path: String {
-			"/method/photos.getTags"
+			"/api/method/photos.getTags"
 		}
 		public static var method: HTTPMethod {
 			.post

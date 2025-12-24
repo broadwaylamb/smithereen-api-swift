@@ -115,7 +115,7 @@ extension Groups {
 				case fields
 			}
 			public var path: String {
-				"/method/groups.getMembers"
+				"/api/method/groups.getMembers"
 			}
 			public static var method: HTTPMethod {
 				.post
@@ -148,7 +148,7 @@ extension Groups {
 			case filter
 		}
 		public var path: String {
-			"/method/groups.getMembers"
+			"/api/method/groups.getMembers"
 		}
 		public static var method: HTTPMethod {
 			.post

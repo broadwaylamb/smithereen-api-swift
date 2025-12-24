@@ -81,7 +81,7 @@ extension Likes {
 				try container.encode(self.fields, forKey: .fields)
 			}
 			public var path: String {
-				"/method/likes.getList"
+				"/api/method/likes.getList"
 			}
 			public static var method: HTTPMethod {
 				.post
@@ -121,7 +121,7 @@ extension Likes {
 			try container.encodeIfPresent(self.count, forKey: .count)
 		}
 		public var path: String {
-			"/method/likes.getList"
+			"/api/method/likes.getList"
 		}
 		public static var method: HTTPMethod {
 			.post

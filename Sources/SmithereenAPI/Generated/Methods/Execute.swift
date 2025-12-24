@@ -35,7 +35,7 @@ public struct Execute<Args: Encodable, Result: Decodable>: SmithereenAPIRequest,
 		try self.args.encode(to: encoder)
 	}
 	public var path: String {
-		"/method/execute"
+		"/api/method/execute"
 	}
 	public static var method: HTTPMethod {
 		.post

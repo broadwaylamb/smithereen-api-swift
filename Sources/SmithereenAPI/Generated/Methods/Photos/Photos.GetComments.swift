@@ -124,7 +124,7 @@ extension Photos {
 				case fields
 			}
 			public var path: String {
-				"/method/photos.getComments"
+				"/api/method/photos.getComments"
 			}
 			public static var method: HTTPMethod {
 				.post
@@ -166,7 +166,7 @@ extension Photos {
 			case needLikes = "need_likes"
 		}
 		public var path: String {
-			"/method/photos.getComments"
+			"/api/method/photos.getComments"
 		}
 		public static var method: HTTPMethod {
 			.post

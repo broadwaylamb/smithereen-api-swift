@@ -20,7 +20,7 @@ extension Friends {
 			case userID = "user_id"
 		}
 		public var path: String {
-			"/method/friends.getLists"
+			"/api/method/friends.getLists"
 		}
 		public static var method: HTTPMethod {
 			.post

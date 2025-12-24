@@ -20,7 +20,7 @@ extension Messages {
 			case messageID = "message_id"
 		}
 		public var path: String {
-			"/method/messages.markAsRead"
+			"/api/method/messages.markAsRead"
 		}
 		public static var method: HTTPMethod {
 			.post

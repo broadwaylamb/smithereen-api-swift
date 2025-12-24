@@ -20,7 +20,7 @@ extension Groups {
 			case groupID = "group_id"
 		}
 		public var path: String {
-			"/method/groups.leave"
+			"/api/method/groups.leave"
 		}
 		public static var method: HTTPMethod {
 			.post

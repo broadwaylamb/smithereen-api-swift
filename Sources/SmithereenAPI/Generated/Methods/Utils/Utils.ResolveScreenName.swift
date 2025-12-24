@@ -68,7 +68,7 @@ extension Utils {
 			case screenName = "screen_name"
 		}
 		public var path: String {
-			"/method/utils.resolveScreenName"
+			"/api/method/utils.resolveScreenName"
 		}
 		public static var method: HTTPMethod {
 			.post

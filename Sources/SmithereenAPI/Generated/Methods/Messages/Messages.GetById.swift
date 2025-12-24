@@ -50,7 +50,7 @@ extension Messages {
 				case fields
 			}
 			public var path: String {
-				"/method/messages.getById"
+				"/api/method/messages.getById"
 			}
 			public static var method: HTTPMethod {
 				.post
@@ -68,7 +68,7 @@ extension Messages {
 			case messageIDs = "message_ids"
 		}
 		public var path: String {
-			"/method/messages.getById"
+			"/api/method/messages.getById"
 		}
 		public static var method: HTTPMethod {
 			.post

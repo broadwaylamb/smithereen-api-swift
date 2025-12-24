@@ -53,7 +53,7 @@ extension Groups {
 				self.fields = fields
 			}
 			public var path: String {
-				"/method/groups.getInvites"
+				"/api/method/groups.getInvites"
 			}
 			public static var method: HTTPMethod {
 				.post
@@ -76,7 +76,7 @@ extension Groups {
 			self.fields = fields
 		}
 		public var path: String {
-			"/method/groups.getInvites"
+			"/api/method/groups.getInvites"
 		}
 		public static var method: HTTPMethod {
 			.post

@@ -34,7 +34,7 @@ extension Messages {
 			case revoke
 		}
 		public var path: String {
-			"/method/messages.delete"
+			"/api/method/messages.delete"
 		}
 		public static var method: HTTPMethod {
 			.post

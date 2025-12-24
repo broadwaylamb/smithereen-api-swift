@@ -187,7 +187,7 @@ extension Server {
 		public init() {
 		}
 		public var path: String {
-			"/method/server.getInfo"
+			"/api/method/server.getInfo"
 		}
 		public static var method: HTTPMethod {
 			.post

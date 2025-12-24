@@ -20,7 +20,7 @@ extension Wall {
 			case postID = "post_id"
 		}
 		public var path: String {
-			"/method/wall.unpin"
+			"/api/method/wall.unpin"
 		}
 		public static var method: HTTPMethod {
 			.post

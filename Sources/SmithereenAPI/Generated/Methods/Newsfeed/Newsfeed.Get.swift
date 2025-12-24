@@ -301,7 +301,7 @@ extension Newsfeed {
 			case fields
 		}
 		public var path: String {
-			"/method/newsfeed.get"
+			"/api/method/newsfeed.get"
 		}
 		public static var method: HTTPMethod {
 			.post

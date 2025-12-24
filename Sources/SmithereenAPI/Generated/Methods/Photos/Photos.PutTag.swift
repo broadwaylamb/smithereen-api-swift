@@ -65,7 +65,7 @@ extension Photos {
 			try self.area.encode(to: encoder)
 		}
 		public var path: String {
-			"/method/photos.putTag"
+			"/api/method/photos.putTag"
 		}
 		public static var method: HTTPMethod {
 			.post

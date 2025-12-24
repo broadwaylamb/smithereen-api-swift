@@ -113,7 +113,7 @@ extension Board {
 				case fields
 			}
 			public var path: String {
-				"/method/board.getTopics"
+				"/api/method/board.getTopics"
 			}
 			public static var method: HTTPMethod {
 				.post
@@ -149,7 +149,7 @@ extension Board {
 			case previewLength = "preview_length"
 		}
 		public var path: String {
-			"/method/board.getTopics"
+			"/api/method/board.getTopics"
 		}
 		public static var method: HTTPMethod {
 			.post

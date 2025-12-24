@@ -31,7 +31,7 @@ extension Status {
 			case ownerID = "owner_id"
 		}
 		public var path: String {
-			"/method/status.get"
+			"/api/method/status.get"
 		}
 		public static var method: HTTPMethod {
 			.post

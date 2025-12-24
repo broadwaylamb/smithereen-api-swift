@@ -22,7 +22,7 @@ extension Photos {
 			case commentID = "comment_id"
 		}
 		public var path: String {
-			"/method/photos.getCommentEditSource"
+			"/api/method/photos.getCommentEditSource"
 		}
 		public static var method: HTTPMethod {
 			.post

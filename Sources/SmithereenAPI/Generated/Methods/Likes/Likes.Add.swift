@@ -30,7 +30,7 @@ extension Likes {
 			try self.itemID.encode(to: encoder)
 		}
 		public var path: String {
-			"/method/likes.add"
+			"/api/method/likes.add"
 		}
 		public static var method: HTTPMethod {
 			.post

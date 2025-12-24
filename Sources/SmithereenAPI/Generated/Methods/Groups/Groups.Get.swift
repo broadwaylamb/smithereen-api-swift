@@ -86,7 +86,7 @@ extension Groups {
 				case fields
 			}
 			public var path: String {
-				"/method/groups.get"
+				"/api/method/groups.get"
 			}
 			public static var method: HTTPMethod {
 				.post
@@ -116,7 +116,7 @@ extension Groups {
 			case count
 		}
 		public var path: String {
-			"/method/groups.get"
+			"/api/method/groups.get"
 		}
 		public static var method: HTTPMethod {
 			.post

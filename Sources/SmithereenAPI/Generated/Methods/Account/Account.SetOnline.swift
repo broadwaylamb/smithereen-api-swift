@@ -20,7 +20,7 @@ extension Account {
 			self.mobile = mobile
 		}
 		public var path: String {
-			"/method/account.setOnline"
+			"/api/method/account.setOnline"
 		}
 		public static var method: HTTPMethod {
 			.post

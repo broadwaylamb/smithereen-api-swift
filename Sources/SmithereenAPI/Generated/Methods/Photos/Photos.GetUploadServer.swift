@@ -37,7 +37,7 @@ extension Photos {
 			case albumID = "album_id"
 		}
 		public var path: String {
-			"/method/photos.getUploadServer"
+			"/api/method/photos.getUploadServer"
 		}
 		public static var method: HTTPMethod {
 			.post

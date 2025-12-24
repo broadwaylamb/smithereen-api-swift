@@ -11,7 +11,7 @@ extension Utils {
 		public init() {
 		}
 		public var path: String {
-			"/method/utils.getServerTime"
+			"/api/method/utils.getServerTime"
 		}
 		public static var method: HTTPMethod {
 			.post

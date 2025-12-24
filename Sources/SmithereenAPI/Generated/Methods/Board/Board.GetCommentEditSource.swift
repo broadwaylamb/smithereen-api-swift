@@ -19,7 +19,7 @@ extension Board {
 			case commentID = "comment_id"
 		}
 		public var path: String {
-			"/method/board.getCommentEditSource"
+			"/api/method/board.getCommentEditSource"
 		}
 		public static var method: HTTPMethod {
 			.post

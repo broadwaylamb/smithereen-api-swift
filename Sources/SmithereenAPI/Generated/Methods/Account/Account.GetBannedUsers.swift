@@ -28,7 +28,7 @@ extension Account {
 			self.fields = fields
 		}
 		public var path: String {
-			"/method/account.getBannedUsers"
+			"/api/method/account.getBannedUsers"
 		}
 		public static var method: HTTPMethod {
 			.post

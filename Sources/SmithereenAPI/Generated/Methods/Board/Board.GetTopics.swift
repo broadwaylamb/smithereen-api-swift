@@ -118,7 +118,7 @@ extension Board {
 			public static var method: HTTPMethod {
 				.post
 			}
-			public var encodableBody: Self {
+			public var encodableBody: Self? {
 				self
 			}
 			public typealias Result = PaginatedList<BoardTopic, PaginatedListExtras.Profiles>
@@ -154,7 +154,7 @@ extension Board {
 		public static var method: HTTPMethod {
 			.post
 		}
-		public var encodableBody: Self {
+		public var encodableBody: Self? {
 			self
 		}
 		public typealias Result = PaginatedList<BoardTopic, PaginatedListExtras.Empty>

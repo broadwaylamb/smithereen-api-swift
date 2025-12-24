@@ -23,8 +23,8 @@ extension Account {
 		public static var method: HTTPMethod {
 			.post
 		}
-		public var encodableBody: Self {
-			self
+		public var encodableBody: NeverCodable? {
+			nil
 		}
 		public typealias Result = ()
 	}

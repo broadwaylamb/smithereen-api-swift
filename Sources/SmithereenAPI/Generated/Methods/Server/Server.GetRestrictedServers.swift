@@ -64,7 +64,7 @@ extension Server {
 		public static var method: HTTPMethod {
 			.post
 		}
-		public var encodableBody: Self {
+		public var encodableBody: Self? {
 			self
 		}
 		public typealias Result = PaginatedList<RestrictedServer, PaginatedListExtras.Empty>

@@ -99,7 +99,7 @@ extension Friends {
 			public static var method: HTTPMethod {
 				.post
 			}
-			public var encodableBody: Self {
+			public var encodableBody: Self? {
 				self
 			}
 			public typealias Result = PaginatedList<User, PaginatedListExtras.Empty>
@@ -132,7 +132,7 @@ extension Friends {
 		public static var method: HTTPMethod {
 			.post
 		}
-		public var encodableBody: Self {
+		public var encodableBody: Self? {
 			self
 		}
 		public typealias Result = PaginatedList<UserID, PaginatedListExtras.Empty>

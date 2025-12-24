@@ -51,7 +51,7 @@ extension Groups {
 		public static var method: HTTPMethod {
 			.post
 		}
-		public var encodableBody: Self {
+		public var encodableBody: Self? {
 			self
 		}
 		public typealias Result = PaginatedList<Group, PaginatedListExtras.Empty>

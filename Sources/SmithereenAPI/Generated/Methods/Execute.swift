@@ -40,7 +40,7 @@ public struct Execute<Args: Encodable, Result: Decodable>: SmithereenAPIRequest,
 	public static var method: HTTPMethod {
 		.post
 	}
-	public var encodableBody: Self {
+	public var encodableBody: Self? {
 		self
 	}
 }

@@ -129,7 +129,7 @@ extension Photos {
 			public static var method: HTTPMethod {
 				.post
 			}
-			public var encodableBody: Self {
+			public var encodableBody: Self? {
 				self
 			}
 			public typealias Result = PaginatedList<PhotoComment, PaginatedListExtras.CommentViewWithProfilesAndGroups>
@@ -171,7 +171,7 @@ extension Photos {
 		public static var method: HTTPMethod {
 			.post
 		}
-		public var encodableBody: Self {
+		public var encodableBody: Self? {
 			self
 		}
 		public typealias Result = PaginatedList<PhotoComment, PaginatedListExtras.CommentView>

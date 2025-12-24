@@ -138,7 +138,11 @@ final class PrinterVisitor {
 		let structSyntax = printStruct(def.structDef) {
 			#"public var path: String { "/api/method/\#(raw: def.name)" }"#
 			"public static var method: HTTPMethod { .post }"
-			"public var encodableBody: Self { self }"
+			if def.structDef.fields.isEmpty {
+				"public var encodableBody: NeverCodable? { nil }"
+			} else {
+				"public var encodableBody: Self? { self }"
+			}
 			if let resultType = def.resultType {
 				"public typealias Result = \(resultType.syntax)"
 			}

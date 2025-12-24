@@ -3,6 +3,15 @@
 import Foundation
 import SmithereenAPIInternals
 
+/// An access token for performing actions on behalf of a user.
+public struct AccessToken: Identifier {
+	public var rawValue: String
+
+	public init(rawValue: String) {
+		self.rawValue = rawValue
+	}
+}
+
 public struct ApplicationID: Identifier {
 	public var rawValue: Int
 

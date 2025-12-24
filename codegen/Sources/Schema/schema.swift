@@ -1,5 +1,6 @@
 let schema = Group {
 	FileDef("Identifiers") {
+		accessToken
 		applicationID
 		userID
 		groupID
@@ -75,5 +76,7 @@ let schema = Group {
 	textFormat
 	commentSortOrder
 	topicCommentPreviewMode
+	imageFormat
+	globalRequestParameters
 	error
 }

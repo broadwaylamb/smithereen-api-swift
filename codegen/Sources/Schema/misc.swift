@@ -31,6 +31,13 @@ let uploadedImageHash = IdentifierStruct("UploadedImageHash", rawValue: .string)
 		The hash returned by the upload endpoint after
 		[uploading the image](https://smithereen.software/docs/api/uploads).
 		""")
+let accessToken = IdentifierStruct("AccessToken", rawValue: .string)
+	.doc("An access token for performing actions on behalf of a user.")
+let imageFormat = EnumDef<String>("ImageFormat") {
+	EnumCaseDef("webp")
+	EnumCaseDef("jpeg")
+}
+.doc("In which format you would like images to be returned.")
 
 let serverSignupMode = EnumDef<String>("ServerSignupMode") {
 	EnumCaseDef("open")

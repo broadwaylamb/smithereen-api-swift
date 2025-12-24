@@ -15,7 +15,12 @@ extension EncodeAsJSONString: Equatable where T: Equatable {}
 extension EncodeAsJSONString: Hashable where T: Hashable {}
 extension EncodeAsJSONString: Sendable where T: Sendable {}
 
-private let jsonEncoder = JSONEncoder()
+private let jsonEncoder: JSONEncoder = {
+	let encoder = JSONEncoder()
+	encoder.outputFormatting = .sortedKeys
+	encoder.dateEncodingStrategy = .secondsSince1970
+	return encoder
+}()
 
 extension EncodeAsJSONString: Encodable {
 	public func encode(to encoder: any Encoder) throws {

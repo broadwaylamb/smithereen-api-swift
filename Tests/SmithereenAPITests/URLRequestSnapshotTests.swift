@@ -113,4 +113,29 @@ class URLRequestSnapshotTests: XCTestCase {
 			"""#
 		}
 	}
+
+	func testCreatePoll() throws {
+		let urlRequest = try URLRequest(
+			host: "example.com",
+			request: Polls.Create(
+				ownerID: ActorID(GroupID(rawValue: 42)),
+				question: "Cats or dogs?",
+				answers: ["Cats", "Dogs"],
+				anonymous: true,
+				multiple: true,
+				endDate: Date("2025-12-26T13:24:35Z", strategy: .iso8601),
+			),
+			globalParameters: GlobalRequestParameters(apiVersion: .v1_0),
+		)
+		assertInlineSnapshot(of: urlRequest, as: .curl) {
+			#"""
+			curl \
+				--request POST \
+				--header "Accept: application/json" \
+				--header "Content-Type: application/x-www-form-urlencoded" \
+				--data "anonymous=true&answers=%5B%22Cats%22%2C%22Dogs%22%5D&end_date=1766755475&multiple=true&owner_id=-42&question=Cats%20or%20dogs%3F" \
+				"https://example.com/api/method/polls.create?v=1.0"
+			"""#
+		}
+	}
 }

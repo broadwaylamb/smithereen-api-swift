@@ -15,7 +15,18 @@ extension UnixTimestamp: Sendable where T: Sendable {}
 
 extension UnixTimestamp: Encodable {
 	public func encode(to encoder: any Encoder) throws {
-		try encode(to: encoder) { $0.timeIntervalSince1970 }
+		try encode(to: encoder) {
+			if let seconds = Int(exactly: $0.timeIntervalSince1970.rounded(.towardZero)) {
+				return seconds
+			}
+			throw EncodingError.invalidValue(
+				self,
+				.init(
+					codingPath: $1,
+					debugDescription: "This date cannot be represented is an integral number of seconds",
+				)
+			)
+		}
 	}
 }
 
@@ -28,3 +39,4 @@ extension UnixTimestamp: Decodable {
 }
 
 extension Date: PotentiallyOptional {}
+extension Array: PotentiallyOptional {}

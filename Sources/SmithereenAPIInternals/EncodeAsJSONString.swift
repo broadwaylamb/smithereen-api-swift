@@ -24,7 +24,9 @@ private let jsonEncoder: JSONEncoder = {
 
 extension EncodeAsJSONString: Encodable {
 	public func encode(to encoder: any Encoder) throws {
-		try encode(to: encoder) { String(decoding: try jsonEncoder.encode($0), as: UTF8.self) }
+		try encode(to: encoder) { value, _ in
+			String(decoding: try jsonEncoder.encode(value), as: UTF8.self)
+		}
 	}
 }
 

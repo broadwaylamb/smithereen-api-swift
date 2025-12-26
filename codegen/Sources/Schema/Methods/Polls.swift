@@ -9,4 +9,43 @@ let polls = Group("Polls") {
 	}
 	.doc("Votes in a poll on behalf of the current user.")
 	.requiresPermissions("wall")
+
+	RequestDef("polls.create", resultType: .def(pollID)) {
+		FieldDef("owner_id", type: .def(actorID))
+			.doc("""
+				User or group identifier of the owner on whose wall
+				the poll will be posted.
+
+				Current user by default.
+				""")
+		FieldDef("question", type: .string)
+			.required()
+			.doc("The poll question.")
+		FieldDef("answers", type: .array(.string))
+			.json()
+			.required()
+			.doc("Poll options, 2 to 10 strings.")
+		FieldDef("anonymous", type: .bool)
+			.doc("""
+				Whether the list of people who voted for each option
+				is hidden.
+
+				By default `false`.
+				""")
+		FieldDef("multiple", type: .bool)
+			.doc("""
+				Whether this poll is multiple-choice.
+
+				By default `false`.
+				""")
+		FieldDef("end_date", type: .unixTimestamp)
+			.doc("""
+				The time when this poll stops accepting new votes.
+
+				By default, or if this parameter is in the past,
+				the poll does not end.
+				""")
+	}
+	.doc("Creates a poll to later attach to a post.")
+	.requiresPermissions("wall")
 }

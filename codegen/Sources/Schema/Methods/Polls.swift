@@ -48,4 +48,11 @@ let polls = Group("Polls") {
 	}
 	.doc("Creates a poll to later attach to a post.")
 	.requiresPermissions("wall")
+
+	RequestDef("polls.getById", resultType: .def(poll)) {
+		FieldDef("poll_id", type: .def(pollID))
+			.required()
+			.doc("The identifier of the poll.")
+	}
+	.doc("Returns a poll.")
 }

@@ -6,6 +6,7 @@ public enum Likes {}
 public enum Messages {}
 public enum Newsfeed {}
 public enum Photos {}
+public enum Polls {}
 public enum Server {}
 public enum Status {}
 public enum Users {}

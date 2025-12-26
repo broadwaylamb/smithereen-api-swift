@@ -63,6 +63,7 @@ let schema = Group {
 		messages
 		newsfeed
 		photos
+		polls
 		server
 		status
 		users

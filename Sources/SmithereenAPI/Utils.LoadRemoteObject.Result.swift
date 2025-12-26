@@ -127,15 +127,15 @@ extension Utils.LoadRemoteObject {
 }
 
 extension KeyedDecodingContainer {
-	fileprivate func decodeFromString<T: RawRepresentable>(forKey key: K) throws -> T where T.RawValue == Int {
-		guard let int = Int(try decode(String.self, forKey: key)) else {
+	fileprivate func decodeFromString<T: RawRepresentable>(forKey key: K) throws -> T where T.RawValue: BinaryInteger {
+		guard let int = UInt64(try decode(String.self, forKey: key)) else {
 			throw DecodingError.dataCorruptedError(
 				forKey: key,
 				in: self,
 				debugDescription: "Could not parse an integer from the string",
 			)
 		}
-		guard let result = T(rawValue: int) else {
+		guard let rawValue = T.RawValue(exactly: int), let result = T(rawValue: rawValue) else {
 			throw DecodingError.dataCorruptedError(
 				forKey: key,
 				in: self,

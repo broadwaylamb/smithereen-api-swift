@@ -13,42 +13,42 @@ public struct AccessToken: Identifier {
 }
 
 public struct ApplicationID: Identifier {
-	public var rawValue: Int
+	public var rawValue: UInt64
 
-	public init(rawValue: Int) {
+	public init(rawValue: UInt64) {
 		self.rawValue = rawValue
 	}
 }
 
 public struct UserID: Identifier {
-	public var rawValue: Int
+	public var rawValue: UInt32
 
-	public init(rawValue: Int) {
+	public init(rawValue: UInt32) {
 		self.rawValue = rawValue
 	}
 }
 
 public struct GroupID: Identifier {
-	public var rawValue: Int
+	public var rawValue: UInt32
 
-	public init(rawValue: Int) {
+	public init(rawValue: UInt32) {
 		self.rawValue = rawValue
 	}
 }
 
 /// Represents either ``UserID`` or ``GroupID``.
 public struct ActorID: Identifier {
-	public var rawValue: Int
+	public var rawValue: Int32
 
-	public init(rawValue: Int) {
+	public init(rawValue: Int32) {
 		self.rawValue = rawValue
 	}
 }
 
 public struct FriendListID: Identifier {
-	public var rawValue: Int
+	public var rawValue: UInt32
 
-	public init(rawValue: Int) {
+	public init(rawValue: UInt32) {
 		self.rawValue = rawValue
 	}
 }
@@ -78,25 +78,25 @@ public struct ServerRuleID: Identifier {
 }
 
 public struct GroupLinkID: Identifier {
-	public var rawValue: Int
+	public var rawValue: UInt64
 
-	public init(rawValue: Int) {
+	public init(rawValue: UInt64) {
 		self.rawValue = rawValue
 	}
 }
 
 public struct PollID: Identifier {
-	public var rawValue: Int
+	public var rawValue: UInt64
 
-	public init(rawValue: Int) {
+	public init(rawValue: UInt64) {
 		self.rawValue = rawValue
 	}
 }
 
 public struct PollOptionID: Identifier {
-	public var rawValue: Int
+	public var rawValue: UInt64
 
-	public init(rawValue: Int) {
+	public init(rawValue: UInt64) {
 		self.rawValue = rawValue
 	}
 }
@@ -111,9 +111,9 @@ public struct BoardTopicID: Identifier {
 
 /// An identifier of a wall post or a comment on a wall post.
 public struct WallPostID: Identifier {
-	public var rawValue: Int
+	public var rawValue: UInt64
 
-	public init(rawValue: Int) {
+	public init(rawValue: UInt64) {
 		self.rawValue = rawValue
 	}
 }
@@ -145,9 +145,9 @@ public struct PhotoFeedEntryID: Identifier {
 }
 
 public struct PhotoTagID: Identifier {
-	public var rawValue: Int
+	public var rawValue: UInt64
 
-	public init(rawValue: Int) {
+	public init(rawValue: UInt64) {
 		self.rawValue = rawValue
 	}
 }

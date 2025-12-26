@@ -52,32 +52,32 @@ extension User.RelationshipStatus {
 
 extension ActorID {
 	public init(_ userID: UserID) {
-		self.init(rawValue: userID.rawValue)
+		self.init(rawValue: Int32(userID.rawValue))
 	}
 
 	public init(_ groupID: GroupID) {
-		self.init(rawValue: -groupID.rawValue)
+		self.init(rawValue: Int32(groupID.rawValue))
 	}
 
 	public var userID: UserID? {
 		if rawValue > 0 {
-			return UserID(rawValue: rawValue)
+			return UserID(rawValue: UInt32(rawValue))
 		}
 		return nil
 	}
 
 	public var groupID: GroupID? {
 		if (rawValue < 0) {
-			return GroupID(rawValue: -rawValue)
+			return GroupID(rawValue: UInt32(-rawValue))
 		}
 		return nil
 	}
 
 	public func map<R>(userID: (UserID) -> R, groupID: (GroupID) -> R) -> R {
 		if rawValue >= 0 {
-			return userID(UserID(rawValue: rawValue))
+			return userID(UserID(rawValue: UInt32(rawValue)))
 		} else {
-			return groupID(GroupID(rawValue: -rawValue))
+			return groupID(GroupID(rawValue: UInt32(-rawValue)))
 		}
 	}
 }

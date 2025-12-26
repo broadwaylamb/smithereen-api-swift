@@ -55,4 +55,16 @@ let polls = Group("Polls") {
 			.doc("The identifier of the poll.")
 	}
 	.doc("Returns a poll.")
+
+	RequestDef("polls.getVoters", resultType: .paginatedList(.def(userID))) {
+		FieldDef("poll_id", type: .def(pollID))
+			.required()
+			.doc("Poll identifier.")
+		FieldDef("answer_id", type: .def(pollOptionID))
+			.required()
+			.doc("Poll option identifier.")
+		offsetAndCountParams("user", defaultCount: 100)
+	}
+	.doc("Returns a list of users who voted for a specific option in a poll.")
+	.withUserFields()
 }

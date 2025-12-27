@@ -13,14 +13,18 @@ private let urlFormEncoder = URLEncodedFormEncoder(
 extension URLRequest {
 	/// Creates a ready-to-use URL request for the provided Smithereen API request.
 	///
-	/// ``globalParameters`` are always passed in the query part.
+	/// `globalParameters` are always passed in the query part.
 	///
 	/// - parameters:
 	///	  - host: The Smithereen instance server address.
 	///     Must be a valid host name.
 	///   - request: The Smithereen API method to call.
-	///   - passAccessTokenInHeader: Whether to pass ``accessToken`` as
-	///     a request parameter or a header.
+	///   - globalParameters: The [global parameters](https://smithereen.software/docs/api/requests/)
+	///     to specify for this request.
+	///   - passAccessTokenInHeader: Whether to pass the access token as
+	///     a request parameter or a header. Those are always passed in the query part.
+	///   - cachePolicy: The cache policy for the request.
+	///   - timeoutInterval: The timeout interval for the request. The default is 60.0.
 	public init<Request: SmithereenAPIRequest>(
 		host: String,
 		request: Request,

@@ -84,8 +84,8 @@ public enum OAuth {
 	///   - url: The app-specific URL that the browser session was
 	///     redirected to. It should include the `code` query parameter.
 	///   - expectedState: If this is not `nil`, the string against which to verify
-	///     the ``url``'s query parameter `state`. If they don't match,
-	///     ``Error/stateMismatch`` is thrown.
+	///     the `url`'s query parameter `state`. If they don't match,
+	///     ``AuthorizationCodeError/stateMismatch(expected:actual:)`` is thrown.
 	public func extractAuthorizationCode(
 		from url: URL,
 		expectedState: String?,

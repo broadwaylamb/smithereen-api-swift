@@ -42,7 +42,7 @@ public enum AttachmentToCreate: Hashable, Codable, Sendable {
 	case photo(PhotoID)
 
 	/// A poll. The associated value is the identifier of the poll returned by
-	/// ``Polls.Create``
+	/// ``Polls/Create``
 	case poll(PollID)
 
 	private enum CodingKeys: String, CodingKey {

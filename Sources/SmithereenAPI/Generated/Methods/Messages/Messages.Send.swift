@@ -21,12 +21,12 @@ extension Messages {
 		/// determined by the ``textFormat`` parameter.
 		public var body: String?
 
-		/// The format of the message text passed in ``message``.
+		/// The format of the message text passed in ``body``.
 		/// By default, the user’s preference is used.
 		public var textFormat: TextFormat?
 
 		/// An array representing the media attachments to be added to this message.
-		/// **Required** if there is no ``message``.
+		/// **Required** if there is no ``body``.
 		@EncodeAsJSONString
 		public var attachments: [AttachmentToCreate]?
 

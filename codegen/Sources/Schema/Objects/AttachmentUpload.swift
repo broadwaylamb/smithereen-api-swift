@@ -25,7 +25,7 @@ let attachmentToCreate = TaggedUnionDef("AttachmentToCreate") {
 	TaggedUnionVariantDef("poll", payloadFieldName: "poll_id", type: .def(pollID))
 		.doc("""
 			A poll. The associated value is the identifier of the poll returned by
-			``Polls.Create``
+			``Polls/Create``
 			""")
 }
 .frozen()

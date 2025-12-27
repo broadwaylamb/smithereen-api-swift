@@ -39,19 +39,20 @@ extension Friends {
 
 			public struct FriendRequest: Hashable, Codable, Sendable {
 
-				/// If no ``Friends/GetRequests/fields`` are specified, the user
-				/// identifier.
+				/// If no ``Friends/GetRequests/Extended/fields`` are specified,
+				/// the user identifier.
 				public var userID: UserID?
 
-				/// If fields are specified, a ``User`` object.
+				/// If ``Friends/GetRequests/Extended/fields`` are specified,
+				/// a ``User`` object.
 				public var user: User?
 
-				/// If ``Friends/GetRequests/extended`` is `true`, and this friend
-				/// request was sent with a message, that message.
+				/// If ``Friends/GetRequests/Extended/extended`` is `true`,
+				/// and this friend request was sent with a message, that message.
 				public var message: String?
 
-				/// If ``Friends/GetRequests/needMutual`` is `true`, an object
-				/// describing the mutual friends with this user.
+				/// If ``Friends/GetRequests/Extended/needMutual`` is `true`,
+				/// an object describing the mutual friends with this user.
 				public var mutual: Mutual?
 
 				public struct Mutual: Hashable, Codable, Sendable {

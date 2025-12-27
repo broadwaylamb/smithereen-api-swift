@@ -70,7 +70,7 @@ let friends = Group("Friends") {
 			.doc("""
 				Whether there’s an incoming friend request from this user.
 				Only returned when ``extended`` is `true` and ``friendStatus``
-				is ``followedBy``.
+				is ``State/followedBy``.
 				""")
 	}
 	apiMethod("friends.areFriends", resultType: .array(.def(friendshipInfo))) {
@@ -300,15 +300,18 @@ let friends = Group("Friends") {
 	let friendRequestStruct = StructDef("FriendRequest") {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""
-				If no ``Friends/GetRequests/fields`` are specified, the user
-				identifier.
+				If no ``Friends/GetRequests/Extended/fields`` are specified,
+				the user identifier.
 				""")
 		FieldDef("user", type: .def(user))
-			.doc("If fields are specified, a ``User`` object.")
+			.doc("""
+				If ``Friends/GetRequests/Extended/fields`` are specified,
+				a ``User`` object.
+				""")
 		FieldDef("message", type: .string)
 			.doc("""
-				If ``Friends/GetRequests/extended`` is `true`, and this friend
-				request was sent with a message, that message.
+				If ``Friends/GetRequests/Extended/extended`` is `true`,
+				and this friend request was sent with a message, that message.
 				""")
 
 		let mutualStruct = StructDef("Mutual") {
@@ -321,8 +324,8 @@ let friends = Group("Friends") {
 		}
 		FieldDef("mutual", type: .def(mutualStruct))
 			.doc("""
-				If ``Friends/GetRequests/needMutual`` is `true`, an object
-				describing the mutual friends with this user.
+				If ``Friends/GetRequests/Extended/needMutual`` is `true`,
+				an object describing the mutual friends with this user.
 				""")
 		mutualStruct
 	}

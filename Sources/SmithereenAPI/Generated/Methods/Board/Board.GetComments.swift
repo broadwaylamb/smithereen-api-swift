@@ -19,15 +19,15 @@ extension Board {
 		public var offset: Int?
 
 		/// How many comments to return.
-		/// When ``viewType`` is ``CommentView/threaded` or
-		/// ``CommentView/twoLevel`, how many **top-level** comments
+		/// When ``viewType`` is ``CommentView/threaded`` or
+		/// ``CommentView/twoLevel``, how many **top-level** comments
 		/// to return.
 		/// From 1 to 100. By default 20.
 		public var count: Int?
 
 		/// How many replies to return, combined, in all threads, when
-		/// ``viewType`` is ``CommentView/threaded` or
-		/// ``CommentView/twoLevel`. Ignored for ``CommentView/flat``.
+		/// ``viewType`` is ``CommentView/threaded`` or
+		/// ``CommentView/twoLevel``. Ignored for ``CommentView/flat``.
 		/// From 1 to 100. By default 20.
 		public var secondaryCount: Int?
 
@@ -59,15 +59,15 @@ extension Board {
 			public var offset: Int?
 
 			/// How many comments to return.
-			/// When ``viewType`` is ``CommentView/threaded` or
-			/// ``CommentView/twoLevel`, how many **top-level** comments
+			/// When ``viewType`` is ``CommentView/threaded`` or
+			/// ``CommentView/twoLevel``, how many **top-level** comments
 			/// to return.
 			/// From 1 to 100. By default 20.
 			public var count: Int?
 
 			/// How many replies to return, combined, in all threads, when
-			/// ``viewType`` is ``CommentView/threaded` or
-			/// ``CommentView/twoLevel`. Ignored for ``CommentView/flat``.
+			/// ``viewType`` is ``CommentView/threaded`` or
+			/// ``CommentView/twoLevel``. Ignored for ``CommentView/flat``.
 			/// From 1 to 100. By default 20.
 			public var secondaryCount: Int?
 

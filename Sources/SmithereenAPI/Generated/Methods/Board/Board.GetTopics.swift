@@ -43,7 +43,7 @@ extension Board {
 		/// By default ``TopicCommentPreviewMode/none``.
 		public var preview: TopicCommentPreviewMode?
 
-		/// If ``preview`` is not ``CommentPreviewMode/none``, how many
+		/// If ``preview`` is not ``TopicCommentPreviewMode/none``, how many
 		/// characters of the comment text to return.
 		/// The text will be truncated on a word boundary.
 		/// Pass 0 to return complete texts.
@@ -73,7 +73,7 @@ extension Board {
 			/// By default ``TopicCommentPreviewMode/none``.
 			public var preview: TopicCommentPreviewMode?
 
-			/// If ``preview`` is not ``CommentPreviewMode/none``, how many
+			/// If ``preview`` is not ``TopicCommentPreviewMode/none``, how many
 			/// characters of the comment text to return.
 			/// The text will be truncated on a word boundary.
 			/// Pass 0 to return complete texts.

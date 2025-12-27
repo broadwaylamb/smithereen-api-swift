@@ -163,10 +163,10 @@ extension Groups.GetMembers {
 
 extension PhotoAlbumID {
 	/// A "magic" identifier to request photos from the system album
-	/// using ``Photos.Get``.
+	/// using ``Photos/Get``.
 	public static let profile = PhotoAlbumID(rawValue: "profile")
 
 	/// A "magic" identifier to request photos from the system album
-	/// using ``Photos.Get``.
+	/// using ``Photos/Get``.
 	public static let saved = PhotoAlbumID(rawValue: "saved")
 }

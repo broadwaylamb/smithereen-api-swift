@@ -160,7 +160,7 @@ let wall = Group("Wall") {
 private func repostHistoryDepth() -> FieldDef {
 	FieldDef("repost_history_depth", type: .int)
 		.doc("""
-			Determines the size of the ``User/repostHistory`` array.
+			Determines the size of the ``WallPost/repostHistory`` array.
 			For example, if a post is a repost of another repost,
 			with ``repostHistoryDepth`` = 1, only the first repost
 			will be returned.

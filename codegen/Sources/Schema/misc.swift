@@ -372,8 +372,8 @@ func commentsRequest(
 		FieldDef("count", type: .int)
 			.doc("""
 				How many comments to return.
-				When ``viewType`` is ``CommentView/threaded` or
-				``CommentView/twoLevel`, how many **top-level** comments
+				When ``viewType`` is ``CommentView/threaded`` or
+				``CommentView/twoLevel``, how many **top-level** comments
 				to return.
 
 				From 1 to 100. By default 20.
@@ -382,8 +382,8 @@ func commentsRequest(
 		FieldDef("secondary_count", type: .int)
 			.doc("""
 				How many replies to return, combined, in all threads, when
-				``viewType`` is ``CommentView/threaded` or
-				``CommentView/twoLevel`. Ignored for ``CommentView/flat``.
+				``viewType`` is ``CommentView/threaded`` or
+				``CommentView/twoLevel``. Ignored for ``CommentView/flat``.
 
 				From 1 to 100. By default 20.
 				""")
@@ -437,7 +437,7 @@ func postParameters(postKind: String, bodyFieldName: String = "message") -> any 
 
 	FieldDef("text_format", type: .def(textFormat))
 		.doc("""
-			The format of the \(postKind) text passed in ``message``.
+			The format of the \(postKind) text passed in ``\(bodyFieldName)``.
 			By default, the user’s preference is used.
 			""")
 
@@ -445,7 +445,7 @@ func postParameters(postKind: String, bodyFieldName: String = "message") -> any 
 		.json()
 		.doc("""
 			An array representing the media attachments to be added to this \(postKind).
-			**Required** if there is no ``message``.
+			**Required** if there is no ``\(bodyFieldName)``.
 			""")
 
 	FieldDef("content_warning", type: .string)

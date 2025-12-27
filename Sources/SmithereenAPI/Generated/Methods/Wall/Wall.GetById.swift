@@ -11,7 +11,7 @@ extension Wall {
 		/// A list of post IDs
 		public var posts: [WallPostID]
 
-		/// Determines the size of the ``User/repostHistory`` array.
+		/// Determines the size of the ``WallPost/repostHistory`` array.
 		/// For example, if a post is a repost of another repost,
 		/// with ``repostHistoryDepth`` = 1, only the first repost
 		/// will be returned.
@@ -24,7 +24,7 @@ extension Wall {
 			/// A list of post IDs
 			public var posts: [WallPostID]
 
-			/// Determines the size of the ``User/repostHistory`` array.
+			/// Determines the size of the ``WallPost/repostHistory`` array.
 			/// For example, if a post is a repost of another repost,
 			/// with ``repostHistoryDepth`` = 1, only the first repost
 			/// will be returned.

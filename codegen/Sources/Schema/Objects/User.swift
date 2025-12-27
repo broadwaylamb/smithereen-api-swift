@@ -232,7 +232,7 @@ let user = StructDef("User") {
 		.excludeFromFields()
 		.doc("""
 			Whether the user is currently online from a mobile device.
-			Request by passing ``Fields/online``.
+			Request by passing ``Field/online``.
 			""")
 
 	let lastSeenDoc = """

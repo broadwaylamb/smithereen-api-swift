@@ -23,7 +23,7 @@ extension Photos {
 			/// The user must be the current user’s friend.
 			case user(UserID)
 
-			/// The name to tag. Pass instead of ``user`` to create a tag with
+			/// The name to tag. Pass instead of ``user(_:)`` to create a tag with
 			/// just a name, without linking to anyone’s profile.
 			case name(String)
 

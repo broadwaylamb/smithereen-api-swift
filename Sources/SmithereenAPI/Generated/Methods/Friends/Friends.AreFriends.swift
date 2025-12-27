@@ -78,7 +78,7 @@ extension Friends {
 
 			/// Whether there’s an incoming friend request from this user.
 			/// Only returned when ``extended`` is `true` and ``friendStatus``
-			/// is ``followedBy``.
+			/// is ``State/followedBy``.
 			public var isRequestUnread: Bool?
 
 			public init(

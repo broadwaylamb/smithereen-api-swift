@@ -424,7 +424,7 @@ let photos = Group("Photos") {
 					""")
 			TaggedUnionVariantDef("name", payloadFieldName: "name", type: .string)
 				.doc("""
-					The name to tag. Pass instead of ``user`` to create a tag with
+					The name to tag. Pass instead of ``user(_:)`` to create a tag with
 					just a name, without linking to anyone’s profile.
 					""")
 		}

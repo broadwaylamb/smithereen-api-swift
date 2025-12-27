@@ -690,7 +690,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	public var online: Bool?
 
 	/// Whether the user is currently online from a mobile device.
-	/// Request by passing ``Fields/online``.
+	/// Request by passing ``Field/online``.
 	public var onlineMobile: Bool?
 
 	/// If the user is currently offline, information about when they

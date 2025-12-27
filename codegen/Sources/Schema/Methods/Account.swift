@@ -77,7 +77,7 @@ let account = Group("Account") {
 		set using the same token. For example, if they opened your app
 		on their phone, which called ``Account/SetOnline``, and then
 		switched to the web browser on their computer, your app calling
-		``Account.SetOffline`` will have no effect since their current
+		``Account/SetOffline`` will have no effect since their current
 		online status will be associated with a different session.
 		""")
 

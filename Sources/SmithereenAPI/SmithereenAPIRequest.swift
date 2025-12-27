@@ -3,10 +3,13 @@ import Hammond
 
 public protocol SmithereenAPIRequest
 	:	EncodableRequestProtocol,
-		DecodableRequestProtocol
-	where ServerError == SmithereenAPIError, ResponseBody == Data
+		DecodableRequestProtocol,
+		Sendable
+	where
+		ServerError == SmithereenAPIError,
+		ResponseBody == Data,
+		Result: Sendable
 {
-	associatedtype Result
 }
 
 internal let smithereenJSONDecoder: JSONDecoder = {

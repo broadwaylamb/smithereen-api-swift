@@ -37,7 +37,9 @@ extension Friends {
 		/// Offset into the friend list for pagination.
 		public var offset: Int?
 
-		/// How many friends to return. By default 100.
+		/// How many friends to return.
+		/// 
+		/// Minumum value: 1. Maximum value: 1000. By default 100.
 		public var count: Int?
 
 		/// Returns the friends of a user that are online right now.
@@ -59,7 +61,9 @@ extension Friends {
 			/// Offset into the friend list for pagination.
 			public var offset: Int?
 
-			/// How many friends to return. By default 100.
+			/// How many friends to return.
+			/// 
+			/// Minumum value: 1. Maximum value: 1000. By default 100.
 			public var count: Int?
 
 			/// A list of user profile fields to be returned.

@@ -107,7 +107,7 @@ let board = Group("Board") {
 				""")
 		orderDef
 
-		offsetAndCountParams("topic", defaultCount: 40)
+		offsetAndCountParams("topic", range: 1...100, defaultCount: 40)
 		commentPreviewParameters()
 	}
 	.doc("""

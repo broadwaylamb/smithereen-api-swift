@@ -37,7 +37,7 @@ let users = Group("Users") {
 				If the method is called with an access token, defaults to
 				the current user’s ID. Required if no token is used.
 				""")
-			offsetAndCountParams("follower", defaultCount: 100)
+			offsetAndCountParams("follower", range: 1...1000, defaultCount: 100)
 	}
 	.doc("Returns the list of a user’s followers.")
 	.withUserFields()
@@ -49,7 +49,7 @@ let users = Group("Users") {
 				If the method is called with an access token,
 				defaults to the current user’s ID. Required if no token is used.
 				""")
-			offsetAndCountParams("follower", defaultCount: 100)
+			offsetAndCountParams("follower", range: 1...1000, defaultCount: 100)
 	}
 	.doc("Returns the list of users followed by a user.")
 	.withUserFields()

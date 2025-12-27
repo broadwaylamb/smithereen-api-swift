@@ -30,7 +30,9 @@ extension Newsfeed {
 		/// Offset into the object list for pagination.
 		public var offset: Int?
 
-		/// How many objects to return. By default 25.
+		/// How many objects to return.
+		/// 
+		/// Minumum value: 1. Maximum value: 100. By default 25.
 		public var count: Int?
 
 		/// How many of the most recent comments to return, from 0 to 3.

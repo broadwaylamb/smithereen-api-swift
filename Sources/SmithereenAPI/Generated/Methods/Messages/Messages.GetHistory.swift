@@ -20,7 +20,9 @@ extension Messages {
 		/// Offset into the message list for pagination.
 		public var offset: Int?
 
-		/// How many messages to return. By default 20.
+		/// How many messages to return.
+		/// 
+		/// Minumum value: 1. Maximum value: 200. By default 20.
 		public var count: Int?
 
 		public init(

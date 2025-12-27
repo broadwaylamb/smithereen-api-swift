@@ -15,7 +15,9 @@ extension Wall {
 		/// Offset into the post list for pagination.
 		public var offset: Int?
 
-		/// How many posts to return. By default 20.
+		/// How many posts to return.
+		/// 
+		/// Minumum value: 1. Maximum value: 100. By default 20.
 		public var count: Int?
 
 		/// Which posts to return. By default ``Filter/all``.
@@ -51,7 +53,9 @@ extension Wall {
 			/// Offset into the post list for pagination.
 			public var offset: Int?
 
-			/// How many posts to return. By default 20.
+			/// How many posts to return.
+			/// 
+			/// Minumum value: 1. Maximum value: 100. By default 20.
 			public var count: Int?
 
 			/// Which posts to return. By default ``Filter/all``.

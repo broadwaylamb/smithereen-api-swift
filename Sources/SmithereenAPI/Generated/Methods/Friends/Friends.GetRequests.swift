@@ -13,7 +13,9 @@ extension Friends {
 		/// Offset into the friend request list for pagination.
 		public var offset: Int?
 
-		/// How many friend requests to return. By default 20.
+		/// How many friend requests to return.
+		/// 
+		/// Minumum value: 1. Maximum value: 100. By default 20.
 		public var count: Int?
 
 		/// Returns the current user’s incoming friend requests.
@@ -24,7 +26,9 @@ extension Friends {
 			/// Offset into the friend request list for pagination.
 			public var offset: Int?
 
-			/// How many friend requests to return. By default 20.
+			/// How many friend requests to return.
+			/// 
+			/// Minumum value: 1. Maximum value: 100. By default 20.
 			public var count: Int?
 
 			/// Whether to return the messages specified by the users who sent

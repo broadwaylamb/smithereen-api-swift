@@ -188,7 +188,7 @@ let photos = Group("Photos") {
 				If omitted, returns the system album for the current user.
 				""")
 
-		offsetAndCountParams("photo", defaultCount: 50)
+		offsetAndCountParams("photo", range: 1...1000, defaultCount: 50)
 		extendedField()
 		revField()
 	}
@@ -207,7 +207,7 @@ let photos = Group("Photos") {
 				Current user by default. Required if called without a token.
 				""")
 
-		offsetAndCountParams("album", defaultCount: nil)
+		offsetAndCountParams("album", range: 1..., defaultCount: nil)
 
 		FieldDef("need_system", type: .bool)
 			.doc("""
@@ -245,7 +245,7 @@ let photos = Group("Photos") {
 				Current user by default. Required if called without a token.
 				""")
 
-		offsetAndCountParams("photo", defaultCount: 50)
+		offsetAndCountParams("photo", range: 1...1000, defaultCount: 50)
 		extendedField()
 	}
 	.doc("""
@@ -302,13 +302,13 @@ let photos = Group("Photos") {
 			.required()
 			.doc("A list ID returned by ``Newsfeed/Get`` or ``Newsfeed/GetGroups``.")
 
-		offsetAndCountParams("photo", defaultCount: 50)
+		offsetAndCountParams("photo", range: 1...1000, defaultCount: 50)
 		extendedField()
 	}
 	.doc("Returns a complete list of photos for a newsfeed entry.")
 
 	apiMethod("photos.getNewTags", resultType: .paginatedList(.def(photo))) {
-		offsetAndCountParams("photo", defaultCount: 50)
+		offsetAndCountParams("photo", range: 1...100, defaultCount: 50)
 		extendedField()
 	}
 	.doc("Returns photos with unconfirmed tags of the current user.")
@@ -386,7 +386,7 @@ let photos = Group("Photos") {
 				By default, the current user. Required when called without a token.
 				""")
 
-		offsetAndCountParams("photo", defaultCount: 50)
+		offsetAndCountParams("photo", range: 1...1000, defaultCount: 50)
 		extendedField()
 		revField()
 	}

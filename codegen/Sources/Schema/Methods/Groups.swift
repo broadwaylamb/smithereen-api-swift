@@ -33,7 +33,7 @@ let groups = Group("Groups") {
 				""")
 		filterEnum
 
-		offsetAndCountParams("group", defaultCount: 100)
+		offsetAndCountParams("group", range: 1...1000, defaultCount: 100)
 	}
 	.doc("Returns the list of groups or events in which a user is a member.")
 	.withGroupFields()
@@ -55,7 +55,7 @@ let groups = Group("Groups") {
 				By default ``CommunityType/groups``.
 				""")
 
-		offsetAndCountParams("invitation", defaultCount: 20)
+		offsetAndCountParams("invitation", range: 1...500, defaultCount: 20)
 
 		FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
 			.doc("""
@@ -118,7 +118,7 @@ let groups = Group("Groups") {
 				""")
 		sortingEnum
 
-		offsetAndCountParams("member", defaultCount: 100)
+		offsetAndCountParams("member", range: 1...1000, defaultCount: 100)
 
 		let filterEnum = EnumDef<String>("Filter") {
 			EnumCaseDef("friends")
@@ -255,7 +255,7 @@ let groups = Group("Groups") {
 				By default ``CommunityType/groups``.
 				""")
 
-		offsetAndCountParams("group", defaultCount: 100)
+		offsetAndCountParams("group", range: 1...100, defaultCount: 100)
 
 		FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
 			.doc("A list of group profile fields to return.")

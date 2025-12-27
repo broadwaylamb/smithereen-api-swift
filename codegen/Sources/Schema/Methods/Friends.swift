@@ -211,7 +211,7 @@ let friends = Group("Friends") {
 				a token that has the `friends:read` permission.
 				""")
 
-		offsetAndCountParams("friend", defaultCount: 100)
+		offsetAndCountParams("friend", range: 1...1000, defaultCount: 100)
 	}
 	.doc("Returns the friend list of a user.")
 	.withUserFields()
@@ -251,7 +251,7 @@ let friends = Group("Friends") {
 				""")
 		orderEnum
 
-		offsetAndCountParams("friend", defaultCount: 100)
+		offsetAndCountParams("friend", range: 1...1000, defaultCount: 100)
 	}
 	.doc("Returns the list of mutual friends between two users.")
 	.requiresPermissions("friends:read")
@@ -291,7 +291,7 @@ let friends = Group("Friends") {
 				the `friends:read` permission.
 				""")
 
-		offsetAndCountParams("friend", defaultCount: 100)
+		offsetAndCountParams("friend", range: 1...1000, defaultCount: 100)
 	}
 	.doc("Returns the friends of a user that are online right now.")
 	.withUserFields()
@@ -330,7 +330,7 @@ let friends = Group("Friends") {
 		mutualStruct
 	}
 	apiMethod("friends.getRequests", resultType: .paginatedList(.def(userID))) {
-		offsetAndCountParams("friend request", defaultCount: 20)
+		offsetAndCountParams("friend request", range: 1...100, defaultCount: 20)
 	}
 	.doc("Returns the current user’s incoming friend requests.")
 	.requiresPermissions("friends:read")

@@ -18,7 +18,9 @@ extension Groups {
 		/// Offset into the invitation list for pagination.
 		public var offset: Int?
 
-		/// How many invitations to return. By default 20.
+		/// How many invitations to return.
+		/// 
+		/// Minumum value: 1. Maximum value: 500. By default 20.
 		public var count: Int?
 
 		/// A list of group profile fields to return.
@@ -37,7 +39,9 @@ extension Groups {
 			/// Offset into the invitation list for pagination.
 			public var offset: Int?
 
-			/// How many invitations to return. By default 20.
+			/// How many invitations to return.
+			/// 
+			/// Minumum value: 1. Maximum value: 500. By default 20.
 			public var count: Int?
 			private let extended: Bool = true
 

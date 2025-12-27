@@ -13,7 +13,9 @@ extension Account {
 		/// Offset into the domain list for pagination.
 		public var offset: Int?
 
-		/// How many domains to return. By default 100.
+		/// How many domains to return.
+		/// 
+		/// Minumum value: 1. Maximum value: 1000. By default 100.
 		public var count: Int?
 
 		public init(

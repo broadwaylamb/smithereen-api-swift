@@ -16,7 +16,9 @@ extension Users {
 		/// Offset into the follower list for pagination.
 		public var offset: Int?
 
-		/// How many followers to return. By default 100.
+		/// How many followers to return.
+		/// 
+		/// Minumum value: 1. Maximum value: 1000. By default 100.
 		public var count: Int?
 
 		/// Returns the list of users followed by a user.
@@ -30,7 +32,9 @@ extension Users {
 			/// Offset into the follower list for pagination.
 			public var offset: Int?
 
-			/// How many followers to return. By default 100.
+			/// How many followers to return.
+			/// 
+			/// Minumum value: 1. Maximum value: 1000. By default 100.
 			public var count: Int?
 
 			/// A list of user profile fields to be returned.

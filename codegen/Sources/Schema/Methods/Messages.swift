@@ -26,7 +26,7 @@ let messages = Group("Messages") {
 
 				By default `false`.
 				""")
-		offsetAndCountParams("message", defaultCount: 20)
+		offsetAndCountParams("message", range: 1...200, defaultCount: 20)
 	}
 	.doc("Returns the current user’s incoming or outgoing private messages.")
 	.requiresPermissions("messages:read")
@@ -62,7 +62,7 @@ let messages = Group("Messages") {
 		FieldDef("user_id", type: .def(userID))
 			.required()
 			.doc("Identifier of the user.")
-		offsetAndCountParams("message", defaultCount: 20)
+		offsetAndCountParams("message", range: 1...200, defaultCount: 20)
 	}
 	.doc("""
 		Returns the conversation history with a specified user.

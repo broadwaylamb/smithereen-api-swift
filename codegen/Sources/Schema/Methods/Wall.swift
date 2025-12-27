@@ -32,7 +32,7 @@ let wall = Group("Wall") {
 				The ID of the user or the group whose wall posts need
 				to be returned.
 				""")
-		offsetAndCountParams("post", defaultCount: 20)
+		offsetAndCountParams("post", range: 1...100, defaultCount: 20)
 
 		let filterDef = EnumDef<String>("Filter") {
 			EnumCaseDef("owner")
@@ -108,7 +108,7 @@ let wall = Group("Wall") {
 			.required()
 			.doc("The post identifier.")
 
-		offsetAndCountParams("post", defaultCount: 20)
+		offsetAndCountParams("post", range: 1...100, defaultCount: 20)
 		repostHistoryDepth()
 	}
 	.doc("Returns the list of reposts for a wall post or comment.")

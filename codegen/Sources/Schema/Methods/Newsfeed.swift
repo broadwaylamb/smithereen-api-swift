@@ -112,7 +112,7 @@ let newsfeed = Group("Newsfeed") {
 				""")
 		filter
 
-		offsetAndCountParams("object", defaultCount: 25)
+		offsetAndCountParams("object", range: 1...100, defaultCount: 25)
 
 		FieldDef("last_comments", type: .int)
 			.doc("""

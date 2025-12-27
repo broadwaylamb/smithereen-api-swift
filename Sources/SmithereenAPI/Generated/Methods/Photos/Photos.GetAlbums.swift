@@ -20,6 +20,8 @@ extension Photos {
 		public var offset: Int?
 
 		/// How many albums to return.
+		/// 
+		/// Minumum value: 1.
 		public var count: Int?
 
 		/// Whether to return system albums (profile pictures, saved photos,

@@ -23,13 +23,13 @@ let account = Group("Account") {
 	.doc("Returns the list of permissions granted to the access token.")
 
 	apiMethod("account.getBannedDomains", resultType: .paginatedList(.string)) {
-		offsetAndCountParams("domain", defaultCount: 100)
+		offsetAndCountParams("domain", range: 1...1000, defaultCount: 100)
 	}
 	.doc("Returns the list of remote server domains blocked by the current user.")
 	.requiresPermissions("account")
 
 	apiMethod("account.getBannedUsers", resultType: .paginatedList(.def(user))) {
-		offsetAndCountParams("user", defaultCount: 100)
+		offsetAndCountParams("user", range: 1...1000, defaultCount: 100)
 		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
 			.doc("A list of user profile fields to be returned.")
 	}

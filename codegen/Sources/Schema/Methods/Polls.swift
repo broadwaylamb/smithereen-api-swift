@@ -63,7 +63,7 @@ let polls = Group("Polls") {
 		FieldDef("answer_id", type: .def(pollOptionID))
 			.required()
 			.doc("Poll option identifier.")
-		offsetAndCountParams("user", defaultCount: 100)
+		offsetAndCountParams("user", range: 1...1000, defaultCount: 100)
 	}
 	.doc("Returns a list of users who voted for a specific option in a poll.")
 	.withUserFields()

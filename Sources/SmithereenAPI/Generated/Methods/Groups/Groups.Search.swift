@@ -18,7 +18,9 @@ extension Groups {
 		/// Offset into the group list for pagination.
 		public var offset: Int?
 
-		/// How many groups to return. By default 100.
+		/// How many groups to return.
+		/// 
+		/// Minumum value: 1. Maximum value: 100. By default 100.
 		public var count: Int?
 
 		/// A list of group profile fields to return.

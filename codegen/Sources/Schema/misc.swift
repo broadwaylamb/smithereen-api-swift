@@ -267,9 +267,39 @@ func blurhashField() -> FieldDef {
         .doc("The [BlurHash](https://blurha.sh/) for the thumbnail.")
 }
 
+private func rangeDoc(_ range: some RangeExpression<Int>) -> String {
+	var minValue: Int?
+	var maxValue: Int?
+	if let range = range as? ClosedRange<Int> {
+		minValue = range.lowerBound
+		maxValue = range.upperBound
+	} else if let range = range as? Range<Int> {
+		minValue = range.lowerBound
+		maxValue = range.upperBound
+	} else if let range = range as? PartialRangeFrom<Int> {
+		minValue = range.lowerBound
+	} else if let range = range as? PartialRangeThrough<Int> {
+		maxValue = range.upperBound
+	} else if let range = range as? PartialRangeUpTo<Int> {
+		maxValue = range.upperBound
+	}
+	var result = ""
+	if let minValue {
+		result += "Minumum value: \(minValue)."
+	}
+	if let maxValue {
+		if minValue != nil {
+			result += " "
+		}
+		result += "Maximum value: \(maxValue)."
+	}
+	return result
+}
+
 @StructDefBuilder
 func offsetAndCountParams(
 	_ entity: String,
+	range: some RangeExpression<Int>,
 	defaultCount: Int?,
 ) -> any StructDefPart {
 	FieldDef("offset", type: .int)
@@ -278,7 +308,11 @@ func offsetAndCountParams(
 	let byDefault = defaultCount.map { " By default \($0)." } ?? ""
 
 	FieldDef("count", type: .int)
-		.doc("How many \(entity)s to return.\(byDefault)")
+		.doc("""
+			How many \(entity)s to return.
+
+			\(rangeDoc(range))\(byDefault)
+			""")
 }
 
 extension RequestDef {

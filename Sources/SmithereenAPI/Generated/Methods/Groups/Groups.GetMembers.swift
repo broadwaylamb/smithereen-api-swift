@@ -38,7 +38,9 @@ extension Groups {
 		/// Offset into the member list for pagination.
 		public var offset: Int?
 
-		/// How many members to return. By default 100.
+		/// How many members to return.
+		/// 
+		/// Minumum value: 1. Maximum value: 1000. By default 100.
 		public var count: Int?
 
 		/// How to filter the group members.
@@ -79,7 +81,9 @@ extension Groups {
 			/// Offset into the member list for pagination.
 			public var offset: Int?
 
-			/// How many members to return. By default 100.
+			/// How many members to return.
+			/// 
+			/// Minumum value: 1. Maximum value: 1000. By default 100.
 			public var count: Int?
 
 			/// How to filter the group members.

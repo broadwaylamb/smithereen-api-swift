@@ -22,7 +22,9 @@ extension Likes {
 		/// Offset into the user list for pagination.
 		public var offset: Int?
 
-		/// How many users to return. By default 100.
+		/// How many users to return.
+		/// 
+		/// Minumum value: 1. Maximum value: 1000. By default 100.
 		public var count: Int?
 
 		/// Returns the list of users who like an object.
@@ -42,7 +44,9 @@ extension Likes {
 			/// Offset into the user list for pagination.
 			public var offset: Int?
 
-			/// How many users to return. By default 100.
+			/// How many users to return.
+			/// 
+			/// Minumum value: 1. Maximum value: 1000. By default 100.
 			public var count: Int?
 
 			/// A list of user profile fields to be returned.

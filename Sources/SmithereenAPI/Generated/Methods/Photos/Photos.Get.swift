@@ -23,7 +23,9 @@ extension Photos {
 		/// Offset into the photo list for pagination.
 		public var offset: Int?
 
-		/// How many photos to return. By default 50.
+		/// How many photos to return.
+		/// 
+		/// Minumum value: 1. Maximum value: 1000. By default 50.
 		public var count: Int?
 
 		/// Whether to return extra fields about likes, comments,

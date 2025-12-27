@@ -39,7 +39,9 @@ extension Groups {
 		/// Offset into the group list for pagination.
 		public var offset: Int?
 
-		/// How many groups to return. By default 100.
+		/// How many groups to return.
+		/// 
+		/// Minumum value: 1. Maximum value: 1000. By default 100.
 		public var count: Int?
 
 		/// Returns the list of groups or events in which a user is a member.
@@ -60,7 +62,9 @@ extension Groups {
 			/// Offset into the group list for pagination.
 			public var offset: Int?
 
-			/// How many groups to return. By default 100.
+			/// How many groups to return.
+			/// 
+			/// Minumum value: 1. Maximum value: 1000. By default 100.
 			public var count: Int?
 
 			/// A list of group profile fields to be returned.

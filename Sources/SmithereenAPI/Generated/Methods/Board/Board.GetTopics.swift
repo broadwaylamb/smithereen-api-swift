@@ -38,7 +38,9 @@ extension Board {
 		/// Offset into the topic list for pagination.
 		public var offset: Int?
 
-		/// How many topics to return. By default 40.
+		/// How many topics to return.
+		/// 
+		/// Minumum value: 1. Maximum value: 100. By default 40.
 		public var count: Int?
 
 		/// Comment preview mode.
@@ -72,7 +74,9 @@ extension Board {
 			/// Offset into the topic list for pagination.
 			public var offset: Int?
 
-			/// How many topics to return. By default 40.
+			/// How many topics to return.
+			/// 
+			/// Minumum value: 1. Maximum value: 100. By default 40.
 			public var count: Int?
 
 			/// Comment preview mode.

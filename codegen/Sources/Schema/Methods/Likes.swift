@@ -51,7 +51,7 @@ let likes = Group("Likes") {
 				By default `false`.
 				""")
 
-		offsetAndCountParams("user", defaultCount: 100)
+		offsetAndCountParams("user", range: 1...1000, defaultCount: 100)
 	}
 	.doc("Returns the list of users who like an object.")
 	.withUserFields()

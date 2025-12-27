@@ -6,6 +6,7 @@ import Hammond
 extension Board {
 
 	/// Unpins a previously pinned topic.
+	/// 
 	/// - Note: This method requires the following permissions: `groups`.
 	public struct UnpinTopic: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

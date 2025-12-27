@@ -14,6 +14,7 @@ extension Groups {
 
 		/// A list of filters determining what kinds of communities
 		/// to return.
+		/// 
 		/// Events and filtering by admin level require a token and only
 		/// apply for the current user and require
 		/// the `groups:read` permission.
@@ -50,6 +51,7 @@ extension Groups {
 
 			/// A list of filters determining what kinds of communities
 			/// to return.
+			/// 
 			/// Events and filtering by admin level require a token and only
 			/// apply for the current user and require
 			/// the `groups:read` permission.

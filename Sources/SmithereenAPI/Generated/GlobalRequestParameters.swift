@@ -5,6 +5,7 @@ import SmithereenAPIInternals
 
 /// In addition to parameters specific to each method, the global parameters
 /// applicable to all methods.
+/// 
 /// See https://smithereen.software/docs/api/requests/
 public struct GlobalRequestParameters: Encodable {
 

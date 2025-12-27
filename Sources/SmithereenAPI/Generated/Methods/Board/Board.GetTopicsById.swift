@@ -6,6 +6,7 @@ import Hammond
 extension Board {
 
 	/// Returns discussion board topics by their identifiers.
+	/// 
 	/// Accessing topics in private or closed groups requires the `groups:read`
 	/// permission.
 	public struct GetTopicsById: SmithereenAPIRequest, Hashable, Encodable, Sendable {
@@ -14,6 +15,7 @@ extension Board {
 		public var topicIDs: [BoardTopicID]
 
 		/// Comment preview mode.
+		/// 
 		/// By default ``TopicCommentPreviewMode/none``.
 		public var preview: TopicCommentPreviewMode?
 
@@ -21,10 +23,12 @@ extension Board {
 		/// characters of the comment text to return.
 		/// The text will be truncated on a word boundary.
 		/// Pass 0 to return complete texts.
+		/// 
 		/// By default 90.
 		public var previewLength: Int?
 
 		/// Returns discussion board topics by their identifiers.
+		/// 
 		/// Accessing topics in private or closed groups requires the `groups:read`
 		/// permission.
 		public struct Extended: SmithereenAPIRequest, Hashable, Encodable, Sendable {
@@ -33,6 +37,7 @@ extension Board {
 			public var topicIDs: [BoardTopicID]
 
 			/// Comment preview mode.
+			/// 
 			/// By default ``TopicCommentPreviewMode/none``.
 			public var preview: TopicCommentPreviewMode?
 
@@ -40,6 +45,7 @@ extension Board {
 			/// characters of the comment text to return.
 			/// The text will be truncated on a word boundary.
 			/// Pass 0 to return complete texts.
+			/// 
 			/// By default 90.
 			public var previewLength: Int?
 			private let extended: Bool = true

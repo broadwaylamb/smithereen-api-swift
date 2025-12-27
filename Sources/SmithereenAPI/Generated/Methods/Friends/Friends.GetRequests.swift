@@ -6,6 +6,7 @@ import Hammond
 extension Friends {
 
 	/// Returns the current user’s incoming friend requests.
+	/// 
 	/// - Note: This method requires the following permissions: `friends:read`.
 	public struct GetRequests: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
@@ -16,6 +17,7 @@ extension Friends {
 		public var count: Int?
 
 		/// Returns the current user’s incoming friend requests.
+		/// 
 		/// - Note: This method requires the following permissions: `friends:read`.
 		public struct Extended: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

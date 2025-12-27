@@ -6,6 +6,7 @@ import Hammond
 extension Messages {
 
 	/// Sends a new message.
+	/// 
 	/// - Note: This method requires the following permissions: `messages`.
 	public struct Send: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

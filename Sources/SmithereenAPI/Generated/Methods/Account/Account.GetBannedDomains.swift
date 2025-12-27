@@ -6,6 +6,7 @@ import Hammond
 extension Account {
 
 	/// Returns the list of remote server domains blocked by the current user.
+	/// 
 	/// - Note: This method requires the following permissions: `account`.
 	public struct GetBannedDomains: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

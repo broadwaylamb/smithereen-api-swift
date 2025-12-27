@@ -6,6 +6,7 @@ import Hammond
 extension Photos {
 
 	/// Saves a newly uploaded profile picture
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct SaveOwnerPhoto: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
@@ -19,6 +20,7 @@ extension Photos {
 		public var hash: UploadedImageHash
 
 		/// If this parameter is `nil`:
+		/// 
 		/// - The entire photo will be used for the rectangular version
 		/// - The square will be taken from the top of the rectangular version
 		///   if it’s vertical, or from its center if it’s horizontal

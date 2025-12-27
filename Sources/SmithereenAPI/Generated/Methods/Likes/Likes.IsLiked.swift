@@ -8,6 +8,7 @@ extension Likes {
 	public struct IsLiked: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// The user identifier for which the like needs to be checked.
+		/// 
 		/// By default, the current user.
 		public var userID: UserID?
 

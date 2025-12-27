@@ -6,6 +6,7 @@ import Hammond
 extension Messages {
 
 	/// Marks a message as read.
+	/// 
 	/// - Note: This method requires the following permissions: `messages`.
 	public struct MarkAsRead: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

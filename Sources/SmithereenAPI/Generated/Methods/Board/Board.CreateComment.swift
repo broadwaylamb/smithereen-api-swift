@@ -6,6 +6,7 @@ import Hammond
 extension Board {
 
 	/// Creates a new comment in a topic.
+	/// 
 	/// - Note: This method requires the following permissions: `groups`.
 	public struct CreateComment: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

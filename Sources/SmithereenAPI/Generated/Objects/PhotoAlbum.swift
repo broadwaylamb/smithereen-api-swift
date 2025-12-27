@@ -50,22 +50,27 @@ public struct PhotoAlbum: Hashable, Codable, Sendable, Identifiable {
 	public var cover: Photo?
 
 	/// Privacy setting determining who can see this album.
+	/// 
 	/// Only returned for current user's non-system albums.
 	public var privacyView: PrivacySetting?
 
 	/// Privacy setting determining who can comment on photos in this album.
+	/// 
 	/// Only returned for current user's non-system albums.
 	public var privacyComment: PrivacySetting?
 
 	/// Whether the current user can upload new photos to this album.
+	/// 
 	/// Only returned for non-system group albums.
 	public var canUpload: Bool?
 
 	/// Whether uploading new photos to this album is restricted to the group managers.
+	/// 
 	/// Only returned for non-system albums in groups managed by the current user.
 	public var uploadsByAdminsOnly: Bool?
 
 	/// Whether commenting on photos in this album is disabled.
+	/// 
 	/// Only returned for non-system albums in groups managed by the current user.
 	public var commentsDisabled: Bool?
 

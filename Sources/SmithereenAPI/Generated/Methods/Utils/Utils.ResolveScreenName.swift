@@ -6,6 +6,7 @@ import Hammond
 extension Utils {
 
 	/// Returns the user, group, or app ID by its screen name (username).
+	/// 
 	/// This method only works with actors that are already present
 	/// in the server’s database. If you need to load a remote actor that
 	/// the server may not know about, use ``LoadRemoteObject`` instead.

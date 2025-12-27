@@ -6,6 +6,7 @@ import Hammond
 extension Photos {
 
 	/// Creates a new photo album.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct CreateAlbum: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
@@ -32,11 +33,13 @@ extension Photos {
 
 		/// For a group-owned album, whether uploading new photos is
 		/// restricted to group managers.
+		/// 
 		/// By default `false`.
 		public var uploadByAdminsOnly: Bool?
 
 		/// For a group-owned album, whether commenting on photos in
 		/// this album is disabled
+		/// 
 		/// By default `false`..
 		public var commentsDisabled: Bool?
 

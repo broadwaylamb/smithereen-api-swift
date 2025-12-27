@@ -6,6 +6,7 @@ import Hammond
 extension Wall {
 
 	/// Unpins a previously pinned wall post.
+	/// 
 	/// - Note: This method requires the following permissions: `wall`.
 	public struct Unpin: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

@@ -6,6 +6,7 @@ import Hammond
 extension Photos {
 
 	/// Confirms the current user’s tag on a photo.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct ConfirmTag: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

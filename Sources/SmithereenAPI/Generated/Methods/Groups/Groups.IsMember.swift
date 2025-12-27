@@ -51,6 +51,7 @@ extension Groups {
 
 		/// Whether to also return information about join requests and
 		/// invitations.
+		/// 
 		/// By default `false`.
 		public var extended: Bool?
 

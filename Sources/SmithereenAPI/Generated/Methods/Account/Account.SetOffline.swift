@@ -7,6 +7,7 @@ extension Account {
 
 	/// Sets the current user’s presence status to “offline”,
 	/// even if the 5-minute timeout hasn’t expired yet.
+	/// 
 	/// This only has an effect if the user’s current online status was
 	/// set using the same token. For example, if they opened your app
 	/// on their phone, which called ``Account/SetOnline``, and then

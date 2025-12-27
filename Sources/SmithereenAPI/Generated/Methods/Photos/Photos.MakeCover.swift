@@ -6,6 +6,7 @@ import Hammond
 extension Photos {
 
 	/// Sets a photo as the album cover.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct MakeCover: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

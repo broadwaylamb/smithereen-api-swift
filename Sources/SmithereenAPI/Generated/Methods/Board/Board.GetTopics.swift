@@ -6,6 +6,7 @@ import Hammond
 extension Board {
 
 	/// Returns the list of topics in a group’s discussion board.
+	/// 
 	/// Accessing topics in private or closed groups requires the `groups:read`
 	/// permission.
 	public struct GetTopics: SmithereenAPIRequest, Hashable, Encodable, Sendable {
@@ -15,6 +16,7 @@ extension Board {
 
 		/// Sort order for the topics. Pinned topics, if any, will always
 		/// be returned first regardless of this parameter.
+		/// 
 		/// By default ``Order/updatedDescending``.
 		public var order: Order?
 
@@ -40,6 +42,7 @@ extension Board {
 		public var count: Int?
 
 		/// Comment preview mode.
+		/// 
 		/// By default ``TopicCommentPreviewMode/none``.
 		public var preview: TopicCommentPreviewMode?
 
@@ -47,10 +50,12 @@ extension Board {
 		/// characters of the comment text to return.
 		/// The text will be truncated on a word boundary.
 		/// Pass 0 to return complete texts.
+		/// 
 		/// By default 90.
 		public var previewLength: Int?
 
 		/// Returns the list of topics in a group’s discussion board.
+		/// 
 		/// Accessing topics in private or closed groups requires the `groups:read`
 		/// permission.
 		public struct Extended: SmithereenAPIRequest, Hashable, Encodable, Sendable {
@@ -60,6 +65,7 @@ extension Board {
 
 			/// Sort order for the topics. Pinned topics, if any, will always
 			/// be returned first regardless of this parameter.
+			/// 
 			/// By default ``Order/updatedDescending``.
 			public var order: Order?
 
@@ -70,6 +76,7 @@ extension Board {
 			public var count: Int?
 
 			/// Comment preview mode.
+			/// 
 			/// By default ``TopicCommentPreviewMode/none``.
 			public var preview: TopicCommentPreviewMode?
 
@@ -77,6 +84,7 @@ extension Board {
 			/// characters of the comment text to return.
 			/// The text will be truncated on a word boundary.
 			/// Pass 0 to return complete texts.
+			/// 
 			/// By default 90.
 			public var previewLength: Int?
 			private let extended: Bool = true

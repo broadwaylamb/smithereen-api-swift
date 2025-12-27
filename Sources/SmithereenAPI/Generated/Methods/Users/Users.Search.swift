@@ -12,6 +12,7 @@ extension Users {
 		public var query: String
 
 		/// How many search results to return, from 1 to 100.
+		/// 
 		/// By default 100.
 		public var count: Int?
 
@@ -22,6 +23,7 @@ extension Users {
 			public var query: String
 
 			/// How many search results to return, from 1 to 100.
+			/// 
 			/// By default 100.
 			public var count: Int?
 

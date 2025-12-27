@@ -6,6 +6,7 @@ import Hammond
 extension Board {
 
 	/// Creates a new topic in a group.
+	/// 
 	/// - Note: This method requires the following permissions: `groups`.
 	public struct CreateTopic: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

@@ -6,6 +6,7 @@ import Hammond
 extension Account {
 
 	/// Unblocks a user on behalf of the current user.
+	/// 
 	/// - Note: This method requires the following permissions: `account`.
 	public struct UnbanUser: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

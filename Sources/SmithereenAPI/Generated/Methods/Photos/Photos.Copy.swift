@@ -6,8 +6,10 @@ import Hammond
 extension Photos {
 
 	/// Saves a copy of a photo to the current user’s “Saved photos” album.
+	/// 
 	/// Returns the identifier of the photo that was created in
 	/// the “Saved photos” album.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct Copy: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

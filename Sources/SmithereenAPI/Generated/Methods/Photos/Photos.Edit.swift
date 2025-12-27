@@ -6,6 +6,7 @@ import Hammond
 extension Photos {
 
 	/// Updates the caption of a photo.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct Edit: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

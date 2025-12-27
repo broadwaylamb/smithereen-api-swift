@@ -21,6 +21,7 @@ extension Wall {
 		/// For example, if a post is a repost of another repost,
 		/// with ``repostHistoryDepth`` = 1, only the first repost
 		/// will be returned.
+		/// 
 		/// From 0 to 10. By default 2.
 		public var repostHistoryDepth: Int?
 
@@ -40,6 +41,7 @@ extension Wall {
 			/// For example, if a post is a repost of another repost,
 			/// with ``repostHistoryDepth`` = 1, only the first repost
 			/// will be returned.
+			/// 
 			/// From 0 to 10. By default 2.
 			public var repostHistoryDepth: Int?
 			private let extended: Bool = true

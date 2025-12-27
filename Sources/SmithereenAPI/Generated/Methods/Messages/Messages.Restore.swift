@@ -6,8 +6,10 @@ import Hammond
 extension Messages {
 
 	/// Restores a previously deleted message.
+	/// 
 	/// A message can be restored within 10 minutes of its deletion,
 	/// after which it is deleted irreversibly.
+	/// 
 	/// - Note: This method requires the following permissions: `messages`.
 	public struct Restore: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

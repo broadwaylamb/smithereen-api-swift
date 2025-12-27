@@ -6,6 +6,7 @@ import Hammond
 extension Board {
 
 	/// Deletes a topic.
+	/// 
 	/// - Note: This method requires the following permissions: `groups`.
 	public struct DeleteTopic: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

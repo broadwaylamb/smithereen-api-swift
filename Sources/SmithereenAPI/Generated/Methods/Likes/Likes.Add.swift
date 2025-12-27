@@ -7,6 +7,7 @@ extension Likes {
 
 	/// Likes an object on behalf of the current user.
 	/// Returns the new number of likes on the target object.
+	/// 
 	/// - Note: This method requires the following permissions: `likes`.
 	public struct Add: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

@@ -6,6 +6,7 @@ import Hammond
 extension Polls {
 
 	/// Votes in a poll on behalf of the current user.
+	/// 
 	/// - Note: This method requires the following permissions: `wall`.
 	public struct AddVote: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

@@ -52,19 +52,23 @@ public struct WallPost: CommentProtocol, Identifiable {
 	public var mentionedUsers: [ActorID]?
 
 	/// Array of identifiers of parent comments.
+	/// 
 	/// - Note: Only returned for comments.
 	public var parentsStack: [WallPostID]?
 
 	/// Identifier of the comment this is in reply to, if applicable.
+	/// 
 	/// - Note: Only returned for comments.
 	public var replyToComment: WallPostID?
 
 	/// Identifier of the user this is in reply to, if applicable.
+	/// 
 	/// - Note: Only returned for comments.
 	public var replyToUser: ActorID?
 
 	/// An object describing the reply thread of this comment.
 	/// Only returned when `view_type` is `threaded` or `two_level`.
+	/// 
 	/// - Note: Only returned for comments.
 	public var thread: CommentThread<WallPost>?
 
@@ -120,6 +124,7 @@ public struct WallPost: CommentProtocol, Identifiable {
 	}
 
 	/// Information about comments on this post.
+	/// 
 	/// - Note: Only returned for top-level posts.
 	public var comments: Comments?
 
@@ -148,6 +153,7 @@ public struct WallPost: CommentProtocol, Identifiable {
 	/// If this is a repost, the array of reposted posts.
 	/// Contains more than one element if the reposted post is itself
 	/// a repost.
+	/// 
 	/// - Note: Only returned for top-level posts.
 	public var repostHistory: [WallPost]?
 
@@ -159,14 +165,17 @@ public struct WallPost: CommentProtocol, Identifiable {
 	/// like comments or likes, to the reposted post (`repost_history[0]`).
 	/// It’s also recommended display such posts with some indication in
 	/// the UI that the user will interact with the original post.
+	/// 
 	/// - Note: Only returned for top-level posts.
 	public var isMastodonStyleRepost: Bool?
 
 	/// Whether the current user can pin this post to their wall.
+	/// 
 	/// - Note: Only returned for top-level posts.
 	public var canPin: Bool?
 
 	/// Whether this post is pinned on its owner’s wall.
+	/// 
 	/// - Note: Only returned for top-level posts.
 	public var isPinned: Bool?
 

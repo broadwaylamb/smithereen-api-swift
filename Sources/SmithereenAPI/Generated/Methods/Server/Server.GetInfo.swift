@@ -125,6 +125,7 @@ extension Server {
 			/// Information about the API versions that this server
 			/// supports. The version numbers have the format of
 			/// `major.minor`.
+			/// 
 			/// It is intended that forks will add their own fields to this
 			/// object, enabling apps to easily discover which extensions
 			/// this server supports and which versions they are.

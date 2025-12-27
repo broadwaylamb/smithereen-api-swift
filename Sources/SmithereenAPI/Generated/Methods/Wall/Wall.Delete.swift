@@ -6,6 +6,7 @@ import Hammond
 extension Wall {
 
 	/// Deletes a wall post or comment.
+	/// 
 	/// - Note: This method requires the following permissions: `wall`.
 	public struct Delete: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

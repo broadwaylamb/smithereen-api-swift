@@ -16,6 +16,7 @@ extension Photos {
 
 		/// Whether to return extra fields about likes, comments,
 		/// and tags for each photo.
+		/// 
 		/// By default `false`.
 		public var extended: Bool?
 

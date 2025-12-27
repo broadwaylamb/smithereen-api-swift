@@ -6,6 +6,7 @@ import Hammond
 extension Friends {
 
 	/// Deletes a friend list.
+	/// 
 	/// - Note: This method requires the following permissions: `friends`.
 	public struct DeleteList: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

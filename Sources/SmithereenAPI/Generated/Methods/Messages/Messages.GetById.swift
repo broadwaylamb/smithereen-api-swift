@@ -6,6 +6,7 @@ import Hammond
 extension Messages {
 
 	/// Returns messages by their identifiers.
+	/// 
 	/// - Note: This method requires the following permissions: `messages:read`.
 	public struct GetById: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
@@ -13,6 +14,7 @@ extension Messages {
 		public var messageIDs: [MessageID]
 
 		/// Returns messages by their identifiers.
+		/// 
 		/// - Note: This method requires the following permissions: `messages:read`.
 		public struct Extended: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

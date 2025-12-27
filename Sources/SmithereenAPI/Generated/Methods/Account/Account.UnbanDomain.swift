@@ -6,6 +6,7 @@ import Hammond
 extension Account {
 
 	/// Unlocks a remote server on behalf of the current user.
+	/// 
 	/// - Note: This method requires the following permissions: `account`.
 	public struct UnbanDomain: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

@@ -6,6 +6,7 @@ import Hammond
 extension Account {
 
 	/// Blocks a user on behalf of the current user.
+	/// 
 	/// - Note: This method requires the following permissions: `account`.
 	public struct BanUser: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

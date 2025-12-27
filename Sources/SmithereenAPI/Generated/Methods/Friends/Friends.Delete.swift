@@ -8,6 +8,7 @@ extension Friends {
 	/// Unfriends or unfollows a user. If there’s an outgoing friend request,
 	/// cancels it. If there’s an incoming friend request, rejects it,
 	/// same as the “leave as a follower” button on the web.
+	/// 
 	/// - Note: This method requires the following permissions: `friends`.
 	public struct Delete: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 		public var userID: UserID?

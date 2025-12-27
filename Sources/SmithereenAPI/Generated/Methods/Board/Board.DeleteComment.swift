@@ -6,6 +6,7 @@ import Hammond
 extension Board {
 
 	/// Deletes a comment in a topic.
+	/// 
 	/// - Note: This method requires the following permissions: `groups`.
 	public struct DeleteComment: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

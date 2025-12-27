@@ -6,10 +6,12 @@ import Hammond
 extension Newsfeed {
 
 	/// Returns comment threads that the current user has participated in.
+	/// 
 	/// - Note: This method requires the following permissions: `newsfeed`.
 	public struct GetComments: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// Which types of commentable objects to return.
+		/// 
 		/// By default, all types are returned.
 		public var filters: Filter?
 
@@ -32,6 +34,7 @@ extension Newsfeed {
 		public var count: Int?
 
 		/// How many of the most recent comments to return, from 0 to 3.
+		/// 
 		/// By default 0.
 		public var lastComments: Int?
 

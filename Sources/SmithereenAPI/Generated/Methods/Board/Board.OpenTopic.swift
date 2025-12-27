@@ -6,6 +6,7 @@ import Hammond
 extension Board {
 
 	/// Reopens a previously closed topic.
+	/// 
 	/// - Note: This method requires the following permissions: `groups`.
 	public struct OpenTopic: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

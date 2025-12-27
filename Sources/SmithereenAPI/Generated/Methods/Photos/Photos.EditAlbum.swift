@@ -6,6 +6,7 @@ import Hammond
 extension Photos {
 
 	/// Updates a photo album.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct EditAlbum: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

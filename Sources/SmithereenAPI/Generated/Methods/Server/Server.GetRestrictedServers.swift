@@ -12,6 +12,7 @@ extension Server {
 		public var offset: Int?
 
 		/// How many of the restricted servers to return.
+		/// 
 		/// By default, all servers are returned.
 		public var count: Int?
 

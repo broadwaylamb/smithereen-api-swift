@@ -27,6 +27,7 @@ public struct Message: Hashable, Codable, Sendable, Identifiable {
 	public var date: Date
 
 	/// Identifiers of recipients who have read (opened) this message.
+	/// 
 	/// Read receipts are currently only supported by Smithereen,
 	/// so users from servers running different software won’t
 	/// show up here.
@@ -43,6 +44,7 @@ public struct Message: Hashable, Codable, Sendable, Identifiable {
 
 	/// If this message is in reply to something, information about
 	/// that object.
+	/// 
 	/// Mastodon and most other similar microblogging-style software
 	/// represents private messages as posts with limited visibility,
 	/// thus allowing its users to reply to public content in private.

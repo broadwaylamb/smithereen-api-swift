@@ -6,6 +6,7 @@ import Hammond
 extension Account {
 
 	/// Returns the list of users blocked by the current user.
+	/// 
 	/// - Note: This method requires the following permissions: `account`.
 	public struct GetBannedUsers: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

@@ -6,10 +6,12 @@ import Hammond
 extension Groups {
 
 	/// Returns the group invitations for the current user.
+	/// 
 	/// - Note: This method requires the following permissions: `groups`.
 	public struct GetInvites: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// Whether to return invitations to groups or to events.
+		/// 
 		/// By default ``CommunityType/groups``.
 		public var type: CommunityType?
 
@@ -23,10 +25,12 @@ extension Groups {
 		public var fields: [Group.Field]?
 
 		/// Returns the group invitations for the current user.
+		/// 
 		/// - Note: This method requires the following permissions: `groups`.
 		public struct Extended: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 			/// Whether to return invitations to groups or to events.
+			/// 
 			/// By default ``CommunityType/groups``.
 			public var type: CommunityType?
 

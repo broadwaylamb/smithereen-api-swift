@@ -6,8 +6,10 @@ import Hammond
 extension Photos {
 
 	/// Returns a URL for uploading a new photo to a photo album.
+	/// 
 	/// Photos can’t be uploaded to system albums using this method.
 	/// System albums are special and each has its own way of adding new photos.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct GetUploadServer: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

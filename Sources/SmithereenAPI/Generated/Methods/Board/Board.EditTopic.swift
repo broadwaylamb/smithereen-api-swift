@@ -6,6 +6,7 @@ import Hammond
 extension Board {
 
 	/// Edits the title of a topic.
+	/// 
 	/// - Note: This method requires the following permissions: `groups`.
 	public struct EditTopic: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

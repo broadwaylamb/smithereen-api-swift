@@ -6,6 +6,7 @@ import Hammond
 extension Photos {
 
 	/// Saves a newly uploaded photo to an album.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct Save: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

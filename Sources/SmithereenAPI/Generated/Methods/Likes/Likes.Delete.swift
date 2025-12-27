@@ -7,6 +7,7 @@ extension Likes {
 
 	/// Undoes the like of an object on behalf of the current user.
 	/// Returns the new number of likes on the target object.
+	/// 
 	/// - Note: This method requires the following permissions: `likes`.
 	public struct Delete: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

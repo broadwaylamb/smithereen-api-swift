@@ -6,10 +6,12 @@ import Hammond
 extension Messages {
 
 	/// Returns the current user’s incoming or outgoing private messages.
+	/// 
 	/// - Note: This method requires the following permissions: `messages:read`.
 	public struct Get: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// Whether to return outgoing or incoming messages.
+		/// 
 		/// By default `false`.
 		public var out: Bool?
 
@@ -20,10 +22,12 @@ extension Messages {
 		public var count: Int?
 
 		/// Returns the current user’s incoming or outgoing private messages.
+		/// 
 		/// - Note: This method requires the following permissions: `messages:read`.
 		public struct Extended: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 			/// Whether to return outgoing or incoming messages.
+			/// 
 			/// By default `false`.
 			public var out: Bool?
 

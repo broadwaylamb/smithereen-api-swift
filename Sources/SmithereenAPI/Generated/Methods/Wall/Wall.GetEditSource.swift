@@ -8,6 +8,7 @@ extension Wall {
 	/// Returns the source of the text and attachments of a post or
 	/// a comment, as submitted when creating it, so they could be used
 	/// for editing.
+	/// 
 	/// - Note: This method requires the following permissions: `wall`.
 	public struct GetEditSource: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

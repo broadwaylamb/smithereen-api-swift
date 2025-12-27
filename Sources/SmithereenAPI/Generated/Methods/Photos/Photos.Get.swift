@@ -6,14 +6,17 @@ import Hammond
 extension Photos {
 
 	/// Returns photos from an album.
+	/// 
 	/// Non-public albums require a token and the `photos:read` permission.
 	public struct Get: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// Identifier of the photo album.
+		/// 
 		/// For system albums, pass ``PhotoAlbumID/profile`` or ``PhotoAlbumID/saved`` here.
 		public var albumID: PhotoAlbumID
 
 		/// When getting photos from a system album, whose album it is.
+		/// 
 		/// If omitted, returns the system album for the current user.
 		public var ownerID: ActorID?
 
@@ -25,10 +28,12 @@ extension Photos {
 
 		/// Whether to return extra fields about likes, comments,
 		/// and tags for each photo.
+		/// 
 		/// By default `false`.
 		public var extended: Bool?
 
 		/// Whether to return the photos in reverse order.
+		/// 
 		/// By default `false`.
 		public var rev: Bool?
 

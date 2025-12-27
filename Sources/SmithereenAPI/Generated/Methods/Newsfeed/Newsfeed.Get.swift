@@ -6,6 +6,7 @@ import Hammond
 extension Newsfeed {
 
 	/// Returns the current user’s followees’ updates (and their own posts).
+	/// 
 	/// - Note: This method requires the following permissions: `newsfeed`.
 	public struct Get: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
@@ -18,6 +19,7 @@ extension Newsfeed {
 		}
 
 		/// Which types of updates to return.
+		/// 
 		/// By default, updates of all types are returned.
 		public var filters: [Filter]?
 
@@ -49,6 +51,7 @@ extension Newsfeed {
 		}
 
 		/// Whether to include updates from muted users.
+		/// 
 		/// By default `false`.
 		public var returnBanned: Bool?
 
@@ -59,6 +62,7 @@ extension Newsfeed {
 		public var startFrom: PaginationToken?
 
 		/// How many updates to return, from 0 to 100.
+		/// 
 		/// By default 25.
 		public var count: Int?
 
@@ -256,6 +260,7 @@ extension Newsfeed {
 
 			/// The value to pass as ``startFrom`` in a subsequent call to
 			/// this method to load the next page of the news feed.
+			/// 
 			/// If this field is absent, no more updates are available.
 			public var nextFrom: PaginationToken?
 

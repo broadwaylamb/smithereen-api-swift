@@ -89,6 +89,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	}
 
 	/// For a group from a remote server, the domain of its home server.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -97,6 +98,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// The profile URL a.k.a. the username.
 	/// If the community doesn’t have one set, defaults to `clubXXX`
 	/// for groups and `eventXXX` for events.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -104,6 +106,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 	/// The status string, the one that’s displayed under the group’s
 	/// name on the web.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -111,18 +114,21 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 	/// The URL of this group’s profile page on the web.
 	/// For remote groups, this points to its home server.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public var url: URL?
 
 	/// Whether the current user can manage this group.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public var isAdmin: Bool?
 
 	/// The privilege level of the current user, if `isAdmin` is `true`.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -146,30 +152,35 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	}
 
 	/// Whether the current user is a member of this group.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public var isMember: Bool?
 
 	/// URL of a square 50x50 version of the profile picture.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public var photo50: URL?
 
 	/// URL of a square 100x100 version of the profile picture.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public var photo100: URL?
 
 	/// URL of a square 200x200 version of the profile picture.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public var photo200: URL?
 
 	/// URL of a square 400x400 version of the profile picture.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -177,12 +188,14 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	public var photoMax: URL?
 
 	/// URL of a rectangular 200px wide version of the profile picture.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public var photo200Orig: URL?
 
 	/// URL of a rectangular 400px wide version of the profile picture.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -191,12 +204,14 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 	/// If this group has a “profile pictures” system photo album,
 	/// ID of the photo used for the current profile picture in that album.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public var photoID: PhotoID?
 
 	/// Whether this group has a profile picture.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -206,6 +221,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// information about its profile photo
 	/// and the coordinates used for cropping it down to the “medium”
 	/// rectangular and “small” square sizes.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -213,12 +229,14 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 	/// Whether the current user can create new discussion board topics
 	/// in this group.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public var canCreateTopic: Bool?
 
 	/// Whether the current user can create new posts on this group’s wall.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -226,6 +244,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 	/// Information about users who manage this group.
 	/// Only returned when a single group is requested.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -255,6 +274,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 	/// Information about how many of each of the types of content there are
 	/// in this group. Only returned when a single group is requested.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -285,6 +305,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	}
 
 	/// The description text of this group, as HTML.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -292,6 +313,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 	/// Whether this group is in the current user’s bookmarks.
 	/// Requires the `likes:read` permission.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -299,6 +321,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 	/// Information from the “Links” block in this group.
 	/// Only returned when a single group is requested.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -359,6 +382,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	}
 
 	/// The membership status of the current user in this group.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -397,18 +421,21 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 	/// The name of the place and/or address where this event will take
 	/// place.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public var place: String?
 
 	/// The website URL from the group’s profile.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public var site: String?
 
 	/// The time when the event starts.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -416,6 +443,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	public var startDate: Date?
 
 	/// The time when the event ends.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -429,6 +457,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		}
 
 		/// For a group from a remote server, the domain of its home server.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
@@ -437,6 +466,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// The profile URL a.k.a. the username.
 		/// If the community doesn’t have one set, defaults to `clubXXX`
 		/// for groups and `eventXXX` for events.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
@@ -444,6 +474,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 		/// The status string, the one that’s displayed under the group’s
 		/// name on the web.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
@@ -451,48 +482,56 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 		/// The URL of this group’s profile page on the web.
 		/// For remote groups, this points to its home server.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let url = Self(rawValue: "url")
 
 		/// Whether the current user can manage this group.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let isAdmin = Self(rawValue: "is_admin")
 
 		/// The privilege level of the current user, if `isAdmin` is `true`.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let adminLevel = Self(rawValue: "admin_level")
 
 		/// Whether the current user is a member of this group.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let isMember = Self(rawValue: "is_member")
 
 		/// URL of a square 50x50 version of the profile picture.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let photo50 = Self(rawValue: "photo_50")
 
 		/// URL of a square 100x100 version of the profile picture.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let photo100 = Self(rawValue: "photo_100")
 
 		/// URL of a square 200x200 version of the profile picture.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let photo200 = Self(rawValue: "photo_200")
 
 		/// URL of a square 400x400 version of the profile picture.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
@@ -500,12 +539,14 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		public static let photoMax = Self(rawValue: "photo_max")
 
 		/// URL of a rectangular 200px wide version of the profile picture.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let photo200Orig = Self(rawValue: "photo_200_orig")
 
 		/// URL of a rectangular 400px wide version of the profile picture.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
@@ -514,12 +555,14 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 		/// If this group has a “profile pictures” system photo album,
 		/// ID of the photo used for the current profile picture in that album.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let photoID = Self(rawValue: "photo_id")
 
 		/// Whether this group has a profile picture.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
@@ -529,6 +572,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// information about its profile photo
 		/// and the coordinates used for cropping it down to the “medium”
 		/// rectangular and “small” square sizes.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
@@ -536,12 +580,14 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 		/// Whether the current user can create new discussion board topics
 		/// in this group.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let canCreateTopic = Self(rawValue: "can_create_topic")
 
 		/// Whether the current user can create new posts on this group’s wall.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
@@ -549,6 +595,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 		/// Information about users who manage this group.
 		/// Only returned when a single group is requested.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
@@ -556,12 +603,14 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 		/// Information about how many of each of the types of content there are
 		/// in this group. Only returned when a single group is requested.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let counters = Self(rawValue: "counters")
 
 		/// The description text of this group, as HTML.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
@@ -569,6 +618,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 		/// Whether this group is in the current user’s bookmarks.
 		/// Requires the `likes:read` permission.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
@@ -576,12 +626,14 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 		/// Information from the “Links” block in this group.
 		/// Only returned when a single group is requested.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let links = Self(rawValue: "links")
 
 		/// The membership status of the current user in this group.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
@@ -589,24 +641,28 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 		/// The name of the place and/or address where this event will take
 		/// place.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let place = Self(rawValue: "place")
 
 		/// The website URL from the group’s profile.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let site = Self(rawValue: "site")
 
 		/// The time when the event starts.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
 		public static let startDate = Self(rawValue: "start_date")
 
 		/// The time when the event ends.
+		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.

@@ -6,6 +6,7 @@ import Hammond
 extension Board {
 
 	/// Pins a topic so it’s always displayed at the top of the discussion board.
+	/// 
 	/// - Note: This method requires the following permissions: `groups`.
 	public struct PinTopic: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

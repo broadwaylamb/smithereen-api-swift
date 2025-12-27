@@ -6,6 +6,7 @@ import Hammond
 extension Photos {
 
 	/// Deletes a photo.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct Delete: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

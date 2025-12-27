@@ -6,7 +6,9 @@ import Hammond
 extension Friends {
 
 	/// Creates a private friend list.
+	/// 
 	/// Returns the identifier of the newly created friend list.
+	/// 
 	/// - Note: This method requires the following permissions: `friends`.
 	public struct AddList: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

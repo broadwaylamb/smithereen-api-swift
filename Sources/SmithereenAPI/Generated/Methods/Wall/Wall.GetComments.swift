@@ -22,12 +22,14 @@ extension Wall {
 		/// When ``viewType`` is ``CommentView/threaded`` or
 		/// ``CommentView/twoLevel``, how many **top-level** comments
 		/// to return.
+		/// 
 		/// From 1 to 100. By default 20.
 		public var count: Int?
 
 		/// How many replies to return, combined, in all threads, when
 		/// ``viewType`` is ``CommentView/threaded`` or
 		/// ``CommentView/twoLevel``. Ignored for ``CommentView/flat``.
+		/// 
 		/// From 1 to 100. By default 20.
 		public var secondaryCount: Int?
 
@@ -39,6 +41,7 @@ extension Wall {
 		public var commentID: WallPostID?
 
 		/// The sort order for the comments.
+		/// 
 		/// By default ``CommentSortOrder/ascending``.
 		public var sort: CommentSortOrder?
 
@@ -62,12 +65,14 @@ extension Wall {
 			/// When ``viewType`` is ``CommentView/threaded`` or
 			/// ``CommentView/twoLevel``, how many **top-level** comments
 			/// to return.
+			/// 
 			/// From 1 to 100. By default 20.
 			public var count: Int?
 
 			/// How many replies to return, combined, in all threads, when
 			/// ``viewType`` is ``CommentView/threaded`` or
 			/// ``CommentView/twoLevel``. Ignored for ``CommentView/flat``.
+			/// 
 			/// From 1 to 100. By default 20.
 			public var secondaryCount: Int?
 
@@ -79,6 +84,7 @@ extension Wall {
 			public var commentID: WallPostID?
 
 			/// The sort order for the comments.
+			/// 
 			/// By default ``CommentSortOrder/ascending``.
 			public var sort: CommentSortOrder?
 

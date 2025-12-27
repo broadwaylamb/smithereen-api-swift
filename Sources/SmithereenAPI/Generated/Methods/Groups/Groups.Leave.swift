@@ -6,6 +6,7 @@ import Hammond
 extension Groups {
 
 	/// Leaves a group or rejects an invitation.
+	/// 
 	/// - Note: This method requires the following permissions: `groups`.
 	public struct Leave: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

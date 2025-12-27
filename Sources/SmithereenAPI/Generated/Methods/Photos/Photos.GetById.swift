@@ -6,6 +6,7 @@ import Hammond
 extension Photos {
 
 	/// Returns photos.
+	/// 
 	/// Photos that are in non-public albums require a token and
 	/// the `photos:read` permission.
 	public struct GetById: SmithereenAPIRequest, Hashable, Encodable, Sendable {
@@ -15,6 +16,7 @@ extension Photos {
 
 		/// Whether to return extra fields about likes, comments,
 		/// and tags for each photo.
+		/// 
 		/// By default `false`.
 		public var extended: Bool?
 

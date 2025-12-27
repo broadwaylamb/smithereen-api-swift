@@ -6,6 +6,7 @@ import Hammond
 extension Utils {
 
 	/// Loads an object from another fediverse server.
+	/// 
 	/// Note that a call to this method may potentially take 30 seconds or more.
 	public struct LoadRemoteObject: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

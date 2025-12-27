@@ -6,6 +6,7 @@ import Hammond
 extension Wall {
 
 	/// Creates a new wall post.
+	/// 
 	/// - Note: This method requires the following permissions: `wall`.
 	public struct Post: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

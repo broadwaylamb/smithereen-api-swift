@@ -13,6 +13,7 @@ extension Account {
 		/// Strongly recommended for apps that run on phones, tablets,
 		/// and other devices that are limited compared to desktop
 		/// and laptop computers.
+		/// 
 		/// By default `false`.
 		public var mobile: Bool?
 

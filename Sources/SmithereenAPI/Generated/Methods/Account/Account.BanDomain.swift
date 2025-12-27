@@ -6,6 +6,7 @@ import Hammond
 extension Account {
 
 	/// Blocks a remote server on behalf of the current user.
+	/// 
 	/// - Note: This method requires the following permissions: `account`.
 	public struct BanDomain: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

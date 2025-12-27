@@ -10,6 +10,7 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 	}
 
 	/// For a user from a remote server, the domain of their home server.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -17,6 +18,7 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// The profile URL a.k.a. the username.
 	/// If the user doesn’t have one set, defaults to `idXXX`.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -24,6 +26,7 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// The status string, the one that’s displayed under the user’s
 	/// name on the web.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -31,18 +34,21 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// The URL of this user’s profile page on the web.
 	/// For remote users, this points to their home server.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let url = Self(rawValue: "url")
 
 	/// User’s nickname or middle name
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let nickname = Self(rawValue: "nickname")
 
 	/// User’s maiden name.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -50,24 +56,28 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// User’s preferred grammatical gender, to choose pronouns
 	/// in strings that refer to them.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let sex = Self(rawValue: "sex")
 
 	/// User’s birth date as `DD.MM.YYYY` or `DD.MM`.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let birthday = Self(rawValue: "bdate")
 
 	/// User’s hometown.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let homeTown = Self(rawValue: "home_town")
 
 	/// User’s relationship status.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -75,6 +85,7 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// User-defined profile fields that some fediverse software
 	/// like Mastodon allows specifying.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -84,78 +95,91 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 	public static let city = Self(rawValue: "city")
 
 	/// User’s contact information.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let connections = Self(rawValue: "connections")
 
 	/// User’s personal website.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let site = Self(rawValue: "site")
 
 	/// User’s activities.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let activities = Self(rawValue: "activities")
 
 	/// User’s interests.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let interests = Self(rawValue: "interests")
 
 	/// User’s favorite music.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let music = Self(rawValue: "music")
 
 	/// User’s favorite movies.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let movies = Self(rawValue: "movies")
 
 	/// User’s favorite TV shows.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let tv = Self(rawValue: "tv")
 
 	/// User’s favorite books.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let books = Self(rawValue: "books")
 
 	/// User’s favorite games.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let games = Self(rawValue: "games")
 
 	/// User’s favorite quotes.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let quotes = Self(rawValue: "quotes")
 
 	/// User’s about field as HTML.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let about = Self(rawValue: "about")
 
 	/// User’s personal views.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let personal = Self(rawValue: "personal")
 
 	/// Whether the user is currently online.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -163,24 +187,28 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// If the user is currently offline, information about when they
 	/// were last online.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let lastSeen = Self(rawValue: "last_seen")
 
 	/// Whether the current user is blocked by this user.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let blocked = Self(rawValue: "blocked")
 
 	/// Whether this user is blocked by the current user.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let blockedByMe = Self(rawValue: "blocked_by_me")
 
 	/// Whether the current user can post on this user’s wall.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -188,6 +216,7 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// Whether the current user is allowed see all posts on this user’s
 	/// wall, or only this user’s own posts.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -195,6 +224,7 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// If `true`, you can send a friend request to this user.
 	/// If `false`, you can only follow them.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -202,24 +232,28 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// Whether the current user is allowed send private messages to this
 	/// user.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let canWritePrivateMessage = Self(rawValue: "can_write_private_message")
 
 	/// The number of mutual friends between this user and the current user.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let mutualCount = Self(rawValue: "mutual_count")
 
 	/// The relationship between this user and the current user.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let friendStatus = Self(rawValue: "friend_status")
 
 	/// Whether this user and the current user are friends.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -229,12 +263,14 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 	/// The current user’s friend list IDs that this user is in.
 	/// Private lists are excluded unless the token has the `friends:read`
 	/// permission.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let lists = Self(rawValue: "lists")
 
 	/// Whether this user is hidden from the current user’s friends news feed.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -243,36 +279,42 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// Whether this user prefers their profile to not be indexed by search
 	/// engines.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let isNoIndex = Self(rawValue: "is_no_index")
 
 	/// How this user’s wall should be displayed by default.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let wallDefault = Self(rawValue: "wall_default")
 
 	/// URL of a square 50x50 version of the profile picture.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let photo50 = Self(rawValue: "photo_50")
 
 	/// URL of a square 100x100 version of the profile picture.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let photo100 = Self(rawValue: "photo_100")
 
 	/// URL of a square 200x200 version of the profile picture.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let photo200 = Self(rawValue: "photo_200")
 
 	/// URL of a square 400x400 version of the profile picture.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -280,12 +322,14 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 	public static let photoMax = Self(rawValue: "photo_max")
 
 	/// URL of a rectangular 200px wide version of the profile picture.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let photo200Orig = Self(rawValue: "photo_200_orig")
 
 	/// URL of a rectangular 400px wide version of the profile picture.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -294,12 +338,14 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// If this user has a “profile pictures” system photo album,
 	/// ID of the photo used for the current profile picture in that album.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let photoID = Self(rawValue: "photo_id")
 
 	/// Whether this user has a profile picture.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -309,6 +355,7 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 	/// information about their profile photo
 	/// and the coordinates used for cropping it down to the “medium”
 	/// rectangular and “small” square sizes.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -316,108 +363,126 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 	public static let timezone = Self(rawValue: "timezone")
 
 	/// First name in nominative case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let firstNameNom = Self(rawValue: "first_name_nom")
 
 	/// Middle name in nominative case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let nicknameNom = Self(rawValue: "nickname_nom")
 
 	/// Last name name in nominative case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let lastNameNom = Self(rawValue: "last_name_nom")
 
 	/// First name in genitive case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let firstNameGen = Self(rawValue: "first_name_gen")
 
 	/// Middle name in genitive case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let nicknameGen = Self(rawValue: "nickname_gen")
 
 	/// Last name name in genitive case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let lastNameGen = Self(rawValue: "last_name_gen")
 
 	/// First name in dative case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let firstNameDat = Self(rawValue: "first_name_dat")
 
 	/// Middle name in dative case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let nicknameDat = Self(rawValue: "nickname_dat")
 
 	/// Last name name in dative case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let lastNameDat = Self(rawValue: "last_name_dat")
 
 	/// First name in accusative case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let firstNameAcc = Self(rawValue: "first_name_acc")
 
 	/// Middle name in accusative case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let nicknameAcc = Self(rawValue: "nickname_acc")
 
 	/// Last name name in accusative case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let lastNameAcc = Self(rawValue: "last_name_acc")
 
 	/// First name in instrumental case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let firstNameIns = Self(rawValue: "first_name_ins")
 
 	/// Middle name in instrumental case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let nicknameIns = Self(rawValue: "nickname_ins")
 
 	/// Last name name in instrumental case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let lastNameIns = Self(rawValue: "last_name_ins")
 
 	/// First name in prepositional case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let firstNamePre = Self(rawValue: "first_name_pre")
 
 	/// Middle name in prepositional case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
 	public static let nicknamePre = Self(rawValue: "nickname_pre")
 
 	/// Last name name in prepositional case
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
@@ -425,18 +490,21 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 	public static let counters = Self(rawValue: "counters")
 
 	/// Whether the current user can manage this group.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public static let isAdmin = Self(rawValue: "is_admin")
 
 	/// The privilege level of the current user, if `isAdmin` is `true`.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public static let adminLevel = Self(rawValue: "admin_level")
 
 	/// Whether the current user is a member of this group.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -444,6 +512,7 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// Whether the current user can create new discussion board topics
 	/// in this group.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -451,12 +520,14 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// Information about users who manage this group.
 	/// Only returned when a single group is requested.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public static let management = Self(rawValue: "management")
 
 	/// The description text of this group, as HTML.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -464,12 +535,14 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// Information from the “Links” block in this group.
 	/// Only returned when a single group is requested.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public static let links = Self(rawValue: "links")
 
 	/// The membership status of the current user in this group.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
@@ -477,18 +550,21 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 
 	/// The name of the place and/or address where this event will take
 	/// place.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public static let place = Self(rawValue: "place")
 
 	/// The time when the event starts.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
 	public static let startDate = Self(rawValue: "start_date")
 
 	/// The time when the event ends.
+	/// 
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.

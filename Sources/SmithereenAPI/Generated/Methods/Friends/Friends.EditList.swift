@@ -6,6 +6,7 @@ import Hammond
 extension Friends {
 
 	/// Updates an existing friend list.
+	/// 
 	/// - Note: This method requires the following permissions: `friends`.
 	public struct EditList: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

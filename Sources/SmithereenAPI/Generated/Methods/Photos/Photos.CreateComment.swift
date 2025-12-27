@@ -6,7 +6,9 @@ import Hammond
 extension Photos {
 
 	/// Creates a new comment on a photo.
+	/// 
 	/// Returns the identifier of the newly created comment.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct CreateComment: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

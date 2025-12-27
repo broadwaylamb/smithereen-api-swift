@@ -6,11 +6,13 @@ import Hammond
 extension Polls {
 
 	/// Creates a poll to later attach to a post.
+	/// 
 	/// - Note: This method requires the following permissions: `wall`.
 	public struct Create: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// User or group identifier of the owner on whose wall
 		/// the poll will be posted.
+		/// 
 		/// Current user by default.
 		public var ownerID: ActorID?
 
@@ -23,14 +25,17 @@ extension Polls {
 
 		/// Whether the list of people who voted for each option
 		/// is hidden.
+		/// 
 		/// By default `false`.
 		public var anonymous: Bool?
 
 		/// Whether this poll is multiple-choice.
+		/// 
 		/// By default `false`.
 		public var multiple: Bool?
 
 		/// The time when this poll stops accepting new votes.
+		/// 
 		/// By default, or if this parameter is in the past,
 		/// the poll does not end.
 		@UnixTimestamp

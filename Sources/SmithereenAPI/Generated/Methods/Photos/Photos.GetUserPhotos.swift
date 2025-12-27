@@ -6,11 +6,13 @@ import Hammond
 extension Photos {
 
 	/// Returns photos that a user is tagged in.
+	/// 
 	/// If the target user has the “who can see photos of me” privacy setting set
 	/// to prevent public access, a token and the `photos:read` permission are required.
 	public struct GetUserPhotos: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// Identifier of the user whose tagged photos need to be returned.
+		/// 
 		/// By default, the current user. Required when called without a token.
 		public var userID: UserID?
 
@@ -22,10 +24,12 @@ extension Photos {
 
 		/// Whether to return extra fields about likes, comments,
 		/// and tags for each photo.
+		/// 
 		/// By default `false`.
 		public var extended: Bool?
 
 		/// Whether to return the photos in reverse order.
+		/// 
 		/// By default `false`.
 		public var rev: Bool?
 

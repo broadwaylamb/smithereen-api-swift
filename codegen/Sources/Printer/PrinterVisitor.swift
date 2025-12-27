@@ -571,7 +571,7 @@ extension TypeRef {
 
 private func docComment(_ text: String) -> Trivia {
 	var pieces: [TriviaPiece] = [.newlines(2)]
-	for line in text.split(separator: "\n") {
+	for line in text.split(separator: "\n", omittingEmptySubsequences: false) {
 		pieces.append(.docLineComment("/// " + line))
 		pieces.append(.newlines(1))
 	}

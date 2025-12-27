@@ -6,6 +6,7 @@ import Hammond
 extension Wall {
 
 	/// Creates a new comment on a wall post.
+	/// 
 	/// - Note: This method requires the following permissions: `wall`.
 	public struct CreateComment: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

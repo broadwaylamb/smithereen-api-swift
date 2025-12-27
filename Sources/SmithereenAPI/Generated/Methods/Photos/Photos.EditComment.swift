@@ -6,6 +6,7 @@ import Hammond
 extension Photos {
 
 	/// Edits a comment on a photo.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct EditComment: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

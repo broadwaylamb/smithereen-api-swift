@@ -6,6 +6,7 @@ import Hammond
 extension Board {
 
 	/// Edits a comment in a topic.
+	/// 
 	/// - Note: This method requires the following permissions: `groups`.
 	public struct EditComment: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

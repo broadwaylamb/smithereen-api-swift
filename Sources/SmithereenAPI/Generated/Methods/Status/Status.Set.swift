@@ -6,11 +6,13 @@ import Hammond
 extension Status {
 
 	/// Updates the current user’s or their managed group’s status.
+	/// 
 	/// - Note: This method requires the following permissions: `account`.
 	public struct Set: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// Which group to update the status in.
 		/// Updating a group’s status requires the `groups` permission.
+		/// 
 		/// If not specified, updates the current user’s status.
 		public var groupID: GroupID?
 

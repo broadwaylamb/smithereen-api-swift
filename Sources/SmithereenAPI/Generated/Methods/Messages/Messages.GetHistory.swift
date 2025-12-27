@@ -6,9 +6,11 @@ import Hammond
 extension Messages {
 
 	/// Returns the conversation history with a specified user.
+	/// 
 	/// Messages that have multiple recipients are included in all corresponding
 	/// conversations, so you may see the same message returned for different
 	/// ``userID``s.
+	/// 
 	/// - Note: This method requires the following permissions: `messages:read`.
 	public struct GetHistory: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

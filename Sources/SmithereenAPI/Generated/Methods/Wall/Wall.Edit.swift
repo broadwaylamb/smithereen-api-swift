@@ -6,6 +6,7 @@ import Hammond
 extension Wall {
 
 	/// Edits a wall post or comment.
+	/// 
 	/// - Note: This method requires the following permissions: `wall`.
 	public struct Edit: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

@@ -7,6 +7,7 @@ extension Photos {
 
 	/// Returns the source of the text and attachments of a comment,
 	/// as submitted when creating it, so they could be used for editing.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct GetCommentEditSource: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

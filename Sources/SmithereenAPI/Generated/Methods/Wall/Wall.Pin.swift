@@ -6,6 +6,7 @@ import Hammond
 extension Wall {
 
 	/// Pins a post so it appears at the top of the owner’s wall.
+	/// 
 	/// - Note: This method requires the following permissions: `wall`.
 	public struct Pin: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

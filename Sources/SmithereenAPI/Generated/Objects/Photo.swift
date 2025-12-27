@@ -112,39 +112,46 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 	public var height: Int
 
 	/// Information about likes of this photo.
+	/// 
 	/// - Note: this field is returned by some `photos.*` methods
 	/// 	which take the `extended` parameter, when that parameter is set
 	/// 	to `true`.
 	public var likes: LikeInfo?
 
 	/// The total number of comments on this photo.
+	/// 
 	/// - Note: this field is returned by some `photos.*` methods
 	/// 	which take the `extended` parameter, when that parameter is set
 	/// 	to `true`.
 	public var comments: Int?
 
 	/// Whether the current user can comment on this photo.
+	/// 
 	/// - Note: this field is returned by some `photos.*` methods
 	/// 	which take the `extended` parameter, when that parameter is set
 	/// 	to `true`.
 	public var canComment: Bool?
 
 	/// The total number of people tagged in this photo.
+	/// 
 	/// - Note: this field is returned by some `photos.*` methods
 	/// 	which take the `extended` parameter, when that parameter is set
 	/// 	to `true`.
 	public var tags: Int?
 
 	/// Identifier of the user who added the tag.
+	/// 
 	/// Returned by the ``Photos/GetNewTags`` method.
 	public var placerID: UserID?
 
 	/// Unixtime of when the tag was created.
+	/// 
 	/// Returned by the ``Photos/GetNewTags`` method.
 	@UnixTimestamp
 	public var tagCreated: Date?
 
 	/// Unixtime of when the tag was created.
+	/// 
 	/// Returned by the ``Photos/GetNewTags`` method.
 	public var tagID: PhotoTagID?
 

@@ -6,6 +6,7 @@ import Hammond
 extension Photos {
 
 	/// Returns photo albums.
+	/// 
 	/// Getting non-public albums requires a token with `photos:read` permission.
 	public struct GetAlbumsById: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
@@ -13,6 +14,7 @@ extension Photos {
 		public var albumIDs: [PhotoAlbumID]
 
 		/// Whether to return a cover photo for each album.
+		/// 
 		/// By default `false`.
 		public var needCovers: Bool?
 

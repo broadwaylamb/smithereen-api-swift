@@ -6,6 +6,7 @@ import Hammond
 extension Photos {
 
 	/// Deletes a tag from a photo.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct RemoveTag: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

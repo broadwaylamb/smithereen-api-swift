@@ -6,8 +6,10 @@ import Hammond
 extension Photos {
 
 	/// Creates a new tag on a photo.
+	/// 
 	/// You can only create tags on photos owned or uploaded to a group by
 	/// the current user, or owned by a group managed by the current user.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct PutTag: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

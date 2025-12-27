@@ -6,7 +6,9 @@ import Hammond
 extension Groups {
 
 	/// Joins a group.
+	/// 
 	/// If there’s an invitation, accepts it as well.
+	/// 
 	/// - Note: This method requires the following permissions: `groups`.
 	public struct Join: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

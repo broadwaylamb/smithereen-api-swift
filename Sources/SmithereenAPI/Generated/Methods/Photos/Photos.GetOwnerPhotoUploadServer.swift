@@ -7,6 +7,7 @@ extension Photos {
 
 	/// Returns a URL for uploading a new profile picture for the current
 	/// user or a group they manage.
+	/// 
 	/// If updating a group’s profile picture, `groups` permission is
 	/// also required.
 	public struct GetOwnerPhotoUploadServer: SmithereenAPIRequest, Hashable, Encodable, Sendable {

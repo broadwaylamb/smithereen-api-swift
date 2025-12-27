@@ -6,6 +6,7 @@ import Hammond
 extension Photos {
 
 	/// Deletes a comment on a photo.
+	/// 
 	/// - Note: This method requires the following permissions: `photos`.
 	public struct DeleteComment: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

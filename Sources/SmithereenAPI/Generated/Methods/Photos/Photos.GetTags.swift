@@ -6,6 +6,7 @@ import Hammond
 extension Photos {
 
 	/// Returns tags for a photo.
+	/// 
 	/// Photos in non-public albums require a token and the `photos:read` permission.
 	public struct GetTags: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 

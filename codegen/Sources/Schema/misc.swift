@@ -349,7 +349,7 @@ func commentsRequest(
 	comment: StructDef,
 	targetField: FieldDef,
 ) -> RequestDef {
-	RequestDef(
+	apiMethod(
 		name,
 		resultType: .paginatedList(
 			.def(comment),

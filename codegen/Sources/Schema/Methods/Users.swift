@@ -1,5 +1,5 @@
 let users = Group("Users") {
-	RequestDef("users.get", resultType: .array(.def(user))) {
+	apiMethod("users.get", resultType: .array(.def(user))) {
 		FieldDef("user_ids", type: .array(.def(userID)))
 			.doc("""
 				A list of user IDs or screen names.
@@ -30,7 +30,7 @@ let users = Group("Users") {
 	}
 	.doc("Returns information about users.")
 
-	RequestDef("users.getFollowers", resultType: .paginatedList(.def(userID))) {
+	apiMethod("users.getFollowers", resultType: .paginatedList(.def(userID))) {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""
 				ID of the user whose followers you’re requesting.
@@ -42,7 +42,7 @@ let users = Group("Users") {
 	.doc("Returns the list of a user’s followers.")
 	.withUserFields()
 
-	RequestDef("users.getSubscriptions", resultType: .paginatedList(.def(userID))) {
+	apiMethod("users.getSubscriptions", resultType: .paginatedList(.def(userID))) {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""
 				ID of the user whose subscriptions you’re requesting.
@@ -54,7 +54,7 @@ let users = Group("Users") {
 	.doc("Returns the list of users followed by a user.")
 	.withUserFields()
 
-	RequestDef("users.search", resultType: .paginatedList(.def(userID))) {
+	apiMethod("users.search", resultType: .paginatedList(.def(userID))) {
 		FieldDef("q", type: .string)
 			.swiftName("query")
 			.required()

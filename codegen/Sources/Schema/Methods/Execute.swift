@@ -1,6 +1,6 @@
 let execute = FileDef("Execute", additionalImports: ["Hammond"]) {
 	let executeArgsTP = TypeParameterDef(name: "Args", upperBound: .encodable)
-	RequestDef(
+	apiMethod(
 		"execute",
 		conformances: [TypeRef(name: "SmithereenAPIRequest"), .encodable],
 		typeParameters: [

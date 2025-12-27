@@ -15,11 +15,12 @@ extension URLRequest {
 	///
 	/// ``globalParameters`` are always passed in the query part.
 	///
-	/// - paremeter: instanceURL The Smithereen instance server address.
-	///   Must be a valid host name.
-	/// - parameter: request The Smithereen API method to call.
-	/// - parameter: passAccessTokenInHeader Whether to pass ``accessToken`` as
-	///   a request parameter or a header.
+	/// - parameters:
+	///	  - host: The Smithereen instance server address.
+	///     Must be a valid host name.
+	///   - request: The Smithereen API method to call.
+	///   - passAccessTokenInHeader: Whether to pass ``accessToken`` as
+	///     a request parameter or a header.
 	public init<Request: SmithereenAPIRequest>(
 		host: String,
 		request: Request,

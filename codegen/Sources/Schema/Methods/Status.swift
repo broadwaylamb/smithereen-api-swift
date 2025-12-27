@@ -1,5 +1,5 @@
 let status = Group("Status") {
-	RequestDef("status.get") {
+	apiMethod("status.get") {
 		FieldDef("owner_id", type: .def(actorID))
 			.doc("""
 				User or group ID for which to return the status.
@@ -14,7 +14,7 @@ let status = Group("Status") {
 	}
 	.doc("Returns a user’s or group’s status text.")
 
-	RequestDef("status.set", resultType: .void) {
+	apiMethod("status.set", resultType: .void) {
 		FieldDef("group_id", type: .def(groupID))
 			.doc("""
 				Which group to update the status in.

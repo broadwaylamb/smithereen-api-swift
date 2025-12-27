@@ -9,7 +9,7 @@ public protocol SmithereenAPIRequest
 	associatedtype Result
 }
 
-private let smithereenJSONDecoder: JSONDecoder = {
+internal let smithereenJSONDecoder: JSONDecoder = {
 	let decoder = JSONDecoder()
 	decoder.dateDecodingStrategy = .secondsSince1970
 	return decoder

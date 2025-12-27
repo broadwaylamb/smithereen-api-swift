@@ -1,5 +1,5 @@
 let friends = Group("Friends") {
-	RequestDef("friends.add") {
+	apiMethod("friends.add") {
 		FieldDef("user_id", type: .def(userID))
 			.required()
 			.doc("The identifier of the target user.")
@@ -27,8 +27,8 @@ let friends = Group("Friends") {
 		or follows a user.
 		""")
 	.requiresPermissions("friends")
-	
-	RequestDef("friends.addList", resultType: .def(friendListID)) {
+
+	apiMethod("friends.addList", resultType: .def(friendListID)) {
 		FieldDef("name", type: .string)
 			.required()
 			.doc("The name of the new list.")
@@ -73,17 +73,17 @@ let friends = Group("Friends") {
 				is ``followedBy``.
 				""")
 	}
-	RequestDef("friends.areFriends", resultType: .array(.def(friendshipInfo))) {
+	apiMethod("friends.areFriends", resultType: .array(.def(friendshipInfo))) {
 		FieldDef("user_ids", type: .array(.def(userID)))
 			.required()
 			.doc("""
 				The list of user identifiers to retrieve friendship states for.
 				""")
-		
+
 		FieldDef("extended", type: .bool)
 			.required()
 			.doc("Whether to return ``FriendshipInfo/isRequestUnread``.")
-		
+
 		friendshipInfo
 	}
 	.doc("""
@@ -92,7 +92,7 @@ let friends = Group("Friends") {
 		""")
 	.requiresPermissions("friends:read")
 
-	RequestDef("friends.delete") {
+	apiMethod("friends.delete") {
 		FieldDef("user_id", type: .def(userID))
 
 		EnumDef<String>("Result") {
@@ -123,7 +123,7 @@ let friends = Group("Friends") {
 		""")
 	.requiresPermissions("friends")
 
-	RequestDef("friends.deleteList", resultType: .void) {
+	apiMethod("friends.deleteList", resultType: .void) {
 		FieldDef("list_id", type: .def(friendListID))
 			.required()
 			.doc("The identifier of the friend list to be deleted.")
@@ -131,7 +131,7 @@ let friends = Group("Friends") {
 	.doc("Deletes a friend list.")
 	.requiresPermissions("friends")
 
-	RequestDef("friends.edit", resultType: .void) {
+	apiMethod("friends.edit", resultType: .void) {
 		FieldDef("user_id", type: .def(userID))
 			.required()
 			.doc("User identifier for which lists need to be updated.")
@@ -145,7 +145,7 @@ let friends = Group("Friends") {
 		""")
 	.requiresPermissions("friends")
 
-	RequestDef("friends.editList", resultType: .void) {
+	apiMethod("friends.editList", resultType: .void) {
 		FieldDef("list_id", type: .def(friendListID))
 			.required()
 			.doc("The identifier of the friend list to be updated.")
@@ -173,14 +173,14 @@ let friends = Group("Friends") {
 	.doc("Updates an existing friend list.")
 	.requiresPermissions("friends")
 
-	RequestDef("friends.get", resultType: .paginatedList(.def(userID))) {
+	apiMethod("friends.get", resultType: .paginatedList(.def(userID))) {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""
 				The identifier of the user whose friend list needs to be returned.
 				If an access token is used, defaults to the current user’s ID.
 				Required when called without an access token.
 				""")
-		
+
 		let orderEnum = EnumDef<String>("Order") {
 			EnumCaseDef("hints")
 				.doc("""
@@ -203,20 +203,20 @@ let friends = Group("Friends") {
 				In which order to return the friends. By default ``Order/id``.
 				""")
 		orderEnum
-		
+
 		FieldDef("list_id", type: .def(friendListID))
 			.doc("""
 				Only return friends in the specified list.
 				For private lists, only works for the current user and only with
 				a token that has the `friends:read` permission.
 				""")
-		
+
 		offsetAndCountParams("friend", defaultCount: 100)
 	}
 	.doc("Returns the friend list of a user.")
 	.withUserFields()
 
-	RequestDef("friends.getLists", resultType: .array(.def(friendList))) {
+	apiMethod("friends.getLists", resultType: .array(.def(friendList))) {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""
 				User identifier whose friend lists need to be returned.
@@ -225,7 +225,7 @@ let friends = Group("Friends") {
 				""")
 	}
 
-	RequestDef("friends.getMutual", resultType: .array(.def(userID))) {
+	apiMethod("friends.getMutual", resultType: .array(.def(userID))) {
 		FieldDef("source_user_id", type: .def(userID))
 			.doc("""
 				Identifier of the user whose friend list needs to be intersected
@@ -237,7 +237,7 @@ let friends = Group("Friends") {
 				Identifier of the user with whom mutual friends need to be
 				found.
 				""")
-		
+
 		let orderEnum = EnumDef<String>("Order") {
 			EnumCaseDef("random")
 				.doc("Order randomly.")
@@ -257,14 +257,14 @@ let friends = Group("Friends") {
 	.requiresPermissions("friends:read")
 	.withUserFields()
 
-	RequestDef("friends.getOnline", resultType: .paginatedList(.def(userID))) {
+	apiMethod("friends.getOnline", resultType: .paginatedList(.def(userID))) {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""
 				The identifier of the user whose friend list needs to be
 				returned. If an access token is used, defaults to the current
 				user’s ID. Required when called without an access token.
 				""")
-		
+
 		let orderEnum = EnumDef<String>("Order") {
 			EnumCaseDef("hints")
 				.doc("""
@@ -290,7 +290,7 @@ let friends = Group("Friends") {
 				only works for the current user and only with a token that has
 				the `friends:read` permission.
 				""")
-		
+
 		offsetAndCountParams("friend", defaultCount: 100)
 	}
 	.doc("Returns the friends of a user that are online right now.")
@@ -310,7 +310,7 @@ let friends = Group("Friends") {
 				If ``Friends/GetRequests/extended`` is `true`, and this friend
 				request was sent with a message, that message.
 				""")
-		
+
 		let mutualStruct = StructDef("Mutual") {
 			FieldDef("count", type: .int)
 				.required()
@@ -326,7 +326,7 @@ let friends = Group("Friends") {
 				""")
 		mutualStruct
 	}
-	RequestDef("friends.getRequests", resultType: .paginatedList(.def(userID))) {
+	apiMethod("friends.getRequests", resultType: .paginatedList(.def(userID))) {
 		offsetAndCountParams("friend request", defaultCount: 20)
 	}
 	.doc("Returns the current user’s incoming friend requests.")
@@ -348,7 +348,7 @@ let friends = Group("Friends") {
 				""")
 		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
 			.doc("A list of user profile fields to be returned.")
-		
+
 		friendRequestStruct
 	}
 }

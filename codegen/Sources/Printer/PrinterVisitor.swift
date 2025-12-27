@@ -23,19 +23,20 @@ final class PrinterVisitor {
 		}
 	}
 
-	func printStruct(_ def: StructDef) -> StructDeclSyntax {
+	func printStruct(_ def: StructDef) -> any DeclSyntaxProtocol {
 		printStruct(def, additionalDeclarations: {})
 	}
 
 	private func printStruct(
 		_ def: StructDef,
 		@MemberBlockItemListBuilder additionalDeclarations: () -> MemberBlockItemListSyntax,
-	) -> StructDeclSyntax {
+	) -> any DeclSyntaxProtocol {
+		let nameComponents = def.name.split(separator: ".")
 		let fields = def.fields
-		return StructDeclSyntax(
+		let structSyntax = StructDeclSyntax(
 			leadingTrivia: def.leadingTriviaForTypeDecl,
 			modifiers: [DeclModifierSyntax(name: .keyword(.public))],
-			name: .identifier(def.name),
+			name: .identifier(String(nameComponents.last!)),
 			genericParameterClause: def.typeParameters.isEmpty
 				? nil
 				: GenericParameterClauseSyntax {
@@ -132,11 +133,24 @@ final class PrinterVisitor {
 
 			additionalDeclarations()
 		}
+
+		if nameComponents.count == 1 {
+			return structSyntax
+		}
+
+		let extendedName = nameComponents
+			.dropLast()
+			.joined(separator: ".")
+		return ExtensionDeclSyntax(
+			extendedType: IdentifierTypeSyntax(name: .identifier(extendedName)),
+		) {
+			structSyntax
+		}
 	}
 
 	func printRequest(_ def: RequestDef) -> any DeclSyntaxProtocol {
-		let structSyntax = printStruct(def.structDef) {
-			#"public var path: String { "/api/method/\#(raw: def.name)" }"#
+		return printStruct(def.structDef) {
+			"public var path: String { \(StringLiteralExprSyntax(content: def.path)) }"
 			"public static var method: HTTPMethod { .post }"
 			if def.structDef.fields.isEmpty {
 				"public var encodableBody: NeverCodable? { nil }"
@@ -153,7 +167,7 @@ final class PrinterVisitor {
 					leadingTrivia: .newlines(2),
 					modifiers: [DeclModifierSyntax(name: .keyword(.public))],
 					name: identifier(
-						extended.request.customSwiftName!.lowercasedFirstChar,
+						extended.request.structDef.name.lowercasedFirstChar,
 						context: .variableName,
 					),
 					signature: FunctionSignatureSyntax(
@@ -184,21 +198,6 @@ final class PrinterVisitor {
 					}
 				}
 			}
-		}
-		let components = (def.customSwiftName ?? def.name)
-			.split(separator: ".")
-		if components.count == 1 {
-			return structSyntax
-		}
-
-		let extendedName = components
-			.dropLast()
-			.map { $0.uppercasedFirstChar }
-			.joined(separator: ".")
-		return ExtensionDeclSyntax(
-			extendedType: IdentifierTypeSyntax(name: .identifier(extendedName)),
-		) {
-			structSyntax
 		}
 	}
 

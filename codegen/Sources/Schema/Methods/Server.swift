@@ -1,5 +1,5 @@
 let server = Group("Server") {
-	RequestDef("server.getInfo") {
+	apiMethod("server.getInfo") {
 		let serverRule = StructDef("ServerRule") {
 			FieldDef("id", type: TypeRef(name: "ServerRuleID"))
 				.required()
@@ -130,7 +130,7 @@ let server = Group("Server") {
 			.doc("The type of restriction applied.")
 	}
 
-	RequestDef("server.getRestrictedServers", resultType: .paginatedList(.def(restrictedServerStruct))) {
+	apiMethod("server.getRestrictedServers", resultType: .paginatedList(.def(restrictedServerStruct))) {
 		FieldDef("offset", type: .int)
 			.doc("Offset into the list of restricted servers.")
 

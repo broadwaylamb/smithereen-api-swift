@@ -62,6 +62,7 @@ let schema = Group {
 		likes
 		messages
 		newsfeed
+		oauth
 		photos
 		polls
 		server

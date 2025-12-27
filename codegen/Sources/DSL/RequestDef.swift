@@ -1,8 +1,7 @@
 import SwiftSyntax
 
 struct RequestDef: Documentable {
-	var name: String
-	var customSwiftName: String?
+	var path: String
 	var structDef: StructDef
 	var resultType: TypeRef?
 	var extended: Extended?
@@ -34,19 +33,17 @@ struct RequestDef: Documentable {
 	]
 
 	init(
-		_ name: String,
-		swiftName: String? = nil,
+		_ path: String,
+		swiftName: String,
 		resultType: TypeRef? = nil,
 		conformances: [TypeRef] = defaultConformances,
 		typeParameters: [TypeParameterDef] = [],
 		@StructDefBuilder build: () -> any StructDefPart,
 	) {
-		self.name = name
-		self.customSwiftName = swiftName
+		self.path = path
 		self.resultType = resultType
-		let swiftName = swiftName ?? name
 		structDef = StructDef(
-			(swiftName.split(separator: ".").last.map(String.init) ?? swiftName).uppercasedFirstChar,
+			swiftName,
 			conformances: conformances,
 			typeParameters: typeParameters,
 			build: build,
@@ -61,7 +58,7 @@ struct RequestDef: Documentable {
 		let newDecls = extendedFields()
 		let newFields = newDecls.structComponents.compactMap { $0 as? FieldDef }
 		let extendedRequestDef = RequestDef(
-			name,
+			path,
 			swiftName: extendedName,
 			resultType: extendedResultType,
 			conformances: Self.defaultConformances,
@@ -75,8 +72,8 @@ struct RequestDef: Documentable {
 		.doc(doc)
 
 		var copyWithExtended = RequestDef(
-			name,
-			swiftName: customSwiftName,
+			path,
+			swiftName: structDef.name,
 			resultType: resultType,
 			conformances: structDef.conformances,
 		) {
@@ -97,13 +94,7 @@ struct RequestDef: Documentable {
 
 extension RequestDef: GroupPart {
 	var file: FileDef? {
-		FileDef(
-			name
-				.split(separator: ".")
-				.map { $0.uppercasedFirstChar }
-				.joined(separator: ".") + ".swift",
-			additionalImports: ["Hammond"],
-		) {
+		FileDef(structDef.name + ".swift", additionalImports: ["Hammond"]) {
 			self
 		}
 	}
@@ -126,4 +117,26 @@ extension RequestDef {
 			return doc(note)
 		}
 	}
+}
+
+func apiMethod(
+	_ name: String,
+	swiftName: String? = nil,
+	resultType: TypeRef? = nil,
+	conformances: [TypeRef] = RequestDef.defaultConformances,
+	typeParameters: [TypeParameterDef] = [],
+	@StructDefBuilder build: () -> any StructDefPart,
+) -> RequestDef {
+	RequestDef(
+		"/api/method/" + name,
+		swiftName: swiftName
+			?? name
+				.split(separator: ".")
+				.map { $0.uppercasedFirstChar }
+				.joined(separator: "."),
+		resultType: resultType,
+		conformances: conformances,
+		typeParameters: typeParameters,
+		build: build,
+	)
 }

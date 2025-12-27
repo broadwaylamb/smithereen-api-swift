@@ -1,5 +1,5 @@
 let messages = Group("Messages") {
-	RequestDef("messages.delete", resultType: .void) {
+	apiMethod("messages.delete", resultType: .void) {
 		FieldDef("message_id", type: .def(messageID))
 			.required()
 			.doc("Identifier of the message to be deleted.")
@@ -19,7 +19,7 @@ let messages = Group("Messages") {
 	.doc("Deletes a message.")
 	.requiresPermissions("messages")
 
-	RequestDef("messages.get", resultType: .paginatedList(.def(message))) {
+	apiMethod("messages.get", resultType: .paginatedList(.def(message))) {
 		FieldDef("out", type: .bool)
 			.doc("""
 				Whether to return outgoing or incoming messages.
@@ -40,7 +40,7 @@ let messages = Group("Messages") {
 		extendedParameters()
 	}
 
-	RequestDef("messages.getById", resultType: .array(.def(message))) {
+	apiMethod("messages.getById", resultType: .array(.def(message))) {
 		FieldDef("message_ids", type: .array(.def(messageID)))
 			.required()
 			.doc("A list of up to 200 message identifiers.")
@@ -58,7 +58,7 @@ let messages = Group("Messages") {
 		}
 	}
 
-	RequestDef("messages.getHistory", resultType: .paginatedList(.def(message))) {
+	apiMethod("messages.getHistory", resultType: .paginatedList(.def(message))) {
 		FieldDef("user_id", type: .def(userID))
 			.required()
 			.doc("Identifier of the user.")
@@ -73,7 +73,7 @@ let messages = Group("Messages") {
 		""")
 	.requiresPermissions("messages:read")
 
-	RequestDef("messages.markAsRead", resultType: .void) {
+	apiMethod("messages.markAsRead", resultType: .void) {
 		FieldDef("message_id", type: .def(messageID))
 			.required()
 			.doc("Identifier of the message to be marked as read.")
@@ -81,7 +81,7 @@ let messages = Group("Messages") {
 	.doc("Marks a message as read.")
 	.requiresPermissions("messages")
 
-	RequestDef("messages.restore", resultType: .void) {
+	apiMethod("messages.restore", resultType: .void) {
 		FieldDef("message_id", type: .def(messageID))
 			.required()
 			.doc("Identifier of the message to be restored.")
@@ -94,7 +94,7 @@ let messages = Group("Messages") {
 		""")
 	.requiresPermissions("messages")
 
-	RequestDef("messages.send", resultType: .def(messageID)) {
+	apiMethod("messages.send", resultType: .def(messageID)) {
 		FieldDef("to", type: .array(.def(userID)))
 			.required()
 			.doc("A list of user identifiers for recipients.")

@@ -1,5 +1,5 @@
 let board = Group("Board") {
-	RequestDef("board.closeTopic", resultType: .void) {
+	apiMethod("board.closeTopic", resultType: .void) {
 		FieldDef("topic_id", type: .def(boardTopicID))
 			.required()
 			.doc("The topic identifier.")
@@ -7,7 +7,7 @@ let board = Group("Board") {
 	.doc("Closes a topic so that no more comments could be posted.")
 	.requiresPermissions("groups")
 
-	RequestDef("board.createComment", resultType: .def(topicCommentID)) {
+	apiMethod("board.createComment", resultType: .def(topicCommentID)) {
 		FieldDef("topic_id", type: .def(boardTopicID))
 			.required()
 			.doc("Identifier of the topic on which to comment.")
@@ -16,7 +16,7 @@ let board = Group("Board") {
 	.doc("Creates a new comment in a topic.")
 	.requiresPermissions("groups")
 
-	RequestDef("board.createTopic", resultType: .def(boardTopicID)) {
+	apiMethod("board.createTopic", resultType: .def(boardTopicID)) {
 		FieldDef("group_id", type: .def(groupID))
 			.required()
 			.doc("Identifier of the group where to create the topic.")
@@ -29,7 +29,7 @@ let board = Group("Board") {
 	.doc("Creates a new topic in a group.")
 	.requiresPermissions("groups")
 
-	RequestDef("board.deleteComment", resultType: .void) {
+	apiMethod("board.deleteComment", resultType: .void) {
 		FieldDef("comment_id", type: .def(topicCommentID))
 			.required()
 			.doc("Identifier of the comment to delete.")
@@ -37,7 +37,7 @@ let board = Group("Board") {
 	.doc("Deletes a comment in a topic.")
 	.requiresPermissions("groups")
 
-	RequestDef("board.deleteTopic", resultType: .void) {
+	apiMethod("board.deleteTopic", resultType: .void) {
 		FieldDef("topic_id", type: .def(boardTopicID))
 			.required()
 			.doc("The topic identifier.")
@@ -45,7 +45,7 @@ let board = Group("Board") {
 	.doc("Deletes a topic.")
 	.requiresPermissions("groups")
 
-	RequestDef("board.editComment", resultType: .def(topicCommentID)) {
+	apiMethod("board.editComment", resultType: .def(topicCommentID)) {
 		FieldDef("comment_id", type: .def(topicCommentID))
 			.required()
 			.doc("The identifier of the comment to be updated.")
@@ -54,7 +54,7 @@ let board = Group("Board") {
 	.doc("Edits a comment in a topic.")
 	.requiresPermissions("groups")
 
-	RequestDef("board.editTopic", resultType: .void) {
+	apiMethod("board.editTopic", resultType: .void) {
 		FieldDef("topic_id", type: .def(boardTopicID))
 			.required()
 			.doc("The topic identifier.")
@@ -65,7 +65,7 @@ let board = Group("Board") {
 	.doc("Edits the title of a topic.")
 	.requiresPermissions("groups")
 
-	RequestDef("board.getCommentEditSource", resultType: .def(postEditSource)) {
+	apiMethod("board.getCommentEditSource", resultType: .def(postEditSource)) {
 		FieldDef("comment_id", type: .def(topicCommentID))
 			.required()
 			.doc("""
@@ -82,7 +82,7 @@ let board = Group("Board") {
 			.doc("The identifier of the topic.")
 	)
 
-	RequestDef("board.getTopics", resultType: .paginatedList(.def(boardTopic))) {
+	apiMethod("board.getTopics", resultType: .paginatedList(.def(boardTopic))) {
 		FieldDef("group_id", type: .def(groupID))
 			.required()
 			.doc("The group for which topics need to be returned.")
@@ -125,7 +125,7 @@ let board = Group("Board") {
 		extendedParameters()
 	}
 
-	RequestDef("board.getTopicsById", resultType: .array(.def(boardTopic))) {
+	apiMethod("board.getTopicsById", resultType: .array(.def(boardTopic))) {
 		FieldDef("topic_ids", type: .array(.def(boardTopicID)))
 			.required()
 			.doc("A list of topic identifiers.")
@@ -148,7 +148,7 @@ let board = Group("Board") {
 		}
 	}
 
-	RequestDef("board.openTopic", resultType: .void) {
+	apiMethod("board.openTopic", resultType: .void) {
 		FieldDef("topic_id", type: .def(boardTopicID))
 			.required()
 			.doc("The topic identifier.")
@@ -156,7 +156,7 @@ let board = Group("Board") {
 	.doc("Reopens a previously closed topic.")
 	.requiresPermissions("groups")
 
-	RequestDef("board.pinTopic", resultType: .void) {
+	apiMethod("board.pinTopic", resultType: .void) {
 		FieldDef("topic_id", type: .def(boardTopicID))
 			.required()
 			.doc("The topic identifier.")
@@ -164,7 +164,7 @@ let board = Group("Board") {
 	.doc("Pins a topic so it’s always displayed at the top of the discussion board.")
 	.requiresPermissions("groups")
 
-	RequestDef("board.unpinTopic", resultType: .void) {
+	apiMethod("board.unpinTopic", resultType: .void) {
 		FieldDef("topic_id", type: .def(boardTopicID))
 			.required()
 			.doc("The topic identifier.")

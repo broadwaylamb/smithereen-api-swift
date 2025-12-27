@@ -1,5 +1,5 @@
 let photos = Group("Photos") {
-	RequestDef("photos.confirmTag", resultType: .void) {
+	apiMethod("photos.confirmTag", resultType: .void) {
 		FieldDef("photo_id", type: .def(photoID))
 			.required()
 			.doc("Identifier of the photo.")
@@ -11,7 +11,7 @@ let photos = Group("Photos") {
 	.doc("Confirms the current user’s tag on a photo.")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.copy", resultType: .def(photoID)) {
+	apiMethod("photos.copy", resultType: .def(photoID)) {
 		FieldDef("photo_id", type: .def(photoID))
 			.required()
 			.doc("The identifier of the photo to be copied.")
@@ -24,7 +24,7 @@ let photos = Group("Photos") {
 		""")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.createAlbum", resultType: .def(photoAlbum)) {
+	apiMethod("photos.createAlbum", resultType: .def(photoAlbum)) {
 		FieldDef("title", type: .string)
 			.required()
 			.doc("The title of the album.")
@@ -72,7 +72,7 @@ let photos = Group("Photos") {
 	.doc("Creates a new photo album.")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.createComment", resultType: .def(photoCommentID)) {
+	apiMethod("photos.createComment", resultType: .def(photoCommentID)) {
 		FieldDef("photo_id", type: .def(photoID))
 			.required()
 			.doc("Identifier of the photo on which to comment.")
@@ -86,7 +86,7 @@ let photos = Group("Photos") {
 		""")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.delete", resultType: .void) {
+	apiMethod("photos.delete", resultType: .void) {
 		FieldDef("photo_id", type: .def(photoID))
 			.required()
 			.doc("Identifier of the photo.")
@@ -94,7 +94,7 @@ let photos = Group("Photos") {
 	.doc("Deletes a photo.")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.deleteAlbum", resultType: .void) {
+	apiMethod("photos.deleteAlbum", resultType: .void) {
 		FieldDef("album_id", type: .def(photoAlbumID))
 			.required()
 			.doc("Identifier of the album to delete.")
@@ -102,7 +102,7 @@ let photos = Group("Photos") {
 	.doc("Deletes a photo album.")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.deleteComment", resultType: .void) {
+	apiMethod("photos.deleteComment", resultType: .void) {
 		FieldDef("comment_id", type: .def(photoCommentID))
 			.required()
 			.doc("Identifier of the comment to delete.")
@@ -110,7 +110,7 @@ let photos = Group("Photos") {
 	.doc("Deletes a comment on a photo.")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.edit", resultType: .void) {
+	apiMethod("photos.edit", resultType: .void) {
 		FieldDef("photo_id", type: .def(photoID))
 			.required()
 			.doc("Identifier of the photo to be updated.")
@@ -122,7 +122,7 @@ let photos = Group("Photos") {
 	.doc("Updates the caption of a photo.")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.editAlbum", resultType: .void) {
+	apiMethod("photos.editAlbum", resultType: .void) {
 		FieldDef("album_id", type: .def(photoAlbumID))
 			.required()
 			.doc("Identifier of the target album.")
@@ -162,7 +162,7 @@ let photos = Group("Photos") {
 	.doc("Updates a photo album.")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.editComment", resultType: .def(photoCommentID)) {
+	apiMethod("photos.editComment", resultType: .def(photoCommentID)) {
 		FieldDef("comment_id", type: .def(photoCommentID))
 			.required()
 			.doc("The identifier of the comment to be updated.")
@@ -172,7 +172,7 @@ let photos = Group("Photos") {
 	.doc("Edits a comment on a photo.")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.get", resultType: .paginatedList(.def(photo))) {
+	apiMethod("photos.get", resultType: .paginatedList(.def(photo))) {
 		FieldDef("album_id", type: .def(photoAlbumID))
 			.required()
 			.doc("""
@@ -198,7 +198,7 @@ let photos = Group("Photos") {
 		Non-public albums require a token and the `photos:read` permission.
 		""")
 
-	RequestDef("photos.getAlbums", resultType: .paginatedList(.def(photoAlbum))) {
+	apiMethod("photos.getAlbums", resultType: .paginatedList(.def(photoAlbum))) {
 		FieldDef("owner_id", type: .def(actorID))
 			.doc("""
 				Identifier of the user or minus identifier of the group whose
@@ -224,7 +224,7 @@ let photos = Group("Photos") {
 		Getting non-public albums requires a token with `photos:read` permission.
 		""")
 
-	RequestDef("photos.getAlbumsById", resultType: .array(.def(photoAlbum))) {
+	apiMethod("photos.getAlbumsById", resultType: .array(.def(photoAlbum))) {
 		FieldDef("album_ids", type: .array(.def(photoAlbumID)))
 			.required()
 			.doc("A list of up to 100 album identifiers.")
@@ -237,7 +237,7 @@ let photos = Group("Photos") {
 		Getting non-public albums requires a token with `photos:read` permission.
 		""")
 
-	RequestDef("photos.getAll", resultType: .paginatedList(.def(photo))) {
+	apiMethod("photos.getAll", resultType: .paginatedList(.def(photo))) {
 		FieldDef("owner_id", type: .def(actorID))
 			.doc("""
 				Identifier of the user or group whose albums need to be returned.
@@ -260,7 +260,7 @@ let photos = Group("Photos") {
 			to a wall post, comment, or message.
 			""")
 
-	RequestDef("photos.getById", resultType: .array(.def(photo))) {
+	apiMethod("photos.getById", resultType: .array(.def(photo))) {
 		FieldDef("photo_ids", type: .array(.def(photoID)))
 			.required()
 			.doc("""
@@ -275,7 +275,7 @@ let photos = Group("Photos") {
 		the `photos:read` permission.
 		""")
 
-	RequestDef("photos.getCommentEditSource", resultType: .def(postEditSource)) {
+	apiMethod("photos.getCommentEditSource", resultType: .def(postEditSource)) {
 		FieldDef("comment_id", type: .def(photoCommentID))
 			.required()
 			.doc("""
@@ -297,7 +297,7 @@ let photos = Group("Photos") {
 			.doc("The identifier of the photo.")
 	)
 
-	RequestDef("photos.getFeedEntry", resultType: .paginatedList(.def(photo))) {
+	apiMethod("photos.getFeedEntry", resultType: .paginatedList(.def(photo))) {
 		FieldDef("list_id", type: .def(photoFeedEntryID))
 			.required()
 			.doc("A list ID returned by ``Newsfeed/Get`` or ``Newsfeed/GetGroups``.")
@@ -307,7 +307,7 @@ let photos = Group("Photos") {
 	}
 	.doc("Returns a complete list of photos for a newsfeed entry.")
 
-	RequestDef("photos.getNewTags", resultType: .paginatedList(.def(photo))) {
+	apiMethod("photos.getNewTags", resultType: .paginatedList(.def(photo))) {
 		offsetAndCountParams("photo", defaultCount: 50)
 		extendedField()
 	}
@@ -352,7 +352,7 @@ let photos = Group("Photos") {
 				`nil` iff ``userID`` is `nil`.
 				""")
 	}
-	RequestDef("photos.getTags", resultType: .array(.def(tagDef))) {
+	apiMethod("photos.getTags", resultType: .array(.def(tagDef))) {
 		FieldDef("photo_id", type: .def(photoID))
 			.required()
 			.doc("Identifier of the photo.")
@@ -378,7 +378,7 @@ let photos = Group("Photos") {
 		""")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.getUserPhotos", resultType: .paginatedList(.def(photo))) {
+	apiMethod("photos.getUserPhotos", resultType: .paginatedList(.def(photo))) {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""
 				Identifier of the user whose tagged photos need to be returned.
@@ -397,7 +397,7 @@ let photos = Group("Photos") {
 		to prevent public access, a token and the `photos:read` permission are required.
 		""")
 
-	RequestDef("photos.makeCover", resultType: .void) {
+	apiMethod("photos.makeCover", resultType: .void) {
 		FieldDef("photo_id", type: .def(photoID))
 			.required()
 			.doc("Identifier of the photo.")
@@ -408,7 +408,7 @@ let photos = Group("Photos") {
 	.doc("Sets a photo as the album cover.")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.putTag", resultType: .def(photoTagID)) {
+	apiMethod("photos.putTag", resultType: .def(photoTagID)) {
 		FieldDef("photo_id", type: .def(photoID))
 			.required()
 			.doc("Identifier of the photo.")
@@ -448,7 +448,7 @@ let photos = Group("Photos") {
 		""")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.removeTag", resultType: .void) {
+	apiMethod("photos.removeTag", resultType: .void) {
 		FieldDef("photo_id", type: .def(photoID))
 			.required()
 			.doc("Identifier of the photo.")
@@ -459,7 +459,7 @@ let photos = Group("Photos") {
 	.doc("Deletes a tag from a photo.")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.save", resultType: .def(photo)) {
+	apiMethod("photos.save", resultType: .def(photo)) {
 		FieldDef("album_id", type: .def(photoAlbumID))
 			.required()
 			.doc("Identifier of the photo album.")
@@ -477,7 +477,7 @@ let photos = Group("Photos") {
 	.doc("Saves a newly uploaded photo to an album.")
 	.requiresPermissions("photos")
 
-	RequestDef("photos.saveOwnerPhoto", resultType: .def(photo)) {
+	apiMethod("photos.saveOwnerPhoto", resultType: .def(photo)) {
 		FieldDef("group_id", type: .def(groupID))
 			.doc("If updating a group’s profile picture, identifier of that group.")
 		FieldDef("id", type: .def(uploadedImageID))
@@ -529,7 +529,7 @@ private func revField() -> FieldDef {
 }
 
 private func getUploadServerRequest(_ name: String, @StructDefBuilder parameters: () -> any StructDefPart) -> RequestDef {
-	RequestDef(name) {
+	apiMethod(name) {
 		parameters()
 		StructDef("Result") {
 			FieldDef("upload_url", type: .url)

@@ -1,5 +1,5 @@
 let wall = Group("Wall") {
-	RequestDef("wall.createComment", resultType: .def(wallPostID)) {
+	apiMethod("wall.createComment", resultType: .def(wallPostID)) {
 		FieldDef("post_id", type: .def(wallPostID))
 			.required()
 			.doc("Identifier of the post on which to comment.")
@@ -8,7 +8,7 @@ let wall = Group("Wall") {
 	.doc("Creates a new comment on a wall post.")
 	.requiresPermissions("wall")
 
-	RequestDef("wall.delete", resultType: .void) {
+	apiMethod("wall.delete", resultType: .void) {
 		FieldDef("post_id", type: .def(wallPostID))
 			.required()
 			.doc("The identifier of the post which you’re deleting.")
@@ -16,7 +16,7 @@ let wall = Group("Wall") {
 	.doc("Deletes a wall post or comment.")
 	.requiresPermissions("wall")
 
-	RequestDef("wall.edit", resultType: .def(wallPostID)) {
+	apiMethod("wall.edit", resultType: .def(wallPostID)) {
 		FieldDef("post_id", type: .def(wallPostID))
 			.required()
 			.doc("The identifier of the post to be updated.")
@@ -25,7 +25,7 @@ let wall = Group("Wall") {
 	.doc("Edits a wall post or comment.")
 	.requiresPermissions("wall")
 
-	RequestDef("wall.get", resultType: .paginatedList(.def(wallPost))) {
+	apiMethod("wall.get", resultType: .paginatedList(.def(wallPost))) {
 		FieldDef("owner_id", type: .def(actorID))
 			.required()
 			.doc("""
@@ -60,7 +60,7 @@ let wall = Group("Wall") {
 		extendedParameters()
 	}
 
-	RequestDef("wall.getById", resultType: .array(.def(wallPost))) {
+	apiMethod("wall.getById", resultType: .array(.def(wallPost))) {
 		FieldDef("posts", type: .array(.def(wallPostID)))
 			.required()
 			.doc("A list of post IDs")
@@ -88,7 +88,7 @@ let wall = Group("Wall") {
 			.doc("The identifier of the post."),
 	)
 
-	RequestDef("wall.getEditSource", resultType: .def(postEditSource)) {
+	apiMethod("wall.getEditSource", resultType: .def(postEditSource)) {
 		FieldDef("post_id", type: .def(wallPostID))
 			.required()
 			.doc("""
@@ -103,7 +103,7 @@ let wall = Group("Wall") {
 		""")
 	.requiresPermissions("wall")
 
-	RequestDef("wall.getReposts", resultType: .paginatedList(.def(wallPost))) {
+	apiMethod("wall.getReposts", resultType: .paginatedList(.def(wallPost))) {
 		FieldDef("post_id", type: .def(wallPostID))
 			.required()
 			.doc("The post identifier.")
@@ -122,7 +122,7 @@ let wall = Group("Wall") {
 		extendedParameters()
 	}
 
-	RequestDef("wall.pin", resultType: .void) {
+	apiMethod("wall.pin", resultType: .void) {
 		FieldDef("post_id", type: .def(wallPostID))
 			.required()
 			.doc("Identifier of the post to pin.")
@@ -130,7 +130,7 @@ let wall = Group("Wall") {
 	.doc("Pins a post so it appears at the top of the owner’s wall.")
 	.requiresPermissions("wall")
 
-	RequestDef("wall.post", resultType: .def(wallPostID)) {
+	apiMethod("wall.post", resultType: .def(wallPostID)) {
 		FieldDef("owner_id", type: .def(actorID))
 			.required()
 			.doc("User or group ID on whose wall the post is to be created.")
@@ -140,7 +140,7 @@ let wall = Group("Wall") {
 	.doc("Creates a new wall post.")
 	.requiresPermissions("wall")
 
-	RequestDef("wall.repost", resultType: .def(wallPostID)) {
+	apiMethod("wall.repost", resultType: .def(wallPostID)) {
 		FieldDef("post_id", type: .def(wallPostID))
 			.required()
 			.doc("The identifier of the post or comment to be reposted.")
@@ -148,7 +148,7 @@ let wall = Group("Wall") {
 		guidField(method: "Wall/Repost", entity: "post")
 	}
 
-	RequestDef("wall.unpin", resultType: .void) {
+	apiMethod("wall.unpin", resultType: .void) {
 		FieldDef("post_id", type: .def(wallPostID))
 			.required()
 			.doc("Identifier of the post to unpin.")

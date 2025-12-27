@@ -1,5 +1,5 @@
 let groups = Group("Groups") {
-	RequestDef("groups.get", resultType: .paginatedList(.def(groupID))) {
+	apiMethod("groups.get", resultType: .paginatedList(.def(groupID))) {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""
 				User identifier for which to return groups.
@@ -38,7 +38,7 @@ let groups = Group("Groups") {
 	.doc("Returns the list of groups or events in which a user is a member.")
 	.withGroupFields()
 
-	RequestDef("groups.getById", resultType: .array(.def(group))) {
+	apiMethod("groups.getById", resultType: .array(.def(group))) {
 		FieldDef("group_ids", type: .array(.def(groupID)))
 			.required()
 			.doc("A list of group identifiers.")
@@ -47,7 +47,7 @@ let groups = Group("Groups") {
 	}
 	.doc("Returns information about groups.")
 
-	RequestDef("groups.getInvites", resultType: .paginatedList(.def(group))) {
+	apiMethod("groups.getInvites", resultType: .paginatedList(.def(group))) {
 		FieldDef("type", type: .def(communityType))
 			.doc("""
 				Whether to return invitations to groups or to events.
@@ -81,7 +81,7 @@ let groups = Group("Groups") {
 				""")
 	}
 
-	RequestDef("groups.getMembers") {
+	apiMethod("groups.getMembers") {
 		FieldDef("group_id", type: .def(groupID))
 			.required()
 			.doc("Group identifier.")
@@ -159,7 +159,7 @@ let groups = Group("Groups") {
 		let isMemberGroupIDField = FieldDef("group_id", type: .def(groupID))
 			.required()
 			.doc("Group identifier.")
-		RequestDef(
+		apiMethod(
 			"groups.isMember",
 			swiftName: "Groups.IsMemberSingleUser",
 			resultType: .bool
@@ -194,7 +194,7 @@ let groups = Group("Groups") {
 					event.
 					""")
 		}
-		RequestDef(
+		apiMethod(
 			"groups.isMember",
 			swiftName: "Groups.IsMemberMultipleUsers",
 			resultType: .array(.def(membershipStruct)),
@@ -216,7 +216,7 @@ let groups = Group("Groups") {
 		.doc(isMemberDoc)
 	}
 
-	RequestDef("groups.join", resultType: .void) {
+	apiMethod("groups.join", resultType: .void) {
 		FieldDef("group_id", type: .def(groupID))
 			.required()
 			.doc("The group identifier.")
@@ -233,7 +233,7 @@ let groups = Group("Groups") {
 		""")
 	.requiresPermissions("groups")
 
-	RequestDef("groups.leave", resultType: .void) {
+	apiMethod("groups.leave", resultType: .void) {
 		FieldDef("group_id", type: .def(groupID))
 			.required()
 			.doc("The group identifier.")
@@ -243,7 +243,7 @@ let groups = Group("Groups") {
 		""")
 	.requiresPermissions("groups")
 
-	RequestDef("groups.search", resultType: .paginatedList(.def(group))) {
+	apiMethod("groups.search", resultType: .paginatedList(.def(group))) {
 		FieldDef("q", type: .string)
 			.swiftName("query")
 			.required()

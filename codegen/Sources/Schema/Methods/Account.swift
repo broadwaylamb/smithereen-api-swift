@@ -1,5 +1,5 @@
 let account = Group("Account") {
-	RequestDef("account.banDomain", resultType: .void) {
+	apiMethod("account.banDomain", resultType: .void) {
 		FieldDef("domain", type: .string)
 			.required()
 			.doc("The domain name of the server to block.")
@@ -7,7 +7,7 @@ let account = Group("Account") {
 	.doc("Blocks a remote server on behalf of the current user.")
 	.requiresPermissions("account")
 
-	RequestDef("account.banUser", resultType: .void) {
+	apiMethod("account.banUser", resultType: .void) {
 		FieldDef("user_id", type: .def(userID))
 			.required()
 			.doc("The identifier of the user to block.")
@@ -15,20 +15,20 @@ let account = Group("Account") {
 	.doc("Blocks a user on behalf of the current user.")
 	.requiresPermissions("account")
 
-	RequestDef(
+	apiMethod(
 		"account.getAppPermissions",
 		resultType: .array(TypeRef(name: "Permission")),
 	) {
 	}
 	.doc("Returns the list of permissions granted to the access token.")
 
-	RequestDef("account.getBannedDomains", resultType: .paginatedList(.string)) {
+	apiMethod("account.getBannedDomains", resultType: .paginatedList(.string)) {
 		offsetAndCountParams("domain", defaultCount: 100)
 	}
 	.doc("Returns the list of remote server domains blocked by the current user.")
 	.requiresPermissions("account")
 
-	RequestDef("account.getBannedUsers", resultType: .paginatedList(.def(user))) {
+	apiMethod("account.getBannedUsers", resultType: .paginatedList(.def(user))) {
 		offsetAndCountParams("user", defaultCount: 100)
 		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
 			.doc("A list of user profile fields to be returned.")
@@ -36,7 +36,7 @@ let account = Group("Account") {
 	.doc("Returns the list of users blocked by the current user.")
 	.requiresPermissions("account")
 
-	RequestDef("account.getCounters") {
+	apiMethod("account.getCounters") {
 		StructDef("Result") {
 			FieldDef("friends", type: .int)
 				.required()
@@ -67,7 +67,7 @@ let account = Group("Account") {
 		has.
 		""")
 
-	RequestDef("account.setOffline", resultType: .void) {
+	apiMethod("account.setOffline", resultType: .void) {
 	}
 	.doc("""
 		Sets the current user’s presence status to “offline”,
@@ -81,7 +81,7 @@ let account = Group("Account") {
 		online status will be associated with a different session.
 		""")
 
-	RequestDef("account.setOnline", resultType: .void) {
+	apiMethod("account.setOnline", resultType: .void) {
 		FieldDef("mobile", type: .bool)
 			.doc("""
 				Whether the user is using a mobile device.
@@ -97,7 +97,7 @@ let account = Group("Account") {
 		for 5 minutes.
 		""")
 
-	RequestDef("account.unbanDomain", resultType: .void) {
+	apiMethod("account.unbanDomain", resultType: .void) {
 		FieldDef("domain", type: .string)
 			.required()
 			.doc("The domain name of the server to unblock.")
@@ -105,7 +105,7 @@ let account = Group("Account") {
 	.doc("Unlocks a remote server on behalf of the current user.")
 	.requiresPermissions("account")
 
-	RequestDef("account.unbanUser", resultType: .void) {
+	apiMethod("account.unbanUser", resultType: .void) {
 		FieldDef("user_id", type: .def(userID))
 			.required()
 			.doc("The identifier of the user to unblock.")

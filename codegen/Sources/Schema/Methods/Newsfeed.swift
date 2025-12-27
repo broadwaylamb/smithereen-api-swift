@@ -1,5 +1,5 @@
 let newsfeed = Group("Newsfeed") {
-	RequestDef("newsfeed.get") {
+	apiMethod("newsfeed.get") {
 		let paginationToken = IdentifierStruct("PaginationToken", rawValue: .string)
 		paginationToken
 
@@ -17,7 +17,7 @@ let newsfeed = Group("Newsfeed") {
 		FieldDef("filters", type: .array(.def(filter)))
 			.doc("""
 				Which types of updates to return.
-				
+
 				By default, updates of all types are returned.
 				""")
 		filter
@@ -28,7 +28,7 @@ let newsfeed = Group("Newsfeed") {
 
 				By default `false`.
 				""")
-		
+
 		startFromAndCount(paginationToken)
 		fieldsParameter()
 
@@ -97,7 +97,7 @@ let newsfeed = Group("Newsfeed") {
 	.doc("Returns the current user’s followees’ updates (and their own posts).")
 	.requiresPermissions("newsfeed")
 
-	RequestDef("newsfeed.getComments") {
+	apiMethod("newsfeed.getComments") {
 		let filter = filterEnum(
 			("post", "Wall posts."),
 			("photo", "Photos."),
@@ -113,22 +113,22 @@ let newsfeed = Group("Newsfeed") {
 		filter
 
 		offsetAndCountParams("object", defaultCount: 25)
-		
+
 		FieldDef("last_comments", type: .int)
 			.doc("""
 				How many of the most recent comments to return, from 0 to 3.
 
 				By default 0.
 				""")
-		
+
 		FieldDef("comment_view_type", type: .def(commentView))
 			.doc("""
 				How to structure the comments for ``lastComments``.
 				By default uses the user preference.
 				""")
-		
+
 		fieldsParameter()
-		
+
 		let commentableObject = TaggedUnionDef("CommentableObject") {
 			TaggedUnionVariantDef("post", type: .def(wallPost))
 			TaggedUnionVariantDef("photo", type: .def(photo))
@@ -144,7 +144,7 @@ let newsfeed = Group("Newsfeed") {
 			FieldDef("item", type: .def(commentableObject))
 				.required()
 				.flatten()
-			
+
 			FieldDef("comments", type: .array(.def(wallPost)))
 				.doc("""
 					If ``lastComments`` is non-zero, an array of comment
@@ -157,15 +157,15 @@ let newsfeed = Group("Newsfeed") {
 			FieldDef("items", type: .array(.def(update)))
 				.required()
 				.doc("The commentable objects themselves.")
-			
+
 			FieldDef("profiles", type: .array(.def(user)))
 				.required()
 				.doc("User objects relevant to these objects.")
-			
+
 			FieldDef("groups", type: .array(.def(group)))
 				.required()
 				.doc("Group objects relevant to these objects.")
-			
+
 			FieldDef("count", type: .int)
 				.required()
 				.doc("How many comment threads there are in total.")
@@ -174,7 +174,7 @@ let newsfeed = Group("Newsfeed") {
 	.doc("Returns comment threads that the current user has participated in.")
 	.requiresPermissions("newsfeed")
 
-	RequestDef("newsfeed.getGroups") {
+	apiMethod("newsfeed.getGroups") {
 		let paginationToken = IdentifierStruct("PaginationToken", rawValue: .string)
 		paginationToken
 
@@ -191,7 +191,7 @@ let newsfeed = Group("Newsfeed") {
 				By default, updates of all types are returned.
 				""")
 		filter
-		
+
 		startFromAndCount(paginationToken)
 		fieldsParameter()
 
@@ -245,7 +245,7 @@ private func startFromAndCount(
 			Don’t pass this parameter when loading the news feed for
 			the first time or refreshing it.
 			""")
-	
+
 	FieldDef("count", type: .int)
 		.doc("""
 			How many updates to return, from 0 to 100.
@@ -272,12 +272,12 @@ private func feedResult(
 		FieldDef("item", type: .def(updatedItem))
 			.required()
 			.flatten()
-		
+
 		FieldDef("id", type: .def(updateID))
 			.required()
 			.id()
 			.doc("Identifier of this update.")
-		
+
 		additionalUpdateFields()
 	}
 	update
@@ -286,15 +286,15 @@ private func feedResult(
 		FieldDef("items", type: .array(.def(update)))
 			.required()
 			.doc("The updates themselves.")
-		
+
 		FieldDef("profiles", type: .array(.def(user)))
 			.required()
 			.doc("User objects relevant to these updates.")
-		
+
 		FieldDef("groups", type: .array(.def(group)))
 			.required()
 			.doc("Group objects relevant to these updates.")
-		
+
 		FieldDef("next_from", type: .def(paginationToken))
 			.doc("""
 				The value to pass as ``startFrom`` in a subsequent call to

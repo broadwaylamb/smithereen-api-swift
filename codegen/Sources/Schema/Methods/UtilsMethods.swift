@@ -1,9 +1,9 @@
 let utils = Group("Utils") {
-	RequestDef("utils.getServerTime", resultType: .unixTimestamp) {
+	apiMethod("utils.getServerTime", resultType: .unixTimestamp) {
 	}
 	.doc("Returns the server's current time.")
 
-	RequestDef("utils.loadRemoteObject") {
+	apiMethod("utils.loadRemoteObject") {
 		FieldDef("q", type: .string)
 			.swiftName("query")
 			.required()
@@ -18,7 +18,7 @@ let utils = Group("Utils") {
 		Note that a call to this method may potentially take 30 seconds or more.
 		""")
 
-	RequestDef("utils.resolveScreenName") {
+	apiMethod("utils.resolveScreenName") {
 		FieldDef("screen_name", type: .string)
 			.required()
 			.doc("The username or `username@domain` to resolve.")

@@ -1,5 +1,5 @@
 let polls = Group("Polls") {
-	RequestDef("polls.addVote", resultType: .void) {
+	apiMethod("polls.addVote", resultType: .void) {
 		FieldDef("poll_id", type: .def(pollID))
 			.required()
 			.doc("Identifier of the poll.")
@@ -10,7 +10,7 @@ let polls = Group("Polls") {
 	.doc("Votes in a poll on behalf of the current user.")
 	.requiresPermissions("wall")
 
-	RequestDef("polls.create", resultType: .def(pollID)) {
+	apiMethod("polls.create", resultType: .def(pollID)) {
 		FieldDef("owner_id", type: .def(actorID))
 			.doc("""
 				User or group identifier of the owner on whose wall
@@ -49,14 +49,14 @@ let polls = Group("Polls") {
 	.doc("Creates a poll to later attach to a post.")
 	.requiresPermissions("wall")
 
-	RequestDef("polls.getById", resultType: .def(poll)) {
+	apiMethod("polls.getById", resultType: .def(poll)) {
 		FieldDef("poll_id", type: .def(pollID))
 			.required()
 			.doc("The identifier of the poll.")
 	}
 	.doc("Returns a poll.")
 
-	RequestDef("polls.getVoters", resultType: .paginatedList(.def(userID))) {
+	apiMethod("polls.getVoters", resultType: .paginatedList(.def(userID))) {
 		FieldDef("poll_id", type: .def(pollID))
 			.required()
 			.doc("Poll identifier.")

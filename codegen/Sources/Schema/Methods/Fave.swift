@@ -73,4 +73,12 @@ let fave = Group("Fave") {
 	}
 	.doc("Removes a group from the current user’s bookmarks.")
 	.requiresPermissions("likes")
+
+	apiMethod("fave.removeUser", resultType: .void) {
+		FieldDef("user_id", type: .def(userID))
+			.required()
+			.doc("Identifier of the target user.")
+	}
+	.doc("Removes a user from the current user’s bookmarks.")
+	.requiresPermissions("likes")
 }

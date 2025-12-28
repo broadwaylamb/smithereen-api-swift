@@ -35,4 +35,26 @@ let fave = Group("Fave") {
 	}
 	.doc("Returns the list of photos liked by the current user.")
 	.requiresPermissions("likes:read")
+
+	apiMethod("fave.getPosts", resultType: .paginatedList(.def(wallPost))) {
+		offsetAndCountParams("post", range: 1...100, defaultCount: 50)
+	}
+	.doc("Returns the list of posts liked by the current user.")
+	.requiresPermissions("likes:read")
+	.withExtendedVersion(
+		"Extended",
+		extendedResultType: .paginatedList(
+			.def(wallPost),
+			extras: .paginatedListExtrasProfilesAndGroups,
+		),
+	) {
+		FieldDef("extended", type: .bool)
+			.required()
+			.constantValue("true")
+		FieldDef("fields", type: .array(.def(actorField)))
+			.doc("""
+				A list of ``User`` and ``Group`` profile fields to be
+				returned.
+				""")
+	}
 }

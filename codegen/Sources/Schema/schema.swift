@@ -57,6 +57,7 @@ let schema = Group {
 		account
 		board
 		execute
+		fave
 		friends
 		groups
 		likes

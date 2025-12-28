@@ -1,5 +1,6 @@
 public enum Account {}
 public enum Board {}
+public enum Fave {}
 public enum Friends {}
 public enum Groups {}
 public enum Likes {}

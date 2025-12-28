@@ -22,4 +22,17 @@ let fave = Group("Fave") {
 	}
 	.doc("Returns the current user’s bookmarked groups and events.")
 	.requiresPermissions("likes:read")
+
+	apiMethod("fave.getPhotos", resultType: .paginatedList(.def(photo))) {
+		offsetAndCountParams("photo", range: 1...1000, defaultCount: 50)
+		FieldDef("extended", type: .bool)
+			.doc("""
+				Whether to return extra fields about likes, comments,
+				and tags for each photo.
+
+				By default `false`.
+				""")
+	}
+	.doc("Returns the list of photos liked by the current user.")
+	.requiresPermissions("likes:read")
 }

@@ -57,4 +57,12 @@ let fave = Group("Fave") {
 				returned.
 				""")
 	}
+
+	apiMethod("fave.getUsers", resultType: .paginatedList(.def(user))) {
+		offsetAndCountParams("user", range: 1...1000, defaultCount: 100)
+		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
+			.doc("A list of ``User`` profile fields to be returned.")
+	}
+	.doc("Returns the current user’s bookmarked users.")
+	.requiresPermissions("likes:read")
 }

@@ -11,7 +11,8 @@ extension Wall {
 	public struct Post: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// User or group ID on whose wall the post is to be created.
-		public var ownerID: ActorID
+		/// By default the current user.
+		public var ownerID: ActorID?
 
 		/// The text of the post.
 		/// **Required** if there are no ``attachments``.
@@ -42,7 +43,7 @@ extension Wall {
 		public var guid: UUID?
 
 		public init(
-			ownerID: ActorID,
+			ownerID: ActorID? = nil,
 			message: String? = nil,
 			textFormat: TextFormat? = nil,
 			attachments: [AttachmentToCreate]? = nil,

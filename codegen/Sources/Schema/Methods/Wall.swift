@@ -27,10 +27,11 @@ let wall = Group("Wall") {
 
 	apiMethod("wall.get", resultType: .paginatedList(.def(wallPost))) {
 		FieldDef("owner_id", type: .def(actorID))
-			.required()
 			.doc("""
 				The ID of the user or the group whose wall posts need
 				to be returned.
+
+				By default the current user.
 				""")
 		offsetAndCountParams("post", range: 1...100, defaultCount: 20)
 
@@ -132,8 +133,10 @@ let wall = Group("Wall") {
 
 	apiMethod("wall.post", resultType: .def(wallPostID)) {
 		FieldDef("owner_id", type: .def(actorID))
-			.required()
-			.doc("User or group ID on whose wall the post is to be created.")
+			.doc("""
+				User or group ID on whose wall the post is to be created.
+				By default the current user.
+				""")
 		postParameters(postKind: "post")
 		guidField(method: "Wall/Post", entity: "post")
 	}

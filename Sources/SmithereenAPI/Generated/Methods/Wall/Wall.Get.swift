@@ -10,7 +10,9 @@ extension Wall {
 
 		/// The ID of the user or the group whose wall posts need
 		/// to be returned.
-		public var ownerID: ActorID
+		/// 
+		/// By default the current user.
+		public var ownerID: ActorID?
 
 		/// Offset into the post list for pagination.
 		public var offset: Int?
@@ -48,7 +50,9 @@ extension Wall {
 
 			/// The ID of the user or the group whose wall posts need
 			/// to be returned.
-			public var ownerID: ActorID
+			/// 
+			/// By default the current user.
+			public var ownerID: ActorID?
 
 			/// Offset into the post list for pagination.
 			public var offset: Int?
@@ -74,7 +78,7 @@ extension Wall {
 			public var fields: [ActorField]?
 
 			public init(
-				ownerID: ActorID,
+				ownerID: ActorID? = nil,
 				offset: Int? = nil,
 				count: Int? = nil,
 				filter: Filter? = nil,
@@ -111,7 +115,7 @@ extension Wall {
 		}
 
 		public init(
-			ownerID: ActorID,
+			ownerID: ActorID? = nil,
 			offset: Int? = nil,
 			count: Int? = nil,
 			filter: Filter? = nil,

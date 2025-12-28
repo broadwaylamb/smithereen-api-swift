@@ -14,4 +14,12 @@ let fave = Group("Fave") {
 	}
 	.doc("Adds a user to the current user’s bookmarks.")
 	.requiresPermissions("likes")
+
+	apiMethod("fave.getGroups", resultType: .paginatedList(.def(group))) {
+		offsetAndCountParams("group", range: 1...1000, defaultCount: 100)
+		FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
+			.doc("A list of ``Group`` profile fields to be returned.")
+	}
+	.doc("Returns the current user’s bookmarked groups and events.")
+	.requiresPermissions("likes:read")
 }

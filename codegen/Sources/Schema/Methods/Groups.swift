@@ -96,6 +96,21 @@ let groups = Group("Groups") {
 		""")
 	.requiresPermissions("groups")
 
+	apiMethod("groups.getBannedUsers", resultType: .paginatedList(.def(user))) {
+		offsetAndCountParams("user", range: 1...1000, defaultCount: 100)
+		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
+			.doc("A list of ``User`` profile fields to be returned.")
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+	}
+	.doc("""
+		Returns the list of users blocked in a group.
+
+		The current user must be at least a moderator in the group.
+		""")
+	.requiresPermissions("groups")
+
 	apiMethod("groups.getById", resultType: .array(.def(group))) {
 		FieldDef("group_ids", type: .array(.def(groupID)))
 			.required()

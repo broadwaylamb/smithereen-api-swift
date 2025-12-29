@@ -14,6 +14,21 @@ let groups = Group("Groups") {
 		""")
 	.requiresPermissions("groups")
 
+	apiMethod("groups.banDomain", resultType: .void) {
+		FieldDef("domain", type: .string)
+			.required()
+			.doc("The domain name of the server to block.")
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+	}
+	.doc("""
+		Blocks a remote server in a group.
+
+		The current user must be at least a moderator in the group.
+		""")
+	.requiresPermissions("groups")
+
 	apiMethod("groups.get", resultType: .paginatedList(.def(groupID))) {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""

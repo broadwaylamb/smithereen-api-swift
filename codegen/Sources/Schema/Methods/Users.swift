@@ -7,8 +7,7 @@ let users = Group("Users") {
 				defaults to the current user’s ID.
 				Required if no token is used.
 				""")
-		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
-			.doc("A list of user profile fields to be returned.")
+		userFieldsParam()
 		let caseDef = EnumDef<String>("RelationCase") {
 			EnumCaseDef("def", swiftName: "default")
 				.doc("The default case used in the web interface with the current language.")

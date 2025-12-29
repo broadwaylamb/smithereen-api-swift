@@ -46,7 +46,7 @@ extension Newsfeed {
 		/// By default 25.
 		public var count: Int?
 
-		/// A list of user and group profile fields to return.
+		/// A list of ``User`` and ``Group`` profile fields to be returned.
 		public var fields: [ActorField]?
 
 		public enum UpdatedItem: Hashable, Codable, Sendable {

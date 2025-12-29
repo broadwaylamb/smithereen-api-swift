@@ -44,7 +44,7 @@ extension Newsfeed {
 		/// By default uses the user preference.
 		public var commentViewType: CommentView?
 
-		/// A list of user and group profile fields to return.
+		/// A list of ``User`` and ``Group`` profile fields to be returned.
 		public var fields: [ActorField]?
 
 		public enum CommentableObject: Hashable, Codable, Sendable {

@@ -321,9 +321,7 @@ extension RequestDef {
 			"WithFields",
 			extendedResultType: .paginatedList(.def(user)),
 		) {
-			FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
-				.required()
-				.doc("A list of user profile fields to be returned.")
+			userFieldsParam().required()
 		}
 	}
 
@@ -332,9 +330,7 @@ extension RequestDef {
 			"WithFields",
 			extendedResultType: .paginatedList(.def(group)),
 		) {
-			FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
-				.required()
-				.doc("A list of group profile fields to be returned.")
+			groupFieldsParam().required()
 		}
 	}
 }
@@ -452,10 +448,7 @@ func commentsRequest(
 			.required()
 			.constantValue("true")
 
-		FieldDef("fields", type: .array(.def(actorField)))
-			.doc("""
-				A list of user and group profile fields to be returned.
-				""")
+		actorFieldsParam()
 	}
 }
 
@@ -508,4 +501,19 @@ func guidField(method: String, entity: String) -> FieldDef {
 			the ID of that previously created \(entity) will be returned
 			instead. Recommended for mobile apps.
 			""")
+}
+
+func userFieldsParam() -> FieldDef {
+	FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
+		.doc("A list of ``User`` profile fields to be returned.")
+}
+
+func groupFieldsParam() -> FieldDef {
+	FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
+		.doc("A list of ``Group`` profile fields to be returned.")
+}
+
+func actorFieldsParam() -> FieldDef {
+	FieldDef("fields", type: .array(.def(actorField)))
+		.doc("A list of ``User`` and ``Group`` profile fields to be returned.")
 }

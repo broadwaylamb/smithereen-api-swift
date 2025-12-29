@@ -92,7 +92,7 @@ extension Photos {
 			public var needLikes: Bool?
 			private let extended: Bool = true
 
-			/// A list of user and group profile fields to be returned.
+			/// A list of ``User`` and ``Group`` profile fields to be returned.
 			public var fields: [ActorField]?
 
 			public init(

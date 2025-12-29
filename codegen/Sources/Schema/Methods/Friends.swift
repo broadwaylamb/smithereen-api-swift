@@ -349,8 +349,7 @@ let friends = Group("Friends") {
 				Whether to return information about mutual friends for each
 				friend request.
 				""")
-		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
-			.doc("A list of user profile fields to be returned.")
+		userFieldsParam()
 
 		friendRequestStruct
 	}

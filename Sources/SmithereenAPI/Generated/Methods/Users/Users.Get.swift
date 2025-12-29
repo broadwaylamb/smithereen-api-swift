@@ -14,7 +14,7 @@ extension Users {
 		/// Required if no token is used.
 		public var userIDs: [UserID]?
 
-		/// A list of user profile fields to be returned.
+		/// A list of ``User`` profile fields to be returned.
 		public var fields: [User.Field]?
 
 		/// For Slavic languages and when the ``User/Field/relation``

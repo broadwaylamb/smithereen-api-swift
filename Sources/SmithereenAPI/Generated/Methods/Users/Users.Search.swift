@@ -27,7 +27,7 @@ extension Users {
 			/// By default 100.
 			public var count: Int?
 
-			/// A list of user profile fields to be returned.
+			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]
 
 			public init(

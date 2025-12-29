@@ -23,7 +23,7 @@ extension Groups {
 		/// Minumum value: 1. Maximum value: 500. By default 20.
 		public var count: Int?
 
-		/// A list of group profile fields to return.
+		/// A list of ``Group`` profile fields to be returned.
 		public var fields: [Group.Field]?
 
 		/// Returns the group invitations for the current user.
@@ -45,8 +45,7 @@ extension Groups {
 			public var count: Int?
 			private let extended: Bool = true
 
-			/// A list of group profile fields to return, as well as
-			/// user profile fields for the inviters.
+			/// A list of ``User`` and ``Group`` profile fields to be returned.
 			public var fields: [ActorField]?
 
 			public init(

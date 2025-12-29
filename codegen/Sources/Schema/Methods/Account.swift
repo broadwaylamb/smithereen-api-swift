@@ -30,8 +30,7 @@ let account = Group("Account") {
 
 	apiMethod("account.getBannedUsers", resultType: .paginatedList(.def(user))) {
 		offsetAndCountParams("user", range: 1...1000, defaultCount: 100)
-		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
-			.doc("A list of user profile fields to be returned.")
+		userFieldsParam()
 	}
 	.doc("Returns the list of users blocked by the current user.")
 	.requiresPermissions("account")

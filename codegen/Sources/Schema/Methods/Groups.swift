@@ -98,8 +98,7 @@ let groups = Group("Groups") {
 
 	apiMethod("groups.getBannedUsers", resultType: .paginatedList(.def(user))) {
 		offsetAndCountParams("user", range: 1...1000, defaultCount: 100)
-		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
-			.doc("A list of ``User`` profile fields to be returned.")
+		userFieldsParam()
 		FieldDef("group_id", type: .def(groupID))
 			.required()
 			.doc("Group identifier.")
@@ -115,8 +114,7 @@ let groups = Group("Groups") {
 		FieldDef("group_ids", type: .array(.def(groupID)))
 			.required()
 			.doc("A list of group identifiers.")
-		FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
-			.doc("A list of group profile fields to return.")
+		groupFieldsParam()
 	}
 	.doc("Returns information about groups.")
 
@@ -129,11 +127,7 @@ let groups = Group("Groups") {
 				""")
 
 		offsetAndCountParams("invitation", range: 1...500, defaultCount: 20)
-
-		FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
-			.doc("""
-				A list of group profile fields to return.
-				""")
+		groupFieldsParam()
 	}
 	.doc("Returns the group invitations for the current user.")
 	.requiresPermissions("groups")
@@ -147,11 +141,7 @@ let groups = Group("Groups") {
 		FieldDef("extended", type: .bool)
 			.required()
 			.constantValue("true")
-		FieldDef("fields", type: .array(.def(actorField)))
-			.doc("""
-				A list of group profile fields to return, as well as
-				user profile fields for the inviters.
-				""")
+		actorFieldsParam()
 	}
 
 	apiMethod("groups.getMembers") {
@@ -329,9 +319,7 @@ let groups = Group("Groups") {
 				""")
 
 		offsetAndCountParams("group", range: 1...100, defaultCount: 100)
-
-		FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
-			.doc("A list of group profile fields to return.")
+		groupFieldsParam()
 	}
 	.doc("Searches groups or events.")
 }

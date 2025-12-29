@@ -17,8 +17,7 @@ let fave = Group("Fave") {
 
 	apiMethod("fave.getGroups", resultType: .paginatedList(.def(group))) {
 		offsetAndCountParams("group", range: 1...1000, defaultCount: 100)
-		FieldDef("fields", type: .array(TypeRef(name: "Group.Field")))
-			.doc("A list of ``Group`` profile fields to be returned.")
+		groupFieldsParam()
 	}
 	.doc("Returns the current user’s bookmarked groups and events.")
 	.requiresPermissions("likes:read")
@@ -51,17 +50,12 @@ let fave = Group("Fave") {
 		FieldDef("extended", type: .bool)
 			.required()
 			.constantValue("true")
-		FieldDef("fields", type: .array(.def(actorField)))
-			.doc("""
-				A list of ``User`` and ``Group`` profile fields to be
-				returned.
-				""")
+		actorFieldsParam()
 	}
 
 	apiMethod("fave.getUsers", resultType: .paginatedList(.def(user))) {
 		offsetAndCountParams("user", range: 1...1000, defaultCount: 100)
-		FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
-			.doc("A list of ``User`` profile fields to be returned.")
+		userFieldsParam()
 	}
 	.doc("Returns the current user’s bookmarked users.")
 	.requiresPermissions("likes:read")

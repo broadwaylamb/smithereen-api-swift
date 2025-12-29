@@ -32,8 +32,7 @@ extension Fave {
 			public var count: Int?
 			private let extended: Bool = true
 
-			/// A list of ``User`` and ``Group`` profile fields to be
-			/// returned.
+			/// A list of ``User`` and ``Group`` profile fields to be returned.
 			public var fields: [ActorField]?
 
 			public init(

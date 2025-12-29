@@ -91,7 +91,7 @@ extension Groups {
 			/// and “sure” attendees for events.
 			public var filter: Filter?
 
-			/// A list of user profile fields to be returned.
+			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]
 
 			public init(

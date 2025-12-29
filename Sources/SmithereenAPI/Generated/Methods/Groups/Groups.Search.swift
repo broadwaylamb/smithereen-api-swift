@@ -23,7 +23,7 @@ extension Groups {
 		/// Minumum value: 1. Maximum value: 100. By default 100.
 		public var count: Int?
 
-		/// A list of group profile fields to return.
+		/// A list of ``Group`` profile fields to be returned.
 		public var fields: [Group.Field]?
 
 		public init(

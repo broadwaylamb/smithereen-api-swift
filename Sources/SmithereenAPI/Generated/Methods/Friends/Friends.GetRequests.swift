@@ -40,7 +40,7 @@ extension Friends {
 			/// friend request.
 			public var needMutual: Bool?
 
-			/// A list of user profile fields to be returned.
+			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]?
 
 			public struct FriendRequest: Hashable, Codable, Sendable {

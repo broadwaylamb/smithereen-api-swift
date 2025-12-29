@@ -30,7 +30,7 @@ let newsfeed = Group("Newsfeed") {
 				""")
 
 		startFromAndCount(paginationToken)
-		fieldsParameter()
+		actorFieldsParam()
 
 		let relationUpdateStruct = StructDef("RelationUpdate") {
 			FieldDef("status", type: TypeRef(name: "User.RelationshipStatus"))
@@ -127,7 +127,7 @@ let newsfeed = Group("Newsfeed") {
 				By default uses the user preference.
 				""")
 
-		fieldsParameter()
+		actorFieldsParam()
 
 		let commentableObject = TaggedUnionDef("CommentableObject") {
 			TaggedUnionVariantDef("post", type: .def(wallPost))
@@ -193,7 +193,7 @@ let newsfeed = Group("Newsfeed") {
 		filter
 
 		startFromAndCount(paginationToken)
-		fieldsParameter()
+		actorFieldsParam()
 
 		let updatedItem = TaggedUnionDef("UpdatedItem") {
 			TaggedUnionVariantDef("post", type: .def(wallPost))
@@ -252,11 +252,6 @@ private func startFromAndCount(
 
 			By default 25.
 			""")
-}
-
-private func fieldsParameter() -> FieldDef {
-	FieldDef("fields", type: .array(.def(actorField)))
-		.doc("A list of user and group profile fields to return.")
 }
 
 @StructDefBuilder

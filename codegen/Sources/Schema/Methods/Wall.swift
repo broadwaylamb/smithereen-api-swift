@@ -177,6 +177,5 @@ private func extendedParameters() -> any StructDefPart {
 	FieldDef("extended", type: .bool)
 		.required()
 		.constantValue("true")
-	FieldDef("fields", type: .array(.def(actorField)))
-		.doc("A list of ``User`` and ``Group`` profile fields to be returned.")
+	actorFieldsParam()
 }

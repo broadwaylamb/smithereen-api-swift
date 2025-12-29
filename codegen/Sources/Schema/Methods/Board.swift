@@ -198,6 +198,5 @@ private func extendedParameters() -> any StructDefPart {
 	FieldDef("extended", type: .bool)
 		.required()
 		.constantValue("true")
-	FieldDef("fields", type: .array(TypeRef(name: "User.Field")))
-		.doc("A list of ``User`` profile fields to be returned.")
+	userFieldsParam()
 }

@@ -365,4 +365,19 @@ let groups = Group("Groups") {
 		groupFieldsParam()
 	}
 	.doc("Searches groups or events.")
+
+	apiMethod("groups.unbanDomain", resultType: .void) {
+		FieldDef("domain", type: .string)
+			.required()
+			.doc("The domain name of the server to block.")
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+	}
+	.doc("""
+		Unblocks a previously blocked remote server in a group.
+
+		The current user must be at least a moderator in the group.
+		""")
+	.requiresPermissions("groups")
 }

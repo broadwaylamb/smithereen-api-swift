@@ -118,6 +118,20 @@ let groups = Group("Groups") {
 	}
 	.doc("Returns information about groups.")
 
+	apiMethod("groups.getInvitedUsers", resultType: .paginatedList(.def(user))) {
+		offsetAndCountParams("user", range: 1...1000, defaultCount: 100)
+		userFieldsParam()
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+	}
+	.doc("""
+		Returns the list of users who have a pending invitation to a group.
+
+		The current user must be at least a moderator in the group.
+		""")
+	.requiresPermissions("groups")
+
 	apiMethod("groups.getInvites", resultType: .paginatedList(.def(group))) {
 		FieldDef("type", type: .def(communityType))
 			.doc("""

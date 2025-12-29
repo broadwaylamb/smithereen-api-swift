@@ -230,6 +230,20 @@ let groups = Group("Groups") {
 	.doc("Returns the list of group members.")
 	.withUserFields()
 
+	apiMethod("groups.getRequests", resultType: .paginatedList(.def(user))) {
+		offsetAndCountParams("user", range: 1...1000, defaultCount: 100)
+		userFieldsParam()
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+	}
+	.doc("""
+		Returns the list of users who requested to join a closed group.
+
+		The current user must be at least a moderator in the group.
+		""")
+	.requiresPermissions("groups")
+
 	FileDef("Groups.IsMember", additionalImports: ["Hammond"]) {
 		let isMemberDoc =
 			"Checks whether a user is a member of a group or an event."

@@ -83,6 +83,19 @@ let groups = Group("Groups") {
 	.doc("Returns the list of groups or events in which a user is a member.")
 	.withGroupFields()
 
+	apiMethod("groups.getBannedDomains", resultType: .paginatedList(.string)) {
+		offsetAndCountParams("domain", range: 1...1000, defaultCount: 100)
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+	}
+	.doc("""
+		Returns the list of remote server domains blocked in a group.
+
+		The current user must be at least a moderator in the group.
+		""")
+	.requiresPermissions("groups")
+
 	apiMethod("groups.getById", resultType: .array(.def(group))) {
 		FieldDef("group_ids", type: .array(.def(groupID)))
 			.required()

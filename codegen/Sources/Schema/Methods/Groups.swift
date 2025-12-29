@@ -334,6 +334,21 @@ let groups = Group("Groups") {
 		""")
 	.requiresPermissions("groups")
 
+	apiMethod("groups.removeUser", resultType: .void) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+		FieldDef("user_id", type: .def(userID))
+			.required()
+			.doc("User identifier.")
+	}
+	.doc("""
+		Removes a user from a group, rejects a pending join request,
+		or cancels an invitation.
+
+		The current user must be at least a moderator in the group.
+		""")
+
 	apiMethod("groups.search", resultType: .paginatedList(.def(group))) {
 		FieldDef("q", type: .string)
 			.swiftName("query")

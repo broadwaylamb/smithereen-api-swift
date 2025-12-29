@@ -380,4 +380,19 @@ let groups = Group("Groups") {
 		The current user must be at least a moderator in the group.
 		""")
 	.requiresPermissions("groups")
+
+	apiMethod("groups.unbanUser", resultType: .void) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+		FieldDef("user_id", type: .def(userID))
+			.required()
+			.doc("User identifier.")
+	}
+	.doc("""
+		Unblocks a previously blocked user in a group.
+
+		The current user must be at least a moderator in the group.
+		""")
+	.requiresPermissions("groups")
 }

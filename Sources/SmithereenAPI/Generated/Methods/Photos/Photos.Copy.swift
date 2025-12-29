@@ -16,6 +16,8 @@ extension Photos {
 		/// The identifier of the photo to be copied.
 		public var photoID: PhotoID
 
+		/// - parameters:
+		///   - photoID: The identifier of the photo to be copied.
 		public init(photoID: PhotoID) {
 			self.photoID = photoID
 		}

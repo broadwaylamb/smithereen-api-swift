@@ -49,6 +49,22 @@ public struct BoardTopic: Hashable, Codable, Sendable, Identifiable {
 	/// The first or last post text preview returned by some methods.
 	public var commentPreview: String?
 
+	/// - parameters:
+	///   - id: Unique (server-wide) identifier of this topic.
+	///   - groupID: Identifier of the group in which this topic exists.
+	///   - activityPubID: Globally unique ActivityPub identifier for this topic.
+	///     Use this to match topics across servers.
+	///   - url: The URL of the web page representing this topic.
+	///     For topics in remote groups, points to the group’s home server.
+	///   - title: The title of this topic.
+	///   - created: The timestamp when this topic was created.
+	///   - createdBy: Identifier of the user who created this topic.
+	///   - updated: The timestamp when someone last posted in this topic.
+	///   - updatedBy: Identifier of the user who last posted in this topic.
+	///   - isClosed: Whether this topic is closed so no further posts can be made.
+	///   - isPinned: Whether this topic is pinned at the top of the discussion board.
+	///   - comments: The total number of posts in this topic.
+	///   - commentPreview: The first or last post text preview returned by some methods.
 	public init(
 		id: BoardTopicID,
 		groupID: GroupID,

@@ -23,6 +23,12 @@ extension Groups {
 		/// Group identifier.
 		public var groupID: GroupID
 
+		/// - parameters:
+		///   - offset: Offset into the domain list for pagination.
+		///   - count: How many domains to return.
+		///     
+		///     Minumum value: 1. Maximum value: 1000. By default 100.
+		///   - groupID: Group identifier.
 		public init(
 			offset: Int? = nil,
 			count: Int? = nil,

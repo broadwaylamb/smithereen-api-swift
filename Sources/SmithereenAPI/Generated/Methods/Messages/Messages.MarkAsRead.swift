@@ -13,6 +13,8 @@ extension Messages {
 		/// Identifier of the message to be marked as read.
 		public var messageID: MessageID
 
+		/// - parameters:
+		///   - messageID: Identifier of the message to be marked as read.
 		public init(messageID: MessageID) {
 			self.messageID = messageID
 		}

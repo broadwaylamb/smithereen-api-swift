@@ -19,6 +19,10 @@ extension Photos {
 		/// The format of the text in ``caption``.
 		public var textFormat: TextFormat?
 
+		/// - parameters:
+		///   - photoID: Identifier of the photo to be updated.
+		///   - caption: The new caption.
+		///   - textFormat: The format of the text in ``caption``.
 		public init(
 			photoID: PhotoID,
 			caption: String? = nil,

@@ -40,6 +40,15 @@ extension Users {
 			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]
 
+			/// - parameters:
+			///   - userID: ID of the user whose subscriptions you’re requesting.
+			///     If the method is called with an access token,
+			///     defaults to the current user’s ID. Required if no token is used.
+			///   - offset: Offset into the follower list for pagination.
+			///   - count: How many followers to return.
+			///     
+			///     Minumum value: 1. Maximum value: 1000. By default 100.
+			///   - fields: A list of ``User`` profile fields to be returned.
 			public init(
 				userID: UserID? = nil,
 				offset: Int? = nil,
@@ -70,6 +79,14 @@ extension Users {
 			public typealias Result = PaginatedList<User, PaginatedListExtras.Empty>
 		}
 
+		/// - parameters:
+		///   - userID: ID of the user whose subscriptions you’re requesting.
+		///     If the method is called with an access token,
+		///     defaults to the current user’s ID. Required if no token is used.
+		///   - offset: Offset into the follower list for pagination.
+		///   - count: How many followers to return.
+		///     
+		///     Minumum value: 1. Maximum value: 1000. By default 100.
 		public init(
 			userID: UserID? = nil,
 			offset: Int? = nil,

@@ -18,11 +18,17 @@ extension Status {
 			/// The status text. If there’s no status, `nil`.
 			public var text: String?
 
+			/// - parameters:
+			///   - text: The status text. If there’s no status, `nil`.
 			public init(text: String? = nil) {
 				self.text = text
 			}
 		}
 
+		/// - parameters:
+		///   - ownerID: User or group ID for which to return the status.
+		///     By default, the current user.
+		///     Required if no token is used.
 		public init(ownerID: ActorID? = nil) {
 			self.ownerID = ownerID
 		}

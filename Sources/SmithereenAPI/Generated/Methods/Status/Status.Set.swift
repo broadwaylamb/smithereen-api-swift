@@ -19,6 +19,12 @@ extension Status {
 		/// The status text. The status is cleared if this is not specified.
 		public var text: String?
 
+		/// - parameters:
+		///   - groupID: Which group to update the status in.
+		///     Updating a group’s status requires the `groups` permission.
+		///     
+		///     If not specified, updates the current user’s status.
+		///   - text: The status text. The status is cleared if this is not specified.
 		public init(
 			groupID: GroupID? = nil,
 			text: String? = nil,

@@ -96,6 +96,26 @@ extension Board {
 			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]?
 
+			/// - parameters:
+			///   - groupID: The group for which topics need to be returned.
+			///   - order: Sort order for the topics. Pinned topics, if any, will always
+			///     be returned first regardless of this parameter.
+			///     
+			///     By default ``Order/updatedDescending``.
+			///   - offset: Offset into the topic list for pagination.
+			///   - count: How many topics to return.
+			///     
+			///     Minumum value: 1. Maximum value: 100. By default 40.
+			///   - preview: Comment preview mode.
+			///     
+			///     By default ``TopicCommentPreviewMode/none``.
+			///   - previewLength: If ``preview`` is not ``TopicCommentPreviewMode/none``, how many
+			///     characters of the comment text to return.
+			///     The text will be truncated on a word boundary.
+			///     Pass 0 to return complete texts.
+			///     
+			///     By default 90.
+			///   - fields: A list of ``User`` profile fields to be returned.
 			public init(
 				groupID: GroupID,
 				order: Order? = nil,
@@ -136,6 +156,25 @@ extension Board {
 			public typealias Result = PaginatedList<BoardTopic, PaginatedListExtras.Profiles>
 		}
 
+		/// - parameters:
+		///   - groupID: The group for which topics need to be returned.
+		///   - order: Sort order for the topics. Pinned topics, if any, will always
+		///     be returned first regardless of this parameter.
+		///     
+		///     By default ``Order/updatedDescending``.
+		///   - offset: Offset into the topic list for pagination.
+		///   - count: How many topics to return.
+		///     
+		///     Minumum value: 1. Maximum value: 100. By default 40.
+		///   - preview: Comment preview mode.
+		///     
+		///     By default ``TopicCommentPreviewMode/none``.
+		///   - previewLength: If ``preview`` is not ``TopicCommentPreviewMode/none``, how many
+		///     characters of the comment text to return.
+		///     The text will be truncated on a word boundary.
+		///     Pass 0 to return complete texts.
+		///     
+		///     By default 90.
 		public init(
 			groupID: GroupID,
 			order: Order? = nil,

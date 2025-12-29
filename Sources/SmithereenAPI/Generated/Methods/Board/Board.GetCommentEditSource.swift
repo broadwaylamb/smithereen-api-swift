@@ -11,6 +11,9 @@ extension Board {
 		/// returned.
 		public var commentID: TopicCommentID
 
+		/// - parameters:
+		///   - commentID: The identifier of the comment for which the source needs to be
+		///     returned.
 		public init(commentID: TopicCommentID) {
 			self.commentID = commentID
 		}

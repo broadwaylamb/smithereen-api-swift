@@ -13,6 +13,8 @@ extension Photos {
 		/// Identifier of the photo.
 		public var photoID: PhotoID
 
+		/// - parameters:
+		///   - photoID: Identifier of the photo.
 		public init(photoID: PhotoID) {
 			self.photoID = photoID
 		}

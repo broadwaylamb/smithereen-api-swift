@@ -66,6 +66,18 @@ extension Board {
 				}
 			}
 
+			/// - parameters:
+			///   - topicIDs: A list of topic identifiers.
+			///   - preview: Comment preview mode.
+			///     
+			///     By default ``TopicCommentPreviewMode/none``.
+			///   - previewLength: If ``preview`` is not ``TopicCommentPreviewMode/none``, how many
+			///     characters of the comment text to return.
+			///     The text will be truncated on a word boundary.
+			///     Pass 0 to return complete texts.
+			///     
+			///     By default 90.
+			///   - fields: A list of ``User`` profile fields to be returned.
 			public init(
 				topicIDs: [BoardTopicID],
 				preview: TopicCommentPreviewMode? = nil,
@@ -96,6 +108,17 @@ extension Board {
 			}
 		}
 
+		/// - parameters:
+		///   - topicIDs: A list of topic identifiers.
+		///   - preview: Comment preview mode.
+		///     
+		///     By default ``TopicCommentPreviewMode/none``.
+		///   - previewLength: If ``preview`` is not ``TopicCommentPreviewMode/none``, how many
+		///     characters of the comment text to return.
+		///     The text will be truncated on a word boundary.
+		///     Pass 0 to return complete texts.
+		///     
+		///     By default 90.
 		public init(
 			topicIDs: [BoardTopicID],
 			preview: TopicCommentPreviewMode? = nil,

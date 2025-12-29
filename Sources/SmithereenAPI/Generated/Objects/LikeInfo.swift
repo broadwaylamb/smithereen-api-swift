@@ -14,6 +14,10 @@ public struct LikeInfo: Hashable, Codable, Sendable {
 	/// Whether the current user likes this photo.
 	public var userLikes: Bool?
 
+	/// - parameters:
+	///   - count: How many users liked this object.
+	///   - canLike: Whether the current user can like this object.
+	///   - userLikes: Whether the current user likes this photo.
 	public init(
 		count: Int,
 		canLike: Bool,

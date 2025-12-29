@@ -13,6 +13,8 @@ extension Wall {
 		/// The identifier of the post which you’re deleting.
 		public var postID: WallPostID
 
+		/// - parameters:
+		///   - postID: The identifier of the post which you’re deleting.
 		public init(postID: WallPostID) {
 			self.postID = postID
 		}

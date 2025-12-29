@@ -18,6 +18,9 @@ extension Groups {
 		/// User identifier.
 		public var userID: UserID
 
+		/// - parameters:
+		///   - groupID: Group identifier.
+		///   - userID: User identifier.
 		public init(
 			groupID: GroupID,
 			userID: UserID,

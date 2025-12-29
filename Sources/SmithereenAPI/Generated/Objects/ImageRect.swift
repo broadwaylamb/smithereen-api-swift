@@ -17,6 +17,11 @@ public struct ImageRect: Hashable, Codable, Sendable {
 	/// The Y coordinate of the bottom right corner, from 0 to 1.
 	public var y2: Double
 
+	/// - parameters:
+	///   - x1: The X coordinate of the top left corner, from 0 to 1.
+	///   - y1: The Y coordinate of the top left corner, from 0 to 1.
+	///   - x2: The X coordinate of the bottom right corner, from 0 to 1.
+	///   - y2: The Y coordinate of the bottom right corner, from 0 to 1.
 	public init(
 		x1: Double,
 		y1: Double,

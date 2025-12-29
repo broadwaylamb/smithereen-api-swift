@@ -61,6 +61,8 @@ extension Utils {
 			}
 		}
 
+		/// - parameters:
+		///   - screenName: The username or `username@domain` to resolve.
 		public init(screenName: String) {
 			self.screenName = screenName
 		}

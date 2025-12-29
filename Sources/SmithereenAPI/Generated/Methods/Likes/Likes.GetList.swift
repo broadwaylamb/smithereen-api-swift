@@ -52,6 +52,17 @@ extension Likes {
 			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]
 
+			/// - parameters:
+			///   - itemID: Identifier of the target object.
+			///   - friendsOnly: Whether to only return likes by the current user’s friends.
+			///     By default `false`.
+			///   - skipOwn: Whether to omit the current user from the list.
+			///     By default `false`.
+			///   - offset: Offset into the user list for pagination.
+			///   - count: How many users to return.
+			///     
+			///     Minumum value: 1. Maximum value: 1000. By default 100.
+			///   - fields: A list of ``User`` profile fields to be returned.
 			public init(
 				itemID: LikeableObject,
 				friendsOnly: Bool? = nil,
@@ -96,6 +107,16 @@ extension Likes {
 			public typealias Result = PaginatedList<User, PaginatedListExtras.Empty>
 		}
 
+		/// - parameters:
+		///   - itemID: Identifier of the target object.
+		///   - friendsOnly: Whether to only return likes by the current user’s friends.
+		///     By default `false`.
+		///   - skipOwn: Whether to omit the current user from the list.
+		///     By default `false`.
+		///   - offset: Offset into the user list for pagination.
+		///   - count: How many users to return.
+		///     
+		///     Minumum value: 1. Maximum value: 1000. By default 100.
 		public init(
 			itemID: LikeableObject,
 			friendsOnly: Bool? = nil,

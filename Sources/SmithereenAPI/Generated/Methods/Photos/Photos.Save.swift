@@ -25,6 +25,12 @@ extension Photos {
 		/// The format of the text in ``caption``.
 		public var textFormat: TextFormat?
 
+		/// - parameters:
+		///   - albumID: Identifier of the photo album.
+		///   - id: A parameter returned by the upload endpoint.
+		///   - hash: A parameter returned by the upload endpoint.
+		///   - caption: The caption for the photo.
+		///   - textFormat: The format of the text in ``caption``.
 		public init(
 			albumID: PhotoAlbumID,
 			id: UploadedImageID,

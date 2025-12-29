@@ -104,6 +104,28 @@ public struct Message: Hashable, Codable, Sendable, Identifiable {
 		}
 	}
 
+	/// - parameters:
+	///   - id: Unique (server-wide) identifier of this message.
+	///   - activityPubID: Globally unique ActivityPub identifier for this message.
+	///     Use this to match messages across servers.
+	///   - from: Identifier of the user who sent this message.
+	///   - to: Identifiers of primary recipients of this message.
+	///   - cc: Identifiers of secondary recipients of this message.
+	///   - date: Timestamp when this message was sent.
+	///   - readBy: Identifiers of recipients who have read (opened) this message.
+	///     
+	///     Read receipts are currently only supported by Smithereen,
+	///     so users from servers running different software won’t
+	///     show up here.
+	///   - subject: The subject line.
+	///   - body: The main text of the message as HTML.
+	///   - attachments: Media attachments added to this message.
+	///   - replyTo: If this message is in reply to something, information about
+	///     that object.
+	///     
+	///     Mastodon and most other similar microblogging-style software
+	///     represents private messages as posts with limited visibility,
+	///     thus allowing its users to reply to public content in private.
 	public init(
 		id: MessageID,
 		activityPubID: URL,

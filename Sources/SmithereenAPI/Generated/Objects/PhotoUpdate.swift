@@ -16,6 +16,11 @@ public struct PhotoUpdate: Hashable, Codable, Sendable {
 	/// were added or tagged using ``Photos/GetFeedEntry``.
 	public var listID: PhotoFeedEntryID
 
+	/// - parameters:
+	///   - count: How many photos were added or tagged in total.
+	///   - items: Up to 10 photo objects.
+	///   - listID: An identifier to retrieve the complete list of photos that
+	///     were added or tagged using ``Photos/GetFeedEntry``.
 	public init(
 		count: Int,
 		items: [Photo],

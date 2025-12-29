@@ -13,6 +13,8 @@ extension Friends {
 		/// The identifier of the friend list to be deleted.
 		public var listID: FriendListID
 
+		/// - parameters:
+		///   - listID: The identifier of the friend list to be deleted.
 		public init(listID: FriendListID) {
 			self.listID = listID
 		}

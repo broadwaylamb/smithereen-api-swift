@@ -26,6 +26,15 @@ extension Groups {
 		/// A list of ``Group`` profile fields to be returned.
 		public var fields: [Group.Field]?
 
+		/// - parameters:
+		///   - query: The search query.
+		///   - type: Whether to search for groups or to events.
+		///     By default ``CommunityType/groups``.
+		///   - offset: Offset into the group list for pagination.
+		///   - count: How many groups to return.
+		///     
+		///     Minumum value: 1. Maximum value: 100. By default 100.
+		///   - fields: A list of ``Group`` profile fields to be returned.
 		public init(
 			query: String,
 			type: CommunityType? = nil,

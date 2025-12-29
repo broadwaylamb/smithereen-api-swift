@@ -16,6 +16,8 @@ extension Messages {
 		/// Identifier of the message to be restored.
 		public var messageID: MessageID
 
+		/// - parameters:
+		///   - messageID: Identifier of the message to be restored.
 		public init(messageID: MessageID) {
 			self.messageID = messageID
 		}

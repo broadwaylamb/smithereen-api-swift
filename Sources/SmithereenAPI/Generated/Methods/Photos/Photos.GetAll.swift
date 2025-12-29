@@ -29,6 +29,18 @@ extension Photos {
 		/// By default `false`.
 		public var extended: Bool?
 
+		/// - parameters:
+		///   - ownerID: Identifier of the user or group whose albums need to be returned.
+		///     
+		///     Current user by default. Required if called without a token.
+		///   - offset: Offset into the photo list for pagination.
+		///   - count: How many photos to return.
+		///     
+		///     Minumum value: 1. Maximum value: 1000. By default 50.
+		///   - extended: Whether to return extra fields about likes, comments,
+		///     and tags for each photo.
+		///     
+		///     By default `false`.
 		public init(
 			ownerID: ActorID? = nil,
 			offset: Int? = nil,

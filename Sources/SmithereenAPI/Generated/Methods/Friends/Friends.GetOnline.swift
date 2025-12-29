@@ -69,6 +69,19 @@ extension Friends {
 			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]
 
+			/// - parameters:
+			///   - userID: The identifier of the user whose friend list needs to be
+			///     returned. If an access token is used, defaults to the current
+			///     user’s ID. Required when called without an access token.
+			///   - order: In which order to return the friends. By default ``Order/id``.
+			///   - listID: Only return friends in the specified list. For private lists,
+			///     only works for the current user and only with a token that has
+			///     the `friends:read` permission.
+			///   - offset: Offset into the friend list for pagination.
+			///   - count: How many friends to return.
+			///     
+			///     Minumum value: 1. Maximum value: 1000. By default 100.
+			///   - fields: A list of ``User`` profile fields to be returned.
 			public init(
 				userID: UserID? = nil,
 				order: Order? = nil,
@@ -105,6 +118,18 @@ extension Friends {
 			public typealias Result = PaginatedList<User, PaginatedListExtras.Empty>
 		}
 
+		/// - parameters:
+		///   - userID: The identifier of the user whose friend list needs to be
+		///     returned. If an access token is used, defaults to the current
+		///     user’s ID. Required when called without an access token.
+		///   - order: In which order to return the friends. By default ``Order/id``.
+		///   - listID: Only return friends in the specified list. For private lists,
+		///     only works for the current user and only with a token that has
+		///     the `friends:read` permission.
+		///   - offset: Offset into the friend list for pagination.
+		///   - count: How many friends to return.
+		///     
+		///     Minumum value: 1. Maximum value: 1000. By default 100.
 		public init(
 			userID: UserID? = nil,
 			order: Order? = nil,

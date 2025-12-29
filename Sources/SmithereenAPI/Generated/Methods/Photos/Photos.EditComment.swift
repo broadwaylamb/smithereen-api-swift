@@ -33,6 +33,19 @@ extension Photos {
 		/// This text will be shown instead of the content.
 		public var contentWarning: String?
 
+		/// - parameters:
+		///   - commentID: The identifier of the comment to be updated.
+		///   - message: The text of the comment.
+		///     **Required** if there are no ``attachments``.
+		///     This parameter supports formatted text, the format is
+		///     determined by the ``textFormat`` parameter.
+		///   - textFormat: The format of the comment text passed in ``message``.
+		///     By default, the user’s preference is used.
+		///   - attachments: An array representing the media attachments to be added to this comment.
+		///     **Required** if there is no ``message``.
+		///   - contentWarning: If this is not empty, make the content of the comment hidden
+		///     by default, requiring a click to reveal.
+		///     This text will be shown instead of the content.
 		public init(
 			commentID: PhotoCommentID,
 			message: String? = nil,

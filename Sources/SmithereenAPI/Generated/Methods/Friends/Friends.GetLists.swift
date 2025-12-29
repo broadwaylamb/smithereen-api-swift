@@ -12,6 +12,10 @@ extension Friends {
 		/// If using a token, defaults to the current user.
 		public var userID: UserID?
 
+		/// - parameters:
+		///   - userID: User identifier whose friend lists need to be returned.
+		///     Required if not using a token.
+		///     If using a token, defaults to the current user.
 		public init(userID: UserID? = nil) {
 			self.userID = userID
 		}

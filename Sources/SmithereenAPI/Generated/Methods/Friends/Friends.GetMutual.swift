@@ -65,6 +65,17 @@ extension Friends {
 			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]
 
+			/// - parameters:
+			///   - sourceUserID: Identifier of the user whose friend list needs to be intersected
+			///     with ``targetUserID``. By default, the current user ID.
+			///   - targetUserID: Identifier of the user with whom mutual friends need to be
+			///     found.
+			///   - order: In which order to return the friends. By default ``Order/id``.
+			///   - offset: Offset into the friend list for pagination.
+			///   - count: How many friends to return.
+			///     
+			///     Minumum value: 1. Maximum value: 1000. By default 100.
+			///   - fields: A list of ``User`` profile fields to be returned.
 			public init(
 				sourceUserID: UserID? = nil,
 				targetUserID: UserID,
@@ -101,6 +112,16 @@ extension Friends {
 			public typealias Result = PaginatedList<User, PaginatedListExtras.Empty>
 		}
 
+		/// - parameters:
+		///   - sourceUserID: Identifier of the user whose friend list needs to be intersected
+		///     with ``targetUserID``. By default, the current user ID.
+		///   - targetUserID: Identifier of the user with whom mutual friends need to be
+		///     found.
+		///   - order: In which order to return the friends. By default ``Order/id``.
+		///   - offset: Offset into the friend list for pagination.
+		///   - count: How many friends to return.
+		///     
+		///     Minumum value: 1. Maximum value: 1000. By default 100.
 		public init(
 			sourceUserID: UserID? = nil,
 			targetUserID: UserID,

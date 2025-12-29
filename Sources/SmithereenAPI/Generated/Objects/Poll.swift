@@ -39,6 +39,11 @@ public struct Poll: Hashable, Codable, Sendable, Identifiable {
 		/// The percentage of people who voted for this option.
 		public var rate: Double
 
+		/// - parameters:
+		///   - id: Identifier of this option.
+		///   - text: The text of the option.
+		///   - votes: The number of people who voted for this option.
+		///   - rate: The percentage of people who voted for this option.
 		public init(
 			id: PollOptionID,
 			text: String,
@@ -80,6 +85,24 @@ public struct Poll: Hashable, Codable, Sendable, Identifiable {
 	/// The identifier of the author of this poll.
 	public var authorID: ActorID
 
+	/// - parameters:
+	///   - id: The identifier of this poll.
+	///   - ownerID: The identifier of the owner of this poll.
+	///   - created: The timestamp when this poll was created, as unixtime.
+	///   - question: The text of the question.
+	///   - votes: The total number of votes.
+	///   - answers: An array of objects describing the poll options.
+	///   - anonymous: Whether this poll is anonymous (i.e. no one can see who voted on it
+	///     and for what).
+	///   - multiple: Whether this poll is multiple-choice.
+	///   - answerIDs: If the current user has voted in this poll, the IDs of the options
+	///     they voted for.
+	///   - endDate: The timestamp when this poll ends, in unixtime.
+	///     0 if the poll does not end.
+	///   - closed: Whether this poll has ended.
+	///   - canEdit: Whether the current user can edit this poll.
+	///   - canVote: Whether the current user can vote in this poll.
+	///   - authorID: The identifier of the author of this poll.
 	public init(
 		id: PollID,
 		ownerID: ActorID,

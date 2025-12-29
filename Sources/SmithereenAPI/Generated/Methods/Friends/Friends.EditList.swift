@@ -29,6 +29,16 @@ extension Friends {
 		/// Only applies if ``userIDs`` was not specified.
 		public var deleteUserIDs: [UserID]?
 
+		/// - parameters:
+		///   - listID: The identifier of the friend list to be updated.
+		///   - name: A new name for the list. If not specified, the name of the list
+		///     will not be updated.
+		///   - userIDs: A list of user identifiers to completely replace the existing
+		///     ones in this list.
+		///   - addUserIDs: A list of user identifiers to be added to this list.
+		///     Only applies if ``userIDs`` was not specified.
+		///   - deleteUserIDs: A list of user identifiers to be removed from this list.
+		///     Only applies if ``userIDs`` was not specified.
 		public init(
 			listID: FriendListID,
 			name: String? = nil,

@@ -11,6 +11,8 @@ extension Polls {
 		/// The identifier of the poll.
 		public var pollID: PollID
 
+		/// - parameters:
+		///   - pollID: The identifier of the poll.
 		public init(pollID: PollID) {
 			self.pollID = pollID
 		}

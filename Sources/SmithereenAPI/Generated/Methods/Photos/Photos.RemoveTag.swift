@@ -16,6 +16,9 @@ extension Photos {
 		/// Identifier of the tag.
 		public var tagID: PhotoTagID
 
+		/// - parameters:
+		///   - photoID: Identifier of the photo.
+		///   - tagID: Identifier of the tag.
 		public init(
 			photoID: PhotoID,
 			tagID: PhotoTagID,

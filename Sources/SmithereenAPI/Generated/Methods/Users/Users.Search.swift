@@ -30,6 +30,12 @@ extension Users {
 			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]
 
+			/// - parameters:
+			///   - query: The search query.
+			///   - count: How many search results to return, from 1 to 100.
+			///     
+			///     By default 100.
+			///   - fields: A list of ``User`` profile fields to be returned.
 			public init(
 				query: String,
 				count: Int? = nil,
@@ -57,6 +63,11 @@ extension Users {
 			public typealias Result = PaginatedList<User, PaginatedListExtras.Empty>
 		}
 
+		/// - parameters:
+		///   - query: The search query.
+		///   - count: How many search results to return, from 1 to 100.
+		///     
+		///     By default 100.
 		public init(
 			query: String,
 			count: Int? = nil,

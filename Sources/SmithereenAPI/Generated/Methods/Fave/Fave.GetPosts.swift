@@ -35,6 +35,12 @@ extension Fave {
 			/// A list of ``User`` and ``Group`` profile fields to be returned.
 			public var fields: [ActorField]?
 
+			/// - parameters:
+			///   - offset: Offset into the post list for pagination.
+			///   - count: How many posts to return.
+			///     
+			///     Minumum value: 1. Maximum value: 100. By default 50.
+			///   - fields: A list of ``User`` and ``Group`` profile fields to be returned.
 			public init(
 				offset: Int? = nil,
 				count: Int? = nil,
@@ -56,6 +62,11 @@ extension Fave {
 			public typealias Result = PaginatedList<WallPost, PaginatedListExtras.ProfilesAndGroups>
 		}
 
+		/// - parameters:
+		///   - offset: Offset into the post list for pagination.
+		///   - count: How many posts to return.
+		///     
+		///     Minumum value: 1. Maximum value: 100. By default 50.
 		public init(
 			offset: Int? = nil,
 			count: Int? = nil,

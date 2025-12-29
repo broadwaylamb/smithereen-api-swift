@@ -20,6 +20,12 @@ extension Photos {
 		/// By default `false`.
 		public var extended: Bool?
 
+		/// - parameters:
+		///   - photoIDs: A list of up to 1000 photo identifiers.
+		///   - extended: Whether to return extra fields about likes, comments,
+		///     and tags for each photo.
+		///     
+		///     By default `false`.
 		public init(
 			photoIDs: [PhotoID],
 			extended: Bool? = nil,

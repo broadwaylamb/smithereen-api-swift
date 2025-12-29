@@ -13,6 +13,8 @@ extension Account {
 		/// The domain name of the server to block.
 		public var domain: String
 
+		/// - parameters:
+		///   - domain: The domain name of the server to block.
 		public init(domain: String) {
 			self.domain = domain
 		}

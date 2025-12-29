@@ -258,6 +258,9 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// Description to be shown alongside the name.
 		public var description: String?
 
+		/// - parameters:
+		///   - userID: User identifier.
+		///   - description: Description to be shown alongside the name.
 		public init(
 			userID: UserID,
 			description: String? = nil,
@@ -293,6 +296,10 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// How many topics there are in the group’s discussion board.
 		public var topics: Int
 
+		/// - parameters:
+		///   - photos: How many photos there are in the group.
+		///   - albums: How many photo albums there are in the group.
+		///   - topics: How many topics there are in the group’s discussion board.
 		public init(
 			photos: Int,
 			albums: Int,
@@ -352,6 +359,14 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// 200x200 preview image URL.
 		public var photo200: URL?
 
+		/// - parameters:
+		///   - id: Identifier of this link.
+		///   - url: The URL of this link.
+		///   - name: The title of this link.
+		///   - description: The description of this link.
+		///   - photo50: 50x50 preview image URL.
+		///   - photo100: 100x100 preview image URL.
+		///   - photo200: 200x200 preview image URL.
 		public init(
 			id: GroupLinkID,
 			url: URL,
@@ -702,6 +717,170 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		]
 	}
 
+	/// - parameters:
+	///   - id: Unique (within the server) identifier for this group.
+	///   - name: The name of this group or event.
+	///   - deactivated: For restricted groups, their restriction status.
+	///     If this is set, none of the optional fields will be returned.
+	///   - activityPubID: Globally unique ActivityPub identifier for this group.
+	///     Use this to match groups across servers.
+	///   - accessType: Determines how new members can join this group and what is visible
+	///     to non-members.
+	///   - type: The type of this community.
+	///   - domain: For a group from a remote server, the domain of its home server.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - screenName: The profile URL a.k.a. the username.
+	///     If the community doesn’t have one set, defaults to `clubXXX`
+	///     for groups and `eventXXX` for events.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - status: The status string, the one that’s displayed under the group’s
+	///     name on the web.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - url: The URL of this group’s profile page on the web.
+	///     For remote groups, this points to its home server.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - isAdmin: Whether the current user can manage this group.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - adminLevel: The privilege level of the current user, if `isAdmin` is `true`.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - isMember: Whether the current user is a member of this group.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - photo50: URL of a square 50x50 version of the profile picture.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - photo100: URL of a square 100x100 version of the profile picture.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - photo200: URL of a square 200x200 version of the profile picture.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - photo400: URL of a square 400x400 version of the profile picture.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - photo200Orig: URL of a rectangular 200px wide version of the profile picture.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - photo400Orig: URL of a rectangular 400px wide version of the profile picture.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - photoID: If this group has a “profile pictures” system photo album,
+	///     ID of the photo used for the current profile picture in that album.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - hasPhoto: Whether this group has a profile picture.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - cropPhoto: If this group has a “profile pictures” system photo album,
+	///     information about its profile photo
+	///     and the coordinates used for cropping it down to the “medium”
+	///     rectangular and “small” square sizes.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - canCreateTopic: Whether the current user can create new discussion board topics
+	///     in this group.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - canPost: Whether the current user can create new posts on this group’s wall.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - management: Information about users who manage this group.
+	///     Only returned when a single group is requested.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - counters: Information about how many of each of the types of content there are
+	///     in this group. Only returned when a single group is requested.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - description: The description text of this group, as HTML.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - isFavorite: Whether this group is in the current user’s bookmarks.
+	///     Requires the `likes:read` permission.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - links: Information from the “Links” block in this group.
+	///     Only returned when a single group is requested.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - memberStatus: The membership status of the current user in this group.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - place: The name of the place and/or address where this event will take
+	///     place.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - site: The website URL from the group’s profile.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - startDate: The time when the event starts.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
+	///   - finishDate: The time when the event ends.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``Group`` objects.
 	public init(
 		id: GroupID,
 		name: String,

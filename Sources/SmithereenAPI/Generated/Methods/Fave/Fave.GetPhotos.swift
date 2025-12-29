@@ -24,6 +24,15 @@ extension Fave {
 		/// By default `false`.
 		public var extended: Bool?
 
+		/// - parameters:
+		///   - offset: Offset into the photo list for pagination.
+		///   - count: How many photos to return.
+		///     
+		///     Minumum value: 1. Maximum value: 1000. By default 50.
+		///   - extended: Whether to return extra fields about likes, comments,
+		///     and tags for each photo.
+		///     
+		///     By default `false`.
 		public init(
 			offset: Int? = nil,
 			count: Int? = nil,

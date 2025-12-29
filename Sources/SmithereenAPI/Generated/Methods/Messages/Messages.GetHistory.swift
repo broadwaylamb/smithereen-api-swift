@@ -25,6 +25,12 @@ extension Messages {
 		/// Minumum value: 1. Maximum value: 200. By default 20.
 		public var count: Int?
 
+		/// - parameters:
+		///   - userID: Identifier of the user.
+		///   - offset: Offset into the message list for pagination.
+		///   - count: How many messages to return.
+		///     
+		///     Minumum value: 1. Maximum value: 200. By default 20.
 		public init(
 			userID: UserID,
 			offset: Int? = nil,

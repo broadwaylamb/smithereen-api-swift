@@ -18,6 +18,12 @@ public enum AttachmentToCreate: Hashable, Codable, Sendable {
 		/// An optional caption or alt text for this image.
 		public var text: String?
 
+		/// - parameters:
+		///   - fileID: The identifier returned by the upload endpoint after
+		///     [uploading the image](https://smithereen.software/docs/api/uploads).
+		///   - hash: The hash returned by the upload endpoint after
+		///     [uploading the image](https://smithereen.software/docs/api/uploads).
+		///   - text: An optional caption or alt text for this image.
 		public init(
 			fileID: UploadedImageID,
 			hash: UploadedImageHash,

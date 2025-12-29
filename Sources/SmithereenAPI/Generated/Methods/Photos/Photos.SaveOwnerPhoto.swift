@@ -26,6 +26,15 @@ extension Photos {
 		///   if it’s vertical, or from its center if it’s horizontal
 		public var cropRects: AvatarCropRects?
 
+		/// - parameters:
+		///   - groupID: If updating a group’s profile picture, identifier of that group.
+		///   - id: A parameter returned by the upload endpoint.
+		///   - hash: A parameter returned by the upload endpoint.
+		///   - cropRects: If this parameter is `nil`:
+		///     
+		///     - The entire photo will be used for the rectangular version
+		///     - The square will be taken from the top of the rectangular version
+		///       if it’s vertical, or from its center if it’s horizontal
 		public init(
 			groupID: GroupID? = nil,
 			id: UploadedImageID,

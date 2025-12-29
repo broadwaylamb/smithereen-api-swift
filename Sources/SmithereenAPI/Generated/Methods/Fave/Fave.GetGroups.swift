@@ -21,6 +21,12 @@ extension Fave {
 		/// A list of ``Group`` profile fields to be returned.
 		public var fields: [Group.Field]?
 
+		/// - parameters:
+		///   - offset: Offset into the group list for pagination.
+		///   - count: How many groups to return.
+		///     
+		///     Minumum value: 1. Maximum value: 1000. By default 100.
+		///   - fields: A list of ``Group`` profile fields to be returned.
 		public init(
 			offset: Int? = nil,
 			count: Int? = nil,

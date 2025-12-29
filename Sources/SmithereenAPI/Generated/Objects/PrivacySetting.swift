@@ -59,6 +59,16 @@ public struct PrivacySetting: Hashable, Codable, Sendable {
 	/// **not** have access even if the base rule would allow it.
 	public var exceptLists: [FriendListID]
 
+	/// - parameters:
+	///   - rule: The base rule of this privacy setting.
+	///   - allowUsers: Identifiers of the current user’s friends who have access even if
+	///     the base rule would not allow it.
+	///   - allowLists: Identifiers of the current user’s friend lists whose members have
+	///     access even if the base rule would not allow it.
+	///   - exceptUsers: Identifiers of the current user’s friends who do **not** have access
+	///     even if the base rule would allow it.
+	///   - exceptLists: Identifiers of the current user’s friend lists whose members do
+	///     **not** have access even if the base rule would allow it.
 	public init(
 		rule: Rule,
 		allowUsers: [UserID],

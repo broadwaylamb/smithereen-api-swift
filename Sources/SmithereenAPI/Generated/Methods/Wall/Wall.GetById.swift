@@ -53,6 +53,15 @@ extension Wall {
 				}
 			}
 
+			/// - parameters:
+			///   - posts: A list of post IDs
+			///   - repostHistoryDepth: Determines the size of the ``WallPost/repostHistory`` array.
+			///     For example, if a post is a repost of another repost,
+			///     with ``repostHistoryDepth`` = 1, only the first repost
+			///     will be returned.
+			///     
+			///     From 0 to 10. By default 2.
+			///   - fields: A list of ``User`` and ``Group`` profile fields to be returned.
 			public init(
 				posts: [WallPostID],
 				repostHistoryDepth: Int? = nil,
@@ -80,6 +89,14 @@ extension Wall {
 			}
 		}
 
+		/// - parameters:
+		///   - posts: A list of post IDs
+		///   - repostHistoryDepth: Determines the size of the ``WallPost/repostHistory`` array.
+		///     For example, if a post is a repost of another repost,
+		///     with ``repostHistoryDepth`` = 1, only the first repost
+		///     will be returned.
+		///     
+		///     From 0 to 10. By default 2.
 		public init(
 			posts: [WallPostID],
 			repostHistoryDepth: Int? = nil,

@@ -69,6 +69,9 @@ extension Friends {
 					/// Up to 10 user IDs of mutual friends.
 					public var users: [UserID]
 
+					/// - parameters:
+					///   - count: The total number of mutual friends.
+					///   - users: Up to 10 user IDs of mutual friends.
 					public init(
 						count: Int,
 						users: [UserID],
@@ -78,6 +81,15 @@ extension Friends {
 					}
 				}
 
+				/// - parameters:
+				///   - userID: If no ``Friends/GetRequests/Extended/fields`` are specified,
+				///     the user identifier.
+				///   - user: If ``Friends/GetRequests/Extended/fields`` are specified,
+				///     a ``User`` object.
+				///   - message: If ``Friends/GetRequests/Extended/extended`` is `true`,
+				///     and this friend request was sent with a message, that message.
+				///   - mutual: If ``Friends/GetRequests/Extended/needMutual`` is `true`,
+				///     an object describing the mutual friends with this user.
 				public init(
 					userID: UserID? = nil,
 					user: User? = nil,
@@ -98,6 +110,17 @@ extension Friends {
 				}
 			}
 
+			/// - parameters:
+			///   - offset: Offset into the friend request list for pagination.
+			///   - count: How many friend requests to return.
+			///     
+			///     Minumum value: 1. Maximum value: 100. By default 20.
+			///   - extended: Whether to return the messages specified by the users who sent
+			///     the friend requests.
+			///     By default `false`.
+			///   - needMutual: Whether to return information about mutual friends for each
+			///     friend request.
+			///   - fields: A list of ``User`` profile fields to be returned.
 			public init(
 				offset: Int? = nil,
 				count: Int? = nil,
@@ -131,6 +154,11 @@ extension Friends {
 			public typealias Result = PaginatedList<FriendRequest, PaginatedListExtras.Empty>
 		}
 
+		/// - parameters:
+		///   - offset: Offset into the friend request list for pagination.
+		///   - count: How many friend requests to return.
+		///     
+		///     Minumum value: 1. Maximum value: 100. By default 20.
 		public init(
 			offset: Int? = nil,
 			count: Int? = nil,

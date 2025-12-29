@@ -19,11 +19,15 @@ extension Likes {
 			/// The new number of likes on the target object.
 			public var likes: Int
 
+			/// - parameters:
+			///   - likes: The new number of likes on the target object.
 			public init(likes: Int) {
 				self.likes = likes
 			}
 		}
 
+		/// - parameters:
+		///   - itemID: Identifier of the object to be liked.
 		public init(itemID: LikeableObject) {
 			self.itemID = itemID
 		}

@@ -95,6 +95,33 @@ extension Photos {
 			/// A list of ``User`` and ``Group`` profile fields to be returned.
 			public var fields: [ActorField]?
 
+			/// - parameters:
+			///   - photoID: The identifier of the photo.
+			///   - viewType: How to structure the comments.
+			///     By default uses the user preference.
+			///     If no token is used, defaults to ``CommentView/flat``.
+			///   - offset: Offset into the comments.
+			///   - count: How many comments to return.
+			///     When ``viewType`` is ``CommentView/threaded`` or
+			///     ``CommentView/twoLevel``, how many **top-level** comments
+			///     to return.
+			///     
+			///     From 1 to 100. By default 20.
+			///   - secondaryCount: How many replies to return, combined, in all threads, when
+			///     ``viewType`` is ``CommentView/threaded`` or
+			///     ``CommentView/twoLevel``. Ignored for ``CommentView/flat``.
+			///     
+			///     From 1 to 100. By default 20.
+			///   - commentID: To retrieve a reply thread, the identifier of the comment
+			///     whose replies you would like to get.
+			///     **Important**: if you’re displaying comments as two levels,
+			///     you need to pass ``CommentView/flat`` to ``viewType`` when
+			///     loading reply threads.
+			///   - sort: The sort order for the comments.
+			///     
+			///     By default ``CommentSortOrder/ascending``.
+			///   - needLikes: Whether to return information about likes.
+			///   - fields: A list of ``User`` and ``Group`` profile fields to be returned.
 			public init(
 				photoID: PhotoID,
 				viewType: CommentView? = nil,
@@ -141,6 +168,32 @@ extension Photos {
 			public typealias Result = PaginatedList<PhotoComment, PaginatedListExtras.CommentViewWithProfilesAndGroups>
 		}
 
+		/// - parameters:
+		///   - photoID: The identifier of the photo.
+		///   - viewType: How to structure the comments.
+		///     By default uses the user preference.
+		///     If no token is used, defaults to ``CommentView/flat``.
+		///   - offset: Offset into the comments.
+		///   - count: How many comments to return.
+		///     When ``viewType`` is ``CommentView/threaded`` or
+		///     ``CommentView/twoLevel``, how many **top-level** comments
+		///     to return.
+		///     
+		///     From 1 to 100. By default 20.
+		///   - secondaryCount: How many replies to return, combined, in all threads, when
+		///     ``viewType`` is ``CommentView/threaded`` or
+		///     ``CommentView/twoLevel``. Ignored for ``CommentView/flat``.
+		///     
+		///     From 1 to 100. By default 20.
+		///   - commentID: To retrieve a reply thread, the identifier of the comment
+		///     whose replies you would like to get.
+		///     **Important**: if you’re displaying comments as two levels,
+		///     you need to pass ``CommentView/flat`` to ``viewType`` when
+		///     loading reply threads.
+		///   - sort: The sort order for the comments.
+		///     
+		///     By default ``CommentSortOrder/ascending``.
+		///   - needLikes: Whether to return information about likes.
 		public init(
 			photoID: PhotoID,
 			viewType: CommentView? = nil,

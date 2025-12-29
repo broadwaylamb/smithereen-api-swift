@@ -77,6 +77,23 @@ extension Wall {
 			/// A list of ``User`` and ``Group`` profile fields to be returned.
 			public var fields: [ActorField]?
 
+			/// - parameters:
+			///   - ownerID: The ID of the user or the group whose wall posts need
+			///     to be returned.
+			///     
+			///     By default the current user.
+			///   - offset: Offset into the post list for pagination.
+			///   - count: How many posts to return.
+			///     
+			///     Minumum value: 1. Maximum value: 100. By default 20.
+			///   - filter: Which posts to return. By default ``Filter/all``.
+			///   - repostHistoryDepth: Determines the size of the ``WallPost/repostHistory`` array.
+			///     For example, if a post is a repost of another repost,
+			///     with ``repostHistoryDepth`` = 1, only the first repost
+			///     will be returned.
+			///     
+			///     From 0 to 10. By default 2.
+			///   - fields: A list of ``User`` and ``Group`` profile fields to be returned.
 			public init(
 				ownerID: ActorID? = nil,
 				offset: Int? = nil,
@@ -114,6 +131,22 @@ extension Wall {
 			public typealias Result = PaginatedList<WallPost, PaginatedListExtras.ProfilesAndGroups>
 		}
 
+		/// - parameters:
+		///   - ownerID: The ID of the user or the group whose wall posts need
+		///     to be returned.
+		///     
+		///     By default the current user.
+		///   - offset: Offset into the post list for pagination.
+		///   - count: How many posts to return.
+		///     
+		///     Minumum value: 1. Maximum value: 100. By default 20.
+		///   - filter: Which posts to return. By default ``Filter/all``.
+		///   - repostHistoryDepth: Determines the size of the ``WallPost/repostHistory`` array.
+		///     For example, if a post is a repost of another repost,
+		///     with ``repostHistoryDepth`` = 1, only the first repost
+		///     will be returned.
+		///     
+		///     From 0 to 10. By default 2.
 		public init(
 			ownerID: ActorID? = nil,
 			offset: Int? = nil,

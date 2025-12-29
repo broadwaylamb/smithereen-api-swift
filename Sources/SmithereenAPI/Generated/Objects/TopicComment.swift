@@ -64,6 +64,30 @@ public struct TopicComment: CommentProtocol, Identifiable {
 	/// Only returned when `view_type` is `threaded` or `two_level`.
 	public var thread: CommentThread<TopicComment>?
 
+	/// - parameters:
+	///   - id: Unique (server-wide) identifier of this comment.
+	///   - ownerID: Identifier of the topic owner.
+	///   - fromID: Identifier of the user who made this comment.
+	///   - activityPubID: Globally unique ActivityPub identifier for this comment.
+	///     Use this to match comments across servers.
+	///   - url: The URL of the web page representing this comment.
+	///     For comments made by remote users, points to their home server.
+	///   - date: The timestamp when this comment was published, as unixtime.
+	///   - text: The text of the comment as HTML.
+	///     [More about text formatting](https://smithereen.software/docs/api/text-formatting).
+	///   - likes: Information about likes of this comment.
+	///   - attachments: Media attachments added to this comment.
+	///   - contentWarning: The content warning text, if any. If this field is present,
+	///     hide the comment content, replacing it with this text, and only reveal
+	///     it after an extra click or tap.
+	///   - canDelete: Whether the current user can delete this comment.
+	///   - canEdit: Whether the current user can edit this comment.
+	///   - mentionedUsers: An array of user IDs corresponding to users mentioned in this comment.
+	///   - parentsStack: Array of identifiers of parent comments.
+	///   - replyToComment: Identifier of the comment this is in reply to, if applicable.
+	///   - replyToUser: Identifier of the user this is in reply to, if applicable.
+	///   - thread: An object describing the reply thread of this comment.
+	///     Only returned when `view_type` is `threaded` or `two_level`.
 	public init(
 		id: TopicCommentID,
 		ownerID: ActorID,

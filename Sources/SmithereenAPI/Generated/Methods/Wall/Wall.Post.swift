@@ -42,6 +42,26 @@ extension Wall {
 		/// instead. Recommended for mobile apps.
 		public var guid: UUID?
 
+		/// - parameters:
+		///   - ownerID: User or group ID on whose wall the post is to be created.
+		///     By default the current user.
+		///   - message: The text of the post.
+		///     **Required** if there are no ``attachments``.
+		///     This parameter supports formatted text, the format is
+		///     determined by the ``textFormat`` parameter.
+		///   - textFormat: The format of the post text passed in ``message``.
+		///     By default, the user’s preference is used.
+		///   - attachments: An array representing the media attachments to be added to this post.
+		///     **Required** if there is no ``message``.
+		///   - contentWarning: If this is not empty, make the content of the post hidden
+		///     by default, requiring a click to reveal.
+		///     This text will be shown instead of the content.
+		///   - guid: A unique identifier used to prevent accidental double-posting
+		///     on unreliable connections.
+		///     If ``Wall/Post`` was previously called with this
+		///     ``guid`` in the last hour, no new post will be created,
+		///     the ID of that previously created post will be returned
+		///     instead. Recommended for mobile apps.
 		public init(
 			ownerID: ActorID? = nil,
 			message: String? = nil,

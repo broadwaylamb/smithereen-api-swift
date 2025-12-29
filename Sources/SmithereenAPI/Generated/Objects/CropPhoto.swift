@@ -17,6 +17,13 @@ public struct CropPhoto: Hashable, Codable, Sendable {
 	/// rectangular crop photo to obtain the small square version.
 	public var squareCrop: ImageRect
 
+	/// - parameters:
+	///   - photo: A photo object representing the profile photo.
+	///   - crop: An object decribing the coordinates for cropping the photo
+	///     to obtain the medium rectangular version, as used in profiles on
+	///     the desktop website.
+	///   - squareCrop: An object decribing the coordinates for cropping the medium
+	///     rectangular crop photo to obtain the small square version.
 	public init(
 		photo: Photo,
 		crop: ImageRect,

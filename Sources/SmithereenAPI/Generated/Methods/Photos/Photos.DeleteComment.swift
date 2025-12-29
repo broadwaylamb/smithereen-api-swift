@@ -13,6 +13,8 @@ extension Photos {
 		/// Identifier of the comment to delete.
 		public var commentID: PhotoCommentID
 
+		/// - parameters:
+		///   - commentID: Identifier of the comment to delete.
 		public init(commentID: PhotoCommentID) {
 			self.commentID = commentID
 		}

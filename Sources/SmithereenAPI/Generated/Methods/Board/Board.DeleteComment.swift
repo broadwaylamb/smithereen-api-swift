@@ -13,6 +13,8 @@ extension Board {
 		/// Identifier of the comment to delete.
 		public var commentID: TopicCommentID
 
+		/// - parameters:
+		///   - commentID: Identifier of the comment to delete.
 		public init(commentID: TopicCommentID) {
 			self.commentID = commentID
 		}

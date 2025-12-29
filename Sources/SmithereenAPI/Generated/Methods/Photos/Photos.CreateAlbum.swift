@@ -43,6 +43,26 @@ extension Photos {
 		/// By default `false`..
 		public var commentsDisabled: Bool?
 
+		/// - parameters:
+		///   - title: The title of the album.
+		///   - description: The description of the album.
+		///   - groupID: If creating an album in a group, the identifier of that group.
+		///     Omit this parameter to create an album in the currentuser’s
+		///     profile.
+		///   - privacyView: For a user-owned album, privacy setting determining who can
+		///     view this album.
+		///     By default, the album is publicly viewable.
+		///   - privacyComment: For a user-owned album, privacy setting determining who can
+		///     comment on photos in this album.
+		///     By default, anyone can comment.
+		///   - uploadByAdminsOnly: For a group-owned album, whether uploading new photos is
+		///     restricted to group managers.
+		///     
+		///     By default `false`.
+		///   - commentsDisabled: For a group-owned album, whether commenting on photos in
+		///     this album is disabled
+		///     
+		///     By default `false`..
 		public init(
 			title: String,
 			description: String? = nil,

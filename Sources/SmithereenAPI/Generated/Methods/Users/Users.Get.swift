@@ -34,6 +34,15 @@ extension Users {
 			case prepositional = "pre"
 		}
 
+		/// - parameters:
+		///   - userIDs: A list of user IDs or screen names.
+		///     If the method is called with an access token,
+		///     defaults to the current user’s ID.
+		///     Required if no token is used.
+		///   - fields: A list of ``User`` profile fields to be returned.
+		///   - relationCase: For Slavic languages and when the ``User/Field/relation``
+		///     field is requested, the grammatical case for
+		///     the relationship partner’s name.
 		public init(
 			userIDs: [UserID]? = nil,
 			fields: [User.Field]? = nil,

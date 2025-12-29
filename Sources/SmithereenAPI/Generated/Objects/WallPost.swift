@@ -106,6 +106,10 @@ public struct WallPost: CommentProtocol, Identifiable {
 		/// Whether the current user has reposted this post.
 		public var userReposted: Bool
 
+		/// - parameters:
+		///   - count: How many reposts of this post were made.
+		///   - canRepost: Whether the current user can repost this post.
+		///   - userReposted: Whether the current user has reposted this post.
 		public init(
 			count: Int,
 			canRepost: Bool,
@@ -136,6 +140,9 @@ public struct WallPost: CommentProtocol, Identifiable {
 		/// Whether the current user can comment on this post.
 		public var canPost: Bool
 
+		/// - parameters:
+		///   - count: The total number of comments.
+		///   - canPost: Whether the current user can comment on this post.
 		public init(
 			count: Int,
 			canPost: Bool,
@@ -179,6 +186,64 @@ public struct WallPost: CommentProtocol, Identifiable {
 	/// - Note: Only returned for top-level posts.
 	public var isPinned: Bool?
 
+	/// - parameters:
+	///   - id: Unique (server-wide) identifier of this post.
+	///   - ownerID: Identifier of the wall owner.
+	///   - fromID: Identifier of the user who made this post.
+	///   - activityPubID: Globally unique ActivityPub identifier for this post.
+	///     Use this to match posts across servers.
+	///   - url: The URL of the web page representing this post.
+	///     For posts made by remote users, points to their home server.
+	///   - date: The timestamp when this post was published, as unixtime.
+	///   - text: The text of the post as HTML.
+	///     [More about text formatting](https://smithereen.software/docs/api/text-formatting).
+	///   - likes: Information about likes of this post.
+	///   - attachments: Media attachments added to this post.
+	///   - contentWarning: The content warning text, if any. If this field is present,
+	///     hide the post content, replacing it with this text, and only reveal
+	///     it after an extra click or tap.
+	///   - canDelete: Whether the current user can delete this post.
+	///   - canEdit: Whether the current user can edit this post.
+	///   - mentionedUsers: An array of user IDs corresponding to users mentioned in this post.
+	///   - parentsStack: Array of identifiers of parent comments.
+	///     
+	///     - Note: Only returned for comments.
+	///   - replyToComment: Identifier of the comment this is in reply to, if applicable.
+	///     
+	///     - Note: Only returned for comments.
+	///   - replyToUser: Identifier of the user this is in reply to, if applicable.
+	///     
+	///     - Note: Only returned for comments.
+	///   - thread: An object describing the reply thread of this comment.
+	///     Only returned when `view_type` is `threaded` or `two_level`.
+	///     
+	///     - Note: Only returned for comments.
+	///   - privacy: If this post isn’t publicly visible, the visibility setting specified by the author.
+	///   - reposts: Information about reposts of this post.
+	///   - comments: Information about comments on this post.
+	///     
+	///     - Note: Only returned for top-level posts.
+	///   - repostHistory: If this is a repost, the array of reposted posts.
+	///     Contains more than one element if the reposted post is itself
+	///     a repost.
+	///     
+	///     - Note: Only returned for top-level posts.
+	///   - isMastodonStyleRepost: If this is a repost, whether this is a Mastodon-style repost
+	///     (`Announce` activity). Mastodon-style reposts work like retweets on
+	///     Twitter – they aren’t “real” posts, they don’t have their own
+	///     comment thread and can’t be interacted with.
+	///     If this is `true`, you should forward all user interactions,
+	///     like comments or likes, to the reposted post (`repost_history[0]`).
+	///     It’s also recommended display such posts with some indication in
+	///     the UI that the user will interact with the original post.
+	///     
+	///     - Note: Only returned for top-level posts.
+	///   - canPin: Whether the current user can pin this post to their wall.
+	///     
+	///     - Note: Only returned for top-level posts.
+	///   - isPinned: Whether this post is pinned on its owner’s wall.
+	///     
+	///     - Note: Only returned for top-level posts.
 	public init(
 		id: WallPostID,
 		ownerID: ActorID,

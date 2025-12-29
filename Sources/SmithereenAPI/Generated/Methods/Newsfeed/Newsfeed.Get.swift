@@ -78,6 +78,9 @@ extension Newsfeed {
 			/// The new partner user identifier, if any.
 			public var partner: UserID?
 
+			/// - parameters:
+			///   - status: The new relationship status.
+			///   - partner: The new partner user identifier, if any.
 			public init(
 				status: User.RelationshipStatus,
 				partner: UserID? = nil,
@@ -218,6 +221,9 @@ extension Newsfeed {
 			/// Which user this update is about.
 			public var userID: UserID
 
+			/// - parameters:
+			///   - id: Identifier of this update.
+			///   - userID: Which user this update is about.
 			public init(
 				item: UpdatedItem,
 				id: UpdateID,
@@ -264,6 +270,14 @@ extension Newsfeed {
 			/// If this field is absent, no more updates are available.
 			public var nextFrom: PaginationToken?
 
+			/// - parameters:
+			///   - items: The updates themselves.
+			///   - profiles: User objects relevant to these updates.
+			///   - groups: Group objects relevant to these updates.
+			///   - nextFrom: The value to pass as ``startFrom`` in a subsequent call to
+			///     this method to load the next page of the news feed.
+			///     
+			///     If this field is absent, no more updates are available.
 			public init(
 				items: [Update],
 				profiles: [User],
@@ -284,6 +298,21 @@ extension Newsfeed {
 			}
 		}
 
+		/// - parameters:
+		///   - filters: Which types of updates to return.
+		///     
+		///     By default, updates of all types are returned.
+		///   - returnBanned: Whether to include updates from muted users.
+		///     
+		///     By default `false`.
+		///   - startFrom: An opaque string required for pagination, returned as
+		///     ``Result/nextFrom`` by the previous call of this method.
+		///     Don’t pass this parameter when loading the news feed for
+		///     the first time or refreshing it.
+		///   - count: How many updates to return, from 0 to 100.
+		///     
+		///     By default 25.
+		///   - fields: A list of ``User`` and ``Group`` profile fields to be returned.
 		public init(
 			filters: [Filter]? = nil,
 			returnBanned: Bool? = nil,

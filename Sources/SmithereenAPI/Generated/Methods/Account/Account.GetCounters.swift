@@ -31,6 +31,15 @@ extension Account {
 			/// New photo tags.
 			public var photos: Int
 
+			/// - parameters:
+			///   - friends: New friend requests.
+			///   - notifications: New notifications (“feedback”).
+			///     Whether or not this includes likes and reposts is
+			///     determined by the corresponding setting.
+			///   - groups: New group invitations.
+			///   - events: New event invitations.
+			///   - messages: Unread messages.
+			///   - photos: New photo tags.
 			public init(
 				friends: Int,
 				notifications: Int,

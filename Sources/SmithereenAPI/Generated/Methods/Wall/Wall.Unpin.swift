@@ -13,6 +13,8 @@ extension Wall {
 		/// Identifier of the post to unpin.
 		public var postID: WallPostID
 
+		/// - parameters:
+		///   - postID: Identifier of the post to unpin.
 		public init(postID: WallPostID) {
 			self.postID = postID
 		}

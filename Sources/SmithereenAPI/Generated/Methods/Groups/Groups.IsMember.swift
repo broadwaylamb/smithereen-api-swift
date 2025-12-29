@@ -14,6 +14,9 @@ extension Groups {
 		/// User identifier to check.
 		public var userID: UserID
 
+		/// - parameters:
+		///   - groupID: Group identifier.
+		///   - userID: User identifier to check.
 		public init(
 			groupID: GroupID,
 			userID: UserID,
@@ -73,6 +76,15 @@ extension Groups {
 			/// event.
 			public var canInvite: Bool?
 
+			/// - parameters:
+			///   - request: Whether there’s a pending join request from this user
+			///     (only returned with a token with `groups:read` permission,
+			///     for group admins or moderators).
+			///   - invitation: Whether this user is invited into this group or event
+			///     (only returned with a token with `groups:read` permission,
+			///     for group admins or moderators).
+			///   - canInvite: Whether the current user can invite this user to this group or
+			///     event.
 			public init(
 				userID: UserID,
 				member: Bool,
@@ -96,6 +108,13 @@ extension Groups {
 			}
 		}
 
+		/// - parameters:
+		///   - groupID: Group identifier.
+		///   - userIDs: Up to 500 user identifiers.
+		///   - extended: Whether to also return information about join requests and
+		///     invitations.
+		///     
+		///     By default `false`.
 		public init(
 			groupID: GroupID,
 			userIDs: [UserID],

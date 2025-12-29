@@ -18,6 +18,9 @@ extension Groups {
 		/// Group identifier.
 		public var groupID: GroupID
 
+		/// - parameters:
+		///   - domain: The domain name of the server to block.
+		///   - groupID: Group identifier.
 		public init(
 			domain: String,
 			groupID: GroupID,

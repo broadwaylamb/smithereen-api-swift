@@ -23,6 +23,13 @@ public struct GlobalRequestParameters: Encodable {
 	/// In which format you would like images to be returned.
 	public var imageFormat: ImageFormat?
 
+	/// - parameters:
+	///   - apiVersion: The API version to use.
+	///   - accessToken: The access token for performing actions on behalf of a user.
+	///     Alternatively, can be passed as a header `Authorization: Bearer <token>`.
+	///   - language: A language code like `en-GB` or `ru` for methods that
+	///     use translatable strings or inflect people’s names.
+	///   - imageFormat: In which format you would like images to be returned.
 	public init(
 		apiVersion: SmithereenAPIVersion,
 		accessToken: AccessToken? = nil,

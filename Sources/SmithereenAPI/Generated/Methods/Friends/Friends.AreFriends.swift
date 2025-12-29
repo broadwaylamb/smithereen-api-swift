@@ -82,6 +82,12 @@ extension Friends {
 			/// is ``State/followedBy``.
 			public var isRequestUnread: Bool?
 
+			/// - parameters:
+			///   - userID: User identifier.
+			///   - friendStatus: The relationship between this user and the current user.
+			///   - isRequestUnread: Whether there’s an incoming friend request from this user.
+			///     Only returned when ``extended`` is `true` and ``friendStatus``
+			///     is ``State/followedBy``.
 			public init(
 				userID: UserID,
 				friendStatus: State,
@@ -99,6 +105,9 @@ extension Friends {
 			}
 		}
 
+		/// - parameters:
+		///   - userIDs: The list of user identifiers to retrieve friendship states for.
+		///   - extended: Whether to return ``FriendshipInfo/isRequestUnread``.
 		public init(
 			userIDs: [UserID],
 			extended: Bool,

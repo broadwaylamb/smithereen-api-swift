@@ -40,6 +40,17 @@ extension Photos {
 			/// `nil` iff ``userID`` is `nil`.
 			public var confirmed: Bool?
 
+			/// - parameters:
+			///   - userID: Identifier of the tagged user. If the tag is unconfirmed or if
+			///     it was created by entering a name instead of selecting a user
+			///     from the friend list, this field will be absent.
+			///   - id: Tag identifier.
+			///   - placerID: Identifier of the user who created the tag.
+			///   - name: The name of the tagged person.
+			///   - area: The coordinates of the tag area.
+			///   - date: When this tag was created.
+			///   - confirmed: Whether this tag was confirmed by the tagged user.
+			///     `nil` iff ``userID`` is `nil`.
 			public init(
 				userID: UserID? = nil,
 				id: PhotoTagID,
@@ -89,6 +100,8 @@ extension Photos {
 			}
 		}
 
+		/// - parameters:
+		///   - photoID: Identifier of the photo.
 		public init(photoID: PhotoID) {
 			self.photoID = photoID
 		}

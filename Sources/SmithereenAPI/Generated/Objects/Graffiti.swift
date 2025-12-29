@@ -18,6 +18,11 @@ public struct Graffiti: Hashable, Codable, Sendable {
 	/// The height of the graffiti.
 	public var height: Int
 
+	/// - parameters:
+	///   - url: The URL of the full-size graffiti image.
+	///   - previewUrl: The URL of the smaller graffiti image for preview purposes.
+	///   - width: The width of the graffiti.
+	///   - height: The height of the graffiti.
 	public init(
 		url: URL,
 		previewUrl: URL,

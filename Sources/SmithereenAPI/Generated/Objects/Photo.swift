@@ -92,6 +92,13 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 		/// The designator for this size.
 		public var type: SizeType
 
+		/// - parameters:
+		///   - url: The URL of this image size.
+		///     The format of the image is determined by the `image_format`
+		///     global parameter.
+		///   - width: The width of this size in pixels.
+		///   - height: The height of this size in pixels.
+		///   - type: The designator for this size.
 		public init(
 			url: URL,
 			width: Int,
@@ -155,6 +162,54 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 	/// Returned by the ``Photos/GetNewTags`` method.
 	public var tagID: PhotoTagID?
 
+	/// - parameters:
+	///   - id: The (server-wide) unique identifier of this photo.
+	///   - activityPubID: Globally unique ActivityPub identifier for this photo.
+	///     Use this to match photos across servers.
+	///   - url: The URL of the web page representing this photo.
+	///     For photos uploaded by remote users, points to their home server.
+	///   - albumID: If this photo is in an album, the identifier of that album.
+	///   - ownerID: The identifier of the owner of this photo.
+	///   - userID: For a photo in an album in a group, the identifier of the user
+	///     who uploaded this photo to the album.
+	///   - text: A textual description of the photo. In case of post attachments,
+	///     often used as an “alt text” to describe the image for
+	///     the visually-impaired.
+	///   - date: The unixtime timestamp when this photo was uploaded.
+	///   - blurhash: The [BlurHash](https://blurha.sh/) for the thumbnail.
+	///   - sizes: An array describing the differently-sized images available for this
+	///     photo.
+	///   - width: The width of the largest-size image for this photo in pixels.
+	///   - height: The height of the largest-size image for this photo in pixels.
+	///   - likes: Information about likes of this photo.
+	///     
+	///     - Note: this field is returned by some `photos.*` methods
+	///     	which take the `extended` parameter, when that parameter is set
+	///     	to `true`.
+	///   - comments: The total number of comments on this photo.
+	///     
+	///     - Note: this field is returned by some `photos.*` methods
+	///     	which take the `extended` parameter, when that parameter is set
+	///     	to `true`.
+	///   - canComment: Whether the current user can comment on this photo.
+	///     
+	///     - Note: this field is returned by some `photos.*` methods
+	///     	which take the `extended` parameter, when that parameter is set
+	///     	to `true`.
+	///   - tags: The total number of people tagged in this photo.
+	///     
+	///     - Note: this field is returned by some `photos.*` methods
+	///     	which take the `extended` parameter, when that parameter is set
+	///     	to `true`.
+	///   - placerID: Identifier of the user who added the tag.
+	///     
+	///     Returned by the ``Photos/GetNewTags`` method.
+	///   - tagCreated: Unixtime of when the tag was created.
+	///     
+	///     Returned by the ``Photos/GetNewTags`` method.
+	///   - tagID: Unixtime of when the tag was created.
+	///     
+	///     Returned by the ``Photos/GetNewTags`` method.
 	public init(
 		id: PhotoID,
 		activityPubID: URL,

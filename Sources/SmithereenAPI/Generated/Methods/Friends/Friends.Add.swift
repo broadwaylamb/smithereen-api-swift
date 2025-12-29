@@ -58,6 +58,9 @@ extension Friends {
 			}
 		}
 
+		/// - parameters:
+		///   - userID: The identifier of the target user.
+		///   - text: If sending a friend request, the message to send along with it.
 		public init(
 			userID: UserID,
 			text: String? = nil,

@@ -25,6 +25,14 @@ public struct Video: Hashable, Codable, Sendable {
 	/// describe the video for visually-impaired users.
 	public var description: String?
 
+	/// - parameters:
+	///   - url: The direct link to the video file. Most probably an MP4 with H264
+	///     and AAC, but no guarantees are made.
+	///   - width: The width of the video.
+	///   - height: The height of the video.
+	///   - blurhash: The [BlurHash](https://blurha.sh/) for the thumbnail.
+	///   - description: The description for this video, often used as an “alt text” to
+	///     describe the video for visually-impaired users.
 	public init(
 		url: URL,
 		width: Int? = nil,

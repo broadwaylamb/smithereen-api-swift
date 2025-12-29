@@ -14,6 +14,9 @@ extension Groups {
 		/// A list of ``Group`` profile fields to be returned.
 		public var fields: [Group.Field]?
 
+		/// - parameters:
+		///   - groupIDs: A list of group identifiers.
+		///   - fields: A list of ``Group`` profile fields to be returned.
 		public init(
 			groupIDs: [GroupID],
 			fields: [Group.Field]? = nil,

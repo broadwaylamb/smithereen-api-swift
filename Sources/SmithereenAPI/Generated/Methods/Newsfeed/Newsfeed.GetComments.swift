@@ -103,6 +103,9 @@ extension Newsfeed {
 			/// objects.
 			public var comments: [WallPost]?
 
+			/// - parameters:
+			///   - comments: If ``lastComments`` is non-zero, an array of comment
+			///     objects.
 			public init(
 				item: CommentableObject,
 				comments: [WallPost]? = nil,
@@ -141,6 +144,11 @@ extension Newsfeed {
 			/// How many comment threads there are in total.
 			public var count: Int
 
+			/// - parameters:
+			///   - items: The commentable objects themselves.
+			///   - profiles: User objects relevant to these objects.
+			///   - groups: Group objects relevant to these objects.
+			///   - count: How many comment threads there are in total.
 			public init(
 				items: [Update],
 				profiles: [User],
@@ -154,6 +162,20 @@ extension Newsfeed {
 			}
 		}
 
+		/// - parameters:
+		///   - filters: Which types of commentable objects to return.
+		///     
+		///     By default, all types are returned.
+		///   - offset: Offset into the object list for pagination.
+		///   - count: How many objects to return.
+		///     
+		///     Minumum value: 1. Maximum value: 100. By default 25.
+		///   - lastComments: How many of the most recent comments to return, from 0 to 3.
+		///     
+		///     By default 0.
+		///   - commentViewType: How to structure the comments for ``lastComments``.
+		///     By default uses the user preference.
+		///   - fields: A list of ``User`` and ``Group`` profile fields to be returned.
 		public init(
 			filters: Filter? = nil,
 			offset: Int? = nil,

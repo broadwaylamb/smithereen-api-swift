@@ -121,6 +121,9 @@ extension Newsfeed {
 			/// Which group this update is about.
 			public var groupID: GroupID
 
+			/// - parameters:
+			///   - id: Identifier of this update.
+			///   - groupID: Which group this update is about.
 			public init(
 				item: UpdatedItem,
 				id: UpdateID,
@@ -167,6 +170,14 @@ extension Newsfeed {
 			/// If this field is absent, no more updates are available.
 			public var nextFrom: PaginationToken?
 
+			/// - parameters:
+			///   - items: The updates themselves.
+			///   - profiles: User objects relevant to these updates.
+			///   - groups: Group objects relevant to these updates.
+			///   - nextFrom: The value to pass as ``startFrom`` in a subsequent call to
+			///     this method to load the next page of the news feed.
+			///     
+			///     If this field is absent, no more updates are available.
 			public init(
 				items: [Update],
 				profiles: [User],
@@ -187,6 +198,18 @@ extension Newsfeed {
 			}
 		}
 
+		/// - parameters:
+		///   - filters: Which types of updates to return.
+		///     
+		///     By default, updates of all types are returned.
+		///   - startFrom: An opaque string required for pagination, returned as
+		///     ``Result/nextFrom`` by the previous call of this method.
+		///     Don’t pass this parameter when loading the news feed for
+		///     the first time or refreshing it.
+		///   - count: How many updates to return, from 0 to 100.
+		///     
+		///     By default 25.
+		///   - fields: A list of ``User`` and ``Group`` profile fields to be returned.
 		public init(
 			filters: Filter? = nil,
 			startFrom: PaginationToken? = nil,

@@ -17,6 +17,13 @@ extension Account {
 		/// By default `false`.
 		public var mobile: Bool?
 
+		/// - parameters:
+		///   - mobile: Whether the user is using a mobile device.
+		///     Strongly recommended for apps that run on phones, tablets,
+		///     and other devices that are limited compared to desktop
+		///     and laptop computers.
+		///     
+		///     By default `false`.
 		public init(mobile: Bool? = nil) {
 			self.mobile = mobile
 		}

@@ -18,6 +18,11 @@ extension Photos {
 		/// By default `false`.
 		public var needCovers: Bool?
 
+		/// - parameters:
+		///   - albumIDs: A list of up to 100 album identifiers.
+		///   - needCovers: Whether to return a cover photo for each album.
+		///     
+		///     By default `false`.
 		public init(
 			albumIDs: [PhotoAlbumID],
 			needCovers: Bool? = nil,

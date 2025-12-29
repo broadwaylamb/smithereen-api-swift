@@ -46,6 +46,26 @@ extension Photos {
 		/// instead. Recommended for mobile apps.
 		public var guid: UUID?
 
+		/// - parameters:
+		///   - photoID: Identifier of the photo on which to comment.
+		///   - replyToComment: Identifier of the comment to reply to.
+		///   - message: The text of the comment.
+		///     **Required** if there are no ``attachments``.
+		///     This parameter supports formatted text, the format is
+		///     determined by the ``textFormat`` parameter.
+		///   - textFormat: The format of the comment text passed in ``message``.
+		///     By default, the user’s preference is used.
+		///   - attachments: An array representing the media attachments to be added to this comment.
+		///     **Required** if there is no ``message``.
+		///   - contentWarning: If this is not empty, make the content of the comment hidden
+		///     by default, requiring a click to reveal.
+		///     This text will be shown instead of the content.
+		///   - guid: A unique identifier used to prevent accidental double-posting
+		///     on unreliable connections.
+		///     If ``Photos/CreateComment`` was previously called with this
+		///     ``guid`` in the last hour, no new comment will be created,
+		///     the ID of that previously created comment will be returned
+		///     instead. Recommended for mobile apps.
 		public init(
 			photoID: PhotoID,
 			replyToComment: PhotoCommentID? = nil,

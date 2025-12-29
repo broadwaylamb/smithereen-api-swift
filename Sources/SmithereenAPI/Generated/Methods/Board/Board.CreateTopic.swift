@@ -44,6 +44,26 @@ extension Board {
 		/// instead. Recommended for mobile apps.
 		public var guid: UUID?
 
+		/// - parameters:
+		///   - groupID: Identifier of the group where to create the topic.
+		///   - title: The title of the topic.
+		///   - message: The text of the comment.
+		///     **Required** if there are no ``attachments``.
+		///     This parameter supports formatted text, the format is
+		///     determined by the ``textFormat`` parameter.
+		///   - textFormat: The format of the comment text passed in ``message``.
+		///     By default, the user’s preference is used.
+		///   - attachments: An array representing the media attachments to be added to this comment.
+		///     **Required** if there is no ``message``.
+		///   - contentWarning: If this is not empty, make the content of the comment hidden
+		///     by default, requiring a click to reveal.
+		///     This text will be shown instead of the content.
+		///   - guid: A unique identifier used to prevent accidental double-posting
+		///     on unreliable connections.
+		///     If ``Board/CreateTopic`` was previously called with this
+		///     ``guid`` in the last hour, no new topic will be created,
+		///     the ID of that previously created topic will be returned
+		///     instead. Recommended for mobile apps.
 		public init(
 			groupID: GroupID,
 			title: String,

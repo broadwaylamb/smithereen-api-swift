@@ -94,6 +94,18 @@ extension Groups {
 			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]
 
+			/// - parameters:
+			///   - groupID: Group identifier.
+			///   - sort: How to sort the returned users.
+			///     By default ``Sorting/idAscending``.
+			///   - offset: Offset into the member list for pagination.
+			///   - count: How many members to return.
+			///     
+			///     Minumum value: 1. Maximum value: 1000. By default 100.
+			///   - filter: How to filter the group members.
+			///     By default, all members are returned for groups,
+			///     and “sure” attendees for events.
+			///   - fields: A list of ``User`` profile fields to be returned.
 			public init(
 				groupID: GroupID,
 				sort: Sorting? = nil,
@@ -130,6 +142,17 @@ extension Groups {
 			public typealias Result = PaginatedList<User, PaginatedListExtras.Empty>
 		}
 
+		/// - parameters:
+		///   - groupID: Group identifier.
+		///   - sort: How to sort the returned users.
+		///     By default ``Sorting/idAscending``.
+		///   - offset: Offset into the member list for pagination.
+		///   - count: How many members to return.
+		///     
+		///     Minumum value: 1. Maximum value: 1000. By default 100.
+		///   - filter: How to filter the group members.
+		///     By default, all members are returned for groups,
+		///     and “sure” attendees for events.
 		public init(
 			groupID: GroupID,
 			sort: Sorting? = nil,

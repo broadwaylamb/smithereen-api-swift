@@ -19,6 +19,10 @@ extension Server {
 			/// The description of this rule.
 			public var description: String?
 
+			/// - parameters:
+			///   - id: Rule identifier.
+			///   - title: The short title of this rule.
+			///   - description: The description of this rule.
 			public init(
 				id: ServerRuleID,
 				title: String,
@@ -41,6 +45,10 @@ extension Server {
 			/// The MIME types of image formats supported by this server.
 			public var imageTypes: [String]
 
+			/// - parameters:
+			///   - imageMaxSize: The maximum size of an image file in bytes.
+			///   - imageMaxDimensions: The maximum image dimensions, on each side, in pixels.
+			///   - imageTypes: The MIME types of image formats supported by this server.
 			public init(
 				imageMaxSize: Int,
 				imageMaxDimensions: Int,
@@ -70,6 +78,11 @@ extension Server {
 			/// How many local groups exist on this server.
 			public var groups: String
 
+			/// - parameters:
+			///   - users: How many local user accounts exist on this server.
+			///   - activeUsers: How many of the local users have been active in the last
+			///     month.
+			///   - groups: How many local groups exist on this server.
 			public init(
 				users: Int,
 				activeUsers: Int,
@@ -138,6 +151,30 @@ extension Server {
 			/// Server statistics.
 			public var stats: Stats
 
+			/// - parameters:
+			///   - domain: The domain of this server.
+			///   - name: The display name of this server.
+			///   - description: The long description of this server (HTML).
+			///   - shortDescription: The short description of this server (HTML).
+			///   - version: The version of Smithereen running on this server.
+			///   - policy: The server policy, as displayed on /system/about (HTML).
+			///   - rules: The server rules. If there are translations, the returned
+			///     strings will be different depending on the language
+			///     (the `lang` parameter or the current user’s setting).
+			///   - adminEmail: The server administrator’s email.
+			///   - admins: The array of user objects representing the server
+			///     administrators.
+			///   - signupMode: The sign-up mode currently in effect on this server.
+			///   - apiVersions: Information about the API versions that this server
+			///     supports. The version numbers have the format of
+			///     `major.minor`.
+			///     
+			///     It is intended that forks will add their own fields to this
+			///     object, enabling apps to easily discover which extensions
+			///     this server supports and which versions they are.
+			///   - uploads: Information about the limitations that this server imposes
+			///     on uploaded files.
+			///   - stats: Server statistics.
 			public init(
 				domain: String,
 				name: String,

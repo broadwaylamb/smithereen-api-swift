@@ -74,6 +74,40 @@ public struct PhotoAlbum: Hashable, Codable, Sendable, Identifiable {
 	/// Only returned for non-system albums in groups managed by the current user.
 	public var commentsDisabled: Bool?
 
+	/// - parameters:
+	///   - id: Unique (server-wide) identifier of this photo album.
+	///   - activityPubID: Globally unique ActivityPub identifier for this album.
+	///     Use this to match albums across servers.
+	///   - url: The URL of the web page representing this album.
+	///     For albums owned by remote actors, points to their home server.
+	///   - ownerID: User or group identifier of this album’s owner.
+	///   - isSystem: Whether this is a system album. System albums are those which have
+	///     special purposes, like “profile pictures” or “saved photos”.
+	///     They can’t be edited or deleted, and photos can’t be arbitrarily
+	///     uploaded to them.
+	///   - title: The title of this album.
+	///   - description: The description of this album.
+	///   - coverID: Identifier of the photo which is this album’s cover.
+	///   - created: The timestamp when this album was created.
+	///   - updated: The timestamp when this album was last updated.
+	///   - size: The number of photos in this album.
+	///   - cover: If `need_covers` was `true`, an object representing
+	///     this album’s cover photo.
+	///   - privacyView: Privacy setting determining who can see this album.
+	///     
+	///     Only returned for current user's non-system albums.
+	///   - privacyComment: Privacy setting determining who can comment on photos in this album.
+	///     
+	///     Only returned for current user's non-system albums.
+	///   - canUpload: Whether the current user can upload new photos to this album.
+	///     
+	///     Only returned for non-system group albums.
+	///   - uploadsByAdminsOnly: Whether uploading new photos to this album is restricted to the group managers.
+	///     
+	///     Only returned for non-system albums in groups managed by the current user.
+	///   - commentsDisabled: Whether commenting on photos in this album is disabled.
+	///     
+	///     Only returned for non-system albums in groups managed by the current user.
 	public init(
 		id: PhotoAlbumID,
 		activityPubID: URL,

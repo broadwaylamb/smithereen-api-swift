@@ -12,6 +12,8 @@ extension OAuth {
 		/// In how many seconds this access token expires.
 		public var expiresIn: Double?
 
+		/// - parameters:
+		///   - expiresIn: In how many seconds this access token expires.
 		public init(
 			accessToken: AccessToken,
 			userID: UserID,
@@ -83,6 +85,11 @@ extension OAuth {
 		/// If using PKCE, the code verifier string.
 		public var codeVerifier: String?
 
+		/// - parameters:
+		///   - code: The OAuth authorization code.
+		///   - redirectUri: The redirect URI you used for obtaining the authorization code.
+		///   - clientID: Your application ID.
+		///   - codeVerifier: If using PKCE, the code verifier string.
 		public init(
 			code: AuthorizationCode,
 			redirectUri: URL,

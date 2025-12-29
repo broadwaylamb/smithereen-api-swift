@@ -41,6 +41,24 @@ extension Polls {
 		@UnixTimestamp
 		public var endDate: Date?
 
+		/// - parameters:
+		///   - ownerID: User or group identifier of the owner on whose wall
+		///     the poll will be posted.
+		///     
+		///     Current user by default.
+		///   - question: The poll question.
+		///   - answers: Poll options, 2 to 10 strings.
+		///   - anonymous: Whether the list of people who voted for each option
+		///     is hidden.
+		///     
+		///     By default `false`.
+		///   - multiple: Whether this poll is multiple-choice.
+		///     
+		///     By default `false`.
+		///   - endDate: The time when this poll stops accepting new votes.
+		///     
+		///     By default, or if this parameter is in the past,
+		///     the poll does not end.
 		public init(
 			ownerID: ActorID? = nil,
 			question: String,

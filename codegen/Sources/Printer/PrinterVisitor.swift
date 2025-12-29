@@ -62,7 +62,7 @@ final class PrinterVisitor {
 			}
 
 			InitializerDeclSyntax(
-				leadingTrivia: .newlines(2),
+				leadingTrivia: initializerDocComment(fields: fields),
 				modifiers: [DeclModifierSyntax(name: .keyword(.public))],
 				signature: FunctionSignatureSyntax(
 					parameterClause: parametersForFields(fields)
@@ -574,6 +574,32 @@ private func docComment(_ text: String) -> Trivia {
 	for line in text.split(separator: "\n", omittingEmptySubsequences: false) {
 		pieces.append(.docLineComment("/// " + line))
 		pieces.append(.newlines(1))
+	}
+	return Trivia(pieces: pieces)
+}
+
+private func initializerDocComment(fields: [FieldDef]) -> Trivia {
+	if fields.allSatisfy({ $0.doc == nil }) {
+		return .newlines(2)
+	}
+	var pieces: [TriviaPiece] = [
+		.newlines(2),
+		.docLineComment("/// - parameters:"),
+		.newlines(1),
+	]
+	for field in fields {
+		if let fieldDoc = field.doc {
+			var isFirst = true
+			for line in fieldDoc.split(separator: "\n", omittingEmptySubsequences: false) {
+				if isFirst {
+					pieces.append(.docLineComment("///   - \(field.swiftName): \(line)"))
+				} else {
+					pieces.append(.docLineComment("///     \(line)"))
+				}
+				pieces.append(.newlines(1))
+				isFirst = false
+			}
+		}
 	}
 	return Trivia(pieces: pieces)
 }

@@ -14,6 +14,9 @@ extension Utils {
 		/// a `username@domain` string to resolve a username.
 		public var query: String
 
+		/// - parameters:
+		///   - query: The URL (ActivityPub ID) of the target object or
+		///     a `username@domain` string to resolve a username.
 		public init(query: String) {
 			self.query = query
 		}

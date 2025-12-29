@@ -37,6 +37,18 @@ extension Photos {
 		/// in this album is disabled.
 		public var commentsDisabled: Bool?
 
+		/// - parameters:
+		///   - albumID: Identifier of the target album.
+		///   - title: New title of the album.
+		///   - description: New description of the album.
+		///   - privacyView: For a user-owned album, privacy setting determining
+		///     who can view this album.
+		///   - privacyComment: For a user-owned album, privacy setting determining
+		///     who can comment on photos in this album.
+		///   - uploadByAdminsOnly: For a group-owned album, whether uploading new photos
+		///     is restricted to group managers.
+		///   - commentsDisabled: For a group-owned album, whether commenting on photos
+		///     in this album is disabled.
 		public init(
 			albumID: PhotoAlbumID,
 			title: String? = nil,

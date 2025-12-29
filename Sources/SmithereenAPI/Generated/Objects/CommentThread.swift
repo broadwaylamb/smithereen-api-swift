@@ -14,6 +14,10 @@ public struct CommentThread<Comment: CommentProtocol>: Hashable, Codable, Sendab
 	/// The replies to this comment.
 	public var items: [Comment]
 
+	/// - parameters:
+	///   - count: The total number of comments in this branch.
+	///   - replyCount: The total number of replies to this comment.
+	///   - items: The replies to this comment.
 	public init(
 		count: Int,
 		replyCount: Int,

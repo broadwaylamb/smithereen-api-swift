@@ -13,6 +13,8 @@ extension Fave {
 		/// Identifier of the target group.
 		public var groupID: GroupID
 
+		/// - parameters:
+		///   - groupID: Identifier of the target group.
 		public init(groupID: GroupID) {
 			self.groupID = groupID
 		}

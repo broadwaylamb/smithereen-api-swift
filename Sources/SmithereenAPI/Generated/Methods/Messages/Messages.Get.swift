@@ -45,6 +45,15 @@ extension Messages {
 			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]?
 
+			/// - parameters:
+			///   - out: Whether to return outgoing or incoming messages.
+			///     
+			///     By default `false`.
+			///   - offset: Offset into the message list for pagination.
+			///   - count: How many messages to return.
+			///     
+			///     Minumum value: 1. Maximum value: 200. By default 20.
+			///   - fields: A list of ``User`` profile fields to be returned.
 			public init(
 				out: Bool? = nil,
 				offset: Int? = nil,
@@ -68,6 +77,14 @@ extension Messages {
 			public typealias Result = PaginatedList<Message, PaginatedListExtras.Profiles>
 		}
 
+		/// - parameters:
+		///   - out: Whether to return outgoing or incoming messages.
+		///     
+		///     By default `false`.
+		///   - offset: Offset into the message list for pagination.
+		///   - count: How many messages to return.
+		///     
+		///     Minumum value: 1. Maximum value: 200. By default 20.
 		public init(
 			out: Bool? = nil,
 			offset: Int? = nil,

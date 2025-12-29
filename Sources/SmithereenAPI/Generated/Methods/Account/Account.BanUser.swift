@@ -13,6 +13,8 @@ extension Account {
 		/// The identifier of the user to block.
 		public var userID: UserID
 
+		/// - parameters:
+		///   - userID: The identifier of the user to block.
 		public init(userID: UserID) {
 			self.userID = userID
 		}

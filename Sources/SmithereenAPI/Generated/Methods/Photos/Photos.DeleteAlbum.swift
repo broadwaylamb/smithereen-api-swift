@@ -13,6 +13,8 @@ extension Photos {
 		/// Identifier of the album to delete.
 		public var albumID: PhotoAlbumID
 
+		/// - parameters:
+		///   - albumID: Identifier of the album to delete.
 		public init(albumID: PhotoAlbumID) {
 			self.albumID = albumID
 		}

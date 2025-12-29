@@ -39,6 +39,24 @@ extension Photos {
 		/// By default `false`.
 		public var rev: Bool?
 
+		/// - parameters:
+		///   - albumID: Identifier of the photo album.
+		///     
+		///     For system albums, pass ``PhotoAlbumID/profile`` or ``PhotoAlbumID/saved`` here.
+		///   - ownerID: When getting photos from a system album, whose album it is.
+		///     
+		///     If omitted, returns the system album for the current user.
+		///   - offset: Offset into the photo list for pagination.
+		///   - count: How many photos to return.
+		///     
+		///     Minumum value: 1. Maximum value: 1000. By default 50.
+		///   - extended: Whether to return extra fields about likes, comments,
+		///     and tags for each photo.
+		///     
+		///     By default `false`.
+		///   - rev: Whether to return the photos in reverse order.
+		///     
+		///     By default `false`.
 		public init(
 			albumID: PhotoAlbumID,
 			ownerID: ActorID? = nil,

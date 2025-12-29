@@ -16,6 +16,9 @@ extension Wall {
 		/// to be returned.
 		public var postID: WallPostID
 
+		/// - parameters:
+		///   - postID: The identifier of the post for which the source needs
+		///     to be returned.
 		public init(postID: WallPostID) {
 			self.postID = postID
 		}

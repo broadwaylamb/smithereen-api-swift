@@ -53,6 +53,19 @@ extension Wall {
 			/// A list of ``User`` and ``Group`` profile fields to be returned.
 			public var fields: [ActorField]?
 
+			/// - parameters:
+			///   - postID: The post identifier.
+			///   - offset: Offset into the post list for pagination.
+			///   - count: How many posts to return.
+			///     
+			///     Minumum value: 1. Maximum value: 100. By default 20.
+			///   - repostHistoryDepth: Determines the size of the ``WallPost/repostHistory`` array.
+			///     For example, if a post is a repost of another repost,
+			///     with ``repostHistoryDepth`` = 1, only the first repost
+			///     will be returned.
+			///     
+			///     From 0 to 10. By default 2.
+			///   - fields: A list of ``User`` and ``Group`` profile fields to be returned.
 			public init(
 				postID: WallPostID,
 				offset: Int? = nil,
@@ -87,6 +100,18 @@ extension Wall {
 			public typealias Result = PaginatedList<WallPost, PaginatedListExtras.ProfilesAndGroups>
 		}
 
+		/// - parameters:
+		///   - postID: The post identifier.
+		///   - offset: Offset into the post list for pagination.
+		///   - count: How many posts to return.
+		///     
+		///     Minumum value: 1. Maximum value: 100. By default 20.
+		///   - repostHistoryDepth: Determines the size of the ``WallPost/repostHistory`` array.
+		///     For example, if a post is a repost of another repost,
+		///     with ``repostHistoryDepth`` = 1, only the first repost
+		///     will be returned.
+		///     
+		///     From 0 to 10. By default 2.
 		public init(
 			postID: WallPostID,
 			offset: Int? = nil,

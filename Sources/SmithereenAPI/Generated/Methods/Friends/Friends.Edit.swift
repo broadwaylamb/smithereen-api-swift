@@ -16,6 +16,9 @@ extension Friends {
 		/// The list of list identifiers.
 		public var listIDs: [FriendListID]
 
+		/// - parameters:
+		///   - userID: User identifier for which lists need to be updated.
+		///   - listIDs: The list of list identifiers.
 		public init(
 			userID: UserID,
 			listIDs: [FriendListID],

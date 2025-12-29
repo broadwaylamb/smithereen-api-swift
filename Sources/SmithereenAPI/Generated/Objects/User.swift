@@ -215,6 +215,10 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// Partner’s last name.
 		public var lastName: String?
 
+		/// - parameters:
+		///   - id: Partner’s ID.
+		///   - firstName: Partner’s first name.
+		///   - lastName: Partner’s last name.
 		public init(
 			id: UserID,
 			firstName: String,
@@ -248,6 +252,9 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// The field value as HTML.
 		public var value: String
 
+		/// - parameters:
+		///   - name: The field name specified by the user.
+		///   - value: The field value as HTML.
 		public init(
 			name: String,
 			value: String,
@@ -315,6 +322,22 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// GitHub, GitLab, or other Git forge URL.
 		public var git: URL?
 
+		/// - parameters:
+		///   - matrix: User’s Matrix username.
+		///   - xmpp: User’s XMPP/Jabber handle.
+		///   - telegram: User’s Telegram username.
+		///   - signal: User’s Signal username or URL.
+		///   - twitter: User’s Twitter username.
+		///   - instagram: User’s Instagram username.
+		///   - facebook: User’s Facebook username.
+		///   - vkontakte: User’s VKontakte username.
+		///   - snapchat: User’s Snapchat username.
+		///   - discord: User’s Discord username.
+		///   - mastodon: User’s Mastodon username.
+		///   - pixelfed: User’s Pixelfed username.
+		///   - phoneNumber: User’s phone number.
+		///   - email: User’s email address.
+		///   - git: GitHub, GitLab, or other Git forge URL.
 		public init(
 			matrix: String? = nil,
 			xmpp: String? = nil,
@@ -469,6 +492,14 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// Views on alcohol.
 		public var alcohol: HabitsViews?
 
+		/// - parameters:
+		///   - political: Political views.
+		///   - religion: Religious views.
+		///   - inspiredBy: Sources of inspiration.
+		///   - peopleMain: What this user considers important in others.
+		///   - lifeMain: What this user considers personal priority.
+		///   - smoking: Views on smoking.
+		///   - alcohol: Views on alcohol.
 		public init(
 			political: PoliticalViews? = nil,
 			religion: String? = nil,
@@ -736,6 +767,9 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// What kind of device the user last used to go online.
 		public var platform: Platform
 
+		/// - parameters:
+		///   - time: Last seen time.
+		///   - platform: What kind of device the user last used to go online.
 		public init(
 			time: Date,
 			platform: Platform,
@@ -1743,6 +1777,361 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		]
 	}
 
+	/// - parameters:
+	///   - id: Unique (within the server) identifier for this user. A positive integer.
+	///   - firstName: User’s first name.
+	///   - lastName: User’s last name.
+	///   - deactivated: For restricted users, their restriction status.
+	///     If this is set, none of the optional fields will be returned.
+	///   - activityPubID: Globally unique ActivityPub identifier for this user.
+	///     Use this to match users across servers.
+	///   - domain: For a user from a remote server, the domain of their home server.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - screenName: The profile URL a.k.a. the username.
+	///     If the user doesn’t have one set, defaults to `idXXX`.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - status: The status string, the one that’s displayed under the user’s
+	///     name on the web.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - url: The URL of this user’s profile page on the web.
+	///     For remote users, this points to their home server.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - nickname: User’s nickname or middle name
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - maidenName: User’s maiden name.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - sex: User’s preferred grammatical gender, to choose pronouns
+	///     in strings that refer to them.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - birthday: User’s birth date as `DD.MM.YYYY` or `DD.MM`.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - homeTown: User’s hometown.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - relation: User’s relationship status.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - relationPartner: User’s relationship partner.
+	///     Returned when the ``Field/relation`` field is requested.
+	///   - customProfileFields: User-defined profile fields that some fediverse software
+	///     like Mastodon allows specifying.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - city: User’s current city.
+	///   - connections: User’s contact information.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - site: User’s personal website.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - activities: User’s activities.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - interests: User’s interests.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - music: User’s favorite music.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - movies: User’s favorite movies.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - tv: User’s favorite TV shows.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - books: User’s favorite books.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - games: User’s favorite games.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - quotes: User’s favorite quotes.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - about: User’s about field as HTML.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - personal: User’s personal views.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - online: Whether the user is currently online.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - onlineMobile: Whether the user is currently online from a mobile device.
+	///     Request by passing ``Field/online``.
+	///   - lastSeen: If the user is currently offline, information about when they
+	///     were last online.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - blocked: Whether the current user is blocked by this user.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - blockedByMe: Whether this user is blocked by the current user.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - canPost: Whether the current user can post on this user’s wall.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - canSeeAllPosts: Whether the current user is allowed see all posts on this user’s
+	///     wall, or only this user’s own posts.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - canSendFriendRequest: If `true`, you can send a friend request to this user.
+	///     If `false`, you can only follow them.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - canWritePrivateMessage: Whether the current user is allowed send private messages to this
+	///     user.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - mutualCount: The number of mutual friends between this user and the current user.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - friendStatus: The relationship between this user and the current user.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - isFriend: Whether this user and the current user are friends.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - lists: The current user’s friend list IDs that this user is in.
+	///     Private lists are excluded unless the token has the `friends:read`
+	///     permission.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - isHiddenFromFeed: Whether this user is hidden from the current user’s friends news feed.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - isNoIndex: Whether this user prefers their profile to not be indexed by search
+	///     engines.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - wallDefault: How this user’s wall should be displayed by default.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - photo50: URL of a square 50x50 version of the profile picture.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - photo100: URL of a square 100x100 version of the profile picture.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - photo200: URL of a square 200x200 version of the profile picture.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - photo400: URL of a square 400x400 version of the profile picture.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - photo200Orig: URL of a rectangular 200px wide version of the profile picture.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - photo400Orig: URL of a rectangular 400px wide version of the profile picture.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - photoID: If this user has a “profile pictures” system photo album,
+	///     ID of the photo used for the current profile picture in that album.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - hasPhoto: Whether this user has a profile picture.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - cropPhoto: If this user has a “profile pictures” system photo album,
+	///     information about their profile photo
+	///     and the coordinates used for cropping it down to the “medium”
+	///     rectangular and “small” square sizes.
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - firstNameNom: First name in nominative case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - nicknameNom: Middle name in nominative case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - lastNameNom: Last name name in nominative case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - firstNameGen: First name in genitive case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - nicknameGen: Middle name in genitive case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - lastNameGen: Last name name in genitive case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - firstNameDat: First name in dative case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - nicknameDat: Middle name in dative case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - lastNameDat: Last name name in dative case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - firstNameAcc: First name in accusative case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - nicknameAcc: Middle name in accusative case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - lastNameAcc: Last name name in accusative case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - firstNameIns: First name in instrumental case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - nicknameIns: Middle name in instrumental case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - lastNameIns: Last name name in instrumental case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - firstNamePre: First name in prepositional case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - nicknamePre: Middle name in prepositional case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - lastNamePre: Last name name in prepositional case
+	///     
+	///     - Note: This is an **optional** field.
+	///     Request it by passing it in `fields` to any method that returns
+	///     ``User`` objects.
+	///   - role: Returned by the ``Groups/GetMembers`` method.
 	public init(
 		id: UserID,
 		firstName: String,

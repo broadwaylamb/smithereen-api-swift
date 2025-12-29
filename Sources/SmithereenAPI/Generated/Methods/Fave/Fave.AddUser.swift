@@ -13,6 +13,8 @@ extension Fave {
 		/// Identifier of the target user.
 		public var userID: UserID
 
+		/// - parameters:
+		///   - userID: Identifier of the target user.
 		public init(userID: UserID) {
 			self.userID = userID
 		}

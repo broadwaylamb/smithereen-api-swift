@@ -16,6 +16,9 @@ extension Polls {
 		/// Comma-separated identifiers of the options to vote for.
 		public var answerIDs: [PollOptionID]
 
+		/// - parameters:
+		///   - pollID: Identifier of the poll.
+		///   - answerIDs: Comma-separated identifiers of the options to vote for.
 		public init(
 			pollID: PollID,
 			answerIDs: [PollOptionID],

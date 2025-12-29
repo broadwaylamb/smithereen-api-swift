@@ -47,6 +47,10 @@ extension Photos {
 		/// The tag area.
 		public var area: ImageRect
 
+		/// - parameters:
+		///   - photoID: Identifier of the photo.
+		///   - taggee: Who to tag.
+		///   - area: The tag area.
 		public init(
 			photoID: PhotoID,
 			taggee: Taggee,

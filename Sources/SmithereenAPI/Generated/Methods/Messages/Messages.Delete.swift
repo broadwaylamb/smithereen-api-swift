@@ -24,6 +24,17 @@ extension Messages {
 		/// By default `false`.
 		public var revoke: Bool?
 
+		/// - parameters:
+		///   - messageID: Identifier of the message to be deleted.
+		///   - revoke: If this is an outgoing message that is still unread,
+		///     delete it out of its recipients’ mailboxes as well.
+		///     Messages deleted like this can’t be restored using
+		///     ``Messages/Restore``.
+		///     
+		///     To revoke a previously deleted message, just call
+		///     ``Messages/Delete`` again with ``revoke`` set to `true`.
+		///     
+		///     By default `false`.
 		public init(
 			messageID: MessageID,
 			revoke: Bool? = nil,

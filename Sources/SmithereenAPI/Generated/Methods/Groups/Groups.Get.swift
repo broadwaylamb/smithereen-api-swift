@@ -70,6 +70,20 @@ extension Groups {
 			/// A list of ``Group`` profile fields to be returned.
 			public var fields: [Group.Field]
 
+			/// - parameters:
+			///   - userID: User identifier for which to return groups.
+			///     Current user ID by default, required if not using a token.
+			///   - filter: A list of filters determining what kinds of communities
+			///     to return.
+			///     
+			///     Events and filtering by admin level require a token and only
+			///     apply for the current user and require
+			///     the `groups:read` permission.
+			///   - offset: Offset into the group list for pagination.
+			///   - count: How many groups to return.
+			///     
+			///     Minumum value: 1. Maximum value: 1000. By default 100.
+			///   - fields: A list of ``Group`` profile fields to be returned.
 			public init(
 				userID: UserID? = nil,
 				filter: [Filter]? = nil,
@@ -103,6 +117,19 @@ extension Groups {
 			public typealias Result = PaginatedList<Group, PaginatedListExtras.Empty>
 		}
 
+		/// - parameters:
+		///   - userID: User identifier for which to return groups.
+		///     Current user ID by default, required if not using a token.
+		///   - filter: A list of filters determining what kinds of communities
+		///     to return.
+		///     
+		///     Events and filtering by admin level require a token and only
+		///     apply for the current user and require
+		///     the `groups:read` permission.
+		///   - offset: Offset into the group list for pagination.
+		///   - count: How many groups to return.
+		///     
+		///     Minumum value: 1. Maximum value: 1000. By default 100.
 		public init(
 			userID: UserID? = nil,
 			filter: [Filter]? = nil,

@@ -13,6 +13,8 @@ extension Board {
 		/// The topic identifier.
 		public var topicID: BoardTopicID
 
+		/// - parameters:
+		///   - topicID: The topic identifier.
 		public init(topicID: BoardTopicID) {
 			self.topicID = topicID
 		}

@@ -35,6 +35,21 @@ extension Photos {
 		/// By default `false`.
 		public var rev: Bool?
 
+		/// - parameters:
+		///   - userID: Identifier of the user whose tagged photos need to be returned.
+		///     
+		///     By default, the current user. Required when called without a token.
+		///   - offset: Offset into the photo list for pagination.
+		///   - count: How many photos to return.
+		///     
+		///     Minumum value: 1. Maximum value: 1000. By default 50.
+		///   - extended: Whether to return extra fields about likes, comments,
+		///     and tags for each photo.
+		///     
+		///     By default `false`.
+		///   - rev: Whether to return the photos in reverse order.
+		///     
+		///     By default `false`.
 		public init(
 			userID: UserID? = nil,
 			offset: Int? = nil,

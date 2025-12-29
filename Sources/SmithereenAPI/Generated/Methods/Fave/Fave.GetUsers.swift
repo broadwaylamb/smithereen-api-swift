@@ -21,6 +21,12 @@ extension Fave {
 		/// A list of ``User`` profile fields to be returned.
 		public var fields: [User.Field]?
 
+		/// - parameters:
+		///   - offset: Offset into the user list for pagination.
+		///   - count: How many users to return.
+		///     
+		///     Minumum value: 1. Maximum value: 1000. By default 100.
+		///   - fields: A list of ``User`` profile fields to be returned.
 		public init(
 			offset: Int? = nil,
 			count: Int? = nil,

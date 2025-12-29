@@ -16,6 +16,9 @@ extension Photos {
 		/// Identifier of the album.
 		public var albumID: PhotoAlbumID
 
+		/// - parameters:
+		///   - photoID: Identifier of the photo.
+		///   - albumID: Identifier of the album.
 		public init(
 			photoID: PhotoID,
 			albumID: PhotoAlbumID,

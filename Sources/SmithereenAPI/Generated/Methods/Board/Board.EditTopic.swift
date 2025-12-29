@@ -16,6 +16,9 @@ extension Board {
 		/// The new title.
 		public var title: String
 
+		/// - parameters:
+		///   - topicID: The topic identifier.
+		///   - title: The new title.
 		public init(
 			topicID: BoardTopicID,
 			title: String,

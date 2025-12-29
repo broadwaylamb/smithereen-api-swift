@@ -18,6 +18,9 @@ extension Friends {
 		/// A list of user identifiers to be added to this list.
 		public var userIDs: [FriendListID]
 
+		/// - parameters:
+		///   - name: The name of the new list.
+		///   - userIDs: A list of user identifiers to be added to this list.
 		public init(
 			name: String,
 			userIDs: [FriendListID],

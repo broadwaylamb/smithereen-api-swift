@@ -38,6 +38,9 @@ extension Messages {
 				}
 			}
 
+			/// - parameters:
+			///   - messageIDs: A list of up to 200 message identifiers.
+			///   - fields: A list of ``User`` profile fields to be returned.
 			public init(
 				messageIDs: [MessageID],
 				fields: [User.Field]? = nil,
@@ -62,6 +65,8 @@ extension Messages {
 			}
 		}
 
+		/// - parameters:
+		///   - messageIDs: A list of up to 200 message identifiers.
 		public init(messageIDs: [MessageID]) {
 			self.messageIDs = messageIDs
 		}

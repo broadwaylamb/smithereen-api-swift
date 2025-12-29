@@ -48,6 +48,15 @@ extension Groups {
 			/// A list of ``User`` and ``Group`` profile fields to be returned.
 			public var fields: [ActorField]?
 
+			/// - parameters:
+			///   - type: Whether to return invitations to groups or to events.
+			///     
+			///     By default ``CommunityType/groups``.
+			///   - offset: Offset into the invitation list for pagination.
+			///   - count: How many invitations to return.
+			///     
+			///     Minumum value: 1. Maximum value: 500. By default 20.
+			///   - fields: A list of ``User`` and ``Group`` profile fields to be returned.
 			public init(
 				type: CommunityType? = nil,
 				offset: Int? = nil,
@@ -71,6 +80,15 @@ extension Groups {
 			public typealias Result = PaginatedList<Group, PaginatedListExtras.Profiles>
 		}
 
+		/// - parameters:
+		///   - type: Whether to return invitations to groups or to events.
+		///     
+		///     By default ``CommunityType/groups``.
+		///   - offset: Offset into the invitation list for pagination.
+		///   - count: How many invitations to return.
+		///     
+		///     Minumum value: 1. Maximum value: 500. By default 20.
+		///   - fields: A list of ``Group`` profile fields to be returned.
 		public init(
 			type: CommunityType? = nil,
 			offset: Int? = nil,

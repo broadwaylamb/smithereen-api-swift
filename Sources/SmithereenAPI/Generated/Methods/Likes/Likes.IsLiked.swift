@@ -23,6 +23,9 @@ extension Likes {
 			/// Whether the user has reposted this post or comment.
 			public var reposted: Bool?
 
+			/// - parameters:
+			///   - liked: Whether the user likes this object.
+			///   - reposted: Whether the user has reposted this post or comment.
 			public init(
 				liked: Bool,
 				reposted: Bool? = nil,
@@ -32,6 +35,11 @@ extension Likes {
 			}
 		}
 
+		/// - parameters:
+		///   - userID: The user identifier for which the like needs to be checked.
+		///     
+		///     By default, the current user.
+		///   - itemID: Identifier of the target object.
 		public init(
 			userID: UserID? = nil,
 			itemID: LikeableObject,

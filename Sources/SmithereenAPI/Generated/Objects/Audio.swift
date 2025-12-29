@@ -14,6 +14,9 @@ public struct Audio: Hashable, Codable, Sendable {
 	/// The textual description of this audio file.
 	public var description: String?
 
+	/// - parameters:
+	///   - url: The direct link to the audio file.
+	///   - description: The textual description of this audio file.
 	public init(
 		url: URL,
 		description: String? = nil,

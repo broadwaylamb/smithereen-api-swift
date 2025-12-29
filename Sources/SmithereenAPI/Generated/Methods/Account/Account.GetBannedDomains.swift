@@ -18,6 +18,11 @@ extension Account {
 		/// Minumum value: 1. Maximum value: 1000. By default 100.
 		public var count: Int?
 
+		/// - parameters:
+		///   - offset: Offset into the domain list for pagination.
+		///   - count: How many domains to return.
+		///     
+		///     Minumum value: 1. Maximum value: 1000. By default 100.
 		public init(
 			offset: Int? = nil,
 			count: Int? = nil,

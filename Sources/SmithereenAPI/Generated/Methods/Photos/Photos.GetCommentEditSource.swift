@@ -15,6 +15,9 @@ extension Photos {
 		/// to be returned.
 		public var commentID: PhotoCommentID
 
+		/// - parameters:
+		///   - commentID: The identifier of the comment for which the source needs
+		///     to be returned.
 		public init(commentID: PhotoCommentID) {
 			self.commentID = commentID
 		}

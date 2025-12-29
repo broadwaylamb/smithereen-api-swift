@@ -35,6 +35,22 @@ extension Photos {
 		/// By default `false`.
 		public var needCovers: Bool?
 
+		/// - parameters:
+		///   - ownerID: Identifier of the user or minus identifier of the group whose
+		///     albums need to be returned.
+		///     
+		///     Current user by default. Required if called without a token.
+		///   - offset: Offset into the album list for pagination.
+		///   - count: How many albums to return.
+		///     
+		///     Minumum value: 1.
+		///   - needSystem: Whether to return system albums (profile pictures, saved photos,
+		///     etc).
+		///     
+		///     By default `false`.
+		///   - needCovers: Whether to return a cover photo for each album.
+		///     
+		///     By default `false`.
 		public init(
 			ownerID: ActorID? = nil,
 			offset: Int? = nil,

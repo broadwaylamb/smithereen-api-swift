@@ -14,6 +14,10 @@ public struct PostEditSource: Hashable, Codable, Sendable {
 	/// The array of input attachment objects.
 	public var attachments: [AttachmentToCreate]
 
+	/// - parameters:
+	///   - text: The text itself.
+	///   - format: The format of the text.
+	///   - attachments: The array of input attachment objects.
 	public init(
 		text: String? = nil,
 		format: TextFormat,

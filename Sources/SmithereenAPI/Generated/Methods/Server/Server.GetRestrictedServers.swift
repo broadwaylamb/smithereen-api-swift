@@ -41,6 +41,10 @@ extension Server {
 			/// The type of restriction applied.
 			public var restriction: ServerRestriction
 
+			/// - parameters:
+			///   - domain: The domain name of the server. May be partially masked with `*`s.
+			///   - reason: The reason for restriction provided by this server’s administrators.
+			///   - restriction: The type of restriction applied.
 			public init(
 				domain: String,
 				reason: String? = nil,
@@ -52,6 +56,11 @@ extension Server {
 			}
 		}
 
+		/// - parameters:
+		///   - offset: Offset into the list of restricted servers.
+		///   - count: How many of the restricted servers to return.
+		///     
+		///     By default, all servers are returned.
 		public init(
 			offset: Int? = nil,
 			count: Int? = nil,

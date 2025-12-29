@@ -13,6 +13,8 @@ extension Groups {
 		/// The group identifier.
 		public var groupID: GroupID
 
+		/// - parameters:
+		///   - groupID: The group identifier.
 		public init(groupID: GroupID) {
 			self.groupID = groupID
 		}

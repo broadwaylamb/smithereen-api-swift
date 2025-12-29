@@ -150,6 +150,8 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 	/// Returned only for the ``Execute`` request.
 	public var method: String?
 
+	/// - parameters:
+	///   - method: Returned only for the ``Execute`` request.
 	public init(
 		code: Code,
 		message: String,

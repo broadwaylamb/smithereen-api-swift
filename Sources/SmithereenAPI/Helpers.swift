@@ -2,9 +2,15 @@ import Foundation
 import SmithereenAPIInternals
 
 public struct Birthday: Hashable, Codable, Sendable, CustomStringConvertible {
-	var day: Int
-	var month: Int
-	var year: Int?
+	public var day: Int
+	public var month: Int
+	public var year: Int?
+
+	public init(day: Int, month: Int, year: Int?) {
+		self.day = day
+		self.month = month
+		self.year = year
+	}
 
 	public var description: String {
 		if let year {

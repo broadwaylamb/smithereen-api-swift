@@ -30,7 +30,7 @@ public enum OAuth {
 	///   - state: An opaque string that will passed back to your app.
 	///   - pkceCodeChallenge: If using PKCE, the SHA-256 hash of
 	///     the code verifier string.
-	public func urlForAuthorizationCodeFlow(
+	public static func urlForAuthorizationCodeFlow(
 		host: String,
 		clientID: URL,
 		redirectURI: URL,
@@ -86,7 +86,7 @@ public enum OAuth {
 	///   - expectedState: If this is not `nil`, the string against which to verify
 	///     the `url`'s query parameter `state`. If they don't match,
 	///     ``AuthorizationCodeError/stateMismatch(expected:actual:)`` is thrown.
-	public func extractAuthorizationCode(
+	public static func extractAuthorizationCode(
 		from url: URL,
 		expectedState: String?,
 	) throws(AuthorizationCodeError) -> AuthorizationCode {

@@ -66,6 +66,10 @@ let account = Group("Account") {
 		has.
 		""")
 
+	apiMethod("account.revokeToken", resultType: .void) {
+	}
+	.doc("Revokes the current access token.")
+
 	apiMethod("account.setOffline", resultType: .void) {
 	}
 	.doc("""

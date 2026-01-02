@@ -147,11 +147,10 @@ extension Data {
     // https://forums.swift.org/t/pitch-adding-base64-urlencoding-and-omitting-padding-options-to-base64-encoding-and-decoding/77659
     fileprivate func base64EncodedURLString() -> String {
         let encoded = base64EncodedString()
-        let characters: [Character] = encoded.compactMap {
+        let characters: [Character] = encoded.map {
             switch $0 {
             case "+": return "-"
             case "/": return "_"
-            case "=": return nil
             default: return $0
             }
         }

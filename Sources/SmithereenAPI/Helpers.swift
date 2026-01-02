@@ -62,7 +62,7 @@ extension ActorID {
 	}
 
 	public init(_ groupID: GroupID) {
-		self.init(rawValue: Int32(groupID.rawValue))
+		self.init(rawValue: -Int32(groupID.rawValue))
 	}
 
 	public var userID: UserID? {

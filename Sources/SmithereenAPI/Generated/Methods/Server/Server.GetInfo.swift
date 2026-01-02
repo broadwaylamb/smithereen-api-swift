@@ -76,7 +76,7 @@ extension Server {
 			public var activeUsers: Int
 
 			/// How many local groups exist on this server.
-			public var groups: String
+			public var groups: Int
 
 			/// - parameters:
 			///   - users: How many local user accounts exist on this server.
@@ -86,7 +86,7 @@ extension Server {
 			public init(
 				users: Int,
 				activeUsers: Int,
-				groups: String,
+				groups: Int,
 			) {
 				self.users = users
 				self.activeUsers = activeUsers

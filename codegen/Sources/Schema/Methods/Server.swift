@@ -42,7 +42,7 @@ let server = Group("Server") {
 					How many of the local users have been active in the last
 					month.
 					""")
-			FieldDef("groups", type: .string)
+			FieldDef("groups", type: .int)
 				.required()
 				.doc("How many local groups exist on this server.")
 		}

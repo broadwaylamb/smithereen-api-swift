@@ -13,9 +13,11 @@ private let urlFormEncoder = URLEncodedFormEncoder(
 extension URLRequest {
 	private init<Request: EncodableRequestProtocol>(
 		host: String,
+		port: Int?,
+		useHTTPS: Bool,
 		request: Request,
-		cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy,
-		timeoutInterval: TimeInterval = 60.0,
+		cachePolicy: URLRequest.CachePolicy,
+		timeoutInterval: TimeInterval,
 		additionalQueryItems: (inout [URLQueryItem]) throws -> Void,
 	) throws {
 		var queryItems = [URLQueryItem]()
@@ -24,8 +26,9 @@ extension URLRequest {
 			try urlFormEncoder.encode(query, into: &queryItems)
 		}
 		var urlComponents = URLComponents()
-		urlComponents.scheme = "https"
+		urlComponents.scheme = useHTTPS ? "https" : "http"
 		urlComponents.host = host
+		urlComponents.port = port
 		urlComponents.path = request.path
 		urlComponents.queryItems = queryItems
 		guard let url = urlComponents.url else {
@@ -56,6 +59,8 @@ extension URLRequest {
 	///   - timeoutInterval: The timeout interval for the request. The default is 60.0.
 	public init<Request: SmithereenAPIRequest>(
 		host: String,
+		port: Int? = nil,
+		useHTTPS: Bool = true,
 		request: Request,
 		globalParameters: GlobalRequestParameters,
 		passAccessTokenInHeader: Bool = true,
@@ -69,6 +74,8 @@ extension URLRequest {
 		}
 		try self.init(
 			host: host,
+			port: port,
+			useHTTPS: useHTTPS,
 			request: request,
 			cachePolicy: cachePolicy,
 			timeoutInterval: timeoutInterval,
@@ -90,12 +97,16 @@ extension URLRequest {
 	///   - timeoutInterval: The timeout interval for the request. The default is 60.0.
 	public init<Request: SmithereenOAuthTokenRequest>(
 		host: String,
+		port: Int? = nil,
+		useHTTPS: Bool = true,
 		request: Request,
 		cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy,
 		timeoutInterval: TimeInterval = 60.0,
 	) throws {
 		try self.init(
 			host: host,
+			port: port,
+			useHTTPS: useHTTPS,
 			request: request,
 			cachePolicy: cachePolicy,
 			timeoutInterval: timeoutInterval,

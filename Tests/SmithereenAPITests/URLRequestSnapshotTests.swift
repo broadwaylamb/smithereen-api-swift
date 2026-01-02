@@ -138,4 +138,22 @@ class URLRequestSnapshotTests: XCTestCase {
 			"""#
 		}
 	}
+
+	func testHTTPWithPort() throws {
+		let urlRequest = try URLRequest(
+			host: "example.com",
+			port: 8080,
+			useHTTPS: false,
+			request: Server.GetInfo(),
+			globalParameters: GlobalRequestParameters(apiVersion: .v1_0),
+		)
+		assertInlineSnapshot(of: urlRequest, as: .curl) {
+			#"""
+			curl \
+				--request POST \
+				--header "Accept: application/json" \
+				"http://example.com:8080/api/method/server.getInfo?v=1.0"
+			"""#
+		}
+	}
 }

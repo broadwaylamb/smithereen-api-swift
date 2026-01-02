@@ -32,6 +32,8 @@ public enum OAuth {
 	///     the code verifier string.
 	public static func urlForAuthorizationCodeFlow(
 		host: String,
+		port: Int? = nil,
+		useHTTPS: Bool = true,
 		clientID: URL,
 		redirectURI: URL,
 		permissions: [Permission]? = nil,
@@ -39,8 +41,9 @@ public enum OAuth {
 		pkceCodeChallenge: Data? = nil,
 	) -> URL {
 		var urlComponents = URLComponents()
-		urlComponents.scheme = "https"
+		urlComponents.scheme = useHTTPS ? "https" : "http"
 		urlComponents.host = host
+		urlComponents.port = port
 		urlComponents.path = "/oauth/authorize"
 		var queryItems = [
 			URLQueryItem(name: "client_id", value: clientID.absoluteString),
@@ -144,7 +147,7 @@ extension Data {
     // https://forums.swift.org/t/pitch-adding-base64-urlencoding-and-omitting-padding-options-to-base64-encoding-and-decoding/77659
     fileprivate func base64EncodedURLString() -> String {
         let encoded = base64EncodedString()
-        let characetrs: [Character] = encoded.compactMap {
+        let characters: [Character] = encoded.compactMap {
             switch $0 {
             case "+": return "-"
             case "/": return "_"
@@ -152,6 +155,6 @@ extension Data {
             default: return $0
             }
         }
-        return String(characetrs)
+        return String(characters)
     }
 }

@@ -66,7 +66,7 @@ public enum OAuth {
 			queryItems.append(
 				URLQueryItem(
 					name: "code_challenge",
-					value: pkceCodeChallenge.base64EncodedString(),
+					value: pkceCodeChallenge.base64EncodedURLString(),
 				)
 			)
 		}
@@ -136,4 +136,21 @@ extension OAuth.TokenError: ServerErrorProtocol {
 	public static func defaultError(for statusCode: HTTPStatusCode) -> OAuth.TokenError {
 		OAuth.TokenError(code: .invalidRequest)
 	}
+}
+
+extension Data {
+	// TODO: Use base64URLAlphabet when it becomes available
+    // https://forums.swift.org/t/pitch-adding-base64-urlencoding-and-omitting-padding-options-to-base64-encoding-and-decoding/77659
+    fileprivate func base64EncodedURLString() -> String {
+        let encoded = base64EncodedString()
+        let characetrs: [Character] = encoded.compactMap {
+            switch $0 {
+            case "+": return "-"
+            case "/": return "_"
+            case "=": return nil
+            default: return $0
+            }
+        }
+        return String(characetrs)
+    }
 }

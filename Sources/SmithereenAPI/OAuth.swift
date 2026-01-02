@@ -114,7 +114,8 @@ public enum OAuth {
 
 public protocol SmithereenOAuthTokenRequest
 	:	EncodableRequestProtocol,
-		DecodableRequestProtocol
+		DecodableRequestProtocol,
+		Sendable
 	where
 		ServerError == OAuth.TokenError,
 		ResponseBody == Data,

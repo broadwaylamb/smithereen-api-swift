@@ -6,7 +6,7 @@ struct TaggedUnionDef: Documentable {
 	var decls: [any TaggedUnionDefPart]
 	var conformances: [TypeRef]
 	var isFrozen: Bool = false
-	var hasTag: Bool = true
+	var tagSerialName: String? = "type"
 
 	static let defaultConformances: [TypeRef] = [
 		.hashable,
@@ -32,8 +32,8 @@ struct TaggedUnionDef: Documentable {
 		copyWith(self, \.isFrozen, true)
 	}
 
-	func tagless() -> TaggedUnionDef {
-		copyWith(self, \.hasTag, false)
+	func tag(_ name: String?) -> TaggedUnionDef {
+		copyWith(self, \.tagSerialName, name)
 	}
 }
 

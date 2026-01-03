@@ -145,4 +145,80 @@ let server = Group("Server") {
 		restrictedServerStruct
 	}
 	.doc("Returns the list of servers for which there are federation restrictions.")
+
+	apiMethod("server.report", resultType: .void) {
+		FieldDef("owner_id", type: .def(actorID))
+			.required()
+			.doc("The identifier of the user or group being reported.")
+
+		let reasonDef = TaggedUnionDef(
+			"Reason",
+			conformances: [.hashable, .encodable, .sendable],
+		) {
+			TaggedUnionVariantDef("spam", type: .void)
+				.doc("Spam")
+			TaggedUnionVariantDef(
+				"rules",
+				payloadFieldName: "rule_ids",
+			 	type: .array(.def(serverRuleID))
+			)
+			.doc("""
+				The actor violates some server rules.
+				Only available when there are rules defined on the server.
+				At least one rule identifier must be specified.
+				""")
+			TaggedUnionVariantDef("illegal", type: .void)
+				.doc("Illegal content or activities.")
+			TaggedUnionVariantDef("other", type: .void)
+				.doc("Anything that doesn’t fit into the above categories.")
+		}
+		.tag("reason")
+		.frozen()
+
+		FieldDef("reason", type: .def(reasonDef))
+			.required()
+			.flatten()
+			.doc("The reason for the report.")
+		reasonDef
+
+		let reportedContentDef = TaggedUnionDef(
+			"ReportedContent",
+			conformances: [.hashable, .encodable, .sendable],
+		) {
+			TaggedUnionVariantDef("wall_post", payloadFieldName: "id", type: .def(wallPostID))
+			TaggedUnionVariantDef("wall_comment", payloadFieldName: "id", type: .def(wallPostID))
+			TaggedUnionVariantDef("comment", payloadFieldName: "id", type: .def(photoCommentID))
+				.swiftName("photoComment")
+			TaggedUnionVariantDef("comment", payloadFieldName: "id", type: .def(topicCommentID))
+				.swiftName("topicComment")
+			TaggedUnionVariantDef("message", payloadFieldName: "id", type: .def(messageID))
+			TaggedUnionVariantDef("photo", payloadFieldName: "id", type: .def(photoID))
+		}
+		.frozen()
+
+		FieldDef("content", type: .array(.def(reportedContentDef)))
+			.json()
+			.doc("""
+				Any content to be attached to the report.
+				``ownerID`` must be a user and the content must be authored
+				by that user.
+				""")
+
+		reportedContentDef
+
+		FieldDef("forward", type: .bool)
+			.doc("""
+				If ``ownerID`` refers to an actor on another server, whether to
+				forward (anonymously) the report to that server.
+
+				By default `false`.
+				""")
+
+		FieldDef("comment", type: .string)
+			.doc("An optional comment for the server staff.")
+	}
+	.doc("""
+		Submits a report about potentially harmful content or behavior for review
+		by the server staff.
+		""")
 }

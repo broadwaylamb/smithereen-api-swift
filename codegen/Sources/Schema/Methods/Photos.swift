@@ -429,7 +429,7 @@ let photos = Group("Photos") {
 					""")
 		}
 		.frozen()
-		.tagless()
+		.tag(nil)
 		FieldDef("taggee", type: .def(taggeeDef))
 			.required()
 			.flatten()

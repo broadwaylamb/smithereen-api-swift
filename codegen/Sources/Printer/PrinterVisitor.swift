@@ -383,11 +383,12 @@ final class PrinterVisitor {
 			}
 
 			var keys = def.variants
+				.filter { $0.type != .void }
 				.distinct { $0.payloadFieldName }
 				.map { CustomCodingKey(serialName: $0.payloadFieldName) }
 
-			if def.hasTag {
-				let _ = keys.insert(CustomCodingKey(serialName: "type"), at: 0)
+			if let tagSerialName = def.tagSerialName {
+				let _ = keys.insert(CustomCodingKey(serialName: tagSerialName, customSwiftName: "type"), at: 0)
 			}
 
 			codingKeys(for: keys)
@@ -437,7 +438,7 @@ final class PrinterVisitor {
 			if def.conformances.contains(.encodable) || def.conformances.contains(.codable) {
 				try! FunctionDeclSyntax("public func encode(to encoder: any Encoder) throws") {
 					"var container = encoder.container(keyedBy: CodingKeys.self)"
-					if def.hasTag {
+					if def.tagSerialName != nil {
 						"let tag: String"
 					}
 					try! SwitchExprSyntax("switch self") {
@@ -447,21 +448,29 @@ final class PrinterVisitor {
 								variant.payloadFieldName.convertFromSnakeCase(),
 								context: .memberAccess,
 							)
-							SwitchCaseSyntax("case .\(caseName)(let payload):") {
-								if def.hasTag {
-									"tag = \"\(raw: variant.serialName)\""
+							if variant.type == .void {
+								SwitchCaseSyntax("case .\(caseName):") {
+									if def.tagSerialName != nil {
+										"tag = \"\(raw: variant.serialName)\""
+									}
 								}
-								"try container.encode(payload, forKey: .\(codingKey))"
+							} else {
+								SwitchCaseSyntax("case .\(caseName)(let payload):") {
+									if def.tagSerialName != nil {
+										"tag = \"\(raw: variant.serialName)\""
+									}
+									"try container.encode(payload, forKey: .\(codingKey))"
+								}
 							}
 						}
-						if !def.isFrozen && def.hasTag {
+						if !def.isFrozen && def.tagSerialName != nil {
 							SwitchCaseSyntax("""
 								case .unknown(let _tag):
 									tag = _tag
 								""")
 						}
 					}
-					if def.hasTag {
+					if def.tagSerialName != nil {
 						"try container.encode(tag, forKey: .type)"
 					}
 				}
@@ -674,7 +683,7 @@ private func enumCase(
 		rawValue: payload == nil && entity.requiresCustomCodingKey
 			? entity.serialName
 			: nil,
-		payload: payload,
+		payload: payload == .void ? nil : payload,
 	)
 }
 

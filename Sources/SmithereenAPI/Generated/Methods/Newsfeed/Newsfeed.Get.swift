@@ -93,13 +93,13 @@ extension Newsfeed {
 		public enum UpdatedItem: Hashable, Codable, Sendable {
 
 			/// A new wall post was created.
-			case post(WallPost)
+			case post(WallPostNewsfeedUpdate)
 
 			/// New photos were uploaded.
-			case photo(PhotoUpdate)
+			case photo(PhotoNewsfeedUpdate)
 
 			/// The user was tagged in some photos.
-			case photoTag(PhotoUpdate)
+			case photoTag(PhotoNewsfeedUpdate)
 
 			/// The user added new friends.
 			case friend([UserID])
@@ -140,11 +140,11 @@ extension Newsfeed {
 				let type = try container.decode(String.self, forKey: .type)
 				switch type {
 				case "post":
-					self = .post(try container.decode(WallPost.self, forKey: .post))
+					self = .post(try .init(from: decoder))
 				case "photo":
-					self = .photo(try container.decode(PhotoUpdate.self, forKey: .photos))
+					self = .photo(try container.decode(PhotoNewsfeedUpdate.self, forKey: .photos))
 				case "photo_tag":
-					self = .photoTag(try container.decode(PhotoUpdate.self, forKey: .photos))
+					self = .photoTag(try container.decode(PhotoNewsfeedUpdate.self, forKey: .photos))
 				case "friend":
 					self = .friend(try container.decode([UserID].self, forKey: .friendIDs))
 				case "group_join":

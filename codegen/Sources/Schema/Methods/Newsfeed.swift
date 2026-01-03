@@ -43,7 +43,8 @@ let newsfeed = Group("Newsfeed") {
 		relationUpdateStruct
 
 		let updatedItem = TaggedUnionDef("UpdatedItem") {
-			TaggedUnionVariantDef("post", type: .def(wallPost))
+			TaggedUnionVariantDef("post", type: .def(wallPostFeedUpdate))
+				.flatten()
 				.doc("A new wall post was created.")
 			let photoUpdates = [
 				("photo", "New photos were uploaded."),
@@ -196,7 +197,8 @@ let newsfeed = Group("Newsfeed") {
 		actorFieldsParam()
 
 		let updatedItem = TaggedUnionDef("UpdatedItem") {
-			TaggedUnionVariantDef("post", type: .def(wallPost))
+			TaggedUnionVariantDef("post", type: .def(wallPostFeedUpdate))
+				.flatten()
 				.doc("A new wall post was created.")
 			TaggedUnionVariantDef(
 				"board",

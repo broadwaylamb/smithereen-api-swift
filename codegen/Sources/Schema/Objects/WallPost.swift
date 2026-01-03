@@ -92,3 +92,28 @@ extension Documentable {
 			""")
 	}
 }
+
+let wallPostFeedUpdate = StructDef("WallPostNewsfeedUpdate") {
+	FieldDef("post", type: .def(wallPost))
+		.required()
+
+	let matchedFilterDef = StructDef("MatchedFilter") {
+		FieldDef("id", type: .def(wordFilterID))
+			.id()
+			.required()
+			.doc("Identifier of the filter.")
+		FieldDef("name", type: .string)
+			.required()
+			.doc("Name of the filter.")
+		FieldDef("expiry_date", type: .unixTimestamp)
+			.doc("If the filter expires, the time when it does.")
+	}
+
+	FieldDef("matched_filter", type: .def(matchedFilterDef))
+		.doc("""
+			If any word filter has matched the post, information about
+			that filter.
+			""")
+
+	matchedFilterDef
+}

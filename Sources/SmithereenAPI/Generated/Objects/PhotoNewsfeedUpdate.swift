@@ -4,7 +4,7 @@ import Foundation
 import SmithereenAPIInternals
 
 /// The information about photos added to an album or a user was tagged in.
-public struct PhotoUpdate: Hashable, Codable, Sendable {
+public struct PhotoNewsfeedUpdate: Hashable, Codable, Sendable {
 
 	/// How many photos were added or tagged in total.
 	public var count: Int

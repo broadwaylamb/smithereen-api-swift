@@ -13,6 +13,7 @@ let pollOptionID = IdentifierStruct("PollOptionID", rawValue: .uint64)
 let boardTopicID = IdentifierStruct(("BoardTopicID"), rawValue: .string)
 let wallPostID = IdentifierStruct("WallPostID", rawValue: .uint64)
 	.doc("An identifier of a wall post or a comment on a wall post.")
+let wordFilterID = IdentifierStruct("WordFilterID", rawValue: .uint64)
 let photoCommentID = IdentifierStruct("PhotoCommentID", rawValue: .string)
 	.doc("And identifier of a comment on a photo in a photo album.")
 let topicCommentID = IdentifierStruct("TopicCommentID", rawValue: .string)
@@ -127,7 +128,7 @@ let commentView = EnumDef<String>("CommentView") {
 }
 .frozen()
 
-let photoFeedUpdate = StructDef("PhotoUpdate") {
+let photoFeedUpdate = StructDef("PhotoNewsfeedUpdate") {
 	FieldDef("count", type: .int)
 		.required()
 		.doc("How many photos were added or tagged in total.")

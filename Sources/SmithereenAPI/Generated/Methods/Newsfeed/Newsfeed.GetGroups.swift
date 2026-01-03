@@ -52,13 +52,13 @@ extension Newsfeed {
 		public enum UpdatedItem: Hashable, Codable, Sendable {
 
 			/// A new wall post was created.
-			case post(WallPost)
+			case post(WallPostNewsfeedUpdate)
 
 			/// New discussion board topics were created in the group.
 			case board([BoardTopic])
 
 			/// New photos were added to the group’s photo albums.
-			case photo([PhotoUpdate])
+			case photo([PhotoNewsfeedUpdate])
 
 			/// Represents an unrecognized type of payload.
 			case unknown(String)
@@ -75,11 +75,11 @@ extension Newsfeed {
 				let type = try container.decode(String.self, forKey: .type)
 				switch type {
 				case "post":
-					self = .post(try container.decode(WallPost.self, forKey: .post))
+					self = .post(try .init(from: decoder))
 				case "board":
 					self = .board(try container.decode([BoardTopic].self, forKey: .topics))
 				case "photo":
-					self = .photo(try container.decode([PhotoUpdate].self, forKey: .photos))
+					self = .photo(try container.decode([PhotoNewsfeedUpdate].self, forKey: .photos))
 				default:
 					self = .unknown(type)
 				}

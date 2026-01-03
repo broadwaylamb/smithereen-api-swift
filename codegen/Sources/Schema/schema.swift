@@ -21,6 +21,7 @@ let schema = Group {
 		messageID
 		uploadedImageID
 		uploadedImageHash
+		wordFilterID
 	}
 	Group("Objects") {
 		attachment
@@ -51,6 +52,7 @@ let schema = Group {
 		user
 		video
 		wallPost
+		wallPostFeedUpdate
 	}
 
 	Group("Methods") {

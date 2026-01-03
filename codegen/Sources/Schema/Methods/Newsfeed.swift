@@ -145,6 +145,16 @@ let newsfeed = Group("Newsfeed") {
 	.doc("Returns the current user’s followees’ updates (and their own posts).")
 	.requiresPermissions("newsfeed")
 
+	apiMethod("newsfeed.getBanned", resultType: .paginatedList(.def(user))) {
+		offsetAndCountParams("user", range: 1...1000, defaultCount: 100)
+		userFieldsParam()
+	}
+	.doc("""
+		Returns the list of users whose updates are hidden from the current user’s
+		news feed.
+		""")
+	.requiresPermissions("newsfeed")
+
 	apiMethod("newsfeed.getComments") {
 		let filter = filterEnum(
 			("post", "Wall posts."),

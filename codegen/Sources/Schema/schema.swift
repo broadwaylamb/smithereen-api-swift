@@ -84,4 +84,5 @@ let schema = Group {
 	imageFormat
 	globalRequestParameters
 	error
+	wordFilterContext
 }

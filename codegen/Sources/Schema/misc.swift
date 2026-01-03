@@ -112,6 +112,13 @@ let imageRect = StructDef("ImageRect") {
 		.doc("The Y coordinate of the bottom right corner, from 0 to 1.")
 }
 
+let wordFilterContext = EnumDef<String>("WordFilterContext") {
+	EnumCaseDef("friends")
+		.doc("The default (friends) news feed.")
+	EnumCaseDef("groups")
+		.doc("The groups news feed.")
+}
+
 let actorField = EnumDef<String>("ActorField") {
 	let cases = (user.requestableFieldCases + group.requestableFieldCases)
 		.distinct(by: \.swiftName)

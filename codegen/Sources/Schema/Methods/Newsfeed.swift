@@ -7,6 +7,30 @@ let newsfeed = Group("Newsfeed") {
 	.doc("Hides a user’s updates from the current user’s news feed.")
 	.requiresPermissions("newsfeed")
 
+	apiMethod("newsfeed.addFilter", resultType: .def(wordFilterID)) {
+		FieldDef("name", type: .string)
+			.required()
+			.doc("The user-visible name of the filter.")
+
+		FieldDef("words", type: .array(.string))
+			.json()
+			.required()
+			.doc("Words (case-insensitive) that match this filter.")
+
+		FieldDef("contexts", type: .array(.def(wordFilterContext)))
+			.required()
+			.doc("Which contexts this filter applies in.")
+
+		FieldDef("expiry_date", type: .unixTimestamp)
+			.doc("""
+				The unixtime when this filter expires.
+				If the timestamp is in the past, or if this parameter
+				is omitted, the filter will not expire.
+				""")
+	}
+	.doc("Creates a new word filter for the current user’s news feeds.")
+	.requiresPermissions("newsfeed")
+
 	apiMethod("newsfeed.get") {
 		let paginationToken = IdentifierStruct("PaginationToken", rawValue: .string)
 		paginationToken

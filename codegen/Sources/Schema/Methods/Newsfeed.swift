@@ -1,4 +1,12 @@
 let newsfeed = Group("Newsfeed") {
+	apiMethod("newsfeed.addBan", resultType: .void) {
+		FieldDef("user_id", type: .def(userID))
+			.required()
+			.doc("The identifier of the user to hide.")
+	}
+	.doc("Hides a user’s updates from the current user’s news feed.")
+	.requiresPermissions("newsfeed")
+
 	apiMethod("newsfeed.get") {
 		let paginationToken = IdentifierStruct("PaginationToken", rawValue: .string)
 		paginationToken

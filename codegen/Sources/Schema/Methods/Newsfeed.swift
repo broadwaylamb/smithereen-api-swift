@@ -8,25 +8,7 @@ let newsfeed = Group("Newsfeed") {
 	.requiresPermissions("newsfeed")
 
 	apiMethod("newsfeed.addFilter", resultType: .def(wordFilterID)) {
-		FieldDef("name", type: .string)
-			.required()
-			.doc("The user-visible name of the filter.")
-
-		FieldDef("words", type: .array(.string))
-			.json()
-			.required()
-			.doc("Words (case-insensitive) that match this filter.")
-
-		FieldDef("contexts", type: .array(.def(wordFilterContext)))
-			.required()
-			.doc("Which contexts this filter applies in.")
-
-		FieldDef("expiry_date", type: .unixTimestamp)
-			.doc("""
-				The unixtime when this filter expires.
-				If the timestamp is in the past, or if this parameter
-				is omitted, the filter will not expire.
-				""")
+		wordFilterParams(allRequired: true)
 	}
 	.doc("Creates a new word filter for the current user’s news feeds.")
 	.requiresPermissions("newsfeed")
@@ -48,6 +30,20 @@ let newsfeed = Group("Newsfeed") {
 			.doc("The identifier of the filter to delete.")
 	}
 	.doc("Deletes a word filter.")
+	.requiresPermissions("newsfeed")
+
+	apiMethod("newsfeed.editFilter", resultType: .void) {
+		FieldDef("filter_id", type: .def(wordFilterID))
+			.required()
+			.doc("The identifier of the filter to update.")
+
+		wordFilterParams(allRequired: false)
+	}
+	.doc("""
+		Updates a word filter.
+
+		Unspecified parameters mean that this parameter is unchanged.
+		""")
 	.requiresPermissions("newsfeed")
 
 	apiMethod("newsfeed.get") {
@@ -351,4 +347,27 @@ private func feedResult(
 				If this field is absent, no more updates are available.
 				""")
 	}
+}
+
+@StructDefBuilder
+private func wordFilterParams(allRequired: Bool) -> any StructDefPart {
+	FieldDef("name", type: .string)
+		.required(allRequired)
+		.doc("The user-visible name of the filter.")
+
+	FieldDef("words", type: .array(.string))
+		.json()
+		.required(allRequired)
+		.doc("Words (case-insensitive) that match this filter.")
+
+	FieldDef("contexts", type: .array(.def(wordFilterContext)))
+		.required(allRequired)
+		.doc("Which contexts this filter applies in.")
+
+	FieldDef("expiry_date", type: .unixTimestamp)
+		.doc("""
+			The unixtime when this filter expires.
+			If the timestamp is in the past, or if this parameter
+			is omitted, the filter will not expire.
+			""")
 }

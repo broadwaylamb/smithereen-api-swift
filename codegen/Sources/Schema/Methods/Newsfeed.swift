@@ -232,6 +232,49 @@ let newsfeed = Group("Newsfeed") {
 	.doc("Returns comment threads that the current user has participated in.")
 	.requiresPermissions("newsfeed")
 
+	let wordFilterDef = StructDef("WordFilter") {
+		FieldDef("id", type: .def(wordFilterID))
+			.required()
+			.id()
+			.doc("Identifier of the filter.")
+
+		FieldDef("name", type: .string)
+			.required()
+			.doc("The user-visible name of the filter.")
+
+		FieldDef("words", type: .array(.string))
+			.required()
+			.doc("Words (case-insensitive) that match this filter.")
+
+		FieldDef("contexts", type: .array(.def(wordFilterContext)))
+			.required()
+			.doc("Which contexts this filter applies in.")
+
+		FieldDef("expiry_date", type: .unixTimestamp)
+			.doc("If this filter is temporary, the time when it expires.")
+	}
+	apiMethod("newsfeed.getFilters", resultType: .array(.def(wordFilterDef))) {
+		FieldDef("include_expired", type: .bool)
+			.doc("""
+				Whether to also return expired filters.
+
+				By default `false`.
+				""")
+
+		wordFilterDef
+	}
+	.doc("""
+		Returns the word filters the current user has set up for their
+		news feeds.
+
+		You do **not** need to apply the filters client-side.
+		The server will return `matchedFilter` in ``WallPostNewsfeedUpdate``
+		for any posts that match a filter. Your app then only needs to render
+		some sort of placeholder, displaying the filter name, and optionally
+		letting the user see the post anyway.
+		""")
+	.requiresPermissions("newsfeed")
+
 	apiMethod("newsfeed.getGroups") {
 		let paginationToken = IdentifierStruct("PaginationToken", rawValue: .string)
 		paginationToken

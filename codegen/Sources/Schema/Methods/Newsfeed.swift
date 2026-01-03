@@ -42,6 +42,14 @@ let newsfeed = Group("Newsfeed") {
 		""")
 	.requiresPermissions("newsfeed")
 
+	apiMethod("newsfeed.deleteFilter", resultType: .void) {
+		FieldDef("filter_id", type: .def(wordFilterID))
+			.required()
+			.doc("The identifier of the filter to delete.")
+	}
+	.doc("Deletes a word filter.")
+	.requiresPermissions("newsfeed")
+
 	apiMethod("newsfeed.get") {
 		let paginationToken = IdentifierStruct("PaginationToken", rawValue: .string)
 		paginationToken

@@ -31,6 +31,17 @@ let newsfeed = Group("Newsfeed") {
 	.doc("Creates a new word filter for the current user’s news feeds.")
 	.requiresPermissions("newsfeed")
 
+	apiMethod("newsfeed.deleteBan", resultType: .void) {
+		FieldDef("user_id", type: .def(userID))
+			.required()
+			.doc("The identifier of the user to unhide.")
+	}
+	.doc("""
+		Allows previously hidden user to appear again in the current user’s
+		news feed.
+		""")
+	.requiresPermissions("newsfeed")
+
 	apiMethod("newsfeed.get") {
 		let paginationToken = IdentifierStruct("PaginationToken", rawValue: .string)
 		paginationToken

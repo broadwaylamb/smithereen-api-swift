@@ -22,6 +22,7 @@ let schema = Group {
 		uploadedImageID
 		uploadedImageHash
 		wordFilterID
+		notificationID
 	}
 	Group("Objects") {
 		attachment
@@ -65,6 +66,7 @@ let schema = Group {
 		likes
 		messages
 		newsfeed
+		notifications
 		oauth
 		photos
 		polls

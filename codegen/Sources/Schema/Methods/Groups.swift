@@ -1,5 +1,5 @@
 let groups = Group("Groups") {
-	apiMethod("groups.acceptUser", resultType: .void) {
+	apiMethod("groups.approveRequest", resultType: .void) {
 		FieldDef("group_id", type: .def(groupID))
 			.required()
 			.doc("Group identifier.")

@@ -10,7 +10,7 @@ extension Groups {
 	/// The current user must be at least a moderator in the group.
 	/// 
 	/// - Note: This method requires the following permissions: `groups`.
-	public struct AcceptUser: SmithereenAPIRequest, Hashable, Encodable, Sendable {
+	public struct ApproveRequest: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// Group identifier.
 		public var groupID: GroupID
@@ -34,7 +34,7 @@ extension Groups {
 			case userID = "user_id"
 		}
 		public var path: String {
-			"/api/method/groups.acceptUser"
+			"/api/method/groups.approveRequest"
 		}
 		public static var method: HTTPMethod {
 			.post

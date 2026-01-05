@@ -37,16 +37,22 @@ let user = StructDef("User") {
 	FieldDef("maiden_name", type: .string)
 		.optionalFieldDoc("User’s maiden name.")
 
-	FieldDef("sex", type: TypeRef(name: "Gender"))
+	let genderDef = EnumDef<String>("Gender") {
+		EnumCaseDef("other")
+			.doc("They/them.")
+		EnumCaseDef("female")
+			.doc("She/her.")
+		EnumCaseDef("male")
+			.doc("He/him.")
+	}
+	.frozen()
+
+	FieldDef("sex", type: .def(genderDef))
 		.optionalFieldDoc("""
 			User’s preferred grammatical gender, to choose pronouns
 			in strings that refer to them.
 			""")
-	EnumDef<String>("Gender") {
-		EnumCaseDef("other", additionalRepresentation: 0)
-		EnumCaseDef("female", additionalRepresentation: 1)
-		EnumCaseDef("male", additionalRepresentation: 2)
-	}
+	genderDef
 
 	FieldDef("bdate", type: TypeRef(name: "Birthday"))
 		.swiftName("birthday")

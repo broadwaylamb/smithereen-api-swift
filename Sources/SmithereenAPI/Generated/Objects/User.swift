@@ -75,40 +75,16 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// ``User`` objects.
 	public var sex: Gender?
 
-	public struct Gender: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
+	public enum Gender: String, Codable, Sendable, CaseIterable {
 
-		public static let other = Self(rawValue: "other")
-		public static let female = Self(rawValue: "female")
-		public static let male = Self(rawValue: "male")
+		/// They/them.
+		case other
 
-		public static let allCases: [Gender] = [
-			.other,
-			.female,
-			.male,
-		]
+		/// She/her.
+		case female
 
-		public init(from decoder: Decoder) throws {
-			let container = try decoder.singleValueContainer()
-			do {
-				self = Self(rawValue: try container.decode(String.self))
-			} catch DecodingError.typeMismatch {
-				let intValue = try container.decode(Int.self)
-				switch intValue {
-				case 0:
-					self = .other
-				case 1:
-					self = .female
-				case 2:
-					self = .male
-				default:
-					self = Self(rawValue: String(intValue))
-				}
-			}
-		}
+		/// He/him.
+		case male
 	}
 
 	/// User’s birth date as `DD.MM.YYYY` or `DD.MM`.

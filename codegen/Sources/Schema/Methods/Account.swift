@@ -106,6 +106,66 @@ let account = Group("Account") {
 	.doc("Returns the current user's privacy settings.")
 	.requiresPermissions("account")
 
+	apiMethod("account.getProfileInfo") {
+		userFieldsParam()
+			.doc("""
+				A list of ``User`` profile fields to be returned in
+				``Result/relationPartner``.
+				""")
+
+		StructDef("Result") {
+			FieldDef("first_name", type: .string)
+				.required()
+				.doc("First name.")
+			FieldDef("nickname", type: .string)
+				.required()
+				.doc("Nickname or middle name.")
+			FieldDef("last_name", type: .string)
+				.required()
+				.doc("Last name.")
+			FieldDef("maiden_name", type: .string)
+				.required()
+				.doc("Maiden name.")
+
+			FieldDef("sex", type: .clearable(TypeRef(name: "User.Gender")))
+				.required()
+				.doc("""
+					Preferred grammatical gender used to choose pronouns in strings
+					that refer to the current user.
+					""")
+
+			FieldDef("bdate", type: .clearable(TypeRef(name: "Birthday")))
+				.swiftName("birthday")
+				.required()
+				.doc("The date of birth.")
+
+			FieldDef("hometown", type: .string)
+				.required()
+				.doc("Hometown.")
+
+			FieldDef("relation", type: .clearable(TypeRef(name: "User.RelationshipStatus")))
+				.required()
+				.doc("Relationship status.")
+
+			FieldDef("relation_partner", type: .def(user))
+				.doc("""
+					A ``User`` object representing the current user's relationship
+					partner, if any.
+					""")
+		}
+	}
+	.doc("""
+		Returns the information needed to display the form for editing the "General"
+		section of the current user's profile.
+
+		This method is needed because ``Users/Get`` will only return the relationship
+		partner for statuses other than "in love" if both users have set each other
+		as their partners.
+		Future Smithereen versions may add more such fields, for example,
+		names in different languages.
+		""")
+	.requiresPermissions("account")
+
 	apiMethod("account.revokeToken", resultType: .void) {
 	}
 	.doc("Revokes the current access token.")

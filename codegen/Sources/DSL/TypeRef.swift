@@ -52,6 +52,10 @@ extension TypeRef {
 	static let blurhash = TypeRef(name: "BlurHash")
 	static let likeableObject = TypeRef(name: "LikeableObject")
 
+	static func clearable(_ t: TypeRef) -> TypeRef {
+		TypeRef(name: "Clearable").withArgs(t)
+	}
+
 	static let paginatedListEmptyExtras =
 		TypeRef(name: "PaginatedListExtras.Empty")
 	static let paginatedListExtrasProfiles =

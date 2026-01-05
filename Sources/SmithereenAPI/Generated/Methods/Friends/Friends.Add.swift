@@ -39,23 +39,6 @@ extension Friends {
 				.requestAccepted,
 				.followed,
 			]
-
-			public init(from decoder: Decoder) throws {
-				let container = try decoder.singleValueContainer()
-				do {
-					self = Self(rawValue: try container.decode(String.self))
-				} catch DecodingError.typeMismatch {
-					let intValue = try container.decode(Int.self)
-					switch intValue {
-					case 1:
-						self = .requestSent
-					case 2:
-						self = .requestAccepted
-					default:
-						self = Self(rawValue: String(intValue))
-					}
-				}
-			}
 		}
 
 		/// - parameters:

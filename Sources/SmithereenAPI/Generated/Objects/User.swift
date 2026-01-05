@@ -145,33 +145,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			.activelySearching,
 			.inLove,
 		]
-
-		public init(from decoder: Decoder) throws {
-			let container = try decoder.singleValueContainer()
-			do {
-				self = Self(rawValue: try container.decode(String.self))
-			} catch DecodingError.typeMismatch {
-				let intValue = try container.decode(Int.self)
-				switch intValue {
-				case 1:
-					self = .single
-				case 2:
-					self = .inRelationship
-				case 3:
-					self = .engaged
-				case 4:
-					self = .married
-				case 5:
-					self = .complicated
-				case 6:
-					self = .activelySearching
-				case 7:
-					self = .inLove
-				default:
-					self = Self(rawValue: String(intValue))
-				}
-			}
-		}
 	}
 
 	/// User’s relationship partner.
@@ -532,37 +505,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			.apathetic,
 			.libertarian,
 		]
-
-		public init(from decoder: Decoder) throws {
-			let container = try decoder.singleValueContainer()
-			do {
-				self = Self(rawValue: try container.decode(String.self))
-			} catch DecodingError.typeMismatch {
-				let intValue = try container.decode(Int.self)
-				switch intValue {
-				case 1:
-					self = .communist
-				case 2:
-					self = .socialist
-				case 3:
-					self = .moderate
-				case 4:
-					self = .liberal
-				case 5:
-					self = .conservative
-				case 6:
-					self = .monarchist
-				case 7:
-					self = .ultraconservative
-				case 8:
-					self = .apathetic
-				case 9:
-					self = .libertarian
-				default:
-					self = Self(rawValue: String(intValue))
-				}
-			}
-		}
 	}
 
 	public struct PeoplePriority: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
@@ -586,31 +528,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			.couragePersistence,
 			.humorLifeLove,
 		]
-
-		public init(from decoder: Decoder) throws {
-			let container = try decoder.singleValueContainer()
-			do {
-				self = Self(rawValue: try container.decode(String.self))
-			} catch DecodingError.typeMismatch {
-				let intValue = try container.decode(Int.self)
-				switch intValue {
-				case 1:
-					self = .intellectCreativity
-				case 2:
-					self = .kindnessHonesty
-				case 3:
-					self = .healthBeauty
-				case 4:
-					self = .wealthPower
-				case 5:
-					self = .couragePersistence
-				case 6:
-					self = .humorLifeLove
-				default:
-					self = Self(rawValue: String(intValue))
-				}
-			}
-		}
 	}
 
 	public struct PersonalPriority: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
@@ -638,35 +555,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			.beautyArt,
 			.fameInfluence,
 		]
-
-		public init(from decoder: Decoder) throws {
-			let container = try decoder.singleValueContainer()
-			do {
-				self = Self(rawValue: try container.decode(String.self))
-			} catch DecodingError.typeMismatch {
-				let intValue = try container.decode(Int.self)
-				switch intValue {
-				case 1:
-					self = .familyChildren
-				case 2:
-					self = .careerMoney
-				case 3:
-					self = .entertainmentLeisure
-				case 4:
-					self = .scienceResearch
-				case 5:
-					self = .improvingWorld
-				case 6:
-					self = .personalDevelopment
-				case 7:
-					self = .beautyArt
-				case 8:
-					self = .fameInfluence
-				default:
-					self = Self(rawValue: String(intValue))
-				}
-			}
-		}
 	}
 
 	public struct HabitsViews: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
@@ -688,29 +576,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			.neutral,
 			.positive,
 		]
-
-		public init(from decoder: Decoder) throws {
-			let container = try decoder.singleValueContainer()
-			do {
-				self = Self(rawValue: try container.decode(String.self))
-			} catch DecodingError.typeMismatch {
-				let intValue = try container.decode(Int.self)
-				switch intValue {
-				case 1:
-					self = .veryNegative
-				case 2:
-					self = .negative
-				case 3:
-					self = .tolerant
-				case 4:
-					self = .neutral
-				case 5:
-					self = .positive
-				default:
-					self = Self(rawValue: String(intValue))
-				}
-			}
-		}
 	}
 
 	/// Whether the user is currently online.
@@ -843,27 +708,6 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 			.friends,
 			.followRequested,
 		]
-
-		public init(from decoder: Decoder) throws {
-			let container = try decoder.singleValueContainer()
-			do {
-				self = Self(rawValue: try container.decode(String.self))
-			} catch DecodingError.typeMismatch {
-				let intValue = try container.decode(Int.self)
-				switch intValue {
-				case 0:
-					self = .none
-				case 1:
-					self = .following
-				case 2:
-					self = .followedBy
-				case 3:
-					self = .friends
-				default:
-					self = Self(rawValue: String(intValue))
-				}
-			}
-		}
 	}
 
 	/// Whether this user and the current user are friends.

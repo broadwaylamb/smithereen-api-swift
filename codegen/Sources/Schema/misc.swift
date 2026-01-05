@@ -88,8 +88,8 @@ let likeInfo = StructDef("LikeInfo") {
 }
 
 let platform = EnumDef<String>("Platform") {
-    EnumCaseDef("mobile", additionalRepresentation: 1)
-    EnumCaseDef("desktop", additionalRepresentation: 7)
+    EnumCaseDef("mobile")
+    EnumCaseDef("desktop")
 }
 
 let communityType = EnumDef<String>("CommunityType") {

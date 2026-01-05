@@ -332,29 +332,6 @@ final class PrinterVisitor {
 						}
 					)
 				)
-
-				if def.hasAdditionalIntRepresentation {
-					initFromDecoderDecl {
-						"let container = try decoder.singleValueContainer()"
-						DoStmtSyntax.init(
-							catchClauses: CatchClauseListSyntax {
-								CatchClauseSyntax("catch DecodingError.typeMismatch") {
-									"let intValue = try container.decode(Int.self)"
-									try! SwitchExprSyntax("switch intValue") {
-										for `case` in def.cases {
-											if let intValue = `case`.additionalRepresentation {
-												SwitchCaseSyntax("case \(raw: intValue): self = .\(DeclReferenceExprSyntax(baseName: identifier(`case`.swiftName, context: .memberAccess)))")
-											}
-										}
-										SwitchCaseSyntax("default: self = Self(rawValue: String(intValue))")
-									}
-								}
-							}
-						) {
-							"self = Self(rawValue: try container.decode(String.self))"
-						}
-					}
-				}
 			}
 		}
 	}
@@ -544,12 +521,6 @@ final class PrinterVisitor {
 private struct CustomCodingKey: HasSerialName {
 	var serialName: String
 	var customSwiftName: String?
-}
-
-extension EnumDef {
-	fileprivate var hasAdditionalIntRepresentation: Bool {
-		cases.contains { $0.additionalRepresentation != nil }
-	}
 }
 
 extension HasSerialName {

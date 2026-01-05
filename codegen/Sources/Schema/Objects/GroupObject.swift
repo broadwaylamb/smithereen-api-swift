@@ -12,15 +12,15 @@ let group = StructDef("Group") {
 	activityPubIDField("group")
 
 	let accessTypeEnum = EnumDef<String>("AccessType") {
-		EnumCaseDef("open", additionalRepresentation: 0)
+		EnumCaseDef("open")
 			.doc("This is an open group or event, anyone can join.")
-		EnumCaseDef("closed", additionalRepresentation: 1)
+		EnumCaseDef("closed")
 			.doc("""
 				Anyone can see the group’s profile, and new members are manually
 				approved by the group managers or invited by existing members.
 				Only members can see the content. For groups only.
 				""")
-		EnumCaseDef("private", additionalRepresentation: 2)
+		EnumCaseDef("private")
 			.doc("""
 				Only members can see this group or event.
 				Only managers can invite new members, and the only way to join

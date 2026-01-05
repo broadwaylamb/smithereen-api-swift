@@ -54,27 +54,6 @@ extension Friends {
 					.friends,
 					.followRequested,
 				]
-
-				public init(from decoder: Decoder) throws {
-					let container = try decoder.singleValueContainer()
-					do {
-						self = Self(rawValue: try container.decode(String.self))
-					} catch DecodingError.typeMismatch {
-						let intValue = try container.decode(Int.self)
-						switch intValue {
-						case 0:
-							self = .none
-						case 1:
-							self = .following
-						case 2:
-							self = .followedBy
-						case 3:
-							self = .friends
-						default:
-							self = Self(rawValue: String(intValue))
-						}
-					}
-				}
 			}
 
 			/// Whether there’s an incoming friend request from this user.

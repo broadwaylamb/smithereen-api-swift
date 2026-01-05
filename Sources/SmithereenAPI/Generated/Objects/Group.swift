@@ -49,25 +49,6 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 			.closed,
 			.private,
 		]
-
-		public init(from decoder: Decoder) throws {
-			let container = try decoder.singleValueContainer()
-			do {
-				self = Self(rawValue: try container.decode(String.self))
-			} catch DecodingError.typeMismatch {
-				let intValue = try container.decode(Int.self)
-				switch intValue {
-				case 0:
-					self = .open
-				case 1:
-					self = .closed
-				case 2:
-					self = .private
-				default:
-					self = Self(rawValue: String(intValue))
-				}
-			}
-		}
 	}
 
 	/// The type of this community.

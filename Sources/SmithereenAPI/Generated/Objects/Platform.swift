@@ -16,21 +16,4 @@ public struct Platform: Hashable, RawRepresentable, CaseIterable, Codable, Senda
 		.mobile,
 		.desktop,
 	]
-
-	public init(from decoder: Decoder) throws {
-		let container = try decoder.singleValueContainer()
-		do {
-			self = Self(rawValue: try container.decode(String.self))
-		} catch DecodingError.typeMismatch {
-			let intValue = try container.decode(Int.self)
-			switch intValue {
-			case 1:
-				self = .mobile
-			case 7:
-				self = .desktop
-			default:
-				self = Self(rawValue: String(intValue))
-			}
-		}
-	}
 }

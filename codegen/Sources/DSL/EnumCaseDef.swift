@@ -2,7 +2,6 @@ struct EnumCaseDef<RawValue: Sendable>: Documentable {
 	var rawValue: RawValue
 	var swiftName: String
 	var doc: String?
-	var additionalRepresentation: Int?
 
 	init(_ rawValue: RawValue, swiftName: String) {
 		self.rawValue = rawValue
@@ -24,10 +23,9 @@ extension EnumCaseDef<String>: HasSerialName {
 		}
 	}
 
-	init(_ rawValue: String, additionalRepresentation: Int? = nil) {
+	init(_ rawValue: String) {
 		self.rawValue = rawValue
 		self.swiftName = rawValue.convertFromSnakeCase()
-		self.additionalRepresentation = additionalRepresentation
 	}
 }
 

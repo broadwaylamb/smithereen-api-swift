@@ -8,9 +8,9 @@ let friends = Group("Friends") {
 				If sending a friend request, the message to send along with it.
 				""")
 		EnumDef<String>("Result") {
-			EnumCaseDef("request_sent", additionalRepresentation: 1)
+			EnumCaseDef("request_sent")
 				.doc("A friend request was sent.")
-			EnumCaseDef("request_accepted", additionalRepresentation: 2)
+			EnumCaseDef("request_accepted")
 				.doc("""
 					An incoming friend request was accepted, or the target user
 					was following the current user and they’re now friends.
@@ -48,13 +48,13 @@ let friends = Group("Friends") {
 			.required()
 			.doc("User identifier.")
 		let state = EnumDef<String>("State") {
-			EnumCaseDef("none", additionalRepresentation: 0)
+			EnumCaseDef("none")
 				.doc("No relationship.")
-			EnumCaseDef("following", additionalRepresentation: 1)
+			EnumCaseDef("following")
 				.doc("Current user is following this user.")
-			EnumCaseDef("followed_by", additionalRepresentation: 2)
+			EnumCaseDef("followed_by")
 				.doc("This user is following the current user.")
-			EnumCaseDef("friends", additionalRepresentation: 3)
+			EnumCaseDef("friends")
 				.doc("Users are friends (they follow each other).")
 			EnumCaseDef("follow_requested")
 				.doc("""
@@ -96,7 +96,7 @@ let friends = Group("Friends") {
 		FieldDef("user_id", type: .def(userID))
 
 		EnumDef<String>("Result") {
-			EnumCaseDef("friend_deleted", additionalRepresentation: 1)
+			EnumCaseDef("friend_deleted")
 				.doc("""
 					The target user was the current user’s friend and was
 					removed from the friend list.
@@ -110,7 +110,7 @@ let friends = Group("Friends") {
 				.doc("""
 					There was an outgoing friend request and it was deleted.
 					""")
-			EnumCaseDef("in_request_deleted", additionalRepresentation: 2)
+			EnumCaseDef("in_request_deleted")
 				.doc("""
 					There was an incoming friend request and it was deleted.
 					""")

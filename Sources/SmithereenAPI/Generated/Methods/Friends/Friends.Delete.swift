@@ -39,23 +39,6 @@ extension Friends {
 				.outRequestDeleted,
 				.inRequestDeleted,
 			]
-
-			public init(from decoder: Decoder) throws {
-				let container = try decoder.singleValueContainer()
-				do {
-					self = Self(rawValue: try container.decode(String.self))
-				} catch DecodingError.typeMismatch {
-					let intValue = try container.decode(Int.self)
-					switch intValue {
-					case 1:
-						self = .friendDeleted
-					case 2:
-						self = .inRequestDeleted
-					default:
-						self = Self(rawValue: String(intValue))
-					}
-				}
-			}
 		}
 
 		public init(userID: UserID? = nil) {

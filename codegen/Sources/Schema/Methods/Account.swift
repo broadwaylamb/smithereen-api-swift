@@ -196,6 +196,58 @@ let account = Group("Account") {
 		""")
 	.requiresPermissions("account")
 
+	apiMethod("account.saveProfileInfo", resultType: .void) {
+		FieldDef("first_name", type: .string)
+			.doc("""
+				First name. Can't be cleared.
+				If an empty string is passed, the first name will remain
+				unchanged.
+				""")
+
+		FieldDef("nickname", type: .string)
+			.doc("Nickname or middle name.")
+
+		FieldDef("last_name", type: .string)
+			.doc("Last name.")
+
+		FieldDef("maiden_name", type: .string)
+			.doc("Maiden name.")
+
+		FieldDef("sex", type: .clearable(TypeRef(name: "User.Gender")))
+			.doc("""
+				Preferred grammatical gender used to choose pronouns in strings
+				that refer to the current user.
+				""")
+
+		FieldDef("bdate", type: .clearable(TypeRef(name: "Birthday")))
+			.doc("Birth date.")
+
+		FieldDef("hometown", type: .string)
+			.doc("Hometown.")
+
+		FieldDef("relation", type: .clearable(TypeRef(name: "User.RelationshipStatus")))
+			.doc("Relationship status.")
+
+		FieldDef("relation_partner_id", type: .clearable(.def(userID)))
+			.doc("""
+				Identifier of the relationship partner.
+
+				All relationship statuses except unspecified,
+				``User/RelationshipStatus/single``, and ``User/RelationshipStatus/activelySearching``
+				can have a partner. All of those, except ``User/RelationshipStatus/inLove``,
+				require the partner to set the current user as their partner to show up on both
+				their profiles.
+				""")
+	}
+	.doc("""
+		Updates the "General" section in the current user's profile.
+
+		Omitting a parameter means that the property remains unchanged.
+		To clear a property (except ``firstName``), pass an empty string
+		or ``Clearable/unspecified``.
+		""")
+	.requiresPermissions("account")
+
 	apiMethod("account.setOffline", resultType: .void) {
 	}
 	.doc("""

@@ -156,4 +156,62 @@ class URLRequestSnapshotTests: XCTestCase {
 			"""#
 		}
 	}
+
+	func testSaveProfileInfoAllUnspecified() throws {
+		let urlRequest = try URLRequest(
+			host: "example.com",
+			port: 8080,
+			useHTTPS: false,
+			request: Account.SaveProfileInfo(
+				firstName: "",
+				nickname: "",
+				lastName: "",
+				maidenName: "",
+				sex: .unspecified,
+				bdate: .unspecified,
+				hometown: "",
+				relation: .unspecified,
+				relationPartnerID: .unspecified,
+			),
+			globalParameters: GlobalRequestParameters(apiVersion: .v1_0),
+		)
+		assertInlineSnapshot(of: urlRequest, as: .curl) {
+			#"""
+			curl \
+				--request POST \
+				--header "Accept: application/json" \
+				--header "Content-Type: application/x-www-form-urlencoded" \
+				--data "bdate=&first_name=&hometown=&last_name=&maiden_name=&nickname=&relation=none&relation_partner_id=&sex=none" \
+				"http://example.com:8080/api/method/account.saveProfileInfo?v=1.0"
+			"""#
+		}
+	}
+
+	func testSaveProfileInfoAllSspecified() throws {
+		let urlRequest = try URLRequest(
+			host: "example.com",
+			port: 8080,
+			useHTTPS: false,
+			request: Account.SaveProfileInfo(
+				firstName: "Jane",
+				lastName: "Doe",
+				sex: .specified(.female),
+				bdate: .specified(Birthday(day: 1, month: 1, year: 2000)),
+				hometown: "New York City",
+				relation: .specified(.inLove),
+				relationPartnerID: .specified(UserID(rawValue: 1)),
+			),
+			globalParameters: GlobalRequestParameters(apiVersion: .v1_0),
+		)
+		assertInlineSnapshot(of: urlRequest, as: .curl) {
+			#"""
+			curl \
+				--request POST \
+				--header "Accept: application/json" \
+				--header "Content-Type: application/x-www-form-urlencoded" \
+				--data "bdate=01.01.2000&first_name=Jane&hometown=New%20York%20City&last_name=Doe&relation=in_love&relation_partner_id=1&sex=female" \
+				"http://example.com:8080/api/method/account.saveProfileInfo?v=1.0"
+			"""#
+		}
+	}
 }

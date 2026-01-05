@@ -110,6 +110,32 @@ let account = Group("Account") {
 	}
 	.doc("Revokes the current access token.")
 
+	apiMethod("account.savePrivacySettings", resultType: .void) {
+		let settingDef = StructDef("Setting") {
+			FieldDef("key", type: TypeRef(name: "PrivacySetting.Key"))
+				.required()
+				.doc("The key as returned by ``Account/GetPrivacySettings``.")
+			FieldDef("setting", type: .def(privacySetting))
+				.required()
+				.doc("The privacy setting itself.")
+		}
+
+		settingDef
+
+		FieldDef("settings", type: .array(.def(settingDef)))
+			.json()
+			.doc("Regular privacy settings.")
+
+		FieldDef("feed_types", type: TypeRef(name: "FeedTypes"))
+			.doc("Which updates show up in followers' news feeds.")
+	}
+	.doc("""
+		Updates the current user's privacy settings.
+
+		Any settings not specified remain unchanged.
+		""")
+	.requiresPermissions("account")
+
 	apiMethod("account.setOffline", resultType: .void) {
 	}
 	.doc("""

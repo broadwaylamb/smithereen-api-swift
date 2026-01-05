@@ -244,6 +244,23 @@ let groups = Group("Groups") {
 		""")
 	.requiresPermissions("groups")
 
+	apiMethod("groups.invite", resultType: .void) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+
+		FieldDef("user_id", type: .def(userID))
+			.required()
+			.doc("User identifier.")
+	}
+	.doc("""
+		Invites a user to a group.
+
+		The user must be current user's friend. If the group is private,
+		the current user must be at least a moderator.
+		""")
+	.requiresPermissions("groups")
+
 	FileDef("Groups.IsMember", additionalImports: ["Hammond"]) {
 		let isMemberDoc =
 			"Checks whether a user is a member of a group or an event."

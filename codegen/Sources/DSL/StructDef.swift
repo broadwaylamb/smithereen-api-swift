@@ -68,6 +68,18 @@ struct StructDefBuilder {
 	static func buildArray(_ components: [any StructDefPart]) -> any StructDefPart {
 		return CompositeStructDefPart(structComponents: components.flatMap { $0.structComponents })
 	}
+
+	static func buildEither(first component: any StructDefPart) -> any StructDefPart {
+		return component
+	}
+
+	static func buildEither(second component: any StructDefPart) -> any StructDefPart {
+		return component
+	}
+
+	static func buildOptional(_ component: (any StructDefPart)?) -> any StructDefPart {
+		return component ?? CompositeStructDefPart(structComponents: [])
+	}
 }
 
 protocol StructDefPart: DeclarationDef {

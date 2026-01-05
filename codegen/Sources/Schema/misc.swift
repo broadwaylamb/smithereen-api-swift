@@ -381,6 +381,36 @@ let postEditSource = StructDef("PostEditSource") {
 		.doc("The array of input attachment objects.")
 }
 
+let userConnectionsStruct = StructDef("Connections") {
+	let fields: [(String, String)] = [
+		("matrix", "User’s Matrix username."),
+		("xmpp", "User’s XMPP/Jabber handle."),
+		("telegram", "User’s Telegram username."),
+		("signal", "User’s Signal username or URL."),
+		("twitter", "User’s Twitter username."),
+		("instagram", "User’s Instagram username."),
+		("facebook", "User’s Facebook username."),
+		("vkontakte", "User’s VKontakte username."),
+		("snapchat", "User’s Snapchat username."),
+		("discord", "User’s Discord username."),
+		("mastodon", "User’s Mastodon username."),
+		("pixelfed", "User’s Pixelfed username."),
+		("phone_number", "User’s phone number."),
+		("email", "User’s email address."),
+	]
+	for (field, doc) in fields {
+		FieldDef(field, type: .string)
+			.doc(doc)
+	}
+
+	FieldDef("git", type: .url)
+		.doc("GitHub, GitLab, or other Git forge URL.")
+}
+.doc("User’s contact information.")
+
+let userCityField = FieldDef("city", type: .string)
+	.doc("User’s current city.")
+
 func commentsRequest(
 	_ name: String,
 	commentID: StructDef,

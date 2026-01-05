@@ -196,6 +196,28 @@ let account = Group("Account") {
 		""")
 	.requiresPermissions("account")
 
+	apiMethod("account.saveProfileContacts", resultType: .void) {
+		userCityField
+
+		FieldDef("site", type: .clearable(.url))
+			.doc("User’s personal website.")
+
+		for field in userConnectionsStruct.fields {
+			if field.type.optional(false) == .url {
+				copyWith(field, \.type, .clearable(.url).optional())
+			} else {
+				field
+			}
+		}
+	}
+	.doc("""
+		Updates the "Contacts" section in the current user's profile.
+
+		Omitting a parameter means that that property remains unchanged.
+		To clear a property, pass an empty string or ``Clearable/unspecified``.
+		""")
+	.requiresPermissions("account")
+
 	apiMethod("account.saveProfileInfo", resultType: .void) {
 		FieldDef("first_name", type: .string)
 			.doc("""

@@ -118,39 +118,11 @@ let user = StructDef("User") {
 			.doc("The field value as HTML.")
 	}
 
-	FieldDef("city", type: .string)
-		.doc("User’s current city.")
+	userCityField
 
-	let connectionsStruct = StructDef("Connections") {
-		let fields: [(String, String)] = [
-			("matrix", "User’s Matrix username."),
-			("xmpp", "User’s XMPP/Jabber handle."),
-			("telegram", "User’s Telegram username."),
-			("signal", "User’s Signal username or URL."),
-			("twitter", "User’s Twitter username."),
-			("instagram", "User’s Instagram username."),
-			("facebook", "User’s Facebook username."),
-			("vkontakte", "User’s VKontakte username."),
-			("snapchat", "User’s Snapchat username."),
-			("discord", "User’s Discord username."),
-			("mastodon", "User’s Mastodon username."),
-			("pixelfed", "User’s Pixelfed username."),
-			("phone_number", "User’s phone number."),
-			("email", "User’s email address."),
-		]
-		for (field, doc) in fields {
-			FieldDef(field, type: .string)
-				.doc(doc)
-		}
-
-		FieldDef("git", type: .url)
-			.doc("GitHub, GitLab, or other Git forge URL.")
-	}
-	.doc("User’s contact information.")
-
-	FieldDef("connections", type: .def(connectionsStruct))
-		.optionalFieldDoc(connectionsStruct.doc)
-	connectionsStruct
+	FieldDef("connections", type: .def(userConnectionsStruct))
+		.optionalFieldDoc(userConnectionsStruct.doc)
+	userConnectionsStruct
 
 	FieldDef("site", type: .url)
 		.optionalFieldDoc("User’s personal website.")

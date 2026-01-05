@@ -3,18 +3,20 @@
 import Foundation
 import SmithereenAPIInternals
 
-public struct Photo: Hashable, Codable, Sendable, Identifiable {
+/// Represents a photo, either in an album or as an image attached to a post,
+/// a comment, or a message.
+public struct Photo: Hashable, Codable, Sendable {
 
 	/// The (server-wide) unique identifier of this photo.
-	public var id: PhotoID
+	public var id: PhotoID?
 
 	/// Globally unique ActivityPub identifier for this photo.
 	/// Use this to match photos across servers.
-	public var activityPubID: URL
+	public var activityPubID: URL?
 
 	/// The URL of the web page representing this photo.
 	/// For photos uploaded by remote users, points to their home server.
-	public var url: URL
+	public var url: URL?
 
 	/// If this photo is in an album, the identifier of that album.
 	public var albumID: PhotoAlbumID?
@@ -29,7 +31,7 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 	/// A textual description of the photo. In case of post attachments,
 	/// often used as an “alt text” to describe the image for
 	/// the visually-impaired.
-	public var text: String?
+	public var text: String
 
 	/// The unixtime timestamp when this photo was uploaded.
 	@UnixTimestamp
@@ -211,13 +213,13 @@ public struct Photo: Hashable, Codable, Sendable, Identifiable {
 	///     
 	///     Returned by the ``Photos/GetNewTags`` method.
 	public init(
-		id: PhotoID,
-		activityPubID: URL,
-		url: URL,
+		id: PhotoID? = nil,
+		activityPubID: URL? = nil,
+		url: URL? = nil,
 		albumID: PhotoAlbumID? = nil,
 		ownerID: ActorID,
 		userID: UserID? = nil,
-		text: String? = nil,
+		text: String,
 		date: Date,
 		blurhash: BlurHash? = nil,
 		sizes: [Size],

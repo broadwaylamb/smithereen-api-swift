@@ -1,17 +1,15 @@
 let photo = StructDef("Photo") {
 	FieldDef("id", type: .def(photoID))
-		.required()
-		.id()
 		.doc("The (server-wide) unique identifier of this photo.")
 
 	activityPubIDField("photo")
+		.required(false)
 
 	FieldDef("url", type: .url)
-		.required()
-			.doc("""
-				The URL of the web page representing this photo.
-				For photos uploaded by remote users, points to their home server.
-				""")
+		.doc("""
+			The URL of the web page representing this photo.
+			For photos uploaded by remote users, points to their home server.
+			""")
 
 	FieldDef("album_id", type: .def(photoAlbumID))
 		.doc("If this photo is in an album, the identifier of that album.")
@@ -27,6 +25,7 @@ let photo = StructDef("Photo") {
 			""")
 
 	FieldDef("text", type: .string)
+		.required()
 		.doc("""
 			A textual description of the photo. In case of post attachments,
 			often used as an “alt text” to describe the image for
@@ -133,6 +132,10 @@ let photo = StructDef("Photo") {
 			Returned by the ``Photos/GetNewTags`` method.
 			""")
 }
+.doc("""
+	Represents a photo, either in an album or as an image attached to a post,
+	a comment, or a message.
+	""")
 
 extension FieldDef {
 	func extendedFieldDoc(_ text: String) -> FieldDef {

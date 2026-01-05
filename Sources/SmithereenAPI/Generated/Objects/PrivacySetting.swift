@@ -59,6 +59,39 @@ public struct PrivacySetting: Hashable, Codable, Sendable {
 	/// **not** have access even if the base rule would allow it.
 	public var exceptLists: [FriendListID]
 
+	public struct Key: Identifier {
+		public var rawValue: String
+
+		public init(rawValue: String) {
+			self.rawValue = rawValue
+		}
+	}
+
+	/// Which updates show up in followers' news feeds.
+	public enum FeedType: String, Codable, Sendable, CaseIterable {
+
+		/// New photos added to albums.
+		case photo
+
+		/// New photo tags.
+		case photoTag = "photo_tag"
+
+		/// New friends.
+		case friend
+
+		/// Groups joined or created.
+		case group
+
+		/// Events joined or created.
+		case event
+
+		/// New discussion board topics in groups.
+		case board
+
+		/// Relationship status changes.
+		case relation
+	}
+
 	/// - parameters:
 	///   - rule: The base rule of this privacy setting.
 	///   - allowUsers: Identifiers of the current user’s friends who have access even if

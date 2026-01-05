@@ -66,6 +66,46 @@ let account = Group("Account") {
 		has.
 		""")
 
+	apiMethod("account.getPrivacySettings") {
+		let settingDef = StructDef("Setting") {
+			FieldDef("key", type: TypeRef(name: "PrivacySetting.Key"))
+				.required()
+				.doc("Which setting this is.")
+			FieldDef("description", type: .string)
+				.required()
+				.doc("Localized user-visible description of this setting.")
+			FieldDef("setting", type: .def(privacySetting))
+				.required()
+				.doc("The privacy setting itself.")
+			FieldDef("only_me", type: .bool)
+				.required()
+				.doc("""
+					If `true`, this setting's ``PrivacySetting/Rule/none`` value
+					should be displayed as "only me" instead of "no one".
+					""")
+			FieldDef("friends_only", type: .bool)
+				.required()
+				.doc("""
+					If `true`, this setting only goes up to "friends only",
+					i.e. "friends and friends of friends" and "everyone" options
+					are not available.
+					""")
+		}
+		settingDef
+
+		StructDef("Result") {
+			FieldDef("settings", type: .array(.def(settingDef)))
+				.required()
+				.doc("Regular privacy settings.")
+
+			FieldDef("feed_types", type: .array(TypeRef(name: "PrivacySetting.FeedType")))
+				.required()
+				.doc("Which updates show up in followers' news feeds.")
+		}
+	}
+	.doc("Returns the current user's privacy settings.")
+	.requiresPermissions("account")
+
 	apiMethod("account.revokeToken", resultType: .void) {
 	}
 	.doc("Revokes the current access token.")

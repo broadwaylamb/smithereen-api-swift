@@ -45,5 +45,26 @@ let privacySetting = StructDef("PrivacySetting") {
 			Identifiers of the current user’s friend lists whose members do
 			**not** have access even if the base rule would allow it.
 			""")
+
+	IdentifierStruct("Key", rawValue: .string)
+
+	EnumDef<String>("FeedType") {
+		EnumCaseDef("photo")
+			.doc("New photos added to albums.")
+		EnumCaseDef("photo_tag")
+			.doc("New photo tags.")
+		EnumCaseDef("friend")
+			.doc("New friends.")
+		EnumCaseDef("group")
+			.doc("Groups joined or created.")
+		EnumCaseDef("event")
+			.doc("Events joined or created.")
+		EnumCaseDef("board")
+			.doc("New discussion board topics in groups.")
+		EnumCaseDef("relation")
+			.doc("Relationship status changes.")
+	}
+	.frozen()
+	.doc("Which updates show up in followers' news feeds.")
 }
 .doc("A privacy setting configurable by the current user.")

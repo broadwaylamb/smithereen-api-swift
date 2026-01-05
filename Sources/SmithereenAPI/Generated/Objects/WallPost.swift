@@ -138,22 +138,22 @@ public struct WallPost: CommentProtocol, Identifiable {
 		public var count: Int
 
 		/// Whether the current user can comment on this post.
-		public var canPost: Bool
+		public var canComment: Bool
 
 		/// - parameters:
 		///   - count: The total number of comments.
-		///   - canPost: Whether the current user can comment on this post.
+		///   - canComment: Whether the current user can comment on this post.
 		public init(
 			count: Int,
-			canPost: Bool,
+			canComment: Bool,
 		) {
 			self.count = count
-			self.canPost = canPost
+			self.canComment = canComment
 		}
 
 		private enum CodingKeys: String, CodingKey {
 			case count
-			case canPost = "can_post"
+			case canComment = "can_comment"
 		}
 	}
 

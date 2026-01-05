@@ -46,7 +46,7 @@ let wallPost = StructDef("WallPost", conformances: [.def(commentProtocol)]) {
 			.required()
 			.doc("The total number of comments.")
 
-		FieldDef("can_post", type: .bool)
+		FieldDef("can_comment", type: .bool)
 			.required()
 			.doc("Whether the current user can comment on this post.")
 	}

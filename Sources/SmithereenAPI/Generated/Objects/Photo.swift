@@ -31,7 +31,7 @@ public struct Photo: Hashable, Codable, Sendable {
 	/// A textual description of the photo. In case of post attachments,
 	/// often used as an “alt text” to describe the image for
 	/// the visually-impaired.
-	public var text: String
+	public var text: String?
 
 	/// The unixtime timestamp when this photo was uploaded.
 	@UnixTimestamp
@@ -219,7 +219,7 @@ public struct Photo: Hashable, Codable, Sendable {
 		albumID: PhotoAlbumID? = nil,
 		ownerID: ActorID,
 		userID: UserID? = nil,
-		text: String,
+		text: String? = nil,
 		date: Date,
 		blurhash: BlurHash? = nil,
 		sizes: [Size],

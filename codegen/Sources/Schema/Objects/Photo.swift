@@ -25,7 +25,6 @@ let photo = StructDef("Photo") {
 			""")
 
 	FieldDef("text", type: .string)
-		.required()
 		.doc("""
 			A textual description of the photo. In case of post attachments,
 			often used as an “alt text” to describe the image for

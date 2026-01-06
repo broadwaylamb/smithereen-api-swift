@@ -270,6 +270,30 @@ let account = Group("Account") {
 		""")
 	.requiresPermissions("account")
 
+	apiMethod("account.saveProfileInterests", resultType: .void) {
+		let fields = [
+			("activities", "User's activities."),
+			("interests", "User's interests."),
+			("music", "User's favorite music."),
+			("movies", "User's favorite movies."),
+			("tv", "User's favorite TV shows."),
+			("books", "User's favorite books."),
+			("games", "User's favorite games."),
+			("quotes", "User's favorite quotes."),
+			("about", "User's about field as HTML."),
+		]
+		for (name, doc) in fields {
+			FieldDef(name, type: .string).doc(doc)
+		}
+	}
+	.doc("""
+		Updates the "Interests" section in the current user's profile.
+
+		Omitting a parameter means that that property remains unchanged.
+		To clear a property, pass an empty string.
+		""")
+	.requiresPermissions("account")
+
 	apiMethod("account.setOffline", resultType: .void) {
 	}
 	.doc("""

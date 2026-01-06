@@ -4,9 +4,17 @@ import Foundation
 import SmithereenAPIInternals
 
 public enum LikeableObject: Hashable, Codable, Sendable {
+
+	/// Wall post or comment.
 	case post(WallPostID)
+
+	/// Photo.
 	case photo(PhotoID)
+
+	/// A comment on a photo.
 	case photoComment(PhotoCommentID)
+
+	/// A comment in a discussion board topic.
 	case topicComment(TopicCommentID)
 
 	private enum CodingKeys: String, CodingKey {
@@ -19,7 +27,7 @@ public enum LikeableObject: Hashable, Codable, Sendable {
 		let type = try container.decode(String.self, forKey: .type)
 		switch type {
 		case "post":
-			self = .post(try container.decode(WallPostID.self, forKey: .itemID))
+			self = .post(try container.decodeFromString(WallPostID.self, forKey: .itemID))
 		case "photo":
 			self = .photo(try container.decode(PhotoID.self, forKey: .itemID))
 		case "photo_comment":
@@ -40,7 +48,7 @@ public enum LikeableObject: Hashable, Codable, Sendable {
 		switch self {
 		case .post(let payload):
 			tag = "post"
-			try container.encode(payload, forKey: .itemID)
+			try container.encodeToString(payload, forKey: .itemID)
 		case .photo(let payload):
 			tag = "photo"
 			try container.encode(payload, forKey: .itemID)

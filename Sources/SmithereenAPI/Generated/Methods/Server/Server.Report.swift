@@ -77,10 +77,10 @@ extension Server {
 				switch self {
 				case .wallPost(let payload):
 					tag = "wall_post"
-					try container.encode(payload, forKey: .id)
+					try container.encodeToString(payload, forKey: .id)
 				case .wallComment(let payload):
 					tag = "wall_comment"
-					try container.encode(payload, forKey: .id)
+					try container.encodeToString(payload, forKey: .id)
 				case .photoComment(let payload):
 					tag = "comment"
 					try container.encode(payload, forKey: .id)

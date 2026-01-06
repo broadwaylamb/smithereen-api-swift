@@ -184,8 +184,8 @@ let server = Group("Server") {
 			"ReportedContent",
 			conformances: [.hashable, .encodable, .sendable],
 		) {
-			TaggedUnionVariantDef("wall_post", payloadFieldName: "id", type: .def(wallPostID))
-			TaggedUnionVariantDef("wall_comment", payloadFieldName: "id", type: .def(wallPostID))
+			TaggedUnionVariantDef("wall_post", payloadFieldName: "id", type: .def(wallPostID), convertPayloadFromString: true)
+			TaggedUnionVariantDef("wall_comment", payloadFieldName: "id", type: .def(wallPostID), convertPayloadFromString: true)
 			TaggedUnionVariantDef("comment", payloadFieldName: "id", type: .def(photoCommentID))
 				.swiftName("photoComment")
 			TaggedUnionVariantDef("comment", payloadFieldName: "id", type: .def(topicCommentID))

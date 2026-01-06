@@ -134,3 +134,35 @@ extension PhotoAlbumID {
 	/// using ``Photos/Get``.
 	public static let saved = PhotoAlbumID(rawValue: "saved")
 }
+
+extension KeyedDecodingContainer {
+	internal func decodeFromString<T: RawRepresentable>(
+		_ type: T.Type,
+		forKey key: K,
+	) throws -> T where T.RawValue: BinaryInteger {
+		guard let int = UInt64(try decode(String.self, forKey: key)) else {
+			throw DecodingError.dataCorruptedError(
+				forKey: key,
+				in: self,
+				debugDescription: "Could not parse an integer from the string",
+			)
+		}
+		guard let rawValue = T.RawValue(exactly: int), let result = T(rawValue: rawValue) else {
+			throw DecodingError.dataCorruptedError(
+				forKey: key,
+				in: self,
+				debugDescription: "Could not initize \(T.self) from raw value",
+			)
+		}
+		return result
+	}
+}
+
+extension KeyedEncodingContainer {
+	internal mutating func encodeToString<T: RawRepresentable>(
+		_ value: T,
+		forKey key: K,
+	) throws where T.RawValue: BinaryInteger {
+		try encode(String(value.rawValue), forKey: key)
+	}
+}

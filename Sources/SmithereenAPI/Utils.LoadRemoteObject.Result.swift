@@ -37,48 +37,44 @@ extension Utils.LoadRemoteObject {
 		public func encode(to encoder: any Encoder) throws {
 			var container = encoder.container(keyedBy: CodingKeys.self)
 			let discriminant: Discriminant
-			let idString: String
 			var parentType: CommentParentType?
-			var parentIDString: String?
 			switch self {
 			case .user(let id):
 				discriminant = .user
-				idString = String(describing: id)
+				try container.encodeToString(id, forKey: .id)
 			case .group(let id):
 				discriminant = .group
-				idString = String(describing: id)
+				try container.encodeToString(id, forKey: .id)
 			case .wallPost(let id):
 				discriminant = .wallPost
-				idString = String(describing: id)
+				try container.encodeToString(id, forKey: .id)
 			case .wallComment(let id, let parent):
 				discriminant = .wallComment
-				idString = String(describing: id)
+				try container.encodeToString(id, forKey: .id)
 				parentType = .wallPost
-				parentIDString = String(describing: parent)
+				try container.encodeToString(parent, forKey: .parentID)
 			case .photoAlbum(let id):
 				discriminant = .photoAlbum
-				idString = String(describing: id)
+				try container.encode(id, forKey: .id)
 			case .photo(let id):
 				discriminant = .photo
-				idString = String(describing: id)
+				try container.encode(id, forKey: .id)
 			case .photoComment(let id, let parent):
 				discriminant = .comment
-				idString = String(describing: id)
+				try container.encode(id, forKey: .id)
 				parentType = .photo
-				parentIDString = String(describing: parent)
+				try container.encode(parent, forKey: .parentID)
 			case .topic(let id):
 				discriminant = .topic
-				idString = String(describing: id)
+				try container.encode(id, forKey: .id)
 			case .topicComment(let id, let parent):
 				discriminant = .comment
-				idString = String(describing: id)
+				try container.encode(id, forKey: .id)
 				parentType = .topic
-				parentIDString = String(describing: parent)
+				try container.encode(parent, forKey: .parentID)
 			}
 			try container.encode(discriminant, forKey: .type)
-			try container.encode(idString, forKey: .id)
 			try container.encodeIfPresent(parentType, forKey: .parentType)
-			try container.encodeIfPresent(parentIDString, forKey: .parentID)
 		}
 
 		public init(from decoder: any Decoder) throws {
@@ -86,16 +82,16 @@ extension Utils.LoadRemoteObject {
 			let type = try container.decode(Discriminant.self, forKey: .type)
 			switch type {
 			case .user:
-				self = .user(try container.decodeFromString(forKey: .id))
+				self = .user(try container.decodeFromString(UserID.self, forKey: .id))
 			case .group:
-				self = .group(try container.decodeFromString(forKey: .id))
+				self = .group(try container.decodeFromString(GroupID.self, forKey: .id))
 			case .comment:
 				let parentType = try container.decode(CommentParentType.self, forKey: .parentType)
 				switch parentType {
 				case .wallPost:
 					self = .wallComment(
-						try container.decodeFromString(forKey: .id),
-						parent: try container.decodeFromString(forKey: .parentID),
+						try container.decodeFromString(WallPostID.self, forKey: .id),
+						parent: try container.decodeFromString(WallPostID.self, forKey: .parentID),
 					)
 				case .photo:
 					self = .photoComment(
@@ -116,32 +112,12 @@ extension Utils.LoadRemoteObject {
 				self = .topic(try container.decode(BoardTopicID.self, forKey: .id))
 			case .wallComment:
 				self = .wallComment(
-					try container.decodeFromString(forKey: .id),
-					parent: try container.decodeFromString(forKey: .parentID),
+					try container.decodeFromString(WallPostID.self, forKey: .id),
+					parent: try container.decodeFromString(WallPostID.self, forKey: .parentID),
 				)
 			case .wallPost:
-				self = .wallPost(try container.decodeFromString(forKey: .id))
+				self = .wallPost(try container.decodeFromString(WallPostID.self, forKey: .id))
 			}
 		}
-	}
-}
-
-extension KeyedDecodingContainer {
-	fileprivate func decodeFromString<T: RawRepresentable>(forKey key: K) throws -> T where T.RawValue: BinaryInteger {
-		guard let int = UInt64(try decode(String.self, forKey: key)) else {
-			throw DecodingError.dataCorruptedError(
-				forKey: key,
-				in: self,
-				debugDescription: "Could not parse an integer from the string",
-			)
-		}
-		guard let rawValue = T.RawValue(exactly: int), let result = T(rawValue: rawValue) else {
-			throw DecodingError.dataCorruptedError(
-				forKey: key,
-				in: self,
-				debugDescription: "Could not initize \(T.self) from raw value",
-			)
-		}
-		return result
 	}
 }

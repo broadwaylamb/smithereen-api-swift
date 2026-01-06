@@ -399,6 +399,11 @@ final class PrinterVisitor {
 									case "\(raw: variant.serialName)":
 										self = .\(caseName)(try .init(from: decoder))
 									""")
+							} else if variant.convertPayloadFromString {
+								SwitchCaseSyntax("""
+									case "\(raw: variant.serialName)":
+										self = .\(caseName)(try container.decodeFromString(\(variant.type.syntax).self, forKey: .\(codingKey)))
+									""")
 							} else {
 								SwitchCaseSyntax("""
 									case "\(raw: variant.serialName)":
@@ -444,6 +449,8 @@ final class PrinterVisitor {
 									}
 									if variant.type == .unixTimestamp {
 										"try container.encode(UnixTimestamp(wrappedValue: payload), forKey: .\(codingKey))"
+									} else if variant.convertPayloadFromString {
+										"try container.encodeToString(payload, forKey: .\(codingKey))"
 									} else {
 										"try container.encode(payload, forKey: .\(codingKey))"
 									}

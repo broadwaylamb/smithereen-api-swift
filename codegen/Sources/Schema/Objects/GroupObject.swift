@@ -164,8 +164,8 @@ let group = StructDef("Group") {
 		}
 
 		let linkedObjectDef = TaggedUnionDef("LinkedObject") {
-			TaggedUnionVariantDef("user", payloadFieldName: "object_id", type: .def(userID))
-			TaggedUnionVariantDef("group", payloadFieldName: "object_id", type: .def(groupID))
+			TaggedUnionVariantDef("user", payloadFieldName: "object_id", type: .def(userID), convertPayloadFromString: true)
+			TaggedUnionVariantDef("group", payloadFieldName: "object_id", type: .def(groupID), convertPayloadFromString: true)
 			TaggedUnionVariantDef("post", payloadFieldName: "object_id", type: .def(wallPostID))
 			TaggedUnionVariantDef("photo", payloadFieldName: "object_id", type: .def(photoID))
 			TaggedUnionVariantDef("photo_album", payloadFieldName: "object_id", type: .def(photoAlbumID))

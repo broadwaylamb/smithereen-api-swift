@@ -330,9 +330,9 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 				let type = try container.decode(String.self, forKey: .type)
 				switch type {
 				case "user":
-					self = .user(try container.decode(UserID.self, forKey: .objectID))
+					self = .user(try container.decodeFromString(UserID.self, forKey: .objectID))
 				case "group":
-					self = .group(try container.decode(GroupID.self, forKey: .objectID))
+					self = .group(try container.decodeFromString(GroupID.self, forKey: .objectID))
 				case "post":
 					self = .post(try container.decode(WallPostID.self, forKey: .objectID))
 				case "photo":
@@ -355,10 +355,10 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 				switch self {
 				case .user(let payload):
 					tag = "user"
-					try container.encode(payload, forKey: .objectID)
+					try container.encodeToString(payload, forKey: .objectID)
 				case .group(let payload):
 					tag = "group"
-					try container.encode(payload, forKey: .objectID)
+					try container.encodeToString(payload, forKey: .objectID)
 				case .post(let payload):
 					tag = "post"
 					try container.encode(payload, forKey: .objectID)

@@ -78,15 +78,17 @@ struct TaggedUnionVariantDef: Documentable, HasSerialName {
 	var doc: String?
 	var type: TypeRef
 	var isFlattened = false
+	var convertPayloadFromString: Bool
 
 	var payloadFieldName: String {
 		customPayloadFieldName ?? serialName
 	}
 
-	init(_ serialName: String, payloadFieldName: String? = nil, type: TypeRef) {
+	init(_ serialName: String, payloadFieldName: String? = nil, type: TypeRef, convertPayloadFromString: Bool = false) {
 		self.serialName = serialName
 		self.customPayloadFieldName = payloadFieldName
 		self.type = type
+		self.convertPayloadFromString = convertPayloadFromString
 	}
 
 	func flatten() -> TaggedUnionVariantDef {

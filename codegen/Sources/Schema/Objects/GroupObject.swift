@@ -222,6 +222,13 @@ let group = StructDef("Group") {
 
 	FieldDef("finish_date", type: .unixTimestamp)
 		.optionalFieldDoc("The time when the event ends.")
+
+	EnumDef<String>("PrivilegeLevel") {
+		EnumCaseDef("moderator")
+			.doc("Can delete content, block and accept group members.")
+		EnumCaseDef("admin")
+			.doc("Can edit the group profile and settings, and add new managers.")
+	}
 }
 .generateFieldsStruct()
 

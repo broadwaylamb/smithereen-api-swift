@@ -94,6 +94,9 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 		/// Can't add this user as a friend because you blocked them.
 		public static let cantAddAsFriendBecauseYouBlockedUser = Self(rawValue: 176)
 
+		/// Can't add or update this group manager.
+		public static let cannotAddOrUpdateGroupManager = Self(rawValue: 181)
+
 		/// Too many friends.
 		public static let tooManyFriends = Self(rawValue: 242)
 
@@ -135,6 +138,7 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 			.cantAddOneselfAsFriend,
 			.cantAddAsFriendBecauseUserBlockedYou,
 			.cantAddAsFriendBecauseYouBlockedUser,
+			.cannotAddOrUpdateGroupManager,
 			.tooManyFriends,
 			.tooManyPhotoAlbums,
 			.remoteObjectNetworkError,

@@ -27,6 +27,35 @@ let groups = Group("Groups") {
 		""")
 	.requiresPermissions("groups")
 
+	apiMethod("groups.addManager", resultType: .void) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+
+		FieldDef("user_id", type: .def(userID))
+			.required()
+			.doc("User identifier.")
+
+		FieldDef("level", type: TypeRef(name: "Group.PrivilegeLevel"))
+			.required()
+			.doc("Privilege level.")
+
+		FieldDef("title", type: .string)
+			.doc("""
+				The publicly-visible title for this person in the "Managers" block
+				in the group profile.
+				""")
+	}
+	.doc("""
+		Adds a new manager to a group.
+
+		The current user must be an administrator in the group.
+
+		As of Smithereen 1.0, groups cannot be managed by users from other servers.
+		A future version may lift this restriction.
+		""")
+	.requiresPermissions("groups")
+
 	apiMethod("groups.approveRequest", resultType: .void) {
 		FieldDef("group_id", type: .def(groupID))
 			.required()

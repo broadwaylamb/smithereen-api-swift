@@ -500,6 +500,15 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	@UnixTimestamp
 	public var finishDate: Date?
 
+	public enum PrivilegeLevel: String, Codable, Sendable, CaseIterable {
+
+		/// Can delete content, block and accept group members.
+		case moderator
+
+		/// Can edit the group profile and settings, and add new managers.
+		case admin
+	}
+
 	public enum Field: String, Codable, Sendable, CaseIterable {
 
 		/// For a group from a remote server, the domain of its home server.

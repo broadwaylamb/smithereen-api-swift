@@ -91,6 +91,8 @@ let error = StructDef("SmithereenAPIError") {
 			.doc("Can't add this user as a friend because they blocked you.")
 		EnumCaseDef(176, swiftName: "cantAddAsFriendBecauseYouBlockedUser")
 			.doc("Can't add this user as a friend because you blocked them.")
+		EnumCaseDef(181, swiftName: "cannotAddOrUpdateGroupManager")
+			.doc("Can't add or update this group manager.")
 		EnumCaseDef(242, swiftName: "tooManyFriends")
 			.doc("Too many friends.")
 		EnumCaseDef(302, swiftName: "tooManyPhotoAlbums")

@@ -579,6 +579,25 @@ let groups = Group("Groups") {
 		""")
 	.requiresPermissions("groups")
 
+	apiMethod("groups.reorderManager", resultType: .void) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+		FieldDef("user_id", type: .def(userID))
+			.required()
+			.doc("User identifier.")
+		FieldDef("after_user_id", type: TypeRef(name: "Placement"))
+			.required()
+			.swiftName("placement")
+			.doc("Where the manager should be placed in the list of managers.")
+	}
+	.doc("""
+		Changes the order of managers in a group.
+
+		The current user must be an administrator in the group.
+		""")
+	.requiresPermissions("groups")
+
 	apiMethod("groups.search", resultType: .paginatedList(.def(group))) {
 		FieldDef("q", type: .string)
 			.swiftName("query")

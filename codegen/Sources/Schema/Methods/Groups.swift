@@ -210,6 +210,32 @@ let groups = Group("Groups") {
 		""")
 	.requiresPermissions("groups")
 
+	apiMethod("groups.editLink", resultType: .void) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier")
+		FieldDef("link_id", type: .def(groupLinkID))
+			.required()
+			.doc("Link identifier")
+		FieldDef("text", type: .string)
+			.doc("""
+				New link description.
+
+				If this link points to an object that can be displayed within Smithereen
+				(e.g. a user, a group, a post, etc), this is displayed as the description.
+				Otherwise, it's displayed as the link title and the domain of the URL is
+				used as the description.
+
+				If this parameter is not specified, it will be assigned automatically.
+				""")
+	}
+	.doc("""
+		Updates the description of a link in a group.
+
+		The current user must be an administrator in the group.
+		""")
+	.requiresPermissions("groups")
+
 	apiMethod("groups.get", resultType: .paginatedList(.def(groupID))) {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""

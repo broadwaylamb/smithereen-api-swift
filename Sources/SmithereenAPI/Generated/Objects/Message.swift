@@ -82,7 +82,7 @@ public struct Message: Hashable, Codable, Sendable, Identifiable {
 				throw DecodingError.dataCorruptedError(
 					forKey: .type,
 					in: container,
-					debugDescription: "Unknown payload type",
+					debugDescription: "Unknown payload type \(String(reflecting: type))",
 				)
 			}
 		}

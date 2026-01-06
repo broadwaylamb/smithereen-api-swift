@@ -125,6 +125,21 @@ let groups = Group("Groups") {
 	.doc("Creates a new group or event on behalf of the current user.")
 	.requiresPermissions("groups")
 
+	apiMethod("groups.deleteLink", resultType: .void) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+		FieldDef("link_id", type: .def(groupLinkID))
+			.required()
+			.doc("Link identifier.")
+	}
+	.doc("""
+		Deletes a link from a group.
+
+		The current user must be an administrator in the group.
+		""")
+	.requiresPermissions("groups")
+
 	apiMethod("groups.get", resultType: .paginatedList(.def(groupID))) {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""

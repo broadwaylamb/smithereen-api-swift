@@ -13,10 +13,12 @@ public struct Photo: Hashable, Codable, Sendable {
 
 	/// Globally unique ActivityPub identifier for this photo.
 	/// Use this to match photos across servers.
+	@URLAsString
 	public var activityPubID: URL?
 
 	/// The URL of the web page representing this photo.
 	/// For photos uploaded by remote users, points to their home server.
+	@URLAsString
 	public var url: URL?
 
 	/// If this photo is in an album, the identifier of that album.
@@ -71,6 +73,7 @@ public struct Photo: Hashable, Codable, Sendable {
 		/// The URL of this image size.
 		/// The format of the image is determined by the `image_format`
 		/// global parameter.
+		@URLAsString
 		public var url: URL
 
 		/// The width of this size in pixels.

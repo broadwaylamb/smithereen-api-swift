@@ -229,6 +229,33 @@ let group = StructDef("Group") {
 		EnumCaseDef("admin")
 			.doc("Can edit the group profile and settings, and add new managers.")
 	}
+
+	EnumDef<String>("WallMode") {
+		EnumCaseDef("open")
+			.doc("Anyone who can access the group can post on the wall.")
+		EnumCaseDef("restricted")
+			.doc("Only group managers can post on the wall, but anyone can comment.")
+		EnumCaseDef("closed")
+			.doc("Only group managers can post on the wall. Commenting is disabled.")
+		EnumCaseDef("disabled")
+			.doc("Wall is completely disabled and hidden.")
+	}
+
+	EnumDef<String>("PhotoAlbumsMode") {
+		EnumCaseDef("restricted")
+			.doc("Only group managers can create new albums.")
+		EnumCaseDef("disabled")
+			.doc("Non-system photo albums are disabled and hidden.")
+	}
+
+	EnumDef<String>("DiscussionBoardMode") {
+		EnumCaseDef("open")
+			.doc("Anyone who can access the group can create new topics.")
+		EnumCaseDef("restricted")
+			.doc("Only group managers can create new topics.")
+		EnumCaseDef("disabled")
+			.doc("Discussion board is disabled and hidden.")
+	}
 }
 .generateFieldsStruct()
 

@@ -18,10 +18,12 @@ public struct WallPost: CommentProtocol, Identifiable {
 
 	/// Globally unique ActivityPub identifier for this post.
 	/// Use this to match posts across servers.
+	@URLAsString
 	public var activityPubID: URL
 
 	/// The URL of the web page representing this post.
 	/// For posts made by remote users, points to their home server.
+	@URLAsString
 	public var url: URL
 
 	/// The timestamp when this post was published, as unixtime.

@@ -8,9 +8,11 @@ import SmithereenAPIInternals
 public struct Graffiti: Hashable, Codable, Sendable {
 
 	/// The URL of the full-size graffiti image.
+	@URLAsString
 	public var url: URL
 
 	/// The URL of the smaller graffiti image for preview purposes.
+	@URLAsString
 	public var previewUrl: URL
 
 	/// The width of the graffiti.

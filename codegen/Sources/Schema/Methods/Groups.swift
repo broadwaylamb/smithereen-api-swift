@@ -156,6 +156,60 @@ let groups = Group("Groups") {
 		""")
 	.requiresPermissions("groups")
 
+	apiMethod("groups.edit", resultType: .void) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+
+		FieldDef("name", type: .string)
+			.doc("Group name.")
+
+		FieldDef("description", type: .string)
+			.doc("Group description (HTML).")
+
+		FieldDef("screen_name", type: .string)
+			.doc("The profile URL a.k.a. the username.")
+
+		FieldDef("site", type: .clearable(.url))
+			.doc("The website URL from the group's profile.")
+
+		FieldDef("access_type", type: TypeRef(name: "Group.AccessType"))
+			.doc("""
+				Determines how new members can join this group and what is
+				visible to non-members. Events can't be ``Group/AccessType/closed``.
+				""")
+
+		FieldDef("start_date", type: .clearable(.unixTimestamp))
+			.doc("The time when the event starts (events only).")
+
+		FieldDef("finish_date", type: .clearable(.unixTimestamp))
+			.doc("The time when the event ends (events only).")
+
+		FieldDef("place", type: .string)
+			.doc("""
+				The name of the place and/or address where this event will
+				take place (events only).
+				""")
+
+		FieldDef("wall", type: TypeRef(name: "Group.WallMode"))
+			.doc("Wall mode.")
+
+		FieldDef("photos", type: TypeRef(name: "Group.PhotoAlbumsMode"))
+			.doc("Photo albums mode.")
+
+		FieldDef("board", type: TypeRef(name: "Group.DiscussionBoardMode"))
+			.doc("Discussion board mode.")
+	}
+	.doc("""
+		Updates the profile and/or settings in a group.
+
+		Omitting a parameter means that that property remains unchanged.
+		To clear a property, pass an empty string or ``Clearable/unspecified``.
+
+		The current user must be an administrator in the group.
+		""")
+	.requiresPermissions("groups")
+
 	apiMethod("groups.get", resultType: .paginatedList(.def(groupID))) {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""

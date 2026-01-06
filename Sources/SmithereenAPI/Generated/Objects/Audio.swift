@@ -10,6 +10,7 @@ import SmithereenAPIInternals
 public struct Audio: Hashable, Codable, Sendable {
 
 	/// The direct link to the audio file.
+	@URLAsString
 	public var url: URL
 
 	/// The textual description of this audio file.

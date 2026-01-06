@@ -21,6 +21,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 
 	/// Globally unique ActivityPub identifier for this user.
 	/// Use this to match users across servers.
+	@URLAsString
 	public var activityPubID: URL
 
 	/// For a user from a remote server, the domain of their home server.
@@ -52,6 +53,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
+	@URLAsString
 	public var url: URL?
 
 	/// User’s nickname or middle name
@@ -256,6 +258,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		public var email: String?
 
 		/// GitHub, GitLab, or other Git forge URL.
+		@URLAsString
 		public var git: URL?
 
 		/// - parameters:
@@ -332,6 +335,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
+	@URLAsString
 	public var site: URL?
 
 	/// User’s activities.
@@ -679,6 +683,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
+	@URLAsString
 	public var photo50: URL?
 
 	/// URL of a square 100x100 version of the profile picture.
@@ -686,6 +691,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
+	@URLAsString
 	public var photo100: URL?
 
 	/// URL of a square 200x200 version of the profile picture.
@@ -693,6 +699,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
+	@URLAsString
 	public var photo200: URL?
 
 	/// URL of a square 400x400 version of the profile picture.
@@ -700,7 +707,10 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
+	@URLAsString
 	public var photo400: URL?
+
+	@URLAsString
 	public var photoMax: URL?
 
 	/// URL of a rectangular 200px wide version of the profile picture.
@@ -708,6 +718,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
+	@URLAsString
 	public var photo200Orig: URL?
 
 	/// URL of a rectangular 400px wide version of the profile picture.
@@ -715,7 +726,10 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``User`` objects.
+	@URLAsString
 	public var photo400Orig: URL?
+
+	@URLAsString
 	public var photoMaxOrig: URL?
 
 	/// If this user has a “profile pictures” system photo album,

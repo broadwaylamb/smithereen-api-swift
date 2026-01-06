@@ -12,6 +12,7 @@ public struct Message: Hashable, Codable, Sendable, Identifiable {
 
 	/// Globally unique ActivityPub identifier for this message.
 	/// Use this to match messages across servers.
+	@URLAsString
 	public var activityPubID: URL
 
 	/// Identifier of the user who sent this message.

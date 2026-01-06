@@ -11,6 +11,7 @@ public struct Video: Hashable, Codable, Sendable {
 
 	/// The direct link to the video file. Most probably an MP4 with H264
 	/// and AAC, but no guarantees are made.
+	@URLAsString
 	public var url: URL
 
 	/// The width of the video.

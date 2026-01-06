@@ -214,4 +214,37 @@ class URLRequestSnapshotTests: XCTestCase {
 			"""#
 		}
 	}
+
+	func testEditGroup() throws {
+		let urlRequest = try URLRequest(
+			host: "example.com",
+			port: 8080,
+			useHTTPS: false,
+			request: Groups.Edit(
+				groupID: GroupID(rawValue: 1),
+				name: "My event",
+				description: "<p>Hello!</p>",
+				screenName: "myevent",
+				site: .specified(URL(string: "http://example.com")!),
+				accessType: .closed,
+				startDate: .specified(Date(timeIntervalSince1970: 10000)),
+				finishDate: .specified(Date(timeIntervalSince1970: 20000)),
+				place: "New York City",
+				wall: .open,
+				photos: .restricted,
+				board: .disabled,
+			),
+			globalParameters: GlobalRequestParameters(apiVersion: .v1_0),
+		)
+		assertInlineSnapshot(of: urlRequest, as: .curl) {
+			#"""
+			curl \
+				--request POST \
+				--header "Accept: application/json" \
+				--header "Content-Type: application/x-www-form-urlencoded" \
+				--data "access_type=closed&board=disabled&description=%3Cp%3EHello%21%3C%2Fp%3E&finish_date=20000&group_id=1&name=My%20event&photos=restricted&place=New%20York%20City&screen_name=myevent&site=http%3A%2F%2Fexample.com&start_date=10000&wall=open" \
+				"http://example.com:8080/api/method/groups.edit?v=1.0"
+			"""#
+		}
+	}
 }

@@ -15,10 +15,12 @@ public struct BoardTopic: Hashable, Codable, Sendable, Identifiable {
 
 	/// Globally unique ActivityPub identifier for this topic.
 	/// Use this to match topics across servers.
+	@URLAsString
 	public var activityPubID: URL
 
 	/// The URL of the web page representing this topic.
 	/// For topics in remote groups, points to the group’s home server.
+	@URLAsString
 	public var url: URL
 
 	/// The title of this topic.

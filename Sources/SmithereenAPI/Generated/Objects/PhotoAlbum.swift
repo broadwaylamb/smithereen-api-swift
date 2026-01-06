@@ -11,10 +11,12 @@ public struct PhotoAlbum: Hashable, Codable, Sendable, Identifiable {
 
 	/// Globally unique ActivityPub identifier for this album.
 	/// Use this to match albums across servers.
+	@URLAsString
 	public var activityPubID: URL
 
 	/// The URL of the web page representing this album.
 	/// For albums owned by remote actors, points to their home server.
+	@URLAsString
 	public var url: URL
 
 	/// User or group identifier of this album’s owner.

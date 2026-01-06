@@ -17,6 +17,7 @@ extension Photos {
 
 			/// The URL to which to send the POST request to
 			/// [upload your image](https://smithereen.software/docs/api/uploads).
+			@URLAsString
 			public var uploadUrl: URL
 
 			/// - parameters:

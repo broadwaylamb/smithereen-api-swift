@@ -18,6 +18,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 	/// Globally unique ActivityPub identifier for this group.
 	/// Use this to match groups across servers.
+	@URLAsString
 	public var activityPubID: URL
 
 	/// Determines how new members can join this group and what is visible
@@ -80,6 +81,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
+	@URLAsString
 	public var url: URL?
 
 	/// Whether the current user can manage this group.
@@ -114,6 +116,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
+	@URLAsString
 	public var photo50: URL?
 
 	/// URL of a square 100x100 version of the profile picture.
@@ -121,6 +124,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
+	@URLAsString
 	public var photo100: URL?
 
 	/// URL of a square 200x200 version of the profile picture.
@@ -128,6 +132,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
+	@URLAsString
 	public var photo200: URL?
 
 	/// URL of a square 400x400 version of the profile picture.
@@ -135,7 +140,10 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
+	@URLAsString
 	public var photo400: URL?
+
+	@URLAsString
 	public var photoMax: URL?
 
 	/// URL of a rectangular 200px wide version of the profile picture.
@@ -143,6 +151,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
+	@URLAsString
 	public var photo200Orig: URL?
 
 	/// URL of a rectangular 400px wide version of the profile picture.
@@ -150,7 +159,10 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// - Note: This is an **optional** field.
 	/// Request it by passing it in `fields` to any method that returns
 	/// ``Group`` objects.
+	@URLAsString
 	public var photo400Orig: URL?
+
+	@URLAsString
 	public var photoMaxOrig: URL?
 
 	/// If this group has a “profile pictures” system photo album,
@@ -293,6 +305,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		public var id: GroupLinkID
 
 		/// The URL of this link.
+		@URLAsString
 		public var url: URL
 
 		/// The title of this link.
@@ -302,12 +315,15 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		public var description: String
 
 		/// 50x50 preview image URL.
+		@URLAsString
 		public var photo50: URL?
 
 		/// 100x100 preview image URL.
+		@URLAsString
 		public var photo100: URL?
 
 		/// 200x200 preview image URL.
+		@URLAsString
 		public var photo200: URL?
 
 		/// If this link points to an object, the identifier of that object.
@@ -508,6 +524,42 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 		/// Can edit the group profile and settings, and add new managers.
 		case admin
+	}
+
+	public enum WallMode: String, Codable, Sendable, CaseIterable {
+
+		/// Anyone who can access the group can post on the wall.
+		case open
+
+		/// Only group managers can post on the wall, but anyone can comment.
+		case restricted
+
+		/// Only group managers can post on the wall. Commenting is disabled.
+		case closed
+
+		/// Wall is completely disabled and hidden.
+		case disabled
+	}
+
+	public enum PhotoAlbumsMode: String, Codable, Sendable, CaseIterable {
+
+		/// Only group managers can create new albums.
+		case restricted
+
+		/// Non-system photo albums are disabled and hidden.
+		case disabled
+	}
+
+	public enum DiscussionBoardMode: String, Codable, Sendable, CaseIterable {
+
+		/// Anyone who can access the group can create new topics.
+		case open
+
+		/// Only group managers can create new topics.
+		case restricted
+
+		/// Discussion board is disabled and hidden.
+		case disabled
 	}
 
 	public enum Field: String, Codable, Sendable, CaseIterable {

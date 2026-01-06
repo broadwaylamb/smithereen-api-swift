@@ -1,3 +1,6 @@
+import Foundation
+import SmithereenAPIInternals
+
 /// Some value that can be unspecified.
 ///
 /// It's like `Optional`, but the ``unspecified`` value is
@@ -21,6 +24,10 @@ extension Clearable: Encodable where T: Encodable {
 		switch self {
 		case .unspecified:
 			try container.encode(unspecifiedMagicValue)
+		case .specified(let value as Date):
+			try UnixTimestamp(wrappedValue: value).encode(to: encoder)
+		case .specified(let value as URL):
+			try URLAsString(wrappedValue: value).encode(to: encoder)
 		case .specified(let value):
 			try value.encode(to: encoder)
 		}
@@ -35,6 +42,10 @@ extension Clearable: Decodable where T: Decodable {
 			.unspecifiedMagicValue ?? ""
 		if value == unspecifiedMagicValue {
 			self = .unspecified
+		} else if T.self is Date.Type {
+			self = .specified(try UnixTimestamp<Date>(from: decoder).wrappedValue as! T)
+		} else if T.self is URL.Type {
+			self = .specified(try URLAsString<URL>(from: decoder).wrappedValue as! T)
 		} else {
 			self = .specified(try T(from: decoder))
 		}

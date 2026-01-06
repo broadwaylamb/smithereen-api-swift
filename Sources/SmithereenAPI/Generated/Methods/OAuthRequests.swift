@@ -78,9 +78,11 @@ extension OAuth {
 		public var code: AuthorizationCode
 
 		/// The redirect URI you used for obtaining the authorization code.
+		@URLAsString
 		public var redirectUri: URL
 
 		/// Your application ID.
+		@URLAsString
 		public var clientID: URL
 
 		/// If using PKCE, the code verifier string.

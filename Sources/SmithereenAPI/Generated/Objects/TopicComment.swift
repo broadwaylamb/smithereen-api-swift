@@ -18,10 +18,12 @@ public struct TopicComment: CommentProtocol, Identifiable {
 
 	/// Globally unique ActivityPub identifier for this comment.
 	/// Use this to match comments across servers.
+	@URLAsString
 	public var activityPubID: URL
 
 	/// The URL of the web page representing this comment.
 	/// For comments made by remote users, points to their home server.
+	@URLAsString
 	public var url: URL
 
 	/// The timestamp when this comment was published, as unixtime.

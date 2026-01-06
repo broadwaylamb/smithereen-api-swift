@@ -17,6 +17,7 @@ extension Groups {
 		public var groupID: GroupID
 
 		/// The link URL.
+		@URLAsString
 		public var link: URL
 
 		/// Link description.

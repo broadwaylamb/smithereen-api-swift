@@ -202,12 +202,12 @@ let account = Group("Account") {
 		FieldDef("site", type: .clearable(.url))
 			.doc("User’s personal website.")
 
-		for field in userConnectionsStruct.fields {
+		for var field in userConnectionsStruct.fields {
 			if field.type.optional(false) == .url {
-				copyWith(field, \.type, .clearable(.url).optional())
-			} else {
-				field
+				let _ = field.type = .clearable(.url).optional()
+				let _ = field.propertyWrappers.removeAll { $0 == "URLAsString" }
 			}
+			field
 		}
 	}
 	.doc("""

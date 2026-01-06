@@ -17,6 +17,9 @@ struct FieldDef: Documentable, HasSerialName {
 		if type.optional(false) == .unixTimestamp {
 			propertyWrappers.append("UnixTimestamp")
 		}
+		if type.optional(false) == .url {
+			propertyWrappers.append("URLAsString")
+		}
 	}
 
 	func required(_ required: Bool = true) -> FieldDef {

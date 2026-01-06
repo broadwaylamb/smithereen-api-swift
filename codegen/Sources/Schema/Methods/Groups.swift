@@ -560,6 +560,25 @@ let groups = Group("Groups") {
 		The current user must be at least a moderator in the group.
 		""")
 
+	apiMethod("groups.reorderLink", resultType: .void) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+		FieldDef("link_id", type: .def(groupLinkID))
+			.required()
+			.doc("Link identifier.")
+		FieldDef("after_link_id", type: TypeRef(name: "Placement"))
+			.required()
+			.swiftName("placement")
+			.doc("Where the link should be placed.")
+	}
+	.doc("""
+		Changes the display order of links in a group.
+
+		The current user must be an administrator in the group.
+		""")
+	.requiresPermissions("groups")
+
 	apiMethod("groups.search", resultType: .paginatedList(.def(group))) {
 		FieldDef("q", type: .string)
 			.swiftName("query")

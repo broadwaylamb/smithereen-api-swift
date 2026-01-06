@@ -236,6 +236,30 @@ let groups = Group("Groups") {
 		""")
 	.requiresPermissions("groups")
 
+	apiMethod("groups.editManager", resultType: .void) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+		FieldDef("user_id", type: .def(userID))
+			.required()
+			.doc("User identifier.")
+		FieldDef("level", type: TypeRef(name: "Group.PrivilegeLevel"))
+			.doc("Privilege level.")
+		FieldDef("title", type: .string)
+			.doc("""
+				The publicly-visible title for this person in the "Managers"
+				block in the group profile.
+				""")
+	}
+	.doc("""
+		Updates a group manager's title and privilege level.
+
+		The current user must be an administrator in the group.
+		Only the group creator can edit their own title.
+		The creator's privilege level can't be changed.
+		""")
+	.requiresPermissions("groups")
+
 	apiMethod("groups.get", resultType: .paginatedList(.def(groupID))) {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""

@@ -98,6 +98,9 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 		/// Can't add or update this group manager.
 		public static let cannotAddOrUpdateGroupManager = Self(rawValue: 181)
 
+		/// Can't remove this group manager.
+		public static let cannotRemoveGroupManager = Self(rawValue: 182)
+
 		/// Too many friends.
 		public static let tooManyFriends = Self(rawValue: 242)
 
@@ -140,6 +143,7 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 			.cantAddAsFriendBecauseUserBlockedYou,
 			.cantAddAsFriendBecauseYouBlockedUser,
 			.cannotAddOrUpdateGroupManager,
+			.cannotRemoveGroupManager,
 			.tooManyFriends,
 			.tooManyPhotoAlbums,
 			.remoteObjectNetworkError,

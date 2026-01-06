@@ -140,6 +140,22 @@ let groups = Group("Groups") {
 		""")
 	.requiresPermissions("groups")
 
+	apiMethod("groups.deleteManager", resultType: .void) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+		FieldDef("user_id", type: .def(userID))
+			.required()
+			.doc("User identifier.")
+	}
+	.doc("""
+		Removes a manager from a group.
+
+		The current user must be an administrator in the group.
+		The group creator can't be removed.
+		""")
+	.requiresPermissions("groups")
+
 	apiMethod("groups.get", resultType: .paginatedList(.def(groupID))) {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""

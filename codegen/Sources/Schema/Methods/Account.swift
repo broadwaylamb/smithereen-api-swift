@@ -294,6 +294,30 @@ let account = Group("Account") {
 		""")
 	.requiresPermissions("account")
 
+	apiMethod("account.saveProfilePersonal", resultType: .void) {
+		FieldDef("political", type: .clearable(TypeRef(name: "User.PoliticalViews")))
+			.doc("Political views.")
+		FieldDef("religion", type: .string)
+			.doc("Religious views.")
+		FieldDef("inspired_by", type: .string)
+			.doc("Sources of inspiration.")
+		FieldDef("people_main", type: .clearable(TypeRef(name: "User.PeoplePriority")))
+			.doc("What this user considers important in others.")
+		FieldDef("life_main", type: .clearable(TypeRef(name: "User.PersonalPriority")))
+			.doc("What this user considers personal priority.")
+		FieldDef("smoking", type: .clearable(TypeRef(name: "User.HabitsViews")))
+			.doc("Views on smoking.")
+		FieldDef("alcohol", type: .clearable(TypeRef(name: "User.HabitsViews")))
+			.doc("Views on alcohol.")
+	}
+	.doc("""
+		Updates the "Personal" section in the current user's profile.
+
+		Omitting a parameter means that that property remains unchanged.
+		To clear a property, pass an empty string or ``Clearable/unspecified``.
+		""")
+	.requiresPermissions("account")
+
 	apiMethod("account.setOffline", resultType: .void) {
 	}
 	.doc("""

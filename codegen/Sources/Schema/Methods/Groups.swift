@@ -1,4 +1,32 @@
 let groups = Group("Groups") {
+	apiMethod("groups.addLink", resultType: TypeRef(name: "Group.Link")) {
+		FieldDef("group_id", type: .def(groupID))
+			.required()
+			.doc("Group identifier.")
+		FieldDef("link", type: .url)
+			.required()
+			.doc("The link URL.")
+		FieldDef("text", type: .string)
+			.doc("""
+				Link description.
+
+				If this link points to an object that can be displayed
+				within Smithereen (e.g. a user, a group, a post, etc),
+				this is displayed as the description.
+				Otherwise, it's displayed as the link title and the domain
+				of the URL is used as the description.
+
+				If this parameter is not specified, it will be assigned
+				automatically.
+				""")
+	}
+	.doc("""
+		Adds a link to the "Links" block in a group's profile.
+
+		The current user must be an administrator in the group.
+		""")
+	.requiresPermissions("groups")
+
 	apiMethod("groups.approveRequest", resultType: .void) {
 		FieldDef("group_id", type: .def(groupID))
 			.required()

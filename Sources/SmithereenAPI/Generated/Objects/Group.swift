@@ -340,6 +340,73 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// 200x200 preview image URL.
 		public var photo200: URL?
 
+		/// If this link points to an object, the identifier of that object.
+		public var objectID: LinkedObject?
+
+		public enum LinkedObject: Hashable, Codable, Sendable {
+			case user(UserID)
+			case group(GroupID)
+			case post(WallPostID)
+			case photo(PhotoID)
+			case photoAlbum(PhotoAlbumID)
+			case topic(BoardTopicID)
+
+			private enum CodingKeys: String, CodingKey {
+				case type = "object_type"
+				case objectID = "object_id"
+			}
+
+			public init(from decoder: Decoder) throws {
+				let container = try decoder.container(keyedBy: CodingKeys.self)
+				let type = try container.decode(String.self, forKey: .type)
+				switch type {
+				case "user":
+					self = .user(try container.decode(UserID.self, forKey: .objectID))
+				case "group":
+					self = .group(try container.decode(GroupID.self, forKey: .objectID))
+				case "post":
+					self = .post(try container.decode(WallPostID.self, forKey: .objectID))
+				case "photo":
+					self = .photo(try container.decode(PhotoID.self, forKey: .objectID))
+				case "photo_album":
+					self = .photoAlbum(try container.decode(PhotoAlbumID.self, forKey: .objectID))
+				case "topic":
+					self = .topic(try container.decode(BoardTopicID.self, forKey: .objectID))
+				default:
+					throw DecodingError.dataCorruptedError(
+						forKey: .type,
+						in: container,
+						debugDescription: "Unknown payload type",
+					)
+				}
+			}
+			public func encode(to encoder: any Encoder) throws {
+				var container = encoder.container(keyedBy: CodingKeys.self)
+				let tag: String
+				switch self {
+				case .user(let payload):
+					tag = "user"
+					try container.encode(payload, forKey: .objectID)
+				case .group(let payload):
+					tag = "group"
+					try container.encode(payload, forKey: .objectID)
+				case .post(let payload):
+					tag = "post"
+					try container.encode(payload, forKey: .objectID)
+				case .photo(let payload):
+					tag = "photo"
+					try container.encode(payload, forKey: .objectID)
+				case .photoAlbum(let payload):
+					tag = "photo_album"
+					try container.encode(payload, forKey: .objectID)
+				case .topic(let payload):
+					tag = "topic"
+					try container.encode(payload, forKey: .objectID)
+				}
+				try container.encode(tag, forKey: .type)
+			}
+		}
+
 		/// - parameters:
 		///   - id: Identifier of this link.
 		///   - url: The URL of this link.
@@ -348,6 +415,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		///   - photo50: 50x50 preview image URL.
 		///   - photo100: 100x100 preview image URL.
 		///   - photo200: 200x200 preview image URL.
+		///   - objectID: If this link points to an object, the identifier of that object.
 		public init(
 			id: GroupLinkID,
 			url: URL,
@@ -356,6 +424,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 			photo50: URL? = nil,
 			photo100: URL? = nil,
 			photo200: URL? = nil,
+			objectID: LinkedObject? = nil,
 		) {
 			self.id = id
 			self.url = url
@@ -364,6 +433,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 			self.photo50 = photo50
 			self.photo100 = photo100
 			self.photo200 = photo200
+			self.objectID = objectID
 		}
 
 		private enum CodingKeys: String, CodingKey {
@@ -374,6 +444,33 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 			case photo50 = "photo_50"
 			case photo100 = "photo_100"
 			case photo200 = "photo_200"
+		}
+		public func encode(to encoder: any Encoder) throws {
+			var container = encoder.container(keyedBy: CodingKeys.self)
+			try container.encode(self.id, forKey: .id)
+			try container.encode(self.url, forKey: .url)
+			try container.encode(self.name, forKey: .name)
+			try container.encode(self.description, forKey: .description)
+			try container.encodeIfPresent(self.photo50, forKey: .photo50)
+			try container.encodeIfPresent(self.photo100, forKey: .photo100)
+			try container.encodeIfPresent(self.photo200, forKey: .photo200)
+			try self.objectID?.encode(to: encoder)
+		}
+
+		public init(from decoder: Decoder) throws {
+			let container = try decoder.container(keyedBy: CodingKeys.self)
+			self.id = try container.decode(GroupLinkID.self, forKey: .id)
+			self.url = try container.decode(URL.self, forKey: .url)
+			self.name = try container.decode(String.self, forKey: .name)
+			self.description = try container.decode(String.self, forKey: .description)
+			self.photo50 = try container.decodeIfPresent(URL.self, forKey: .photo50)
+			self.photo100 = try container.decodeIfPresent(URL.self, forKey: .photo100)
+			self.photo200 = try container.decodeIfPresent(URL.self, forKey: .photo200)
+			do {
+				self.objectID = try LinkedObject(from: decoder)
+			} catch DecodingError.keyNotFound {
+				self.objectID = nil
+			}
 		}
 	}
 

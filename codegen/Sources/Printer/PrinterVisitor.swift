@@ -121,7 +121,17 @@ final class PrinterVisitor {
 							let fieldIdentifier = field.swiftIdentifier(for: .memberAccess)
 							let typeSyntax = field.type.optional(false).syntax
 							if field.isFlattened {
-								"self.\(fieldIdentifier) = try \(typeSyntax)(from: decoder)"
+								if field.type.isOptional {
+									"""
+									do {
+										self.\(fieldIdentifier) = try \(typeSyntax)(from: decoder)
+									} catch DecodingError.keyNotFound {
+										self.\(fieldIdentifier) = nil
+									}
+									"""
+								} else {
+									"self.\(fieldIdentifier) = try \(typeSyntax)(from: decoder)"
+								}
 							} else {
 								let ifPresent = field.type.isOptional ? "IfPresent" : ""
 								"self.\(fieldIdentifier) = try container.decode\(raw: ifPresent)(\(typeSyntax).self, forKey: .\(fieldIdentifier))"

@@ -163,7 +163,22 @@ let group = StructDef("Group") {
 				.doc("\(size)x\(size) preview image URL.")
 		}
 
-		// TODO: Object type and object ID
+		let linkedObjectDef = TaggedUnionDef("LinkedObject") {
+			TaggedUnionVariantDef("user", payloadFieldName: "object_id", type: .def(userID))
+			TaggedUnionVariantDef("group", payloadFieldName: "object_id", type: .def(groupID))
+			TaggedUnionVariantDef("post", payloadFieldName: "object_id", type: .def(wallPostID))
+			TaggedUnionVariantDef("photo", payloadFieldName: "object_id", type: .def(photoID))
+			TaggedUnionVariantDef("photo_album", payloadFieldName: "object_id", type: .def(photoAlbumID))
+			TaggedUnionVariantDef("topic", payloadFieldName: "object_id", type: .def(boardTopicID))
+		}
+		.frozen()
+		.tag("object_type")
+
+		FieldDef("objectID", type: .def(linkedObjectDef))
+			.flatten()
+			.doc("If this link points to an object, the identifier of that object.")
+
+		linkedObjectDef
 	}
 	.doc("""
 		Information from the “Links” block in this group.

@@ -2,6 +2,7 @@ import SwiftSyntax
 
 struct RequestDef: Documentable {
 	var path: String
+	var schemaPath: String
 	var structDef: StructDef
 	var resultType: TypeRef?
 	var extended: Extended?
@@ -38,10 +39,12 @@ struct RequestDef: Documentable {
 		resultType: TypeRef? = nil,
 		conformances: [TypeRef] = defaultConformances,
 		typeParameters: [TypeParameterDef] = [],
+		schemaPath: String = #filePath,
 		@StructDefBuilder build: () -> any StructDefPart,
 	) {
 		self.path = path
 		self.resultType = resultType
+		self.schemaPath = schemaPath
 		structDef = StructDef(
 			swiftName,
 			conformances: conformances,
@@ -94,7 +97,7 @@ struct RequestDef: Documentable {
 
 extension RequestDef: GroupPart {
 	var file: FileDef? {
-		FileDef(structDef.name + ".swift", additionalImports: ["Hammond"]) {
+		FileDef(structDef.name + ".swift", additionalImports: ["Hammond"], schemaPath: schemaPath) {
 			self
 		}
 	}
@@ -125,6 +128,7 @@ func apiMethod(
 	resultType: TypeRef? = nil,
 	conformances: [TypeRef] = RequestDef.defaultConformances,
 	typeParameters: [TypeParameterDef] = [],
+	schemaPath: String = #filePath,
 	@StructDefBuilder build: () -> any StructDefPart,
 ) -> RequestDef {
 	RequestDef(
@@ -137,6 +141,7 @@ func apiMethod(
 		resultType: resultType,
 		conformances: conformances,
 		typeParameters: typeParameters,
+		schemaPath: schemaPath,
 		build: build,
 	)
 }

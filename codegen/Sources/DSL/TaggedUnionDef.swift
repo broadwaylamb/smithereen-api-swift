@@ -2,6 +2,7 @@ import SwiftSyntax
 
 struct TaggedUnionDef: Documentable {
 	var name: String
+	var schemaPath: String
 	var doc: String?
 	var decls: [any TaggedUnionDefPart]
 	var conformances: [TypeRef]
@@ -16,9 +17,11 @@ struct TaggedUnionDef: Documentable {
 	init(
 		_ name: String,
 		conformances: [TypeRef] = Self.defaultConformances,
+		schemaPath: String = #filePath,
 		@TaggedUnionDefBuilder build: () -> any TaggedUnionDefPart,
 	) {
 		self.name = name
+		self.schemaPath = schemaPath
 		self.conformances = conformances
 		self.decls = build().taggedUnionComponents
 	}
@@ -60,7 +63,7 @@ extension TaggedUnionDef: StructDefPart {
 
 extension TaggedUnionDef: GroupPart {
 	var file: FileDef? {
-		FileDef(name + ".swift") { self }
+		FileDef(name + ".swift", schemaPath: schemaPath) { self }
 	}
 }
 

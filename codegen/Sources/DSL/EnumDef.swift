@@ -5,9 +5,15 @@ struct EnumDef<RawValue: Sendable>: Documentable {
 	var doc: String?
 	var cases: [EnumCaseDef<RawValue>]
 	var isFrozen: Bool = true
+	var schemaPath: String
 
-	init(_ name: String, @EnumDefBuilder<RawValue> build: () -> CompositeEnumDefPart<RawValue>) {
+	init(
+		_ name: String,
+		schemaPath: String = #filePath,
+		@EnumDefBuilder<RawValue> build: () -> CompositeEnumDefPart<RawValue>
+	) {
 		self.name = name
+		self.schemaPath = schemaPath
 		self.cases = build().components
 	}
 
@@ -66,6 +72,6 @@ extension CompositeEnumDefPart<Int> : IntEnumDefPart {}
 
 extension EnumDef: GroupPart {
     var file: FileDef? {
-        FileDef(name + ".swift") { self }
+        FileDef(name + ".swift", schemaPath: schemaPath) { self }
     }
 }

@@ -4,14 +4,17 @@ struct FileDef {
 	var path: String
 	var decls: [any DeclarationDef]
 	var additionalImports: [String] = []
+	var schemaPath: String
 
 	init(
 		_ path: String,
 		additionalImports: [String] = [],
+		schemaPath: String = #filePath,
 		@FileDefBuilder build: () -> [any DeclarationDef],
 	) {
 		self.path = path.hasSuffix(".swift") ? path : path + ".swift"
 		self.additionalImports = additionalImports
+		self.schemaPath = schemaPath
 		self.decls = build()
 	}
 }

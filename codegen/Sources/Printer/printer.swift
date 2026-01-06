@@ -14,7 +14,12 @@ func printScheme(_ part: any GroupPart, baseDir: String) throws {
 			try printScheme(part, baseDir: dir)
 		}
 	} else if let file = part.file {
-		let visitor = PrinterVisitor()
+		let rootPath = URL(filePath: #filePath)
+			.deletingLastPathComponent()
+			.deletingLastPathComponent()
+			.deletingLastPathComponent()
+			.deletingLastPathComponent()
+		let visitor = PrinterVisitor(rootPath: rootPath.path)
 		let syntax = visitor.printFile(file)
 		try syntax
 			.formatted(using: format)

@@ -5,13 +5,16 @@ struct ProtocolDef: Documentable {
 	var doc: String?
 	var decls: [any ProtocolDefPart]
 	var conformances: [TypeRef]
+	var schemaPath: String
 
 	init(
 		_ name: String,
 		conformances: [TypeRef] = [],
+		schemaPath: String = #filePath,
 		@ProtocolDefBuilder build: () -> any ProtocolDefPart
 	) {
 		self.name = name
+		self.schemaPath = schemaPath
 		self.decls = build().protocolComponents
 		self.conformances = conformances
 	}
@@ -57,6 +60,6 @@ extension ProtocolDef: DeclarationDef {
 
 extension ProtocolDef: GroupPart {
 	var file: FileDef? {
-		FileDef(name + ".swift") { self }
+		FileDef(name + ".swift", schemaPath: schemaPath) { self }
 	}
 }

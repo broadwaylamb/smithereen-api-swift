@@ -6,6 +6,7 @@ struct StructDef: Documentable {
 	var decls: [any StructDefPart]
 	var conformances: [TypeRef]
 	var typeParameters: [TypeParameterDef]
+	var schemaPath: String
 
 	static let defaultConformances: [TypeRef] = [
 		.hashable,
@@ -17,12 +18,14 @@ struct StructDef: Documentable {
 		_ name: String,
 		conformances: [TypeRef] = defaultConformances,
 		typeParameters: [TypeParameterDef] = [],
+		schemaPath: String = #filePath,
 		@StructDefBuilder build: () -> any StructDefPart
 	) {
 		self.name = name
 		self.decls = build().structComponents
 		self.conformances = conformances
 		self.typeParameters = typeParameters
+		self.schemaPath = schemaPath
 	}
 
 	var fields: [FieldDef] {
@@ -107,6 +110,6 @@ extension StructDef: StructDefPart {
 
 extension StructDef: GroupPart {
 	var file: FileDef? {
-		FileDef(name + ".swift") { self }
+		FileDef(name + ".swift", schemaPath: schemaPath) { self }
 	}
 }

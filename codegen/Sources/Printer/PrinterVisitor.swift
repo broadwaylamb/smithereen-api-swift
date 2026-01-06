@@ -383,7 +383,18 @@ final class PrinterVisitor {
 								variant.payloadFieldName.convertFromSnakeCase(),
 								context: .memberAccess,
 							)
-							if variant.isFlattened {
+
+							if variant.type == .void {
+								SwitchCaseSyntax("""
+									case "\(raw: variant.serialName)":
+										self = .\(caseName)
+									""")
+							} else if variant.type == .unixTimestamp {
+								SwitchCaseSyntax("""
+									case "\(raw: variant.serialName)":
+										self = .\(caseName)(try container.decode(UnixTimestamp<Date>.self, forKey: .\(codingKey)).wrappedValue)
+									""")
+							} else if variant.isFlattened {
 								SwitchCaseSyntax("""
 									case "\(raw: variant.serialName)":
 										self = .\(caseName)(try .init(from: decoder))
@@ -431,7 +442,11 @@ final class PrinterVisitor {
 									if def.tagSerialName != nil {
 										"tag = \"\(raw: variant.serialName)\""
 									}
-									"try container.encode(payload, forKey: .\(codingKey))"
+									if variant.type == .unixTimestamp {
+										"try container.encode(UnixTimestamp(wrappedValue: payload), forKey: .\(codingKey))"
+									} else {
+										"try container.encode(payload, forKey: .\(codingKey))"
+									}
 								}
 							}
 						}

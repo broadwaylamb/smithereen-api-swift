@@ -101,6 +101,30 @@ let groups = Group("Groups") {
 		""")
 	.requiresPermissions("groups")
 
+	apiMethod("groups.create", resultType: .def(groupID)) {
+		FieldDef("name", type: .string)
+			.required()
+			.doc("The name of the community.")
+
+		FieldDef("description", type: .string)
+			.doc("The description of the community (HTML).")
+
+		let groupTypeDef = TaggedUnionDef("GroupType") {
+			TaggedUnionVariantDef("group", type: .void)
+			TaggedUnionVariantDef("event", payloadFieldName: "start_date", type: .unixTimestamp)
+				.doc("The associated value is the time when the event starts.")
+		}
+
+		FieldDef("type", type: .def(groupTypeDef))
+			.required()
+			.flatten()
+			.doc("Community type.")
+
+		groupTypeDef
+	}
+	.doc("Creates a new group or event on behalf of the current user.")
+	.requiresPermissions("groups")
+
 	apiMethod("groups.get", resultType: .paginatedList(.def(groupID))) {
 		FieldDef("user_id", type: .def(userID))
 			.doc("""

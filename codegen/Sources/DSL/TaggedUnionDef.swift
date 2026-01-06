@@ -5,7 +5,6 @@ struct TaggedUnionDef: Documentable {
 	var doc: String?
 	var decls: [any TaggedUnionDefPart]
 	var conformances: [TypeRef]
-	var isFrozen: Bool = false
 	var tagSerialName: String? = "type"
 
 	static let defaultConformances: [TypeRef] = [
@@ -26,10 +25,6 @@ struct TaggedUnionDef: Documentable {
 
 	var variants: [TaggedUnionVariantDef] {
 		decls.compactMap { $0 as? TaggedUnionVariantDef }
-	}
-
-	func frozen() -> TaggedUnionDef {
-		copyWith(self, \.isFrozen, true)
 	}
 
 	func tag(_ name: String?) -> TaggedUnionDef {

@@ -9,38 +9,25 @@ public struct PrivacySetting: Hashable, Codable, Sendable {
 	/// The base rule of this privacy setting.
 	public var rule: Rule
 
-	public struct Rule: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
+	public enum Rule: String, Codable, Sendable, CaseIterable {
 
 		/// Everyone has access.
-		public static let everyone = Self(rawValue: "everyone")
+		case everyone
 
 		/// Only current user’s friends have access.
-		public static let friends = Self(rawValue: "friends")
+		case friends
 
 		/// Only current user’s friends and their friends have access.
-		public static let friendsOfFriends = Self(rawValue: "friends_of_friends")
+		case friendsOfFriends = "friends_of_friends"
 
 		/// Only current user’s followers have access.
-		public static let followers = Self(rawValue: "followers")
+		case followers
 
 		/// Only users following the current user have access.
-		public static let following = Self(rawValue: "following")
+		case following
 
 		/// No one has access.
-		public static let none = Self(rawValue: "none")
-
-		public static let allCases: [Rule] = [
-			.everyone,
-			.friends,
-			.friendsOfFriends,
-			.followers,
-			.following,
-			.none,
-		]
+		case none
 	}
 
 	/// Identifiers of the current user’s friends who have access even if

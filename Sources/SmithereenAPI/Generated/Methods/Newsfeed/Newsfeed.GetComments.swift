@@ -52,9 +52,6 @@ extension Newsfeed {
 			case photo(Photo)
 			case board(BoardTopic)
 
-			/// Represents an unrecognized type of payload.
-			case unknown(String)
-
 			private enum CodingKeys: String, CodingKey {
 				case type
 				case post
@@ -73,7 +70,11 @@ extension Newsfeed {
 				case "board":
 					self = .board(try container.decode(BoardTopic.self, forKey: .topic))
 				default:
-					self = .unknown(type)
+					throw DecodingError.dataCorruptedError(
+						forKey: .type,
+						in: container,
+						debugDescription: "Unknown payload type",
+					)
 				}
 			}
 			public func encode(to encoder: any Encoder) throws {
@@ -89,8 +90,6 @@ extension Newsfeed {
 				case .board(let payload):
 					tag = "board"
 					try container.encode(payload, forKey: .topic)
-				case .unknown(let _tag):
-					tag = _tag
 				}
 				try container.encode(tag, forKey: .type)
 			}

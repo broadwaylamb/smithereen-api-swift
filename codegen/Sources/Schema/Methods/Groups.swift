@@ -94,7 +94,6 @@ let groups = Group("Groups") {
 			EnumCaseDef("events")
 				.doc("only return events")
 		}
-		.frozen()
 		FieldDef("filter", type: .array(.def(filterEnum)))
 			.doc("""
 				A list of filters determining what kinds of communities
@@ -215,7 +214,7 @@ let groups = Group("Groups") {
 					an access token of a group manager).
 					""")
 		}
-		.frozen()
+
 		FieldDef("sort", type: .def(sortingEnum))
 			.doc("""
 				How to sort the returned users.
@@ -246,7 +245,6 @@ let groups = Group("Groups") {
 					they’ll attend this event.
 					""")
 		}
-		.frozen()
 		FieldDef("filter", type: .def(filterEnum))
 			.doc("""
 				How to filter the group members.

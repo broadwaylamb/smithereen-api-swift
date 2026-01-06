@@ -75,21 +75,10 @@ public struct WallPost: CommentProtocol, Identifiable {
 	/// If this post isn’t publicly visible, the visibility setting specified by the author.
 	public var privacy: Privacy?
 
-	public struct Privacy: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
-
-		public static let followers = Self(rawValue: "followers")
-		public static let followersAndMentioned = Self(rawValue: "followers_and_mentioned")
-		public static let friends = Self(rawValue: "friends")
-
-		public static let allCases: [Privacy] = [
-			.followers,
-			.followersAndMentioned,
-			.friends,
-		]
+	public enum Privacy: String, Codable, Sendable, CaseIterable {
+		case followers
+		case followersAndMentioned = "followers_and_mentioned"
+		case friends
 	}
 
 	/// Information about reposts of this post.

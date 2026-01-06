@@ -60,9 +60,6 @@ extension Newsfeed {
 			/// New photos were added to the group’s photo albums.
 			case photo([PhotoNewsfeedUpdate])
 
-			/// Represents an unrecognized type of payload.
-			case unknown(String)
-
 			private enum CodingKeys: String, CodingKey {
 				case type
 				case post
@@ -81,7 +78,11 @@ extension Newsfeed {
 				case "photo":
 					self = .photo(try container.decode([PhotoNewsfeedUpdate].self, forKey: .photos))
 				default:
-					self = .unknown(type)
+					throw DecodingError.dataCorruptedError(
+						forKey: .type,
+						in: container,
+						debugDescription: "Unknown payload type",
+					)
 				}
 			}
 			public func encode(to encoder: any Encoder) throws {
@@ -97,8 +98,6 @@ extension Newsfeed {
 				case .photo(let payload):
 					tag = "photo"
 					try container.encode(payload, forKey: .photos)
-				case .unknown(let _tag):
-					tag = _tag
 				}
 				try container.encode(tag, forKey: .type)
 			}

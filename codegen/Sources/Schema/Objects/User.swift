@@ -45,7 +45,6 @@ let user = StructDef("User") {
 		EnumCaseDef("male")
 			.doc("He/him.")
 	}
-	.frozen()
 
 	FieldDef("sex", type: .def(genderDef))
 		.optionalFieldDoc("""
@@ -305,7 +304,7 @@ let user = StructDef("User") {
 			.doc("Show only the user's own posts")
 		EnumCaseDef("all")
 			.doc("Show all posts")
-	}.frozen()
+	}
 
 	profilePictureFields("user")
 

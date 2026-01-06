@@ -17,6 +17,7 @@ let oauth = FileDef("OAuthRequests", additionalImports: ["Hammond"]) {
 			EnumCaseDef("invalid_grant")
 			EnumCaseDef("unsupported_grant_type")
 		}
+		.nonexhaustive()
 		code
 		FieldDef("error", type: .def(code))
 			.swiftName("code")

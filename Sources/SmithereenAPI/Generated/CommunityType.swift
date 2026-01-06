@@ -3,17 +3,7 @@
 import Foundation
 import SmithereenAPIInternals
 
-public struct CommunityType: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-	public var rawValue: String
-	public init(rawValue: String) {
-		self.rawValue = rawValue
-	}
-
-	public static let groups = Self(rawValue: "groups")
-	public static let events = Self(rawValue: "events")
-
-	public static let allCases: [CommunityType] = [
-		.groups,
-		.events,
-	]
+public enum CommunityType: String, Codable, Sendable, CaseIterable {
+	case groups
+	case events
 }

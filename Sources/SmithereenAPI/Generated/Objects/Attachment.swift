@@ -21,9 +21,6 @@ public enum Attachment: Hashable, Codable, Sendable {
 	/// The attachment is a poll.
 	case poll(Poll)
 
-	/// Represents an unrecognized type of payload.
-	case unknown(String)
-
 	private enum CodingKeys: String, CodingKey {
 		case type
 		case photo
@@ -48,7 +45,11 @@ public enum Attachment: Hashable, Codable, Sendable {
 		case "poll":
 			self = .poll(try container.decode(Poll.self, forKey: .poll))
 		default:
-			self = .unknown(type)
+			throw DecodingError.dataCorruptedError(
+				forKey: .type,
+				in: container,
+				debugDescription: "Unknown payload type",
+			)
 		}
 	}
 	public func encode(to encoder: any Encoder) throws {
@@ -70,8 +71,6 @@ public enum Attachment: Hashable, Codable, Sendable {
 		case .poll(let payload):
 			tag = "poll"
 			try container.encode(payload, forKey: .poll)
-		case .unknown(let _tag):
-			tag = _tag
 		}
 		try container.encode(tag, forKey: .type)
 	}

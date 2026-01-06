@@ -16,18 +16,10 @@ extension Server {
 		/// By default, all servers are returned.
 		public var count: Int?
 
-		public struct ServerRestriction: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-			public var rawValue: String
-			public init(rawValue: String) {
-				self.rawValue = rawValue
-			}
+		public enum ServerRestriction: String, Codable, Sendable, CaseIterable {
 
 			/// Complete defederation – no communication with this server is possible.
-			public static let suspension = Self(rawValue: "suspension")
-
-			public static let allCases: [ServerRestriction] = [
-				.suspension,
-			]
+			case suspension
 		}
 
 		public struct RestrictedServer: Hashable, Codable, Sendable {

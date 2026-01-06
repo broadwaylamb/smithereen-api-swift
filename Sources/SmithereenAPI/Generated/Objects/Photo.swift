@@ -44,38 +44,25 @@ public struct Photo: Hashable, Codable, Sendable {
 	/// photo.
 	public var sizes: [Size]
 
-	public struct SizeType: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
+	public enum SizeType: String, Codable, Sendable, CaseIterable {
 
 		/// Scaled to fit into a 100x100 square
-		public static let thumbSmall = Self(rawValue: "s")
+		case thumbSmall = "s"
 
 		/// Scaled to fit into a 320x320 square
-		public static let thumbMedium = Self(rawValue: "m")
+		case thumbMedium = "m"
 
 		/// Scaled to fit into a 640x640 square
-		public static let small = Self(rawValue: "x")
+		case small = "x"
 
 		/// Scaled to fit into a 800x800 square
-		public static let medium = Self(rawValue: "y")
+		case medium = "y"
 
 		/// Scaled to fit into a 1280x1280 square
-		public static let large = Self(rawValue: "z")
+		case large = "z"
 
 		/// Scaled to fit into a 2560x2560 square
-		public static let original = Self(rawValue: "w")
-
-		public static let allCases: [SizeType] = [
-			.thumbSmall,
-			.thumbMedium,
-			.small,
-			.medium,
-			.large,
-			.original,
-		]
+		case original = "w"
 	}
 
 	public struct Size: Hashable, Codable, Sendable {

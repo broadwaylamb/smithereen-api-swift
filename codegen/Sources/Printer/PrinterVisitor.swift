@@ -361,14 +361,6 @@ final class PrinterVisitor {
 				decl.accept(self)
 			}
 
-			if !def.isFrozen {
-				enumCase(
-					leadingTrivia: docComment("Represents an unrecognized type of payload."),
-					name: "unknown",
-					payload: .string,
-				)
-			}
-
 			var keys = def.variants
 				.filter { $0.type != .void }
 				.distinct { $0.payloadFieldName }
@@ -403,21 +395,14 @@ final class PrinterVisitor {
 									""")
 							}
 						}
-						if def.isFrozen {
-							SwitchCaseSyntax("""
-								default:
-									throw DecodingError.dataCorruptedError(
-										forKey: .type,
-										in: container,
-										debugDescription: "Unknown payload type",
-									)
-								""")
-						} else {
-							SwitchCaseSyntax("""
-								default:
-									self = .unknown(type)
-								""")
-						}
+						SwitchCaseSyntax("""
+							default:
+								throw DecodingError.dataCorruptedError(
+									forKey: .type,
+									in: container,
+									debugDescription: "Unknown payload type",
+								)
+							""")
 					}
 				}
 			}
@@ -449,12 +434,6 @@ final class PrinterVisitor {
 									"try container.encode(payload, forKey: .\(codingKey))"
 								}
 							}
-						}
-						if !def.isFrozen && def.tagSerialName != nil {
-							SwitchCaseSyntax("""
-								case .unknown(let _tag):
-									tag = _tag
-								""")
 						}
 					}
 					if def.tagSerialName != nil {

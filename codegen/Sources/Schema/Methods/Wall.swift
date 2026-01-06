@@ -43,7 +43,6 @@ let wall = Group("Wall") {
 			EnumCaseDef("all")
 				.doc("All posts (``owner`` + ``others``)")
 		}
-		.frozen()
 		FieldDef("filter", type: .def(filterDef))
 			.doc("Which posts to return. By default ``Filter/all``.")
 		filterDef

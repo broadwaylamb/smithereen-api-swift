@@ -3,17 +3,7 @@
 import Foundation
 import SmithereenAPIInternals
 
-public struct Platform: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-	public var rawValue: String
-	public init(rawValue: String) {
-		self.rawValue = rawValue
-	}
-
-	public static let mobile = Self(rawValue: "mobile")
-	public static let desktop = Self(rawValue: "desktop")
-
-	public static let allCases: [Platform] = [
-		.mobile,
-		.desktop,
-	]
+public enum Platform: String, Codable, Sendable, CaseIterable {
+	case mobile
+	case desktop
 }

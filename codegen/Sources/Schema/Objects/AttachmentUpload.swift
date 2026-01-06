@@ -28,4 +28,3 @@ let attachmentToCreate = TaggedUnionDef("AttachmentToCreate") {
 			``Polls/Create``
 			""")
 }
-.frozen()

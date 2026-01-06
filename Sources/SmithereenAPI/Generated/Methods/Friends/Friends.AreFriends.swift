@@ -25,35 +25,23 @@ extension Friends {
 			/// The relationship between this user and the current user.
 			public var friendStatus: State
 
-			public struct State: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-				public var rawValue: String
-				public init(rawValue: String) {
-					self.rawValue = rawValue
-				}
+			public enum State: String, Codable, Sendable, CaseIterable {
 
 				/// No relationship.
-				public static let none = Self(rawValue: "none")
+				case none
 
 				/// Current user is following this user.
-				public static let following = Self(rawValue: "following")
+				case following
 
 				/// This user is following the current user.
-				public static let followedBy = Self(rawValue: "followed_by")
+				case followedBy = "followed_by"
 
 				/// Users are friends (they follow each other).
-				public static let friends = Self(rawValue: "friends")
+				case friends
 
 				/// Only for remote users – current user tried to follow this
 				/// user, but their server hasn’t yet accepted that request
-				public static let followRequested = Self(rawValue: "follow_requested")
-
-				public static let allCases: [State] = [
-					.none,
-					.following,
-					.followedBy,
-					.friends,
-					.followRequested,
-				]
+				case followRequested = "follow_requested"
 			}
 
 			/// Whether there’s an incoming friend request from this user.

@@ -3,20 +3,11 @@
 import Foundation
 import SmithereenAPIInternals
 
-public struct WordFilterContext: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-	public var rawValue: String
-	public init(rawValue: String) {
-		self.rawValue = rawValue
-	}
+public enum WordFilterContext: String, Codable, Sendable, CaseIterable {
 
 	/// The default (friends) news feed.
-	public static let friends = Self(rawValue: "friends")
+	case friends
 
 	/// The groups news feed.
-	public static let groups = Self(rawValue: "groups")
-
-	public static let allCases: [WordFilterContext] = [
-		.friends,
-		.groups,
-	]
+	case groups
 }

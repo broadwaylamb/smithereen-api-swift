@@ -106,6 +106,7 @@ let error = StructDef("SmithereenAPIError") {
 		EnumCaseDef(405, swiftName: "remoteObjectOtherError")
 			.doc("Failed to fetch remote object due to other error.")
 	}
+	.nonexhaustive()
 	FieldDef("error_code", type: .def(codeEnum))
 		.required()
 		.swiftName("code")

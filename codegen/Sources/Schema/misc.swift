@@ -55,7 +55,6 @@ let serverSignupMode = EnumDef<String>("ServerSignupMode") {
 			register after their request has been accepted.
 			""")
 }
-.frozen()
 
 let deactivatedStatus = EnumDef<String>("DeactivatedStatus") {
 	EnumCaseDef("banned")
@@ -127,13 +126,13 @@ let actorField = EnumDef<String>("ActorField") {
 		`case`
 	}
 }
+.nonexhaustive()
 
 let commentView = EnumDef<String>("CommentView") {
 	EnumCaseDef("threaded")
 	EnumCaseDef("two_level")
 	EnumCaseDef("flat")
 }
-.frozen()
 
 let photoFeedUpdate = StructDef("PhotoNewsfeedUpdate") {
 	FieldDef("count", type: .int)
@@ -156,7 +155,6 @@ let textFormat = EnumDef<String>("TextFormat") {
 	EnumCaseDef("html")
 	EnumCaseDef("plain")
 }
-.frozen()
 
 func deactivatedStatusField(_ entity: String) -> FieldDef {
 	FieldDef("deactivated", type: .def(deactivatedStatus))
@@ -351,7 +349,6 @@ let commentSortOrder = EnumDef<String>("CommentSortOrder") {
 		.swiftName("descending")
 		.doc("Newest first.")
 }
-.frozen()
 .doc("The sort order for the comments.")
 
 let topicCommentPreviewMode = EnumDef<String>("TopicCommentPreviewMode") {
@@ -368,7 +365,6 @@ let topicCommentPreviewMode = EnumDef<String>("TopicCommentPreviewMode") {
 	EnumCaseDef("none")
 		.doc("Do not return `commentPreview`.")
 }
-.frozen()
 
 let postEditSource = StructDef("PostEditSource") {
 	FieldDef("text", type: .string)

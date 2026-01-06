@@ -4,4 +4,3 @@ let likeableObject = TaggedUnionDef("LikeableObject") {
 	TaggedUnionVariantDef("photo_comment", payloadFieldName: "item_id", type: .def(photoCommentID))
 	TaggedUnionVariantDef("topic_comment", payloadFieldName: "item_id", type: .def(topicCommentID))
 }
-.frozen()

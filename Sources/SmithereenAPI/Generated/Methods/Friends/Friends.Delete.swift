@@ -13,32 +13,21 @@ extension Friends {
 	public struct Delete: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 		public var userID: UserID?
 
-		public struct Result: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-			public var rawValue: String
-			public init(rawValue: String) {
-				self.rawValue = rawValue
-			}
+		public enum Result: String, Codable, Sendable, CaseIterable {
 
 			/// The target user was the current user’s friend and was
 			/// removed from the friend list.
-			public static let friendDeleted = Self(rawValue: "friend_deleted")
+			case friendDeleted = "friend_deleted"
 
 			/// The current user was non-mutually following the target user,
 			/// but there was no outgoing friend request.
-			public static let unfollowed = Self(rawValue: "unfollowed")
+			case unfollowed
 
 			/// There was an outgoing friend request and it was deleted.
-			public static let outRequestDeleted = Self(rawValue: "out_request_deleted")
+			case outRequestDeleted = "out_request_deleted"
 
 			/// There was an incoming friend request and it was deleted.
-			public static let inRequestDeleted = Self(rawValue: "in_request_deleted")
-
-			public static let allCases: [Result] = [
-				.friendDeleted,
-				.unfollowed,
-				.outRequestDeleted,
-				.inRequestDeleted,
-			]
+			case inRequestDeleted = "in_request_deleted"
 		}
 
 		public init(userID: UserID? = nil) {

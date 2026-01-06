@@ -428,7 +428,6 @@ let photos = Group("Photos") {
 					just a name, without linking to anyone’s profile.
 					""")
 		}
-		.frozen()
 		.tag(nil)
 		FieldDef("taggee", type: .def(taggeeDef))
 			.required()

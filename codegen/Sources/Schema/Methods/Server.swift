@@ -173,7 +173,6 @@ let server = Group("Server") {
 				.doc("Anything that doesn’t fit into the above categories.")
 		}
 		.tag("reason")
-		.frozen()
 
 		FieldDef("reason", type: .def(reasonDef))
 			.required()
@@ -194,7 +193,6 @@ let server = Group("Server") {
 			TaggedUnionVariantDef("message", payloadFieldName: "id", type: .def(messageID))
 			TaggedUnionVariantDef("photo", payloadFieldName: "id", type: .def(photoID))
 		}
-		.frozen()
 
 		FieldDef("content", type: .array(.def(reportedContentDef)))
 			.json()

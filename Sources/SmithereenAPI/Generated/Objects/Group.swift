@@ -25,48 +25,28 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 
 	/// Determines how new members can join this group and what is visible
 	/// to non-members.
-	public struct AccessType: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
+	public enum AccessType: String, Codable, Sendable, CaseIterable {
 
 		/// This is an open group or event, anyone can join.
-		public static let open = Self(rawValue: "open")
+		case open
 
 		/// Anyone can see the group’s profile, and new members are manually
 		/// approved by the group managers or invited by existing members.
 		/// Only members can see the content. For groups only.
-		public static let closed = Self(rawValue: "closed")
+		case closed
 
 		/// Only members can see this group or event.
 		/// Only managers can invite new members, and the only way to join
 		/// is by invitation.
-		public static let `private` = Self(rawValue: "private")
-
-		public static let allCases: [AccessType] = [
-			.open,
-			.closed,
-			.private,
-		]
+		case `private`
 	}
 
 	/// The type of this community.
 	public var type: GroupType
 
-	public struct GroupType: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
-
-		public static let group = Self(rawValue: "group")
-		public static let event = Self(rawValue: "event")
-
-		public static let allCases: [GroupType] = [
-			.group,
-			.event,
-		]
+	public enum GroupType: String, Codable, Sendable, CaseIterable {
+		case group
+		case event
 	}
 
 	/// For a group from a remote server, the domain of its home server.
@@ -115,21 +95,10 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// ``Group`` objects.
 	public var adminLevel: AdminLevel?
 
-	public struct AdminLevel: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
-
-		public static let moderator = Self(rawValue: "moderator")
-		public static let admin = Self(rawValue: "admin")
-		public static let owner = Self(rawValue: "owner")
-
-		public static let allCases: [AdminLevel] = [
-			.moderator,
-			.admin,
-			.owner,
-		]
+	public enum AdminLevel: String, Codable, Sendable, CaseIterable {
+		case moderator
+		case admin
+		case owner
 	}
 
 	/// Whether the current user is a member of this group.
@@ -481,35 +450,23 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	/// ``Group`` objects.
 	public var memberStatus: MembershipStatus?
 
-	public struct MembershipStatus: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
+	public enum MembershipStatus: String, Codable, Sendable, CaseIterable {
 
 		/// This user is not a member of this group.
-		public static let none = Self(rawValue: "none")
+		case none
 
 		/// This user is a member of this group.
-		public static let member = Self(rawValue: "member")
+		case member
 
 		/// This user is not sure that they will attend this event.
-		public static let tentative = Self(rawValue: "tentative")
+		case tentative
 
 		/// This user has requested to join this group, but the request
 		/// hasn’t yet been reviewed by the management.
-		public static let requested = Self(rawValue: "requested")
+		case requested
 
 		/// A friend invited this user to this group.
-		public static let invited = Self(rawValue: "invited")
-
-		public static let allCases: [MembershipStatus] = [
-			.none,
-			.member,
-			.tentative,
-			.requested,
-			.invited,
-		]
+		case invited
 	}
 
 	/// The name of the place and/or address where this event will take
@@ -543,18 +500,14 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 	@UnixTimestamp
 	public var finishDate: Date?
 
-	public struct Field: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
+	public enum Field: String, Codable, Sendable, CaseIterable {
 
 		/// For a group from a remote server, the domain of its home server.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let domain = Self(rawValue: "domain")
+		case domain
 
 		/// The profile URL a.k.a. the username.
 		/// If the community doesn’t have one set, defaults to `clubXXX`
@@ -563,7 +516,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let screenName = Self(rawValue: "screen_name")
+		case screenName = "screen_name"
 
 		/// The status string, the one that’s displayed under the group’s
 		/// name on the web.
@@ -571,7 +524,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let status = Self(rawValue: "status")
+		case status
 
 		/// The URL of this group’s profile page on the web.
 		/// For remote groups, this points to its home server.
@@ -579,72 +532,72 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let url = Self(rawValue: "url")
+		case url
 
 		/// Whether the current user can manage this group.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let isAdmin = Self(rawValue: "is_admin")
+		case isAdmin = "is_admin"
 
 		/// The privilege level of the current user, if `isAdmin` is `true`.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let adminLevel = Self(rawValue: "admin_level")
+		case adminLevel = "admin_level"
 
 		/// Whether the current user is a member of this group.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let isMember = Self(rawValue: "is_member")
+		case isMember = "is_member"
 
 		/// URL of a square 50x50 version of the profile picture.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let photo50 = Self(rawValue: "photo_50")
+		case photo50 = "photo_50"
 
 		/// URL of a square 100x100 version of the profile picture.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let photo100 = Self(rawValue: "photo_100")
+		case photo100 = "photo_100"
 
 		/// URL of a square 200x200 version of the profile picture.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let photo200 = Self(rawValue: "photo_200")
+		case photo200 = "photo_200"
 
 		/// URL of a square 400x400 version of the profile picture.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let photo400 = Self(rawValue: "photo_400")
-		public static let photoMax = Self(rawValue: "photo_max")
+		case photo400 = "photo_400"
+		case photoMax = "photo_max"
 
 		/// URL of a rectangular 200px wide version of the profile picture.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let photo200Orig = Self(rawValue: "photo_200_orig")
+		case photo200Orig = "photo_200_orig"
 
 		/// URL of a rectangular 400px wide version of the profile picture.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let photo400Orig = Self(rawValue: "photo_400_orig")
-		public static let photoMaxOrig = Self(rawValue: "photo_max_orig")
+		case photo400Orig = "photo_400_orig"
+		case photoMaxOrig = "photo_max_orig"
 
 		/// If this group has a “profile pictures” system photo album,
 		/// ID of the photo used for the current profile picture in that album.
@@ -652,14 +605,14 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let photoID = Self(rawValue: "photo_id")
+		case photoID = "photo_id"
 
 		/// Whether this group has a profile picture.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let hasPhoto = Self(rawValue: "has_photo")
+		case hasPhoto = "has_photo"
 
 		/// If this group has a “profile pictures” system photo album,
 		/// information about its profile photo
@@ -669,7 +622,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let cropPhoto = Self(rawValue: "crop_photo")
+		case cropPhoto = "crop_photo"
 
 		/// Whether the current user can create new discussion board topics
 		/// in this group.
@@ -677,14 +630,14 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let canCreateTopic = Self(rawValue: "can_create_topic")
+		case canCreateTopic = "can_create_topic"
 
 		/// Whether the current user can create new posts on this group’s wall.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let canPost = Self(rawValue: "can_post")
+		case canPost = "can_post"
 
 		/// Information about users who manage this group.
 		/// Only returned when a single group is requested.
@@ -692,7 +645,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let management = Self(rawValue: "management")
+		case management
 
 		/// Information about how many of each of the types of content there are
 		/// in this group. Only returned when a single group is requested.
@@ -700,14 +653,14 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let counters = Self(rawValue: "counters")
+		case counters
 
 		/// The description text of this group, as HTML.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let description = Self(rawValue: "description")
+		case description
 
 		/// Whether this group is in the current user’s bookmarks.
 		/// Requires the `likes:read` permission.
@@ -715,7 +668,7 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let isFavorite = Self(rawValue: "is_favorite")
+		case isFavorite = "is_favorite"
 
 		/// Information from the “Links” block in this group.
 		/// Only returned when a single group is requested.
@@ -723,14 +676,14 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let links = Self(rawValue: "links")
+		case links
 
 		/// The membership status of the current user in this group.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let memberStatus = Self(rawValue: "member_status")
+		case memberStatus = "member_status"
 
 		/// The name of the place and/or address where this event will take
 		/// place.
@@ -738,61 +691,28 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let place = Self(rawValue: "place")
+		case place
 
 		/// The website URL from the group’s profile.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let site = Self(rawValue: "site")
+		case site
 
 		/// The time when the event starts.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let startDate = Self(rawValue: "start_date")
+		case startDate = "start_date"
 
 		/// The time when the event ends.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``Group`` objects.
-		public static let finishDate = Self(rawValue: "finish_date")
-
-		public static let allCases: [Field] = [
-			.domain,
-			.screenName,
-			.status,
-			.url,
-			.isAdmin,
-			.adminLevel,
-			.isMember,
-			.photo50,
-			.photo100,
-			.photo200,
-			.photo400,
-			.photoMax,
-			.photo200Orig,
-			.photo400Orig,
-			.photoMaxOrig,
-			.photoID,
-			.hasPhoto,
-			.cropPhoto,
-			.canCreateTopic,
-			.canPost,
-			.management,
-			.counters,
-			.description,
-			.isFavorite,
-			.links,
-			.memberStatus,
-			.place,
-			.site,
-			.startDate,
-			.finishDate,
-		]
+		case finishDate = "finish_date"
 	}
 
 	/// - parameters:

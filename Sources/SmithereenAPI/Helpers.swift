@@ -85,8 +85,6 @@ extension Photo.SizeType {
 			return 1280
 		case .original:
 			return 2560
-		default:
-			return 0
 		}
 	}
 }

@@ -63,7 +63,6 @@ let message = StructDef("Message") {
 		)
 		.doc("This is a reply to another private message.")
 	}
-	.frozen()
 
 	FieldDef("reply_to", type: .def(replyInfoDef))
 		.doc("""

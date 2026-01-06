@@ -64,7 +64,6 @@ let privacySetting = StructDef("PrivacySetting") {
 		EnumCaseDef("relation")
 			.doc("Relationship status changes.")
 	}
-	.frozen()
 	.doc("Which updates show up in followers' news feeds.")
 }
 .doc("A privacy setting configurable by the current user.")

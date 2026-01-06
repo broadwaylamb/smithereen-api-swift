@@ -17,28 +17,18 @@ extension Friends {
 		/// If sending a friend request, the message to send along with it.
 		public var text: String?
 
-		public struct Result: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-			public var rawValue: String
-			public init(rawValue: String) {
-				self.rawValue = rawValue
-			}
+		public enum Result: String, Codable, Sendable, CaseIterable {
 
 			/// A friend request was sent.
-			public static let requestSent = Self(rawValue: "request_sent")
+			case requestSent = "request_sent"
 
 			/// An incoming friend request was accepted, or the target user
 			/// was following the current user and they’re now friends.
-			public static let requestAccepted = Self(rawValue: "request_accepted")
+			case requestAccepted = "request_accepted"
 
 			/// The current user was added as a follower of the target user
 			/// without sending a friend request
-			public static let followed = Self(rawValue: "followed")
-
-			public static let allCases: [Result] = [
-				.requestSent,
-				.requestAccepted,
-				.followed,
-			]
+			case followed
 		}
 
 		/// - parameters:

@@ -4,17 +4,7 @@ import Foundation
 import SmithereenAPIInternals
 
 /// In which format you would like images to be returned.
-public struct ImageFormat: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-	public var rawValue: String
-	public init(rawValue: String) {
-		self.rawValue = rawValue
-	}
-
-	public static let webp = Self(rawValue: "webp")
-	public static let jpeg = Self(rawValue: "jpeg")
-
-	public static let allCases: [ImageFormat] = [
-		.webp,
-		.jpeg,
-	]
+public enum ImageFormat: String, Codable, Sendable, CaseIterable {
+	case webp
+	case jpeg
 }

@@ -122,9 +122,6 @@ extension Newsfeed {
 			/// The user has changed their relationship status.
 			case relation(RelationUpdate)
 
-			/// Represents an unrecognized type of payload.
-			case unknown(String)
-
 			private enum CodingKeys: String, CodingKey {
 				case type
 				case post
@@ -160,7 +157,11 @@ extension Newsfeed {
 				case "relation":
 					self = .relation(try container.decode(RelationUpdate.self, forKey: .relation))
 				default:
-					self = .unknown(type)
+					throw DecodingError.dataCorruptedError(
+						forKey: .type,
+						in: container,
+						debugDescription: "Unknown payload type",
+					)
 				}
 			}
 			public func encode(to encoder: any Encoder) throws {
@@ -197,8 +198,6 @@ extension Newsfeed {
 				case .relation(let payload):
 					tag = "relation"
 					try container.encode(payload, forKey: .relation)
-				case .unknown(let _tag):
-					tag = _tag
 				}
 				try container.encode(tag, forKey: .type)
 			}

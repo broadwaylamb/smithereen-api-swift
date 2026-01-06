@@ -4,26 +4,16 @@ import Foundation
 import SmithereenAPIInternals
 
 /// For restricted users and groups, their restriction status.
-public struct DeactivatedStatus: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-	public var rawValue: String
-	public init(rawValue: String) {
-		self.rawValue = rawValue
-	}
+public enum DeactivatedStatus: String, Codable, Sendable, CaseIterable {
 
 	/// The user's account or the group is frozen or suspended.
-	public static let banned = Self(rawValue: "banned")
+	case banned
 
 	/// The server staff made this profile/group only visible to
 	/// authenticated users.
-	public static let hidden = Self(rawValue: "hidden")
+	case hidden
 
 	/// The user has deleted their own profile,
 	/// or the group was deleted by its creator.
-	public static let deleted = Self(rawValue: "deleted")
-
-	public static let allCases: [DeactivatedStatus] = [
-		.banned,
-		.hidden,
-		.deleted,
-	]
+	case deleted
 }

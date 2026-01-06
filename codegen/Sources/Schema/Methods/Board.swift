@@ -97,7 +97,7 @@ let board = Group("Board") {
 			EnumCaseDef("created_asc", swiftName: "createdAscending")
 				.doc("By creation time, oldest to newest.")
 		}
-		.frozen()
+
 		FieldDef("order", type: .def(orderDef))
 			.doc("""
 				Sort order for the topics. Pinned topics, if any, will always

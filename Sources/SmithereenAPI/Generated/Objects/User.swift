@@ -109,42 +109,28 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	public var relation: RelationshipStatus?
 
 	/// User’s relationship status.
-	public struct RelationshipStatus: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
+	public enum RelationshipStatus: String, Codable, Sendable, CaseIterable {
 
 		/// Single
-		public static let single = Self(rawValue: "single")
+		case single
 
 		/// In a relationship
-		public static let inRelationship = Self(rawValue: "in_relationship")
+		case inRelationship = "in_relationship"
 
 		/// Engaged
-		public static let engaged = Self(rawValue: "engaged")
+		case engaged
 
 		/// Married
-		public static let married = Self(rawValue: "married")
+		case married
 
 		/// It’s complicated
-		public static let complicated = Self(rawValue: "complicated")
+		case complicated
 
 		/// Actively searching
-		public static let activelySearching = Self(rawValue: "actively_searching")
+		case activelySearching = "actively_searching"
 
 		/// In love
-		public static let inLove = Self(rawValue: "in_love")
-
-		public static let allCases: [RelationshipStatus] = [
-			.single,
-			.inRelationship,
-			.engaged,
-			.married,
-			.complicated,
-			.activelySearching,
-			.inLove,
-		]
+		case inLove = "in_love"
 	}
 
 	/// User’s relationship partner.
@@ -478,104 +464,44 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		}
 	}
 
-	public struct PoliticalViews: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
-
-		public static let communist = Self(rawValue: "communist")
-		public static let socialist = Self(rawValue: "socialist")
-		public static let moderate = Self(rawValue: "moderate")
-		public static let liberal = Self(rawValue: "liberal")
-		public static let conservative = Self(rawValue: "conservative")
-		public static let monarchist = Self(rawValue: "monarchist")
-		public static let ultraconservative = Self(rawValue: "ultraconservative")
-		public static let apathetic = Self(rawValue: "apathetic")
-		public static let libertarian = Self(rawValue: "libertarian")
-
-		public static let allCases: [PoliticalViews] = [
-			.communist,
-			.socialist,
-			.moderate,
-			.liberal,
-			.conservative,
-			.monarchist,
-			.ultraconservative,
-			.apathetic,
-			.libertarian,
-		]
+	public enum PoliticalViews: String, Codable, Sendable, CaseIterable {
+		case communist
+		case socialist
+		case moderate
+		case liberal
+		case conservative
+		case monarchist
+		case ultraconservative
+		case apathetic
+		case libertarian
 	}
 
-	public struct PeoplePriority: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
-
-		public static let intellectCreativity = Self(rawValue: "intellect_creativity")
-		public static let kindnessHonesty = Self(rawValue: "kindness_honesty")
-		public static let healthBeauty = Self(rawValue: "health_beauty")
-		public static let wealthPower = Self(rawValue: "wealth_power")
-		public static let couragePersistence = Self(rawValue: "courage_persistence")
-		public static let humorLifeLove = Self(rawValue: "humor_life_love")
-
-		public static let allCases: [PeoplePriority] = [
-			.intellectCreativity,
-			.kindnessHonesty,
-			.healthBeauty,
-			.wealthPower,
-			.couragePersistence,
-			.humorLifeLove,
-		]
+	public enum PeoplePriority: String, Codable, Sendable, CaseIterable {
+		case intellectCreativity = "intellect_creativity"
+		case kindnessHonesty = "kindness_honesty"
+		case healthBeauty = "health_beauty"
+		case wealthPower = "wealth_power"
+		case couragePersistence = "courage_persistence"
+		case humorLifeLove = "humor_life_love"
 	}
 
-	public struct PersonalPriority: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
-
-		public static let familyChildren = Self(rawValue: "family_children")
-		public static let careerMoney = Self(rawValue: "career_money")
-		public static let entertainmentLeisure = Self(rawValue: "entertainment_leisure")
-		public static let scienceResearch = Self(rawValue: "science_research")
-		public static let improvingWorld = Self(rawValue: "improving_world")
-		public static let personalDevelopment = Self(rawValue: "personal_development")
-		public static let beautyArt = Self(rawValue: "beauty_art")
-		public static let fameInfluence = Self(rawValue: "fame_influence")
-
-		public static let allCases: [PersonalPriority] = [
-			.familyChildren,
-			.careerMoney,
-			.entertainmentLeisure,
-			.scienceResearch,
-			.improvingWorld,
-			.personalDevelopment,
-			.beautyArt,
-			.fameInfluence,
-		]
+	public enum PersonalPriority: String, Codable, Sendable, CaseIterable {
+		case familyChildren = "family_children"
+		case careerMoney = "career_money"
+		case entertainmentLeisure = "entertainment_leisure"
+		case scienceResearch = "science_research"
+		case improvingWorld = "improving_world"
+		case personalDevelopment = "personal_development"
+		case beautyArt = "beauty_art"
+		case fameInfluence = "fame_influence"
 	}
 
-	public struct HabitsViews: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
-
-		public static let veryNegative = Self(rawValue: "very_negative")
-		public static let negative = Self(rawValue: "negative")
-		public static let tolerant = Self(rawValue: "tolerant")
-		public static let neutral = Self(rawValue: "neutral")
-		public static let positive = Self(rawValue: "positive")
-
-		public static let allCases: [HabitsViews] = [
-			.veryNegative,
-			.negative,
-			.tolerant,
-			.neutral,
-			.positive,
-		]
+	public enum HabitsViews: String, Codable, Sendable, CaseIterable {
+		case veryNegative = "very_negative"
+		case negative
+		case tolerant
+		case neutral
+		case positive
 	}
 
 	/// Whether the user is currently online.
@@ -679,35 +605,23 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// ``User`` objects.
 	public var friendStatus: FriendStatus?
 
-	public struct FriendStatus: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
+	public enum FriendStatus: String, Codable, Sendable, CaseIterable {
 
 		/// No relationship.
-		public static let none = Self(rawValue: "none")
+		case none
 
 		/// The current user is following this user.
-		public static let following = Self(rawValue: "following")
+		case following
 
 		/// This user is following the current user.
-		public static let followedBy = Self(rawValue: "followed_by")
+		case followedBy = "followed_by"
 
 		/// The users are friends (they follow each other).
-		public static let friends = Self(rawValue: "friends")
+		case friends
 
 		/// Only for remote users – the current user tried to follow this
 		/// user, but their server hasn’t yet accepted that request
-		public static let followRequested = Self(rawValue: "follow_requested")
-
-		public static let allCases: [FriendStatus] = [
-			.none,
-			.following,
-			.followedBy,
-			.friends,
-			.followRequested,
-		]
+		case followRequested = "follow_requested"
 	}
 
 	/// Whether this user and the current user are friends.
@@ -1005,21 +919,10 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// Returned by the ``Groups/GetMembers`` method.
 	public var role: GroupRole?
 
-	public struct GroupRole: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
-
-		public static let creator = Self(rawValue: "creator")
-		public static let administrator = Self(rawValue: "administrator")
-		public static let moderator = Self(rawValue: "moderator")
-
-		public static let allCases: [GroupRole] = [
-			.creator,
-			.administrator,
-			.moderator,
-		]
+	public enum GroupRole: String, Codable, Sendable, CaseIterable {
+		case creator
+		case administrator
+		case moderator
 	}
 
 	public struct GroupAdmin: Hashable, Codable, Sendable {
@@ -1035,18 +938,14 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		}
 	}
 
-	public struct Field: Hashable, RawRepresentable, CaseIterable, Codable, Sendable {
-		public var rawValue: String
-		public init(rawValue: String) {
-			self.rawValue = rawValue
-		}
+	public enum Field: String, Codable, Sendable, CaseIterable {
 
 		/// For a user from a remote server, the domain of their home server.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let domain = Self(rawValue: "domain")
+		case domain
 
 		/// The profile URL a.k.a. the username.
 		/// If the user doesn’t have one set, defaults to `idXXX`.
@@ -1054,7 +953,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let screenName = Self(rawValue: "screen_name")
+		case screenName = "screen_name"
 
 		/// The status string, the one that’s displayed under the user’s
 		/// name on the web.
@@ -1062,7 +961,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let status = Self(rawValue: "status")
+		case status
 
 		/// The URL of this user’s profile page on the web.
 		/// For remote users, this points to their home server.
@@ -1070,21 +969,21 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let url = Self(rawValue: "url")
+		case url
 
 		/// User’s nickname or middle name
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let nickname = Self(rawValue: "nickname")
+		case nickname
 
 		/// User’s maiden name.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let maidenName = Self(rawValue: "maiden_name")
+		case maidenName = "maiden_name"
 
 		/// User’s preferred grammatical gender, to choose pronouns
 		/// in strings that refer to them.
@@ -1092,28 +991,28 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let sex = Self(rawValue: "sex")
+		case sex
 
 		/// User’s birth date as `DD.MM.YYYY` or `DD.MM`.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let birthday = Self(rawValue: "bdate")
+		case birthday = "bdate"
 
 		/// User’s hometown.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let homeTown = Self(rawValue: "home_town")
+		case homeTown = "home_town"
 
 		/// User’s relationship status.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let relation = Self(rawValue: "relation")
+		case relation
 
 		/// User-defined profile fields that some fediverse software
 		/// like Mastodon allows specifying.
@@ -1121,101 +1020,101 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let customProfileFields = Self(rawValue: "custom")
+		case customProfileFields = "custom"
 
 		/// User’s current city.
-		public static let city = Self(rawValue: "city")
+		case city
 
 		/// User’s contact information.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let connections = Self(rawValue: "connections")
+		case connections
 
 		/// User’s personal website.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let site = Self(rawValue: "site")
+		case site
 
 		/// User’s activities.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let activities = Self(rawValue: "activities")
+		case activities
 
 		/// User’s interests.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let interests = Self(rawValue: "interests")
+		case interests
 
 		/// User’s favorite music.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let music = Self(rawValue: "music")
+		case music
 
 		/// User’s favorite movies.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let movies = Self(rawValue: "movies")
+		case movies
 
 		/// User’s favorite TV shows.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let tv = Self(rawValue: "tv")
+		case tv
 
 		/// User’s favorite books.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let books = Self(rawValue: "books")
+		case books
 
 		/// User’s favorite games.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let games = Self(rawValue: "games")
+		case games
 
 		/// User’s favorite quotes.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let quotes = Self(rawValue: "quotes")
+		case quotes
 
 		/// User’s about field as HTML.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let about = Self(rawValue: "about")
+		case about
 
 		/// User’s personal views.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let personal = Self(rawValue: "personal")
+		case personal
 
 		/// Whether the user is currently online.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let online = Self(rawValue: "online")
+		case online
 
 		/// If the user is currently offline, information about when they
 		/// were last online.
@@ -1223,28 +1122,28 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let lastSeen = Self(rawValue: "last_seen")
+		case lastSeen = "last_seen"
 
 		/// Whether the current user is blocked by this user.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let blocked = Self(rawValue: "blocked")
+		case blocked
 
 		/// Whether this user is blocked by the current user.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let blockedByMe = Self(rawValue: "blocked_by_me")
+		case blockedByMe = "blocked_by_me"
 
 		/// Whether the current user can post on this user’s wall.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let canPost = Self(rawValue: "can_post")
+		case canPost = "can_post"
 
 		/// Whether the current user is allowed see all posts on this user’s
 		/// wall, or only this user’s own posts.
@@ -1252,7 +1151,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let canSeeAllPosts = Self(rawValue: "can_see_all_posts")
+		case canSeeAllPosts = "can_see_all_posts"
 
 		/// If `true`, you can send a friend request to this user.
 		/// If `false`, you can only follow them.
@@ -1260,7 +1159,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let canSendFriendRequest = Self(rawValue: "can_send_friend_request")
+		case canSendFriendRequest = "can_send_friend_request"
 
 		/// Whether the current user is allowed send private messages to this
 		/// user.
@@ -1268,29 +1167,29 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let canWritePrivateMessage = Self(rawValue: "can_write_private_message")
+		case canWritePrivateMessage = "can_write_private_message"
 
 		/// The number of mutual friends between this user and the current user.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let mutualCount = Self(rawValue: "mutual_count")
+		case mutualCount = "mutual_count"
 
 		/// The relationship between this user and the current user.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let friendStatus = Self(rawValue: "friend_status")
+		case friendStatus = "friend_status"
 
 		/// Whether this user and the current user are friends.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let isFriend = Self(rawValue: "is_friend")
-		public static let isFavorite = Self(rawValue: "is_favorite")
+		case isFriend = "is_friend"
+		case isFavorite = "is_favorite"
 
 		/// The current user’s friend list IDs that this user is in.
 		/// Private lists are excluded unless the token has the `friends:read`
@@ -1299,15 +1198,15 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let lists = Self(rawValue: "lists")
+		case lists
 
 		/// Whether this user is hidden from the current user’s friends news feed.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let isHiddenFromFeed = Self(rawValue: "is_hidden_from_feed")
-		public static let followersCount = Self(rawValue: "followers_count")
+		case isHiddenFromFeed = "is_hidden_from_feed"
+		case followersCount = "followers_count"
 
 		/// Whether this user prefers their profile to not be indexed by search
 		/// engines.
@@ -1315,58 +1214,58 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let isNoIndex = Self(rawValue: "is_no_index")
+		case isNoIndex = "is_no_index"
 
 		/// How this user’s wall should be displayed by default.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let wallDefault = Self(rawValue: "wall_default")
+		case wallDefault = "wall_default"
 
 		/// URL of a square 50x50 version of the profile picture.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let photo50 = Self(rawValue: "photo_50")
+		case photo50 = "photo_50"
 
 		/// URL of a square 100x100 version of the profile picture.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let photo100 = Self(rawValue: "photo_100")
+		case photo100 = "photo_100"
 
 		/// URL of a square 200x200 version of the profile picture.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let photo200 = Self(rawValue: "photo_200")
+		case photo200 = "photo_200"
 
 		/// URL of a square 400x400 version of the profile picture.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let photo400 = Self(rawValue: "photo_400")
-		public static let photoMax = Self(rawValue: "photo_max")
+		case photo400 = "photo_400"
+		case photoMax = "photo_max"
 
 		/// URL of a rectangular 200px wide version of the profile picture.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let photo200Orig = Self(rawValue: "photo_200_orig")
+		case photo200Orig = "photo_200_orig"
 
 		/// URL of a rectangular 400px wide version of the profile picture.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let photo400Orig = Self(rawValue: "photo_400_orig")
-		public static let photoMaxOrig = Self(rawValue: "photo_max_orig")
+		case photo400Orig = "photo_400_orig"
+		case photoMaxOrig = "photo_max_orig"
 
 		/// If this user has a “profile pictures” system photo album,
 		/// ID of the photo used for the current profile picture in that album.
@@ -1374,14 +1273,14 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let photoID = Self(rawValue: "photo_id")
+		case photoID = "photo_id"
 
 		/// Whether this user has a profile picture.
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let hasPhoto = Self(rawValue: "has_photo")
+		case hasPhoto = "has_photo"
 
 		/// If this user has a “profile pictures” system photo album,
 		/// information about their profile photo
@@ -1391,210 +1290,135 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let cropPhoto = Self(rawValue: "crop_photo")
-		public static let timezone = Self(rawValue: "timezone")
+		case cropPhoto = "crop_photo"
+		case timezone
 
 		/// First name in nominative case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let firstNameNom = Self(rawValue: "first_name_nom")
+		case firstNameNom = "first_name_nom"
 
 		/// Middle name in nominative case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let nicknameNom = Self(rawValue: "nickname_nom")
+		case nicknameNom = "nickname_nom"
 
 		/// Last name name in nominative case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let lastNameNom = Self(rawValue: "last_name_nom")
+		case lastNameNom = "last_name_nom"
 
 		/// First name in genitive case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let firstNameGen = Self(rawValue: "first_name_gen")
+		case firstNameGen = "first_name_gen"
 
 		/// Middle name in genitive case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let nicknameGen = Self(rawValue: "nickname_gen")
+		case nicknameGen = "nickname_gen"
 
 		/// Last name name in genitive case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let lastNameGen = Self(rawValue: "last_name_gen")
+		case lastNameGen = "last_name_gen"
 
 		/// First name in dative case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let firstNameDat = Self(rawValue: "first_name_dat")
+		case firstNameDat = "first_name_dat"
 
 		/// Middle name in dative case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let nicknameDat = Self(rawValue: "nickname_dat")
+		case nicknameDat = "nickname_dat"
 
 		/// Last name name in dative case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let lastNameDat = Self(rawValue: "last_name_dat")
+		case lastNameDat = "last_name_dat"
 
 		/// First name in accusative case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let firstNameAcc = Self(rawValue: "first_name_acc")
+		case firstNameAcc = "first_name_acc"
 
 		/// Middle name in accusative case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let nicknameAcc = Self(rawValue: "nickname_acc")
+		case nicknameAcc = "nickname_acc"
 
 		/// Last name name in accusative case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let lastNameAcc = Self(rawValue: "last_name_acc")
+		case lastNameAcc = "last_name_acc"
 
 		/// First name in instrumental case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let firstNameIns = Self(rawValue: "first_name_ins")
+		case firstNameIns = "first_name_ins"
 
 		/// Middle name in instrumental case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let nicknameIns = Self(rawValue: "nickname_ins")
+		case nicknameIns = "nickname_ins"
 
 		/// Last name name in instrumental case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let lastNameIns = Self(rawValue: "last_name_ins")
+		case lastNameIns = "last_name_ins"
 
 		/// First name in prepositional case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let firstNamePre = Self(rawValue: "first_name_pre")
+		case firstNamePre = "first_name_pre"
 
 		/// Middle name in prepositional case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let nicknamePre = Self(rawValue: "nickname_pre")
+		case nicknamePre = "nickname_pre"
 
 		/// Last name name in prepositional case
 		/// 
 		/// - Note: This is an **optional** field.
 		/// Request it by passing it in `fields` to any method that returns
 		/// ``User`` objects.
-		public static let lastNamePre = Self(rawValue: "last_name_pre")
-		public static let counters = Self(rawValue: "counters")
-
-		public static let allCases: [Field] = [
-			.domain,
-			.screenName,
-			.status,
-			.url,
-			.nickname,
-			.maidenName,
-			.sex,
-			.birthday,
-			.homeTown,
-			.relation,
-			.customProfileFields,
-			.city,
-			.connections,
-			.site,
-			.activities,
-			.interests,
-			.music,
-			.movies,
-			.tv,
-			.books,
-			.games,
-			.quotes,
-			.about,
-			.personal,
-			.online,
-			.lastSeen,
-			.blocked,
-			.blockedByMe,
-			.canPost,
-			.canSeeAllPosts,
-			.canSendFriendRequest,
-			.canWritePrivateMessage,
-			.mutualCount,
-			.friendStatus,
-			.isFriend,
-			.isFavorite,
-			.lists,
-			.isHiddenFromFeed,
-			.followersCount,
-			.isNoIndex,
-			.wallDefault,
-			.photo50,
-			.photo100,
-			.photo200,
-			.photo400,
-			.photoMax,
-			.photo200Orig,
-			.photo400Orig,
-			.photoMaxOrig,
-			.photoID,
-			.hasPhoto,
-			.cropPhoto,
-			.timezone,
-			.firstNameNom,
-			.nicknameNom,
-			.lastNameNom,
-			.firstNameGen,
-			.nicknameGen,
-			.lastNameGen,
-			.firstNameDat,
-			.nicknameDat,
-			.lastNameDat,
-			.firstNameAcc,
-			.nicknameAcc,
-			.lastNameAcc,
-			.firstNameIns,
-			.nicknameIns,
-			.lastNameIns,
-			.firstNamePre,
-			.nicknamePre,
-			.lastNamePre,
-			.counters,
-		]
+		case lastNamePre = "last_name_pre"
+		case counters
 	}
 
 	/// - parameters:

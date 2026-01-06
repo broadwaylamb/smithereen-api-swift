@@ -28,7 +28,6 @@ let utils = Group("Utils") {
 			TaggedUnionVariantDef("group", payloadFieldName: "id", type: .def(groupID))
 			TaggedUnionVariantDef("application", payloadFieldName: "id", type: .def(applicationID))
 		}
-		.frozen()
 	}
 	.doc("""
 		Returns the user, group, or app ID by its screen name (username).

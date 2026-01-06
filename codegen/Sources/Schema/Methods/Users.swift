@@ -18,7 +18,6 @@ let users = Group("Users") {
 			EnumCaseDef("ins", swiftName: "instrumental")
 			EnumCaseDef("pre", swiftName: "prepositional")
 		}
-		.frozen()
 		FieldDef("relation_case", type: .def(caseDef))
 			.doc("""
 				For Slavic languages and when the ``User/Field/relation``

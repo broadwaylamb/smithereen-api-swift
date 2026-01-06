@@ -197,7 +197,6 @@ let friends = Group("Friends") {
 					Requires `friends:read` and only works for the current user.
 					""")
 		}
-		.frozen()
 		FieldDef("order", type: .def(orderEnum))
 			.doc("""
 				In which order to return the friends. By default ``Order/id``.
@@ -244,7 +243,6 @@ let friends = Group("Friends") {
 			EnumCaseDef("id")
 				.doc("Order by user identifiers.")
 		}
-		.frozen()
 		FieldDef("order", type: .def(orderEnum))
 			.doc("""
 				In which order to return the friends. By default ``Order/id``.
@@ -276,7 +274,6 @@ let friends = Group("Friends") {
 			EnumCaseDef("id")
 				.doc("Order by user identifiers.")
 		}
-		.frozen()
 
 		FieldDef("order", type: .def(orderEnum))
 			.doc(

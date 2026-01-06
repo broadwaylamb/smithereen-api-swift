@@ -4,15 +4,15 @@ struct EnumDef<RawValue: Sendable>: Documentable {
 	var name: String
 	var doc: String?
 	var cases: [EnumCaseDef<RawValue>]
-	var isFrozen: Bool = false
+	var isFrozen: Bool = true
 
 	init(_ name: String, @EnumDefBuilder<RawValue> build: () -> CompositeEnumDefPart<RawValue>) {
 		self.name = name
 		self.cases = build().components
 	}
 
-	func frozen() -> EnumDef {
-		copyWith(self, \.isFrozen, true)
+	func nonexhaustive() -> EnumDef {
+		copyWith(self, \.isFrozen, false)
 	}
 }
 

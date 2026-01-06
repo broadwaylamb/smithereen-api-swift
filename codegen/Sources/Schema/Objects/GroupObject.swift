@@ -171,7 +171,6 @@ let group = StructDef("Group") {
 			TaggedUnionVariantDef("photo_album", payloadFieldName: "object_id", type: .def(photoAlbumID))
 			TaggedUnionVariantDef("topic", payloadFieldName: "object_id", type: .def(boardTopicID))
 		}
-		.frozen()
 		.tag("object_type")
 
 		FieldDef("objectID", type: .def(linkedObjectDef))

@@ -130,10 +130,12 @@ let newsfeed = Group("Newsfeed") {
 				payloadFieldName: "topics",
 				type: .array(.def(boardTopic)),
 			)
+
 			.doc("The user created some discussion board topics.")
 			TaggedUnionVariantDef("relation", type: .def(relationUpdateStruct))
 				.doc("The user has changed their relationship status.")
 		}
+
 		updatedItem
 
 		feedResult(paginationToken: paginationToken, updatedItem: updatedItem) {
@@ -333,7 +335,6 @@ private func filterEnum(_ namesAndDocs: (String, String)...) -> EnumDef<String> 
 				.doc(doc)
 		}
 	}
-	.frozen()
 }
 
 @StructDefBuilder

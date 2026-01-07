@@ -7,8 +7,25 @@ private let urlFormEncoder = URLEncodedFormEncoder(
 		arrayEncoding: .separator(","),
 		dateEncodingStrategy: .secondsSince1970,
 		stableKeyOrder: true,
+		userInfo: [.isURLEncodedFormEncoder : true],
 	),
 )
+
+private let jsonEncoder: JSONEncoder = {
+	let encoder = JSONEncoder()
+	encoder.outputFormatting = .sortedKeys
+	return encoder
+}()
+
+public enum URLRequestBodyEncoding: Hashable, Sendable {
+	/// Encode the request body as URL-encoded form data, with the
+	/// `Content-Type: application/x-www-form-urlencoded` header.
+	case urlEncodedForm
+
+	/// Encode the request body as JSON, with the
+	/// `Content-Type: application/json` header.
+	case json
+}
 
 extension URLRequest {
 	private init<Request: EncodableRequestProtocol>(
@@ -16,6 +33,7 @@ extension URLRequest {
 		port: Int?,
 		useHTTPS: Bool,
 		request: Request,
+		encodeBodyAs bodyEncoding: URLRequestBodyEncoding,
 		cachePolicy: URLRequest.CachePolicy,
 		timeoutInterval: TimeInterval,
 		additionalQueryItems: (inout [URLQueryItem]) throws -> Void,
@@ -37,8 +55,14 @@ extension URLRequest {
 		self.init(url: url, cachePolicy: cachePolicy, timeoutInterval: timeoutInterval)
 		httpMethod = Request.method.rawValue
 		if let body = request.encodableBody {
-			addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-			httpBody = try Data(urlFormEncoder.encode(body).utf8)
+			switch bodyEncoding {
+			case .urlEncodedForm:
+				addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+				httpBody = try Data(urlFormEncoder.encode(body).utf8)
+			case .json:
+				addValue("application/json", forHTTPHeaderField: "Content-Type")
+				httpBody = try jsonEncoder.encode(body)
+			}
 		}
 		addValue("application/json", forHTTPHeaderField: "Accept")
 	}
@@ -55,6 +79,8 @@ extension URLRequest {
 	///     to specify for this request.
 	///   - passAccessTokenInHeader: Whether to pass the access token as
 	///     a request parameter or a header. Those are always passed in the query part.
+	///   - bodyEncoding: The encoding of the request body.
+	///     This also affects the `Content-Type` header.
 	///   - cachePolicy: The cache policy for the request.
 	///   - timeoutInterval: The timeout interval for the request. The default is 60.0.
 	public init<Request: SmithereenAPIRequest>(
@@ -64,6 +90,7 @@ extension URLRequest {
 		request: Request,
 		globalParameters: GlobalRequestParameters,
 		passAccessTokenInHeader: Bool = true,
+		encodeBodyAs bodyEncoding: URLRequestBodyEncoding = .json,
 		cachePolicy: URLRequest.CachePolicy = .useProtocolCachePolicy,
 		timeoutInterval: TimeInterval = 60.0,
 	) throws {
@@ -77,6 +104,7 @@ extension URLRequest {
 			port: port,
 			useHTTPS: useHTTPS,
 			request: request,
+			encodeBodyAs: bodyEncoding,
 			cachePolicy: cachePolicy,
 			timeoutInterval: timeoutInterval,
 		) { queryItems in
@@ -108,6 +136,7 @@ extension URLRequest {
 			port: port,
 			useHTTPS: useHTTPS,
 			request: request,
+			encodeBodyAs: .urlEncodedForm,
 			cachePolicy: cachePolicy,
 			timeoutInterval: timeoutInterval,
 			additionalQueryItems: { _ in },

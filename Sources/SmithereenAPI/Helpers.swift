@@ -166,3 +166,21 @@ extension KeyedEncodingContainer {
 		try encode(String(value.rawValue), forKey: key)
 	}
 }
+
+extension CodingUserInfoKey {
+	/// A special userInfo key to indicate that a URL-encoded form encoder
+	/// is being used to encode the method parameters.
+	///
+	/// This has the effect on methods that accept JSON strings for some
+	/// parameters, like ``Wall/Post/attachments``.
+	///
+	/// If the method body is being encoded as URL-encoded form,
+	/// set `true` for this key in the `userInfo` dictionary of
+	/// encoder.
+	///
+	/// If the method body is being encoded as JSON rather than
+	/// URL-encoded form, no value for this key should be passed.
+	public static var isURLEncodedFormEncoder: CodingUserInfoKey {
+		SmithereenAPIInternals.isURLEncodedFormEncoderCodingUserInfoKey
+	}
+}

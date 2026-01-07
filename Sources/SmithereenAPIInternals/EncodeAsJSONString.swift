@@ -24,10 +24,20 @@ private let jsonEncoder: JSONEncoder = {
 
 extension EncodeAsJSONString: Encodable {
 	public func encode(to encoder: any Encoder) throws {
-		try encode(to: encoder) { value, _ in
-			String(decoding: try jsonEncoder.encode(value), as: UTF8.self)
+		if let isURLEncodedFormEncoder =
+			encoder.userInfo[isURLEncodedFormEncoderCodingUserInfoKey] as? Bool,
+			isURLEncodedFormEncoder
+		{
+			try encode(to: encoder) { value, _ in
+				String(decoding: try jsonEncoder.encode(value), as: UTF8.self)
+			}
+		} else {
+			try wrappedValue._optional.encode(to: encoder)
 		}
 	}
 }
 
 extension EncodeAsJSONString: PotentiallyOptional {}
+
+package let isURLEncodedFormEncoderCodingUserInfoKey =
+	CodingUserInfoKey(rawValue: "software.smithereen.api.swift.CodingUserInfoKey.isURLFormEncoded")!

@@ -154,7 +154,20 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 		]
 	}
 	public var message: String
-	public var requestParams: [String : String]?
+	public var requestParams: [RequestParameter]
+
+	public struct RequestParameter: Hashable, Codable, Sendable {
+		public var key: String
+		public var value: String
+
+		public init(
+			key: String,
+			value: String,
+		) {
+			self.key = key
+			self.value = value
+		}
+	}
 
 	/// Returned only for the ``Execute`` request.
 	public var method: String?
@@ -164,7 +177,7 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 	public init(
 		code: Code,
 		message: String,
-		requestParams: [String : String]? = nil,
+		requestParams: [RequestParameter],
 		method: String? = nil,
 	) {
 		self.code = code

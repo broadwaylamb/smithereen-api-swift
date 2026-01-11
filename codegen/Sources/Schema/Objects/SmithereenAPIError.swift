@@ -120,7 +120,16 @@ let error = StructDef("SmithereenAPIError") {
 		.required()
 		.swiftName("message")
 
-	FieldDef("request_params", type: .dict(key: .string, value: .string))
+	let requestParameterDef = StructDef("RequestParameter") {
+		FieldDef("key", type: .string)
+			.required()
+		FieldDef("value", type: .string)
+			.required()
+	}
+
+	FieldDef("request_params", type: .array(.def(requestParameterDef)))
+		.required()
+	requestParameterDef
 
 	FieldDef("method", type: .string)
 		.doc("Returned only for the ``Execute`` request.")

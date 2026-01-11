@@ -74,6 +74,7 @@ extension SmithereenAPIError: ServerErrorProtocol {
 		return SmithereenAPIError(
 			code: code,
 			message: String(describing: statusCode),
+			requestParams: [],
 		)
     }
 }

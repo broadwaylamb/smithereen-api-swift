@@ -376,9 +376,9 @@ final class PrinterVisitor {
 			}
 
 			var keys = def.variants
-				.filter { $0.type != .void }
-				.distinct { $0.payloadFieldName }
-				.map { CustomCodingKey(serialName: $0.payloadFieldName) }
+				.flatMap { $0.fields }
+				.distinct { $0.serialName }
+				.map { $0.codingKeyForTaggedUnion }
 
 			if let tagSerialName = def.tagSerialName {
 				let _ = keys.insert(CustomCodingKey(serialName: tagSerialName, customSwiftName: "type"), at: 0)
@@ -393,36 +393,42 @@ final class PrinterVisitor {
 					try! SwitchExprSyntax("switch type") {
 						for variant in def.variants {
 							let caseName = variant.swiftIdentifier(for: .memberAccess)
-							let codingKey = identifier(
-								variant.payloadFieldName.convertFromSnakeCase(),
-								context: .memberAccess,
-							)
-
-							if variant.type == .void {
-								SwitchCaseSyntax("""
-									case "\(raw: variant.serialName)":
-										self = .\(caseName)
-									""")
-							} else if variant.type == .unixTimestamp {
-								SwitchCaseSyntax("""
-									case "\(raw: variant.serialName)":
-										self = .\(caseName)(try container.decode(UnixTimestamp<Date>.self, forKey: .\(codingKey)).wrappedValue)
-									""")
-							} else if variant.isFlattened {
-								SwitchCaseSyntax("""
-									case "\(raw: variant.serialName)":
-										self = .\(caseName)(try .init(from: decoder))
-									""")
-							} else if variant.convertPayloadFromString {
-								SwitchCaseSyntax("""
-									case "\(raw: variant.serialName)":
-										self = .\(caseName)(try container.decodeFromString(\(variant.type.syntax).self, forKey: .\(codingKey)))
-									""")
-							} else {
-								SwitchCaseSyntax("""
-									case "\(raw: variant.serialName)":
-										self = .\(caseName)(try container.decode(\(variant.type.syntax).self, forKey: .\(codingKey)))
-									""")
+							SwitchCaseSyntax("case \"\(raw: variant.serialName)\":") {
+								if variant.isFlattened {
+									"self = .\(caseName)(try .init(from: decoder))"
+								} else if variant.fields.isEmpty {
+									"self = .\(caseName)"
+								} else {
+									for field in variant.fields {
+										let codingKey = field.codingKeyForTaggedUnion
+										let varName = codingKey.swiftIdentifier(for: .variableName)
+										let codingKeyName = codingKey.swiftIdentifier(for: .memberAccess)
+										let decodeMethodName = identifier(
+											field.convertFromString ? "decodeFromString" : "decode",
+											context: .memberAccess,
+										)
+										if field.type == .unixTimestamp {
+											"let \(varName) = try container.\(decodeMethodName)(UnixTimestamp<Date>.self, forKey: .\(codingKeyName)).wrappedValue"
+										} else {
+											"let \(varName) = try container.\(decodeMethodName)(\(field.type.syntax).self, forKey: .\(codingKeyName))"
+										}
+									}
+									let caseInitializer = FunctionCallExprSyntax(
+										calledExpression: MemberAccessExprSyntax(name: caseName),
+										leftParen: .leftParenToken(),
+										rightParen: .rightParenToken(),
+									) {
+										for field in variant.fields {
+											LabeledExprSyntax(
+												label: field.swiftName.isEmpty ? nil : field.swiftName,
+												expression: DeclReferenceExprSyntax(
+													baseName: field.codingKeyForTaggedUnion.swiftIdentifier(for: .memberAccess),
+												),
+											)
+										}
+									}
+									"self = \(caseInitializer)"
+								}
 							}
 						}
 						SwitchCaseSyntax(#"""
@@ -446,27 +452,32 @@ final class PrinterVisitor {
 					try! SwitchExprSyntax("switch self") {
 						for variant in def.variants {
 							let caseName = variant.swiftIdentifier(for: .memberAccess)
-							let codingKey = identifier(
-								variant.payloadFieldName.convertFromSnakeCase(),
-								context: .memberAccess,
-							)
-							if variant.type == .void {
-								SwitchCaseSyntax("case .\(caseName):") {
-									if def.tagSerialName != nil {
-										"tag = \"\(raw: variant.serialName)\""
-									}
+							let pattern = FunctionCallExprSyntax(
+								calledExpression: MemberAccessExprSyntax(name: caseName),
+								leftParen: variant.fields.isEmpty ? nil : .leftParenToken(),
+								rightParen: variant.fields.isEmpty ? nil : .rightParenToken(),
+							) {
+								for field in variant.fields {
+									LabeledExprSyntax(
+										label: nil,
+										expression: ExprSyntax("let \(field.codingKeyForTaggedUnion.swiftIdentifier(for: .variableName))"),
+									)
 								}
-							} else {
-								SwitchCaseSyntax("case .\(caseName)(let payload):") {
-									if def.tagSerialName != nil {
-										"tag = \"\(raw: variant.serialName)\""
-									}
-									if variant.type == .unixTimestamp {
-										"try container.encode(UnixTimestamp(wrappedValue: payload), forKey: .\(codingKey))"
-									} else if variant.convertPayloadFromString {
-										"try container.encodeToString(payload, forKey: .\(codingKey))"
+							}
+							SwitchCaseSyntax("case \(pattern):") {
+								if def.tagSerialName != nil {
+									"tag = \(StringLiteralExprSyntax(content: variant.serialName))"
+								}
+								for field in variant.fields {
+									let encodeMethodName = identifier(
+										field.convertFromString ? "encodeToString" : "encode",
+										context: .memberAccess,
+									)
+									let codingKey = field.codingKeyForTaggedUnion.swiftIdentifier(for: .memberAccess)
+									if field.type == .unixTimestamp {
+										"try container.\(encodeMethodName)(UnixTimestamp(wrappedValue: \(codingKey)), forKey: .\(codingKey))"
 									} else {
-										"try container.encode(payload, forKey: .\(codingKey))"
+										"try container.\(encodeMethodName)(\(codingKey), forKey: .\(codingKey))"
 									}
 								}
 							}
@@ -481,7 +492,7 @@ final class PrinterVisitor {
 	}
 
 	func printTaggedUnionVariant(_ def: TaggedUnionVariantDef) -> EnumCaseDeclSyntax {
-		enumCase(def, payload: def.type)
+		enumCase(def, associatedValues: def.fields)
 	}
 
 	private var inProtocol = false
@@ -551,6 +562,15 @@ private struct CustomCodingKey: HasSerialName {
 extension HasSerialName {
 	fileprivate var requiresCustomCodingKey: Bool {
 		swiftName != serialName
+	}
+}
+
+extension FieldDef {
+	fileprivate var codingKeyForTaggedUnion: CustomCodingKey {
+		CustomCodingKey(
+			serialName: serialName,
+			customSwiftName: swiftName.isEmpty ? serialName.convertFromSnakeCase() : swiftName,
+		)
 	}
 }
 
@@ -666,7 +686,7 @@ private func initFromDecoderDecl(
 private func enumCase(
 	_ entity: any HasSerialName,
 	hasDoc: Bool = true,
-	payload: TypeRef? = nil,
+	associatedValues: [FieldDef] = [],
 ) -> EnumCaseDeclSyntax {
 	let leadingTrivia: Trivia? = if let entity = entity as? Documentable, hasDoc {
 		entity.leadingTrivia
@@ -676,10 +696,10 @@ private func enumCase(
 	return enumCase(
 		leadingTrivia: leadingTrivia,
 		name: entity.swiftName,
-		rawValue: payload == nil && entity.requiresCustomCodingKey
+		rawValue: associatedValues.isEmpty && entity.requiresCustomCodingKey
 			? entity.serialName
 			: nil,
-		payload: payload == .void ? nil : payload,
+		associatedValues: associatedValues,
 	)
 }
 
@@ -687,18 +707,27 @@ private func enumCase(
 	leadingTrivia: Trivia?,
 	name: String,
 	rawValue: String? = nil,
-	payload: TypeRef? = nil,
+	associatedValues: [FieldDef] = [],
 ) -> EnumCaseDeclSyntax {
 	EnumCaseDeclSyntax(leadingTrivia: leadingTrivia) {
 		EnumCaseElementSyntax(
 			name: identifier(name, context: .variableName),
-			parameterClause: payload.map { payload in
-				EnumCaseParameterClauseSyntax(
+			parameterClause: associatedValues.isEmpty
+				? nil
+				: EnumCaseParameterClauseSyntax(
 					parameters: EnumCaseParameterListSyntax {
-						EnumCaseParameterSyntax(type: payload.syntax)
+						for associatedValue in associatedValues {
+							if associatedValue.swiftName.isEmpty {
+								EnumCaseParameterSyntax(type: associatedValue.type.syntax)
+							} else {
+								EnumCaseParameterSyntax(
+									firstName: associatedValue.swiftIdentifier(for: .variableName),
+									type: associatedValue.type.syntax,
+								)
+							}
+						}
 					}
-				)
-			},
+				),
 			rawValue: rawValue.map {
 				InitializerClauseSyntax(value: StringLiteralExprSyntax(content: $0))
 			}

@@ -31,11 +31,14 @@ extension Utils {
 				let type = try container.decode(String.self, forKey: .type)
 				switch type {
 				case "user":
-					self = .user(try container.decode(UserID.self, forKey: .id))
+					let id = try container.decode(UserID.self, forKey: .id)
+					self = .user(id)
 				case "group":
-					self = .group(try container.decode(GroupID.self, forKey: .id))
+					let id = try container.decode(GroupID.self, forKey: .id)
+					self = .group(id)
 				case "application":
-					self = .application(try container.decode(ApplicationID.self, forKey: .id))
+					let id = try container.decode(ApplicationID.self, forKey: .id)
+					self = .application(id)
 				default:
 					throw DecodingError.dataCorruptedError(
 						forKey: .type,
@@ -48,15 +51,15 @@ extension Utils {
 				var container = encoder.container(keyedBy: CodingKeys.self)
 				let tag: String
 				switch self {
-				case .user(let payload):
+				case .user(let id):
 					tag = "user"
-					try container.encode(payload, forKey: .id)
-				case .group(let payload):
+					try container.encode(id, forKey: .id)
+				case .group(let id):
 					tag = "group"
-					try container.encode(payload, forKey: .id)
-				case .application(let payload):
+					try container.encode(id, forKey: .id)
+				case .application(let id):
 					tag = "application"
-					try container.encode(payload, forKey: .id)
+					try container.encode(id, forKey: .id)
 				}
 				try container.encode(tag, forKey: .type)
 			}

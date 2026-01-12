@@ -36,15 +36,20 @@ public enum Attachment: Hashable, Codable, Sendable {
 		let type = try container.decode(String.self, forKey: .type)
 		switch type {
 		case "photo":
-			self = .photo(try container.decode(Photo.self, forKey: .photo))
+			let photo = try container.decode(Photo.self, forKey: .photo)
+			self = .photo(photo)
 		case "graffiti":
-			self = .graffiti(try container.decode(Graffiti.self, forKey: .graffiti))
+			let graffiti = try container.decode(Graffiti.self, forKey: .graffiti)
+			self = .graffiti(graffiti)
 		case "video":
-			self = .video(try container.decode(Video.self, forKey: .video))
+			let video = try container.decode(Video.self, forKey: .video)
+			self = .video(video)
 		case "audio":
-			self = .audio(try container.decode(Audio.self, forKey: .audio))
+			let audio = try container.decode(Audio.self, forKey: .audio)
+			self = .audio(audio)
 		case "poll":
-			self = .poll(try container.decode(Poll.self, forKey: .poll))
+			let poll = try container.decode(Poll.self, forKey: .poll)
+			self = .poll(poll)
 		default:
 			throw DecodingError.dataCorruptedError(
 				forKey: .type,
@@ -57,21 +62,21 @@ public enum Attachment: Hashable, Codable, Sendable {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		let tag: String
 		switch self {
-		case .photo(let payload):
+		case .photo(let photo):
 			tag = "photo"
-			try container.encode(payload, forKey: .photo)
-		case .graffiti(let payload):
+			try container.encode(photo, forKey: .photo)
+		case .graffiti(let graffiti):
 			tag = "graffiti"
-			try container.encode(payload, forKey: .graffiti)
-		case .video(let payload):
+			try container.encode(graffiti, forKey: .graffiti)
+		case .video(let video):
 			tag = "video"
-			try container.encode(payload, forKey: .video)
-		case .audio(let payload):
+			try container.encode(video, forKey: .video)
+		case .audio(let audio):
 			tag = "audio"
-			try container.encode(payload, forKey: .audio)
-		case .poll(let payload):
+			try container.encode(audio, forKey: .audio)
+		case .poll(let poll):
 			tag = "poll"
-			try container.encode(payload, forKey: .poll)
+			try container.encode(poll, forKey: .poll)
 		}
 		try container.encode(tag, forKey: .type)
 	}

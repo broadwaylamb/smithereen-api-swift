@@ -140,23 +140,32 @@ extension Newsfeed {
 				case "post":
 					self = .post(try .init(from: decoder))
 				case "photo":
-					self = .photo(try container.decode(PhotoNewsfeedUpdate.self, forKey: .photos))
+					let photos = try container.decode(PhotoNewsfeedUpdate.self, forKey: .photos)
+					self = .photo(photos)
 				case "photo_tag":
-					self = .photoTag(try container.decode(PhotoNewsfeedUpdate.self, forKey: .photos))
+					let photos = try container.decode(PhotoNewsfeedUpdate.self, forKey: .photos)
+					self = .photoTag(photos)
 				case "friend":
-					self = .friend(try container.decode([UserID].self, forKey: .friendIDs))
+					let friendIDs = try container.decode([UserID].self, forKey: .friendIDs)
+					self = .friend(friendIDs)
 				case "group_join":
-					self = .groupJoin(try container.decode([GroupID].self, forKey: .groupIDs))
+					let groupIDs = try container.decode([GroupID].self, forKey: .groupIDs)
+					self = .groupJoin(groupIDs)
 				case "group_create":
-					self = .groupCreate(try container.decode([GroupID].self, forKey: .groupIDs))
+					let groupIDs = try container.decode([GroupID].self, forKey: .groupIDs)
+					self = .groupCreate(groupIDs)
 				case "event_join":
-					self = .eventJoin(try container.decode([GroupID].self, forKey: .groupIDs))
+					let groupIDs = try container.decode([GroupID].self, forKey: .groupIDs)
+					self = .eventJoin(groupIDs)
 				case "event_create":
-					self = .eventCreate(try container.decode([GroupID].self, forKey: .groupIDs))
+					let groupIDs = try container.decode([GroupID].self, forKey: .groupIDs)
+					self = .eventCreate(groupIDs)
 				case "board":
-					self = .board(try container.decode([BoardTopic].self, forKey: .topics))
+					let topics = try container.decode([BoardTopic].self, forKey: .topics)
+					self = .board(topics)
 				case "relation":
-					self = .relation(try container.decode(RelationUpdate.self, forKey: .relation))
+					let relation = try container.decode(RelationUpdate.self, forKey: .relation)
+					self = .relation(relation)
 				default:
 					throw DecodingError.dataCorruptedError(
 						forKey: .type,
@@ -169,36 +178,36 @@ extension Newsfeed {
 				var container = encoder.container(keyedBy: CodingKeys.self)
 				let tag: String
 				switch self {
-				case .post(let payload):
+				case .post(let post):
 					tag = "post"
-					try container.encode(payload, forKey: .post)
-				case .photo(let payload):
+					try container.encode(post, forKey: .post)
+				case .photo(let photos):
 					tag = "photo"
-					try container.encode(payload, forKey: .photos)
-				case .photoTag(let payload):
+					try container.encode(photos, forKey: .photos)
+				case .photoTag(let photos):
 					tag = "photo_tag"
-					try container.encode(payload, forKey: .photos)
-				case .friend(let payload):
+					try container.encode(photos, forKey: .photos)
+				case .friend(let friendIDs):
 					tag = "friend"
-					try container.encode(payload, forKey: .friendIDs)
-				case .groupJoin(let payload):
+					try container.encode(friendIDs, forKey: .friendIDs)
+				case .groupJoin(let groupIDs):
 					tag = "group_join"
-					try container.encode(payload, forKey: .groupIDs)
-				case .groupCreate(let payload):
+					try container.encode(groupIDs, forKey: .groupIDs)
+				case .groupCreate(let groupIDs):
 					tag = "group_create"
-					try container.encode(payload, forKey: .groupIDs)
-				case .eventJoin(let payload):
+					try container.encode(groupIDs, forKey: .groupIDs)
+				case .eventJoin(let groupIDs):
 					tag = "event_join"
-					try container.encode(payload, forKey: .groupIDs)
-				case .eventCreate(let payload):
+					try container.encode(groupIDs, forKey: .groupIDs)
+				case .eventCreate(let groupIDs):
 					tag = "event_create"
-					try container.encode(payload, forKey: .groupIDs)
-				case .board(let payload):
+					try container.encode(groupIDs, forKey: .groupIDs)
+				case .board(let topics):
 					tag = "board"
-					try container.encode(payload, forKey: .topics)
-				case .relation(let payload):
+					try container.encode(topics, forKey: .topics)
+				case .relation(let relation):
 					tag = "relation"
-					try container.encode(payload, forKey: .relation)
+					try container.encode(relation, forKey: .relation)
 				}
 				try container.encode(tag, forKey: .type)
 			}

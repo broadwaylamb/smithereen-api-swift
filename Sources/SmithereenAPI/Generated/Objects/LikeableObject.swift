@@ -28,13 +28,17 @@ public enum LikeableObject: Hashable, Codable, Sendable {
 		let type = try container.decode(String.self, forKey: .type)
 		switch type {
 		case "post":
-			self = .post(try container.decodeFromString(WallPostID.self, forKey: .itemID))
+			let itemID = try container.decodeFromString(WallPostID.self, forKey: .itemID)
+			self = .post(itemID)
 		case "photo":
-			self = .photo(try container.decode(PhotoID.self, forKey: .itemID))
+			let itemID = try container.decode(PhotoID.self, forKey: .itemID)
+			self = .photo(itemID)
 		case "photo_comment":
-			self = .photoComment(try container.decode(PhotoCommentID.self, forKey: .itemID))
+			let itemID = try container.decode(PhotoCommentID.self, forKey: .itemID)
+			self = .photoComment(itemID)
 		case "topic_comment":
-			self = .topicComment(try container.decode(TopicCommentID.self, forKey: .itemID))
+			let itemID = try container.decode(TopicCommentID.self, forKey: .itemID)
+			self = .topicComment(itemID)
 		default:
 			throw DecodingError.dataCorruptedError(
 				forKey: .type,
@@ -47,18 +51,18 @@ public enum LikeableObject: Hashable, Codable, Sendable {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		let tag: String
 		switch self {
-		case .post(let payload):
+		case .post(let itemID):
 			tag = "post"
-			try container.encodeToString(payload, forKey: .itemID)
-		case .photo(let payload):
+			try container.encodeToString(itemID, forKey: .itemID)
+		case .photo(let itemID):
 			tag = "photo"
-			try container.encode(payload, forKey: .itemID)
-		case .photoComment(let payload):
+			try container.encode(itemID, forKey: .itemID)
+		case .photoComment(let itemID):
 			tag = "photo_comment"
-			try container.encode(payload, forKey: .itemID)
-		case .topicComment(let payload):
+			try container.encode(itemID, forKey: .itemID)
+		case .topicComment(let itemID):
 			tag = "topic_comment"
-			try container.encode(payload, forKey: .itemID)
+			try container.encode(itemID, forKey: .itemID)
 		}
 		try container.encode(tag, forKey: .type)
 	}

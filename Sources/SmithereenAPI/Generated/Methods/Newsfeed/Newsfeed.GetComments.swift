@@ -65,11 +65,14 @@ extension Newsfeed {
 				let type = try container.decode(String.self, forKey: .type)
 				switch type {
 				case "post":
-					self = .post(try container.decode(WallPost.self, forKey: .post))
+					let post = try container.decode(WallPost.self, forKey: .post)
+					self = .post(post)
 				case "photo":
-					self = .photo(try container.decode(Photo.self, forKey: .photo))
+					let photo = try container.decode(Photo.self, forKey: .photo)
+					self = .photo(photo)
 				case "board":
-					self = .board(try container.decode(BoardTopic.self, forKey: .topic))
+					let topic = try container.decode(BoardTopic.self, forKey: .topic)
+					self = .board(topic)
 				default:
 					throw DecodingError.dataCorruptedError(
 						forKey: .type,
@@ -82,15 +85,15 @@ extension Newsfeed {
 				var container = encoder.container(keyedBy: CodingKeys.self)
 				let tag: String
 				switch self {
-				case .post(let payload):
+				case .post(let post):
 					tag = "post"
-					try container.encode(payload, forKey: .post)
-				case .photo(let payload):
+					try container.encode(post, forKey: .post)
+				case .photo(let photo):
 					tag = "photo"
-					try container.encode(payload, forKey: .photo)
-				case .board(let payload):
+					try container.encode(photo, forKey: .photo)
+				case .board(let topic):
 					tag = "board"
-					try container.encode(payload, forKey: .topic)
+					try container.encode(topic, forKey: .topic)
 				}
 				try container.encode(tag, forKey: .type)
 			}

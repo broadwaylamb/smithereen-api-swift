@@ -42,9 +42,9 @@ extension Server {
 				switch self {
 				case .spam:
 					tag = "spam"
-				case .rules(let payload):
+				case .rules(let ruleIDs):
 					tag = "rules"
-					try container.encode(payload, forKey: .ruleIDs)
+					try container.encode(ruleIDs, forKey: .ruleIDs)
 				case .illegal:
 					tag = "illegal"
 				case .other:
@@ -76,24 +76,24 @@ extension Server {
 				var container = encoder.container(keyedBy: CodingKeys.self)
 				let tag: String
 				switch self {
-				case .wallPost(let payload):
+				case .wallPost(let id):
 					tag = "wall_post"
-					try container.encodeToString(payload, forKey: .id)
-				case .wallComment(let payload):
+					try container.encodeToString(id, forKey: .id)
+				case .wallComment(let id):
 					tag = "wall_comment"
-					try container.encodeToString(payload, forKey: .id)
-				case .photoComment(let payload):
+					try container.encodeToString(id, forKey: .id)
+				case .photoComment(let id):
 					tag = "comment"
-					try container.encode(payload, forKey: .id)
-				case .topicComment(let payload):
+					try container.encode(id, forKey: .id)
+				case .topicComment(let id):
 					tag = "comment"
-					try container.encode(payload, forKey: .id)
-				case .message(let payload):
+					try container.encode(id, forKey: .id)
+				case .message(let id):
 					tag = "message"
-					try container.encode(payload, forKey: .id)
-				case .photo(let payload):
+					try container.encode(id, forKey: .id)
+				case .photo(let id):
 					tag = "photo"
-					try container.encode(payload, forKey: .id)
+					try container.encode(id, forKey: .id)
 				}
 				try container.encode(tag, forKey: .type)
 			}

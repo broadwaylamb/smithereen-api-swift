@@ -37,10 +37,10 @@ extension Photos {
 			public func encode(to encoder: any Encoder) throws {
 				var container = encoder.container(keyedBy: CodingKeys.self)
 				switch self {
-				case .user(let payload):
-					try container.encode(payload, forKey: .userID)
-				case .name(let payload):
-					try container.encode(payload, forKey: .name)
+				case .user(let userID):
+					try container.encode(userID, forKey: .userID)
+				case .name(let name):
+					try container.encode(name, forKey: .name)
 				}
 			}
 		}

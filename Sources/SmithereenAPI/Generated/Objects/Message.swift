@@ -75,11 +75,14 @@ public struct Message: Hashable, Codable, Sendable, Identifiable {
 			let type = try container.decode(String.self, forKey: .type)
 			switch type {
 			case "wall_post":
-				self = .wallPost(try container.decode(WallPostID.self, forKey: .wallPostID))
+				let wallPostID = try container.decode(WallPostID.self, forKey: .wallPostID)
+				self = .wallPost(wallPostID)
 			case "wall_comment":
-				self = .wallComment(try container.decode(WallPostID.self, forKey: .wallCommentID))
+				let wallCommentID = try container.decode(WallPostID.self, forKey: .wallCommentID)
+				self = .wallComment(wallCommentID)
 			case "message":
-				self = .message(try container.decode(MessageID.self, forKey: .messageID))
+				let messageID = try container.decode(MessageID.self, forKey: .messageID)
+				self = .message(messageID)
 			default:
 				throw DecodingError.dataCorruptedError(
 					forKey: .type,
@@ -92,15 +95,15 @@ public struct Message: Hashable, Codable, Sendable, Identifiable {
 			var container = encoder.container(keyedBy: CodingKeys.self)
 			let tag: String
 			switch self {
-			case .wallPost(let payload):
+			case .wallPost(let wallPostID):
 				tag = "wall_post"
-				try container.encode(payload, forKey: .wallPostID)
-			case .wallComment(let payload):
+				try container.encode(wallPostID, forKey: .wallPostID)
+			case .wallComment(let wallCommentID):
 				tag = "wall_comment"
-				try container.encode(payload, forKey: .wallCommentID)
-			case .message(let payload):
+				try container.encode(wallCommentID, forKey: .wallCommentID)
+			case .message(let messageID):
 				tag = "message"
-				try container.encode(payload, forKey: .messageID)
+				try container.encode(messageID, forKey: .messageID)
 			}
 			try container.encode(tag, forKey: .type)
 		}

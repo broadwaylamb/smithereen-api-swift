@@ -38,7 +38,8 @@ extension Groups {
 				case "group":
 					self = .group
 				case "event":
-					self = .event(try container.decode(UnixTimestamp<Date>.self, forKey: .startDate).wrappedValue)
+					let startDate = try container.decode(UnixTimestamp<Date>.self, forKey: .startDate).wrappedValue
+					self = .event(startDate)
 				default:
 					throw DecodingError.dataCorruptedError(
 						forKey: .type,
@@ -53,9 +54,9 @@ extension Groups {
 				switch self {
 				case .group:
 					tag = "group"
-				case .event(let payload):
+				case .event(let startDate):
 					tag = "event"
-					try container.encode(UnixTimestamp(wrappedValue: payload), forKey: .startDate)
+					try container.encode(UnixTimestamp(wrappedValue: startDate), forKey: .startDate)
 				}
 				try container.encode(tag, forKey: .type)
 			}

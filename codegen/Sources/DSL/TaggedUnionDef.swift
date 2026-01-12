@@ -76,22 +76,26 @@ private struct CompositeTaggedUnionDefPart: TaggedUnionDefPart {
 
 struct TaggedUnionVariantDef: Documentable, HasSerialName {
 	var serialName: String
-	var customPayloadFieldName: String?
 	var customSwiftName: String?
 	var doc: String?
-	var type: TypeRef
 	var isFlattened = false
-	var convertPayloadFromString: Bool
 
-	var payloadFieldName: String {
-		customPayloadFieldName ?? serialName
-	}
+	var fields: [FieldDef]
 
 	init(_ serialName: String, payloadFieldName: String? = nil, type: TypeRef, convertPayloadFromString: Bool = false) {
+		self.init(serialName) {
+			if type != .void {
+				FieldDef(payloadFieldName ?? serialName, type: type)
+					.required()
+					.swiftName("")
+					.convertFromString(convertPayloadFromString)
+			}
+		}
+	}
+
+	init(_ serialName: String, @FieldContainerBuilder fields: () -> any FieldContainerPart) {
 		self.serialName = serialName
-		self.customPayloadFieldName = payloadFieldName
-		self.type = type
-		self.convertPayloadFromString = convertPayloadFromString
+		self.fields = fields().fields
 	}
 
 	func flatten() -> TaggedUnionVariantDef {

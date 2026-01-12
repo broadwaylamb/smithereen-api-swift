@@ -347,17 +347,23 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 				let type = try container.decode(String.self, forKey: .type)
 				switch type {
 				case "user":
-					self = .user(try container.decodeFromString(UserID.self, forKey: .objectID))
+					let objectID = try container.decodeFromString(UserID.self, forKey: .objectID)
+					self = .user(objectID)
 				case "group":
-					self = .group(try container.decodeFromString(GroupID.self, forKey: .objectID))
+					let objectID = try container.decodeFromString(GroupID.self, forKey: .objectID)
+					self = .group(objectID)
 				case "post":
-					self = .post(try container.decode(WallPostID.self, forKey: .objectID))
+					let objectID = try container.decode(WallPostID.self, forKey: .objectID)
+					self = .post(objectID)
 				case "photo":
-					self = .photo(try container.decode(PhotoID.self, forKey: .objectID))
+					let objectID = try container.decode(PhotoID.self, forKey: .objectID)
+					self = .photo(objectID)
 				case "photo_album":
-					self = .photoAlbum(try container.decode(PhotoAlbumID.self, forKey: .objectID))
+					let objectID = try container.decode(PhotoAlbumID.self, forKey: .objectID)
+					self = .photoAlbum(objectID)
 				case "topic":
-					self = .topic(try container.decode(BoardTopicID.self, forKey: .objectID))
+					let objectID = try container.decode(BoardTopicID.self, forKey: .objectID)
+					self = .topic(objectID)
 				default:
 					throw DecodingError.dataCorruptedError(
 						forKey: .type,
@@ -370,24 +376,24 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 				var container = encoder.container(keyedBy: CodingKeys.self)
 				let tag: String
 				switch self {
-				case .user(let payload):
+				case .user(let objectID):
 					tag = "user"
-					try container.encodeToString(payload, forKey: .objectID)
-				case .group(let payload):
+					try container.encodeToString(objectID, forKey: .objectID)
+				case .group(let objectID):
 					tag = "group"
-					try container.encodeToString(payload, forKey: .objectID)
-				case .post(let payload):
+					try container.encodeToString(objectID, forKey: .objectID)
+				case .post(let objectID):
 					tag = "post"
-					try container.encode(payload, forKey: .objectID)
-				case .photo(let payload):
+					try container.encode(objectID, forKey: .objectID)
+				case .photo(let objectID):
 					tag = "photo"
-					try container.encode(payload, forKey: .objectID)
-				case .photoAlbum(let payload):
+					try container.encode(objectID, forKey: .objectID)
+				case .photoAlbum(let objectID):
 					tag = "photo_album"
-					try container.encode(payload, forKey: .objectID)
-				case .topic(let payload):
+					try container.encode(objectID, forKey: .objectID)
+				case .topic(let objectID):
 					tag = "topic"
-					try container.encode(payload, forKey: .objectID)
+					try container.encode(objectID, forKey: .objectID)
 				}
 				try container.encode(tag, forKey: .type)
 			}

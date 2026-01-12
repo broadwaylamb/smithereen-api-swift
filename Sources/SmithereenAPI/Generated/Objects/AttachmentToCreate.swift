@@ -66,9 +66,11 @@ public enum AttachmentToCreate: Hashable, Codable, Sendable {
 		case "image":
 			self = .image(try .init(from: decoder))
 		case "photo":
-			self = .photo(try container.decode(PhotoID.self, forKey: .photoID))
+			let photoID = try container.decode(PhotoID.self, forKey: .photoID)
+			self = .photo(photoID)
 		case "poll":
-			self = .poll(try container.decode(PollID.self, forKey: .pollID))
+			let pollID = try container.decode(PollID.self, forKey: .pollID)
+			self = .poll(pollID)
 		default:
 			throw DecodingError.dataCorruptedError(
 				forKey: .type,
@@ -81,15 +83,15 @@ public enum AttachmentToCreate: Hashable, Codable, Sendable {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		let tag: String
 		switch self {
-		case .image(let payload):
+		case .image(let image):
 			tag = "image"
-			try container.encode(payload, forKey: .image)
-		case .photo(let payload):
+			try container.encode(image, forKey: .image)
+		case .photo(let photoID):
 			tag = "photo"
-			try container.encode(payload, forKey: .photoID)
-		case .poll(let payload):
+			try container.encode(photoID, forKey: .photoID)
+		case .poll(let pollID):
 			tag = "poll"
-			try container.encode(payload, forKey: .pollID)
+			try container.encode(pollID, forKey: .pollID)
 		}
 		try container.encode(tag, forKey: .type)
 	}

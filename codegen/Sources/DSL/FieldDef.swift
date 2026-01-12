@@ -10,6 +10,7 @@ struct FieldDef: Documentable, HasSerialName {
 	var isExcludedFromFields: Bool = false
 	var isFlattened: Bool = false
 	var constantValue: String? = nil
+	var convertFromString: Bool = false
 
 	init(_ serialName: String, type: TypeRef) {
 		self.serialName = serialName
@@ -47,6 +48,10 @@ struct FieldDef: Documentable, HasSerialName {
 	func constantValue(_ value: String) -> FieldDef {
 		copyWith(self, \.constantValue, value)
 	}
+
+	func convertFromString(_ value: Bool = true) -> FieldDef {
+		copyWith(self, \.convertFromString, value)
+	}
 }
 
 @resultBuilder
@@ -61,6 +66,21 @@ struct FieldContainerBuilder {
 
 	static func buildArray(_ components: [any FieldContainerPart]) -> any FieldContainerPart {
 		return CompositeFieldContainerPart(fields: components.flatMap { $0.fields })
+	}
+
+	static func buildEither(first component: any FieldContainerPart) -> any FieldContainerPart {
+		return component
+	}
+
+	static func buildEither(second component: any FieldContainerPart) -> any FieldContainerPart {
+		return component
+	}
+
+	static func buildOptional(_ component: (any FieldContainerPart)?) -> any FieldContainerPart {
+		if let component {
+			return component
+		}
+		return CompositeFieldContainerPart(fields: [])
 	}
 }
 

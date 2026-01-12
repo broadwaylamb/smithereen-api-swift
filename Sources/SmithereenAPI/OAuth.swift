@@ -10,6 +10,9 @@ public enum OAuth {
 
 		/// The redirected URL is malformed.
 		case invalidURL(URL)
+
+		/// The server rejected the authentication reques.
+		case rejected(TokenError)
 	}
 
 	public struct AuthorizationCode: Identifier {
@@ -97,6 +100,14 @@ public enum OAuth {
 			let queryItems = urlComponents.queryItems
 		else {
 			throw AuthorizationCodeError.invalidURL(url)
+		}
+
+		if let errorCode = queryItems.first(where: { $0.name == "error" })?.value {
+			let tokenError = TokenError(
+				code: TokenError.Code(rawValue: errorCode),
+				errorDescription: queryItems.first { $0.name == "error_description" }?.value,
+			)
+			throw AuthorizationCodeError.rejected(tokenError)
 		}
 
 		guard let code = queryItems.first(where: { $0.name == "code" })?.value else {

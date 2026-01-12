@@ -13,6 +13,7 @@ let oauth = FileDef("OAuthRequests", additionalImports: ["Hammond"]) {
 		conformances: StructDef.defaultConformances + [TypeRef(name: "Error")],
 	) {
 		let code = EnumDef<String>("Code") {
+			EnumCaseDef("access_denied")
 			EnumCaseDef("invalid_request")
 			EnumCaseDef("invalid_grant")
 			EnumCaseDef("unsupported_grant_type")

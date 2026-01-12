@@ -42,11 +42,13 @@ extension OAuth {
 				self.rawValue = rawValue
 			}
 
+			public static let accessDenied = Self(rawValue: "access_denied")
 			public static let invalidRequest = Self(rawValue: "invalid_request")
 			public static let invalidGrant = Self(rawValue: "invalid_grant")
 			public static let unsupportedGrantType = Self(rawValue: "unsupported_grant_type")
 
 			public static let allCases: [Code] = [
+				.accessDenied,
 				.invalidRequest,
 				.invalidGrant,
 				.unsupportedGrantType,

@@ -22,6 +22,7 @@ let photoFeedEntryID = IdentifierStruct("PhotoFeedEntryID", rawValue: .string)
 let photoTagID = IdentifierStruct("PhotoTagID", rawValue: .uint64)
 let messageID = IdentifierStruct("MessageID", rawValue: .string)
 	.doc("And identifier of a private message.")
+let notificationID = IdentifierStruct("NotificationID", rawValue: .uint64)
 let uploadedImageID = IdentifierStruct("UploadedImageID", rawValue: .string)
 	.doc("""
 		The identifier returned by the upload endpoint after

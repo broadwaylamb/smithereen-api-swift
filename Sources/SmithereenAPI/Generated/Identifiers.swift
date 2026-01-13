@@ -162,6 +162,14 @@ public struct MessageID: Identifier {
 	}
 }
 
+public struct NotificationID: Identifier {
+	public var rawValue: UInt64
+
+	public init(rawValue: UInt64) {
+		self.rawValue = rawValue
+	}
+}
+
 /// The identifier returned by the upload endpoint after
 /// [uploading the image](https://smithereen.software/docs/api/uploads).
 public struct UploadedImageID: Identifier {

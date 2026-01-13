@@ -19,6 +19,7 @@ let schema = Group {
 		photoFeedEntryID
 		photoTagID
 		messageID
+		notificationID
 		uploadedImageID
 		uploadedImageHash
 		wordFilterID
@@ -39,6 +40,7 @@ let schema = Group {
 		likeInfo
 		likeableObject
 		message
+		notification
 		photo
 		photoAlbum
 		imageRect
@@ -65,6 +67,7 @@ let schema = Group {
 		likes
 		messages
 		newsfeed
+		notifications
 		oauth
 		photos
 		polls

@@ -135,6 +135,23 @@ extension PhotoAlbumID {
 	public static let saved = PhotoAlbumID(rawValue: "saved")
 }
 
+extension NotificationID: Comparable {
+	public static func < (lhs: NotificationID, rhs: NotificationID) -> Bool {
+		lhs.rawValue < rhs.rawValue
+	}
+}
+
+extension Notification.Payload {
+	public var canBeGrouped: Bool {
+		switch self {
+		case .like, .repost, .inviteSignup, .follow, .friendAccept:
+			return true
+		case .comment, .mention, .reply, .wallPost:
+			return false
+		}
+	}
+}
+
 extension KeyedDecodingContainer {
 	internal func decodeFromString<T: RawRepresentable>(
 		_ type: T.Type,

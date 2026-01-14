@@ -201,3 +201,9 @@ extension CodingUserInfoKey {
 		SmithereenAPIInternals.isURLEncodedFormEncoderCodingUserInfoKey
 	}
 }
+
+extension SmithereenAPIError {
+	public subscript(requestParameter key: String) -> String? {
+		requestParams.first { $0.key == key }?.value
+	}
+}

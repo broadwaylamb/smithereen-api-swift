@@ -1,12 +1,12 @@
 {
-  "originHash" : "cd83a57a4289c6b8a6922399329ac50d957474aac441f48393b6103cf317b26f",
+  "originHash" : "a355a4b529a4e5ac69cb1906e66deb9a500794c3f730ca037f4766cd24a6849e",
   "pins" : [
     {
       "identity" : "hammond",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/broadwaylamb/Hammond.git",
       "state" : {
-        "revision" : "d94c1c0adef230a0cd29ab0803e499c9d03830de"
+        "revision" : "f55009b14ce32c98127466cea2bcc51f22f6c751"
       }
     },
     {

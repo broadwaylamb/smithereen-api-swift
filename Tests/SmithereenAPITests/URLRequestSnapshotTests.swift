@@ -422,4 +422,41 @@ class URLRequestSnapshotTests: XCTestCase {
 			"""#
 		}
 	}
+
+	func testExecuteURLEncodedFormBody() throws {
+		let urlRequest = try URLRequest(
+			host: "example.com",
+			request: Execute<[String : String], NeverCodable>(code: "var a = 42;", args: ["hello" : "world"]),
+			globalParameters: GlobalRequestParameters(apiVersion: .v1_0),
+			encodeBodyAs: .urlEncodedForm,
+		)
+		assertInlineSnapshot(of: urlRequest, as: .curl) {
+			#"""
+			curl \
+				--request POST \
+				--header "Accept: application/json" \
+				--header "Content-Type: application/x-www-form-urlencoded" \
+				--data "code=var%20a%20%3D%2042%3B&hello=world" \
+				"https://example.com/api/method/execute?v=1.0"
+			"""#
+		}
+	}
+
+	func testExecuteJSONBody() throws {
+		let urlRequest = try URLRequest(
+			host: "example.com",
+			request: Execute<[String : String], NeverCodable>(code: "var a = 42;", args: ["hello" : "world"]),
+			globalParameters: GlobalRequestParameters(apiVersion: .v1_0),
+		)
+		assertInlineSnapshot(of: urlRequest, as: .curl) {
+			#"""
+			curl \
+				--request POST \
+				--header "Accept: application/json" \
+				--header "Content-Type: application/json" \
+				--data "{\"code\":\"var a = 42;\",\"hello\":\"world\"}" \
+				"https://example.com/api/method/execute?v=1.0"
+			"""#
+		}
+	}
 }

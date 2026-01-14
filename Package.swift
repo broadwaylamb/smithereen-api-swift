@@ -15,7 +15,7 @@ let package = Package(
 		.library(name: "SmithereenAPI", targets: ["SmithereenAPI"]),
 	],
 	dependencies: [
-		.package(url: "https://github.com/broadwaylamb/Hammond.git", revision: "d94c1c0adef230a0cd29ab0803e499c9d03830de"),
+		.package(url: "https://github.com/broadwaylamb/Hammond.git", revision: "f55009b14ce32c98127466cea2bcc51f22f6c751"),
 		.package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.18.7"),
 	],
 	targets: [

@@ -46,6 +46,7 @@ public struct Execute<Args: Encodable, Result: Decodable>: SmithereenAPIRequest,
 	public var encodableBody: Self? {
 		self
 	}
+	public typealias Result = Result
 }
 extension Execute: Equatable where Args: Equatable {
 }

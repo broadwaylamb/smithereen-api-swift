@@ -1,12 +1,11 @@
 let execute = FileDef("Execute", additionalImports: ["Hammond"]) {
 	let executeArgsTP = TypeParameterDef(name: "Args", upperBound: .encodable)
+	let resultTP = TypeParameterDef(name: "Result", upperBound: .decodable)
 	apiMethod(
 		"execute",
+		resultType: .def(resultTP),
 		conformances: [TypeRef(name: "SmithereenAPIRequest"), .encodable],
-		typeParameters: [
-			executeArgsTP,
-			TypeParameterDef(name: "Result", upperBound: .decodable),
-		],
+		typeParameters: [executeArgsTP, resultTP],
 	) {
 			FieldDef("code", type: .string)
 				.required()

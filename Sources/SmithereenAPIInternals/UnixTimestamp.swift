@@ -13,6 +13,12 @@ extension UnixTimestamp: Equatable where T: Equatable {}
 extension UnixTimestamp: Hashable where T: Hashable {}
 extension UnixTimestamp: Sendable where T: Sendable {}
 
+extension UnixTimestamp: CustomDebugStringConvertible {
+	public var debugDescription: String {
+		String(reflecting: wrappedValue)
+	}
+}
+
 extension UnixTimestamp: Encodable {
 	public func encode(to encoder: any Encoder) throws {
 		try encode(to: encoder) {

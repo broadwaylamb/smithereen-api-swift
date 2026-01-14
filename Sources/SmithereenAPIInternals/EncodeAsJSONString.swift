@@ -15,6 +15,12 @@ extension EncodeAsJSONString: Equatable where T: Equatable {}
 extension EncodeAsJSONString: Hashable where T: Hashable {}
 extension EncodeAsJSONString: Sendable where T: Sendable {}
 
+extension EncodeAsJSONString: CustomDebugStringConvertible {
+	public var debugDescription: String {
+		String(reflecting: wrappedValue)
+	}
+}
+
 private let jsonEncoder: JSONEncoder = {
 	let encoder = JSONEncoder()
 	encoder.outputFormatting = .sortedKeys

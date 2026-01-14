@@ -14,6 +14,12 @@ extension URLAsString: Equatable where T: Equatable {}
 extension URLAsString: Hashable where T: Hashable {}
 extension URLAsString: Sendable where T: Sendable {}
 
+extension URLAsString: CustomDebugStringConvertible {
+	public var debugDescription: String {
+		String(reflecting: wrappedValue)
+	}
+}
+
 extension URLAsString: Encodable {
 	public func encode(to encoder: any Encoder) throws {
 		try encode(to: encoder) { url, _ in url.absoluteString }

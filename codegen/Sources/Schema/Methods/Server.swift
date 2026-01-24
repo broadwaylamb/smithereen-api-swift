@@ -1,4 +1,42 @@
 let server = Group("Server") {
+	let announcementDef = StructDef("Announcement") {
+		FieldDef("id", type: .def(serverAnnouncementID))
+			.required()
+			.id()
+			.doc("Unique identifier of this announcement.")
+
+		FieldDef("title", type: .string)
+			.doc("Title of the announcement.")
+
+		FieldDef("text", type: .string)
+			.required()
+			.doc("Text of the announcement.")
+
+		FieldDef("link", type: .string)
+			.doc("""
+				If this announcement contains a link, its title.
+				The link is meant to be displayed below the main text.
+				""")
+
+		FieldDef("link_url", type: .url)
+			.doc("If this announcement contains a link, its URL.")
+
+		FieldDef("show_until_date", type: .unixTimestamp)
+			.doc("""
+				If this announcement is temporary, the time after
+				which it should no longer be displayed.
+				""")
+	}
+	apiMethod("server.getAnnouncements", resultType: .array(.def(announcementDef))) {
+		announcementDef
+	}
+	.doc("""
+		Returns the currently active announcements published by
+		the server staff.
+
+		Announcements are displayed below the main menu on the web.
+		""")
+
 	apiMethod("server.getInfo") {
 		let serverRule = StructDef("ServerRule") {
 			FieldDef("id", type: TypeRef(name: "ServerRuleID"))

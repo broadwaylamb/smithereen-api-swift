@@ -102,6 +102,14 @@ public struct PollOptionID: Identifier {
 	}
 }
 
+public struct ServerAnnouncementID: Identifier {
+	public var rawValue: UInt32
+
+	public init(rawValue: UInt32) {
+		self.rawValue = rawValue
+	}
+}
+
 public struct BoardTopicID: Identifier {
 	public var rawValue: String
 

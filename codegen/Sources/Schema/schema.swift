@@ -12,6 +12,7 @@ let schema = Group {
 		groupLinkID
 		pollID
 		pollOptionID
+		serverAnnouncementID
 		boardTopicID
 		wallPostID
 		photoCommentID

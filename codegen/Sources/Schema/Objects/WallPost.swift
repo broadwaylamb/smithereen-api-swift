@@ -39,7 +39,40 @@ let wallPost = StructDef("WallPost", conformances: [.def(commentProtocol)]) {
 		.doc("Information about reposts of this post.")
 	repostsStruct
 
-	// TODO: Post source
+	let sourceDef = StructDef("Source") {
+		let appDef = StructDef("Application") {
+			FieldDef("id", type: .def(applicationID))
+				.required()
+				.doc("Unique (server-wide) identifier of the app.")
+
+			activityPubIDField("app")
+
+			FieldDef("name", type: .string)
+				.required()
+				.doc("The user-visible name of the app.")
+		}
+		FieldDef("app", type: .def(appDef))
+			.doc("""
+				If this post was published using the API, information about
+				the app that was used.
+				""")
+		appDef
+
+		let actionDef = EnumDef<String>("Action") {
+			EnumCaseDef("profile_picture_update")
+				.doc("The user has uploaded a new profile picture.")
+		}
+		FieldDef("action", type: .def(actionDef))
+			.doc("""
+				If this post was created as part of another user action,
+				the type of that action.
+				""")
+		actionDef
+	}
+
+	FieldDef("post_source", type: .def(sourceDef))
+		.doc("Information about how this post was created.")
+	sourceDef
 
 	let commentsStruct = StructDef("Comments") {
 		FieldDef("count", type: .int)

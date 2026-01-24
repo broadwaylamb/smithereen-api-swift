@@ -119,6 +119,74 @@ public struct WallPost: CommentProtocol, Identifiable {
 		}
 	}
 
+	/// Information about how this post was created.
+	public var postSource: Source?
+
+	public struct Source: Hashable, Codable, Sendable {
+
+		/// If this post was published using the API, information about
+		/// the app that was used.
+		public var app: Application?
+
+		public struct Application: Hashable, Codable, Sendable {
+
+			/// Unique (server-wide) identifier of the app.
+			public var id: ApplicationID
+
+			/// Globally unique ActivityPub identifier for this app.
+			/// Use this to match apps across servers.
+			@URLAsString
+			public var activityPubID: URL
+
+			/// The user-visible name of the app.
+			public var name: String
+
+			/// - parameters:
+			///   - id: Unique (server-wide) identifier of the app.
+			///   - activityPubID: Globally unique ActivityPub identifier for this app.
+			///     Use this to match apps across servers.
+			///   - name: The user-visible name of the app.
+			public init(
+				id: ApplicationID,
+				activityPubID: URL,
+				name: String,
+			) {
+				self.id = id
+				self.activityPubID = activityPubID
+				self.name = name
+			}
+
+			private enum CodingKeys: String, CodingKey {
+				case id
+				case activityPubID = "ap_id"
+				case name
+			}
+		}
+
+		/// If this post was created as part of another user action,
+		/// the type of that action.
+		public var action: Action?
+
+		public enum Action: String, Codable, Sendable, CaseIterable {
+
+			/// The user has uploaded a new profile picture.
+			case profilePictureUpdate = "profile_picture_update"
+		}
+
+		/// - parameters:
+		///   - app: If this post was published using the API, information about
+		///     the app that was used.
+		///   - action: If this post was created as part of another user action,
+		///     the type of that action.
+		public init(
+			app: Application? = nil,
+			action: Action? = nil,
+		) {
+			self.app = app
+			self.action = action
+		}
+	}
+
 	/// Information about comments on this post.
 	/// 
 	/// - Note: Only returned for top-level posts.
@@ -212,6 +280,7 @@ public struct WallPost: CommentProtocol, Identifiable {
 	///     - Note: Only returned for comments.
 	///   - privacy: If this post isn’t publicly visible, the visibility setting specified by the author.
 	///   - reposts: Information about reposts of this post.
+	///   - postSource: Information about how this post was created.
 	///   - comments: Information about comments on this post.
 	///     
 	///     - Note: Only returned for top-level posts.
@@ -256,6 +325,7 @@ public struct WallPost: CommentProtocol, Identifiable {
 		thread: CommentThread<WallPost>? = nil,
 		privacy: Privacy? = nil,
 		reposts: Reposts? = nil,
+		postSource: Source? = nil,
 		comments: Comments? = nil,
 		repostHistory: [WallPost]? = nil,
 		isMastodonStyleRepost: Bool? = nil,
@@ -281,6 +351,7 @@ public struct WallPost: CommentProtocol, Identifiable {
 		self.thread = thread
 		self.privacy = privacy
 		self.reposts = reposts
+		self.postSource = postSource
 		self.comments = comments
 		self.repostHistory = repostHistory
 		self.isMastodonStyleRepost = isMastodonStyleRepost
@@ -308,6 +379,7 @@ public struct WallPost: CommentProtocol, Identifiable {
 		case thread
 		case privacy
 		case reposts
+		case postSource = "post_source"
 		case comments
 		case repostHistory = "repost_history"
 		case isMastodonStyleRepost = "is_mastodon_style_repost"

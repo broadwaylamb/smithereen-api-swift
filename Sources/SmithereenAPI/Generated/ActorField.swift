@@ -186,6 +186,10 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 	/// ``User`` objects.
 	public static let online = Self(rawValue: "online")
 
+	/// If the online status was set using the API, the identifier
+	/// of the app that set it.
+	public static let onlineAppID = Self(rawValue: "online_app_id")
+
 	/// If the user is currently offline, information about when they
 	/// were last online.
 	/// 
@@ -597,6 +601,7 @@ public struct ActorField: Hashable, RawRepresentable, CaseIterable, Codable, Sen
 		.about,
 		.personal,
 		.online,
+		.onlineAppID,
 		.lastSeen,
 		.blocked,
 		.blockedByMe,

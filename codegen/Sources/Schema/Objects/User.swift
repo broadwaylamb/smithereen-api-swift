@@ -211,6 +211,11 @@ let user = StructDef("User") {
 			Whether the user is currently online from a mobile device.
 			Request by passing ``Field/online``.
 			""")
+	FieldDef("online_app_id", type: .def(applicationID))
+		.doc("""
+			If the online status was set using the API, the identifier
+			of the app that set it.
+			""")
 
 	let lastSeenDoc = """
 		If the user is currently offline, information about when they
@@ -226,6 +231,11 @@ let user = StructDef("User") {
 		FieldDef("platform", type: TypeRef(name: "Platform"))
 			.required()
 			.doc("What kind of device the user last used to go online.")
+		FieldDef("app_id", type: .def(applicationID))
+			.doc("""
+				If the last online status was set using the API, the identifier
+				of the app that set it.
+				""")
 	}
 	.doc(lastSeenDoc)
 

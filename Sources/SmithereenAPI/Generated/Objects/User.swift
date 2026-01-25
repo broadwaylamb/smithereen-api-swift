@@ -520,6 +520,10 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	/// Request by passing ``Field/online``.
 	public var onlineMobile: Bool?
 
+	/// If the online status was set using the API, the identifier
+	/// of the app that set it.
+	public var onlineAppID: ApplicationID?
+
 	/// If the user is currently offline, information about when they
 	/// were last online.
 	/// 
@@ -539,15 +543,29 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// What kind of device the user last used to go online.
 		public var platform: Platform
 
+		/// If the last online status was set using the API, the identifier
+		/// of the app that set it.
+		public var appID: ApplicationID?
+
 		/// - parameters:
 		///   - time: Last seen time.
 		///   - platform: What kind of device the user last used to go online.
+		///   - appID: If the last online status was set using the API, the identifier
+		///     of the app that set it.
 		public init(
 			time: Date,
 			platform: Platform,
+			appID: ApplicationID? = nil,
 		) {
 			self.time = time
 			self.platform = platform
+			self.appID = appID
+		}
+
+		private enum CodingKeys: String, CodingKey {
+			case time
+			case platform
+			case appID = "app_id"
 		}
 	}
 
@@ -1131,6 +1149,10 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		/// ``User`` objects.
 		case online
 
+		/// If the online status was set using the API, the identifier
+		/// of the app that set it.
+		case onlineAppID = "online_app_id"
+
 		/// If the user is currently offline, information about when they
 		/// were last online.
 		/// 
@@ -1574,6 +1596,8 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 	///     ``User`` objects.
 	///   - onlineMobile: Whether the user is currently online from a mobile device.
 	///     Request by passing ``Field/online``.
+	///   - onlineAppID: If the online status was set using the API, the identifier
+	///     of the app that set it.
 	///   - lastSeen: If the user is currently offline, information about when they
 	///     were last online.
 	///     
@@ -1824,6 +1848,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		personal: PersonalViews? = nil,
 		online: Bool? = nil,
 		onlineMobile: Bool? = nil,
+		onlineAppID: ApplicationID? = nil,
 		lastSeen: LastSeen? = nil,
 		blocked: Bool? = nil,
 		blockedByMe: Bool? = nil,
@@ -1905,6 +1930,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		self.personal = personal
 		self.online = online
 		self.onlineMobile = onlineMobile
+		self.onlineAppID = onlineAppID
 		self.lastSeen = lastSeen
 		self.blocked = blocked
 		self.blockedByMe = blockedByMe
@@ -1988,6 +2014,7 @@ public struct User: Hashable, Codable, Sendable, Identifiable {
 		case personal
 		case online
 		case onlineMobile = "online_mobile"
+		case onlineAppID = "online_app_id"
 		case lastSeen = "last_seen"
 		case blocked
 		case blockedByMe = "blocked_by_me"

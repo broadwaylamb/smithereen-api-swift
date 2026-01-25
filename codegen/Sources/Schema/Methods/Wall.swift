@@ -149,6 +149,8 @@ let wall = Group("Wall") {
 		postParameters(postKind: "repost")
 		guidField(method: "Wall/Repost", entity: "post")
 	}
+	.doc("Reposts a post or a comment to the current user's wall.")
+	.requiresPermissions("wall")
 
 	apiMethod("wall.unpin", resultType: .void) {
 		FieldDef("post_id", type: .def(wallPostID))

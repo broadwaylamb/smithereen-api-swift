@@ -6,6 +6,9 @@ import SmithereenAPIInternals
 import Hammond
 extension Wall {
 
+	/// Reposts a post or a comment to the current user's wall.
+	/// 
+	/// - Note: This method requires the following permissions: `wall`.
 	public struct Repost: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
 		/// The identifier of the post or comment to be reposted.

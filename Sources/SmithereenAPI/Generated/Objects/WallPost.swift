@@ -4,8 +4,8 @@
 import Foundation
 import SmithereenAPIInternals
 
-/// A post or a comment on a wall.
-public struct WallPost: CommentProtocol, Identifiable {
+/// A post on a wall.
+public struct WallPost: WallPostProtocol, Identifiable {
 
 	/// Unique (server-wide) identifier of this post.
 	public var id: WallPostID
@@ -54,38 +54,20 @@ public struct WallPost: CommentProtocol, Identifiable {
 	/// An array of user IDs corresponding to users mentioned in this post.
 	public var mentionedUsers: [ActorID]?
 
-	/// Array of identifiers of parent comments.
-	/// 
-	/// - Note: Only returned for comments.
-	public var parentsStack: [WallPostID]?
-
-	/// Identifier of the comment this is in reply to, if applicable.
-	/// 
-	/// - Note: Only returned for comments.
-	public var replyToComment: WallPostID?
-
-	/// Identifier of the user this is in reply to, if applicable.
-	/// 
-	/// - Note: Only returned for comments.
-	public var replyToUser: ActorID?
-
-	/// An object describing the reply thread of this comment.
-	/// Only returned when `view_type` is `threaded` or `two_level`.
-	/// 
-	/// - Note: Only returned for comments.
-	public var thread: CommentThread<WallPost>?
-
 	/// If this post isn’t publicly visible, the visibility setting specified by the author.
-	public var privacy: Privacy?
+	public var privacy: WallPost.Privacy?
+
+	/// Information about reposts of this post.
+	public var reposts: WallPost.Reposts?
+
+	/// Information about how this post was created.
+	public var postSource: WallPost.Source?
 
 	public enum Privacy: String, Codable, Sendable, CaseIterable {
 		case followers
 		case followersAndMentioned = "followers_and_mentioned"
 		case friends
 	}
-
-	/// Information about reposts of this post.
-	public var reposts: Reposts?
 
 	public struct Reposts: Hashable, Codable, Sendable {
 
@@ -118,9 +100,6 @@ public struct WallPost: CommentProtocol, Identifiable {
 			case userReposted = "user_reposted"
 		}
 	}
-
-	/// Information about how this post was created.
-	public var postSource: Source?
 
 	public struct Source: Hashable, Codable, Sendable {
 
@@ -188,8 +167,6 @@ public struct WallPost: CommentProtocol, Identifiable {
 	}
 
 	/// Information about comments on this post.
-	/// 
-	/// - Note: Only returned for top-level posts.
 	public var comments: Comments?
 
 	public struct Comments: Hashable, Codable, Sendable {
@@ -220,8 +197,6 @@ public struct WallPost: CommentProtocol, Identifiable {
 	/// If this is a repost, the array of reposted posts.
 	/// Contains more than one element if the reposted post is itself
 	/// a repost.
-	/// 
-	/// - Note: Only returned for top-level posts.
 	public var repostHistory: [WallPost]?
 
 	/// If this is a repost, whether this is a Mastodon-style repost
@@ -232,18 +207,12 @@ public struct WallPost: CommentProtocol, Identifiable {
 	/// like comments or likes, to the reposted post (`repost_history[0]`).
 	/// It’s also recommended display such posts with some indication in
 	/// the UI that the user will interact with the original post.
-	/// 
-	/// - Note: Only returned for top-level posts.
 	public var isMastodonStyleRepost: Bool?
 
 	/// Whether the current user can pin this post to their wall.
-	/// 
-	/// - Note: Only returned for top-level posts.
 	public var canPin: Bool?
 
 	/// Whether this post is pinned on its owner’s wall.
-	/// 
-	/// - Note: Only returned for top-level posts.
 	public var isPinned: Bool?
 
 	/// - parameters:
@@ -265,30 +234,13 @@ public struct WallPost: CommentProtocol, Identifiable {
 	///   - canDelete: Whether the current user can delete this post.
 	///   - canEdit: Whether the current user can edit this post.
 	///   - mentionedUsers: An array of user IDs corresponding to users mentioned in this post.
-	///   - parentsStack: Array of identifiers of parent comments.
-	///     
-	///     - Note: Only returned for comments.
-	///   - replyToComment: Identifier of the comment this is in reply to, if applicable.
-	///     
-	///     - Note: Only returned for comments.
-	///   - replyToUser: Identifier of the user this is in reply to, if applicable.
-	///     
-	///     - Note: Only returned for comments.
-	///   - thread: An object describing the reply thread of this comment.
-	///     Only returned when `view_type` is `threaded` or `two_level`.
-	///     
-	///     - Note: Only returned for comments.
 	///   - privacy: If this post isn’t publicly visible, the visibility setting specified by the author.
 	///   - reposts: Information about reposts of this post.
 	///   - postSource: Information about how this post was created.
 	///   - comments: Information about comments on this post.
-	///     
-	///     - Note: Only returned for top-level posts.
 	///   - repostHistory: If this is a repost, the array of reposted posts.
 	///     Contains more than one element if the reposted post is itself
 	///     a repost.
-	///     
-	///     - Note: Only returned for top-level posts.
 	///   - isMastodonStyleRepost: If this is a repost, whether this is a Mastodon-style repost
 	///     (`Announce` activity). Mastodon-style reposts work like retweets on
 	///     Twitter – they aren’t “real” posts, they don’t have their own
@@ -297,14 +249,8 @@ public struct WallPost: CommentProtocol, Identifiable {
 	///     like comments or likes, to the reposted post (`repost_history[0]`).
 	///     It’s also recommended display such posts with some indication in
 	///     the UI that the user will interact with the original post.
-	///     
-	///     - Note: Only returned for top-level posts.
 	///   - canPin: Whether the current user can pin this post to their wall.
-	///     
-	///     - Note: Only returned for top-level posts.
 	///   - isPinned: Whether this post is pinned on its owner’s wall.
-	///     
-	///     - Note: Only returned for top-level posts.
 	public init(
 		id: WallPostID,
 		ownerID: ActorID,
@@ -319,13 +265,9 @@ public struct WallPost: CommentProtocol, Identifiable {
 		canDelete: Bool,
 		canEdit: Bool,
 		mentionedUsers: [ActorID]? = nil,
-		parentsStack: [WallPostID]? = nil,
-		replyToComment: WallPostID? = nil,
-		replyToUser: ActorID? = nil,
-		thread: CommentThread<WallPost>? = nil,
-		privacy: Privacy? = nil,
-		reposts: Reposts? = nil,
-		postSource: Source? = nil,
+		privacy: WallPost.Privacy? = nil,
+		reposts: WallPost.Reposts? = nil,
+		postSource: WallPost.Source? = nil,
 		comments: Comments? = nil,
 		repostHistory: [WallPost]? = nil,
 		isMastodonStyleRepost: Bool? = nil,
@@ -345,10 +287,6 @@ public struct WallPost: CommentProtocol, Identifiable {
 		self.canDelete = canDelete
 		self.canEdit = canEdit
 		self.mentionedUsers = mentionedUsers
-		self.parentsStack = parentsStack
-		self.replyToComment = replyToComment
-		self.replyToUser = replyToUser
-		self.thread = thread
 		self.privacy = privacy
 		self.reposts = reposts
 		self.postSource = postSource
@@ -373,10 +311,6 @@ public struct WallPost: CommentProtocol, Identifiable {
 		case canDelete = "can_delete"
 		case canEdit = "can_edit"
 		case mentionedUsers = "mentioned_users"
-		case parentsStack = "parents_stack"
-		case replyToComment = "reply_to_comment"
-		case replyToUser = "reply_to_user"
-		case thread
 		case privacy
 		case reposts
 		case postSource = "post_source"

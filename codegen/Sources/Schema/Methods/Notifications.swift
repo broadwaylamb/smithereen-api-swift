@@ -15,7 +15,7 @@ let notifications = Group("Notifications") {
 			FieldDef("wall_posts", type: .array(.def(wallPost)))
 				.required()
 				.doc("Wall post objects referenced in ``items``.")
-			FieldDef("wall_comments", type: .array(.def(wallPost)))
+			FieldDef("wall_comments", type: .array(.def(wallComment)))
 				.required()
 				.doc("Wall comment objects referenced in ``items``.")
 			FieldDef("photo_comments", type: .array(.def(photoComment)))

@@ -54,7 +54,9 @@ let schema = Group {
 		topicComment
 		user
 		video
+		wallComment
 		wallPost
+		wallPostProtocol
 		wallPostFeedUpdate
 	}
 

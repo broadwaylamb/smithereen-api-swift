@@ -49,13 +49,14 @@ extension Newsfeed {
 		public var fields: [ActorField]?
 
 		public enum CommentableObject: Hashable, Codable, Sendable {
-			case post(WallPost)
-			case photo(Photo)
-			case board(BoardTopic)
+			case post(WallPost, comments: [WallComment]?)
+			case photo(Photo, comments: [PhotoComment]?)
+			case board(BoardTopic, comments: [TopicComment]?)
 
 			private enum CodingKeys: String, CodingKey {
 				case type
 				case post
+				case comments
 				case photo
 				case topic
 			}
@@ -66,13 +67,16 @@ extension Newsfeed {
 				switch type {
 				case "post":
 					let post = try container.decode(WallPost.self, forKey: .post)
-					self = .post(post)
+					let comments = try container.decode([WallComment]?.self, forKey: .comments)
+					self = .post(post, comments: comments)
 				case "photo":
 					let photo = try container.decode(Photo.self, forKey: .photo)
-					self = .photo(photo)
+					let comments = try container.decode([PhotoComment]?.self, forKey: .comments)
+					self = .photo(photo, comments: comments)
 				case "board":
 					let topic = try container.decode(BoardTopic.self, forKey: .topic)
-					self = .board(topic)
+					let comments = try container.decode([TopicComment]?.self, forKey: .comments)
+					self = .board(topic, comments: comments)
 				default:
 					throw DecodingError.dataCorruptedError(
 						forKey: .type,
@@ -85,58 +89,27 @@ extension Newsfeed {
 				var container = encoder.container(keyedBy: CodingKeys.self)
 				let tag: String
 				switch self {
-				case .post(let post):
+				case .post(let post, let comments):
 					tag = "post"
 					try container.encode(post, forKey: .post)
-				case .photo(let photo):
+					try container.encode(comments, forKey: .comments)
+				case .photo(let photo, let comments):
 					tag = "photo"
 					try container.encode(photo, forKey: .photo)
-				case .board(let topic):
+					try container.encode(comments, forKey: .comments)
+				case .board(let topic, let comments):
 					tag = "board"
 					try container.encode(topic, forKey: .topic)
+					try container.encode(comments, forKey: .comments)
 				}
 				try container.encode(tag, forKey: .type)
-			}
-		}
-
-		public struct Update: Hashable, Codable, Sendable {
-			public var item: CommentableObject
-
-			/// If ``lastComments`` is non-zero, an array of comment
-			/// objects.
-			public var comments: [WallPost]?
-
-			/// - parameters:
-			///   - comments: If ``lastComments`` is non-zero, an array of comment
-			///     objects.
-			public init(
-				item: CommentableObject,
-				comments: [WallPost]? = nil,
-			) {
-				self.item = item
-				self.comments = comments
-			}
-
-			private enum CodingKeys: String, CodingKey {
-				case comments
-			}
-			public func encode(to encoder: any Encoder) throws {
-				var container = encoder.container(keyedBy: CodingKeys.self)
-				try self.item.encode(to: encoder)
-				try container.encodeIfPresent(self.comments, forKey: .comments)
-			}
-
-			public init(from decoder: Decoder) throws {
-				let container = try decoder.container(keyedBy: CodingKeys.self)
-				self.item = try CommentableObject(from: decoder)
-				self.comments = try container.decodeIfPresent([WallPost].self, forKey: .comments)
 			}
 		}
 
 		public struct Result: Hashable, Codable, Sendable {
 
 			/// The commentable objects themselves.
-			public var items: [Update]
+			public var items: [CommentableObject]
 
 			/// User objects relevant to these objects.
 			public var profiles: [User]
@@ -153,7 +126,7 @@ extension Newsfeed {
 			///   - groups: Group objects relevant to these objects.
 			///   - count: How many comment threads there are in total.
 			public init(
-				items: [Update],
+				items: [CommentableObject],
 				profiles: [User],
 				groups: [Group],
 				count: Int,

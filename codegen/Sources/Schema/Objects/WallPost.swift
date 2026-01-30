@@ -1,28 +1,28 @@
-let wallPost = StructDef("WallPost", conformances: [.def(commentProtocol)]) {
-	postAndCommentCommonFields(
+let wallPostProtocol = ProtocolDef(
+	"WallPostProtocol",
+	conformances: StructDef.defaultConformances + [.identifiable],
+) {
+	wallPostAndCommentCommonFields(
+		entity: "post or comment",
+		entityTypeName: "Self",
+		postOnly: true,
+	)
+}
+
+let wallPost = StructDef("WallPost", conformances: [.def(wallPostProtocol)]) {
+	wallPostAndCommentCommonFields(
 		entity: "post",
 		entityTypeName: "WallPost",
-		parentObject: "wall",
-		idType: .def(wallPostID),
-	) {
-		"""
-		\($0)
+		postOnly: true,
+	)
 
-		- Note: Only returned for comments.
-		"""
-	}
-
-	let privacyEnum = EnumDef<String>("Privacy") {
+	EnumDef<String>("Privacy") {
 		EnumCaseDef("followers")
 		EnumCaseDef("followers_and_mentioned")
 		EnumCaseDef("friends")
 	}
 
-	FieldDef("privacy", type: .def(privacyEnum))
-		.doc("If this post isn’t publicly visible, the visibility setting specified by the author.")
-	privacyEnum
-
-	let repostsStruct = StructDef("Reposts") {
+	StructDef("Reposts") {
 		FieldDef("count", type: .int)
 			.required()
 			.doc("How many reposts of this post were made.")
@@ -35,11 +35,8 @@ let wallPost = StructDef("WallPost", conformances: [.def(commentProtocol)]) {
 			.required()
 			.doc("Whether the current user has reposted this post.")
 	}
-	FieldDef("reposts", type: .def(repostsStruct))
-		.doc("Information about reposts of this post.")
-	repostsStruct
 
-	let sourceDef = StructDef("Source") {
+	StructDef("Source") {
 		let appDef = StructDef("Application") {
 			FieldDef("id", type: .def(applicationID))
 				.required()
@@ -70,10 +67,6 @@ let wallPost = StructDef("WallPost", conformances: [.def(commentProtocol)]) {
 		actionDef
 	}
 
-	FieldDef("post_source", type: .def(sourceDef))
-		.doc("Information about how this post was created.")
-	sourceDef
-
 	let commentsStruct = StructDef("Comments") {
 		FieldDef("count", type: .int)
 			.required()
@@ -84,18 +77,18 @@ let wallPost = StructDef("WallPost", conformances: [.def(commentProtocol)]) {
 			.doc("Whether the current user can comment on this post.")
 	}
 	FieldDef("comments", type: .def(commentsStruct))
-		.topLevelPostDoc("Information about comments on this post.")
+		.doc("Information about comments on this post.")
 	commentsStruct
 
 	FieldDef("repost_history", type: .array(TypeRef(name: "WallPost")))
-		.topLevelPostDoc("""
+		.doc("""
 			If this is a repost, the array of reposted posts.
 			Contains more than one element if the reposted post is itself
 			a repost.
 			""")
 
 	FieldDef("is_mastodon_style_repost", type: .bool)
-		.topLevelPostDoc("""
+		.doc("""
 			If this is a repost, whether this is a Mastodon-style repost
 			(`Announce` activity). Mastodon-style reposts work like retweets on
 			Twitter – they aren’t “real” posts, they don’t have their own
@@ -107,24 +100,24 @@ let wallPost = StructDef("WallPost", conformances: [.def(commentProtocol)]) {
 			""")
 
 	FieldDef("can_pin", type: .bool)
-		.topLevelPostDoc(
-			"Whether the current user can pin this post to their wall."
-		)
+		.doc("Whether the current user can pin this post to their wall.")
 
 	FieldDef("is_pinned", type: .bool)
-		.topLevelPostDoc("Whether this post is pinned on its owner’s wall.")
+		.doc("Whether this post is pinned on its owner’s wall.")
 }
-.doc("A post or a comment on a wall.")
+.doc("A post on a wall.")
 
-extension Documentable {
-	fileprivate func topLevelPostDoc(_ text: String) -> Self {
-		doc("""
-			\(text)
-
-			- Note: Only returned for top-level posts.
-			""")
-	}
+let wallComment = StructDef(
+	"WallComment",
+	conformances: [.def(wallPostProtocol), .def(commentProtocol)],
+) {
+	wallPostAndCommentCommonFields(
+		entity: "comment",
+		entityTypeName: "WallComment",
+		postOnly: false,
+	)
 }
+.doc("A comment under a post on a wall.")
 
 let wallPostFeedUpdate = StructDef("WallPostNewsfeedUpdate") {
 	FieldDef("post", type: .def(wallPost))
@@ -149,4 +142,28 @@ let wallPostFeedUpdate = StructDef("WallPostNewsfeedUpdate") {
 			""")
 
 	matchedFilterDef
+}
+
+@FieldContainerBuilder
+private func wallPostAndCommentCommonFields(
+	entity: String,
+	entityTypeName: String,
+	postOnly: Bool,
+) -> any FieldContainerPart {
+	postAndCommentCommonFields(
+		entity: entity,
+		entityTypeName: entityTypeName,
+		parentObject: "wall",
+		idType: .def(wallPostID),
+		postOnly: postOnly,
+	)
+
+	FieldDef("privacy", type: TypeRef(name: "WallPost.Privacy"))
+		.doc("If this post isn’t publicly visible, the visibility setting specified by the author.")
+
+	FieldDef("reposts", type: TypeRef(name: "WallPost.Reposts"))
+		.doc("Information about reposts of this post.")
+
+	FieldDef("post_source", type: TypeRef(name: "WallPost.Source"))
+		.doc("Information about how this post was created.")
 }

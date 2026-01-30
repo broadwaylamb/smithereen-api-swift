@@ -42,7 +42,7 @@ func postAndCommentCommonFields(
 	entityTypeName: String,
 	parentObject: String,
 	idType: TypeRef,
-	commentOnlyDoc: (String) -> String = { $0 },
+	postOnly: Bool = false,
  ) -> any FieldContainerPart {
 	FieldDef("id", type: idType)
 		.required()
@@ -102,27 +102,20 @@ func postAndCommentCommonFields(
 			An array of user IDs corresponding to users mentioned in this \(entity).
 			""")
 
-	FieldDef("parents_stack", type: .array(idType))
-		.docWithTransformation("Array of identifiers of parent comments.", transformation: commentOnlyDoc)
+	if !postOnly {
+		FieldDef("parents_stack", type: .array(idType))
+			.doc("Array of identifiers of parent comments.")
 
-	FieldDef("reply_to_comment", type: idType)
-		.docWithTransformation(
-			"Identifier of the comment this is in reply to, if applicable.",
-			transformation: commentOnlyDoc,
-		)
+		FieldDef("reply_to_comment", type: idType)
+			.doc("Identifier of the comment this is in reply to, if applicable.")
 
-	FieldDef("reply_to_user", type: .def(actorID))
-		.docWithTransformation(
-			"Identifier of the user this is in reply to, if applicable.",
-			transformation: commentOnlyDoc,
-		)
+		FieldDef("reply_to_user", type: .def(actorID))
+			.doc("Identifier of the user this is in reply to, if applicable.")
 
-	FieldDef("thread", type: .def(commentThread).withArgs(TypeRef(name: entityTypeName)))
-		.docWithTransformation(
-			"""
-			An object describing the reply thread of this comment.
-			Only returned when `view_type` is `threaded` or `two_level`.
-			""",
-			transformation: commentOnlyDoc,
-		)
+		FieldDef("thread", type: .def(commentThread).withArgs(TypeRef(name: entityTypeName)))
+			.doc("""
+				An object describing the reply thread of this comment.
+				Only returned when `view_type` is `threaded` or `two_level`.
+				""")
+	}
 }

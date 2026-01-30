@@ -83,7 +83,7 @@ let wall = Group("Wall") {
 	commentsRequest(
 		"wall.getComments",
 		commentID: wallPostID,
-		comment: wallPost,
+		comment: wallComment,
 		targetField: FieldDef("post_id", type: .def(wallPostID))
 			.doc("The identifier of the post."),
 	)

@@ -33,7 +33,7 @@ extension Notifications {
 			public var wallPosts: [WallPost]
 
 			/// Wall comment objects referenced in ``items``.
-			public var wallComments: [WallPost]
+			public var wallComments: [WallComment]
 
 			/// Photo comment objects referenced in ``items``.
 			public var photoComments: [PhotoComment]
@@ -70,7 +70,7 @@ extension Notifications {
 			public init(
 				items: [Notification],
 				wallPosts: [WallPost],
-				wallComments: [WallPost],
+				wallComments: [WallComment],
 				photoComments: [PhotoComment],
 				boardComments: [TopicComment],
 				photos: [Photo],

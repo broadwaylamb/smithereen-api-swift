@@ -166,7 +166,7 @@ extension Wall {
 			public var encodableBody: Self? {
 				self
 			}
-			public typealias Result = PaginatedList<WallPost, PaginatedListExtras.CommentViewWithProfilesAndGroups>
+			public typealias Result = PaginatedList<WallComment, PaginatedListExtras.CommentViewWithProfilesAndGroups>
 		}
 
 		/// - parameters:
@@ -234,7 +234,7 @@ extension Wall {
 		public var encodableBody: Self? {
 			self
 		}
-		public typealias Result = PaginatedList<WallPost, PaginatedListExtras.CommentView>
+		public typealias Result = PaginatedList<WallComment, PaginatedListExtras.CommentView>
 
 		public func extended(fields: [ActorField]? = nil) -> Extended {
 			Extended(

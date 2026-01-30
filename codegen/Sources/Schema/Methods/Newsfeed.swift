@@ -190,31 +190,29 @@ let newsfeed = Group("Newsfeed") {
 		actorFieldsParam()
 
 		let commentableObject = TaggedUnionDef("CommentableObject") {
-			TaggedUnionVariantDef("post", type: .def(wallPost))
-			TaggedUnionVariantDef("photo", type: .def(photo))
-			TaggedUnionVariantDef(
-				"board",
-				payloadFieldName: "topic",
-				type: .def(boardTopic),
-			)
+			TaggedUnionVariantDef("post") {
+				FieldDef("post", type: .def(wallPost))
+					.swiftName("")
+					.required()
+				FieldDef("comments", type: .array(.def(wallComment)))
+			}
+			TaggedUnionVariantDef("photo") {
+				FieldDef("photo", type: .def(photo))
+					.swiftName("")
+					.required()
+				FieldDef("comments", type: .array(.def(photoComment)))
+			}
+			TaggedUnionVariantDef("board") {
+				FieldDef("topic", type: .def(boardTopic))
+					.swiftName("")
+					.required()
+				FieldDef("comments", type: .array(.def(topicComment)))
+			}
 		}
 		commentableObject
 
-		let update = StructDef("Update") {
-			FieldDef("item", type: .def(commentableObject))
-				.required()
-				.flatten()
-
-			FieldDef("comments", type: .array(.def(wallPost)))
-				.doc("""
-					If ``lastComments`` is non-zero, an array of comment
-					objects.
-					""")
-		}
-		update
-
 		StructDef("Result") {
-			FieldDef("items", type: .array(.def(update)))
+			FieldDef("items", type: .array(.def(commentableObject)))
 				.required()
 				.doc("The commentable objects themselves.")
 

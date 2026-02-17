@@ -13,6 +13,7 @@ extension Board {
 
 		/// Identifier of the comment to delete.
 		public var commentID: TopicCommentID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - commentID: Identifier of the comment to delete.

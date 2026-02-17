@@ -26,6 +26,7 @@ extension Newsfeed {
 		/// is omitted, the filter will not expire.
 		@UnixTimestamp
 		public var expiryDate: Date?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - name: The user-visible name of the filter.

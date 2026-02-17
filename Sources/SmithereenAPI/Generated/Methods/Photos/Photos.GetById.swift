@@ -20,6 +20,7 @@ extension Photos {
 		/// 
 		/// By default `false`.
 		public var extended: Bool?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - photoIDs: A list of up to 1000 photo identifiers.

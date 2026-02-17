@@ -33,6 +33,7 @@ extension Wall {
 		/// by default, requiring a click to reveal.
 		/// This text will be shown instead of the content.
 		public var contentWarning: String?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - postID: The identifier of the post to be updated.

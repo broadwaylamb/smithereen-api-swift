@@ -48,6 +48,7 @@ extension Server {
 				self.restriction = restriction
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - offset: Offset into the list of restricted servers.

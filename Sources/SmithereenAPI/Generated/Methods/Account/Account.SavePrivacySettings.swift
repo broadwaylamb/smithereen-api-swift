@@ -39,6 +39,7 @@ extension Account {
 
 		/// Which updates show up in followers' news feeds.
 		public var feedTypes: FeedTypes?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - settings: Regular privacy settings.

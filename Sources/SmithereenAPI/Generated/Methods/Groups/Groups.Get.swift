@@ -44,6 +44,7 @@ extension Groups {
 		/// 
 		/// Minumum value: 1. Maximum value: 1000. By default 100.
 		public var count: Int?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// Returns the list of groups or events in which a user is a member.
 		public struct WithFields: SmithereenAPIRequest, Hashable, Encodable, Sendable {
@@ -67,6 +68,7 @@ extension Groups {
 			/// 
 			/// Minumum value: 1. Maximum value: 1000. By default 100.
 			public var count: Int?
+			public var captchaAnswer: CaptchaAnswer?
 
 			/// A list of ``Group`` profile fields to be returned.
 			public var fields: [Group.Field]

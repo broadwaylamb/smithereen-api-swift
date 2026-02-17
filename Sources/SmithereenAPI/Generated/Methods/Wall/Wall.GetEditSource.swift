@@ -16,6 +16,7 @@ extension Wall {
 		/// The identifier of the post for which the source needs
 		/// to be returned.
 		public var postID: WallPostID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - postID: The identifier of the post for which the source needs

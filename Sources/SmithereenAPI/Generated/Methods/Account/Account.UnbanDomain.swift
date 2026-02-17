@@ -13,6 +13,7 @@ extension Account {
 
 		/// The domain name of the server to unblock.
 		public var domain: String
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - domain: The domain name of the server to unblock.

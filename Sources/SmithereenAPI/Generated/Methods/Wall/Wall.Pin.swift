@@ -13,6 +13,7 @@ extension Wall {
 
 		/// Identifier of the post to pin.
 		public var postID: WallPostID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - postID: Identifier of the post to pin.

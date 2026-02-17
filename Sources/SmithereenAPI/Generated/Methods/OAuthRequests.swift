@@ -46,12 +46,14 @@ extension OAuth {
 			public static let invalidRequest = Self(rawValue: "invalid_request")
 			public static let invalidGrant = Self(rawValue: "invalid_grant")
 			public static let unsupportedGrantType = Self(rawValue: "unsupported_grant_type")
+			public static let captchaNeeded = Self(rawValue: "captcha_needed")
 
 			public static let allCases: [Code] = [
 				.accessDenied,
 				.invalidRequest,
 				.invalidGrant,
 				.unsupportedGrantType,
+				.captchaNeeded,
 			]
 		}
 		public var code: Code
@@ -59,19 +61,26 @@ extension OAuth {
 		/// A localized error description suitable for display in the UI.
 		public var errorDescription: String?
 
+		/// Returned only if ``code`` is ``Code/captchaNeeded``
+		public var captcha: Captcha?
+
 		/// - parameters:
 		///   - errorDescription: A localized error description suitable for display in the UI.
+		///   - captcha: Returned only if ``code`` is ``Code/captchaNeeded``
 		public init(
 			code: Code,
 			errorDescription: String? = nil,
+			captcha: Captcha? = nil,
 		) {
 			self.code = code
 			self.errorDescription = errorDescription
+			self.captcha = captcha
 		}
 
 		private enum CodingKeys: String, CodingKey {
 			case code = "error"
 			case errorDescription = "error_description"
+			case captcha
 		}
 	}
 }
@@ -148,6 +157,7 @@ extension OAuth {
 
 		/// The user's password.
 		public var password: String
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - clientID: Your application ID.

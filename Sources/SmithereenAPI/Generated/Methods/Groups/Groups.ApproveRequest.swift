@@ -18,6 +18,7 @@ extension Groups {
 
 		/// User identifier.
 		public var userID: UserID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: Group identifier.

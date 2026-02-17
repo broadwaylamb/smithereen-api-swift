@@ -13,6 +13,7 @@ extension Photos {
 
 		/// Identifier of the album to delete.
 		public var albumID: PhotoAlbumID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - albumID: Identifier of the album to delete.

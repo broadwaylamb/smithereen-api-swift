@@ -16,6 +16,7 @@ extension Users {
 		/// 
 		/// By default 100.
 		public var count: Int?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// Returns a list of users matching search criteria.
 		public struct WithFields: SmithereenAPIRequest, Hashable, Encodable, Sendable {
@@ -27,6 +28,7 @@ extension Users {
 			/// 
 			/// By default 100.
 			public var count: Int?
+			public var captchaAnswer: CaptchaAnswer?
 
 			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]

@@ -14,6 +14,7 @@ extension Newsfeed {
 
 		/// The identifier of the user to unhide.
 		public var userID: UserID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - userID: The identifier of the user to unhide.

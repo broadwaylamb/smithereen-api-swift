@@ -27,6 +27,7 @@ extension Board {
 		/// 
 		/// By default 90.
 		public var previewLength: Int?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// Returns discussion board topics by their identifiers.
 		/// 
@@ -49,6 +50,7 @@ extension Board {
 			/// 
 			/// By default 90.
 			public var previewLength: Int?
+			public var captchaAnswer: CaptchaAnswer?
 			private let extended: Bool = true
 
 			/// A list of ``User`` profile fields to be returned.

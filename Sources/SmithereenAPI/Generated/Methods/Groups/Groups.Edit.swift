@@ -53,6 +53,7 @@ extension Groups {
 
 		/// Discussion board mode.
 		public var board: Group.DiscussionBoardMode?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: Group identifier.

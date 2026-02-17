@@ -25,6 +25,7 @@ extension Photos {
 		/// 
 		/// By default `false`.
 		public var extended: Bool?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - listID: A list ID returned by ``Newsfeed/Get`` or ``Newsfeed/GetGroups``.

@@ -10,6 +10,10 @@ public protocol SmithereenAPIRequest
 		ResponseBody == Data,
 		Result: Sendable
 {
+	/// If the previous invocation of this method returned
+	/// ``SmithereenAPIError/Code/captchaNeeded``,
+	/// set the value of this property to the answer entered by the user.
+	var captchaAnswer: CaptchaAnswer? { get set }
 }
 
 internal let smithereenJSONDecoder: JSONDecoder = {
@@ -17,6 +21,12 @@ internal let smithereenJSONDecoder: JSONDecoder = {
 	decoder.dateDecodingStrategy = .secondsSince1970
 	return decoder
 }()
+
+extension SmithereenAPIRequest {
+	public var encodableQuery: (some Encodable)? {
+		captchaAnswer
+	}
+}
 
 extension SmithereenAPIRequest {
 	public func deserializeError(from body: Data) throws -> SmithereenAPIError {

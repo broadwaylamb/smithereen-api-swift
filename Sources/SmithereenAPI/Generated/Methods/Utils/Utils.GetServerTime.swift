@@ -8,6 +8,7 @@ extension Utils {
 
 	/// Returns the server's current time.
 	public struct GetServerTime: SmithereenAPIRequest, Hashable, Encodable, Sendable {
+		public var captchaAnswer: CaptchaAnswer?
 
 		public init() {
 		}

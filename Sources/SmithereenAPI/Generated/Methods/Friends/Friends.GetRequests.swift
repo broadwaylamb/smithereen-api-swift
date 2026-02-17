@@ -18,6 +18,7 @@ extension Friends {
 		/// 
 		/// Minumum value: 1. Maximum value: 100. By default 20.
 		public var count: Int?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// Returns the current user’s incoming friend requests.
 		/// 
@@ -31,6 +32,7 @@ extension Friends {
 			/// 
 			/// Minumum value: 1. Maximum value: 100. By default 20.
 			public var count: Int?
+			public var captchaAnswer: CaptchaAnswer?
 
 			/// Whether to return the messages specified by the users who sent
 			/// the friend requests.

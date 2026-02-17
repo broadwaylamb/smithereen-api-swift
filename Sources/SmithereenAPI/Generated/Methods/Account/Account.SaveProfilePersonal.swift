@@ -34,6 +34,7 @@ extension Account {
 
 		/// Views on alcohol.
 		public var alcohol: Clearable<User.HabitsViews>?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - political: Political views.

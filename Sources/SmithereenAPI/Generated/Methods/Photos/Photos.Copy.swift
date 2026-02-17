@@ -16,6 +16,7 @@ extension Photos {
 
 		/// The identifier of the photo to be copied.
 		public var photoID: PhotoID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - photoID: The identifier of the photo to be copied.

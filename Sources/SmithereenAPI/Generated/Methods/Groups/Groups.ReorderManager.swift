@@ -21,6 +21,7 @@ extension Groups {
 
 		/// Where the manager should be placed in the list of managers.
 		public var placement: Placement
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: Group identifier.

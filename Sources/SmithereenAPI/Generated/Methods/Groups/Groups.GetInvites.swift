@@ -26,6 +26,7 @@ extension Groups {
 
 		/// A list of ``Group`` profile fields to be returned.
 		public var fields: [Group.Field]?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// Returns the group invitations for the current user.
 		/// 
@@ -44,6 +45,7 @@ extension Groups {
 			/// 
 			/// Minumum value: 1. Maximum value: 500. By default 20.
 			public var count: Int?
+			public var captchaAnswer: CaptchaAnswer?
 			private let extended: Bool = true
 
 			/// A list of ``User`` and ``Group`` profile fields to be returned.

@@ -13,6 +13,7 @@ extension Groups {
 
 		/// The group identifier.
 		public var groupID: GroupID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: The group identifier.

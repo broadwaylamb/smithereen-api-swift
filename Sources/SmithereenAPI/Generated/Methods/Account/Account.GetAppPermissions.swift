@@ -8,6 +8,7 @@ extension Account {
 
 	/// Returns the list of permissions granted to the access token.
 	public struct GetAppPermissions: SmithereenAPIRequest, Hashable, Encodable, Sendable {
+		public var captchaAnswer: CaptchaAnswer?
 
 		public init() {
 		}

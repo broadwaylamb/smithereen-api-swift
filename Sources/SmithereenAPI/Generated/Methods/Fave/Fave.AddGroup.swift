@@ -13,6 +13,7 @@ extension Fave {
 
 		/// Identifier of the target group.
 		public var groupID: GroupID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: Identifier of the target group.

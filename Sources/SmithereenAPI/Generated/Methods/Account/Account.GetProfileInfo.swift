@@ -99,6 +99,7 @@ extension Account {
 				case relationPartner = "relation_partner"
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - fields: A list of ``User`` profile fields to be returned in

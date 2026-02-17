@@ -25,6 +25,7 @@ extension Status {
 				self.text = text
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - ownerID: User or group ID for which to return the status.

@@ -37,6 +37,7 @@ extension Photos {
 		/// For a group-owned album, whether commenting on photos
 		/// in this album is disabled.
 		public var commentsDisabled: Bool?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - albumID: Identifier of the target album.

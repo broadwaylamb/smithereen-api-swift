@@ -18,6 +18,7 @@ extension Photos {
 		/// 
 		/// By default `false`.
 		public var needCovers: Bool?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - albumIDs: A list of up to 100 album identifiers.

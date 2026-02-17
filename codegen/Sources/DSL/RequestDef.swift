@@ -142,6 +142,9 @@ func apiMethod(
 		conformances: conformances,
 		typeParameters: typeParameters,
 		schemaPath: schemaPath,
-		build: build,
-	)
+	) {
+		build()
+		FieldDef("captchaAnswer", type: .def(captchaAnswer))
+			.transient()
+	}
 }

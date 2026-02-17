@@ -21,6 +21,14 @@ public struct ApplicationID: Identifier {
 	}
 }
 
+public struct CaptchaSID: Identifier {
+	public var rawValue: String
+
+	public init(rawValue: String) {
+		self.rawValue = rawValue
+	}
+}
+
 public struct UserID: Identifier {
 	public var rawValue: UInt32
 

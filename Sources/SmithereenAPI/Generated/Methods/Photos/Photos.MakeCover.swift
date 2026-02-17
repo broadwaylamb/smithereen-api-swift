@@ -16,6 +16,7 @@ extension Photos {
 
 		/// Identifier of the album.
 		public var albumID: PhotoAlbumID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - photoID: Identifier of the photo.

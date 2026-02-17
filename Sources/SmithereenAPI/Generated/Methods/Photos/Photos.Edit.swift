@@ -19,6 +19,7 @@ extension Photos {
 
 		/// The format of the text in ``caption``.
 		public var textFormat: TextFormat?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - photoID: Identifier of the photo to be updated.

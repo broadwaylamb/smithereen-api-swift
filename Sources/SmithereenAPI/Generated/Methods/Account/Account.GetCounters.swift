@@ -57,6 +57,7 @@ extension Account {
 				self.photos = photos
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		public init() {
 		}

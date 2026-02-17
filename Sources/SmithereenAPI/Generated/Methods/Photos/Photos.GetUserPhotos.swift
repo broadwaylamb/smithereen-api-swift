@@ -35,6 +35,7 @@ extension Photos {
 		/// 
 		/// By default `false`.
 		public var rev: Bool?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - userID: Identifier of the user whose tagged photos need to be returned.

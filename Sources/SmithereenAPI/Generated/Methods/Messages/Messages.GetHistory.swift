@@ -25,6 +25,7 @@ extension Messages {
 		/// 
 		/// Minumum value: 1. Maximum value: 200. By default 20.
 		public var count: Int?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - userID: Identifier of the user.

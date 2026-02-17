@@ -2,6 +2,7 @@ let schema = Group {
 	FileDef("Identifiers") {
 		accessToken
 		applicationID
+		captchaSID
 		userID
 		groupID
 		actorID
@@ -30,6 +31,8 @@ let schema = Group {
 		attachmentToCreate
 		audio
 		boardTopic
+		captcha
+		captchaAnswer
 		commentProtocol
 		commentThread
 		cropPhoto

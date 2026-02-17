@@ -8,6 +8,7 @@ extension Account {
 
 	/// Revokes the current access token.
 	public struct RevokeToken: SmithereenAPIRequest, Hashable, Encodable, Sendable {
+		public var captchaAnswer: CaptchaAnswer?
 
 		public init() {
 		}

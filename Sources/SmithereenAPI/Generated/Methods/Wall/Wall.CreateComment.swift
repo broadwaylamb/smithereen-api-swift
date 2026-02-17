@@ -44,6 +44,7 @@ extension Wall {
 		/// the ID of that previously created comment will be returned
 		/// instead. Recommended for mobile apps.
 		public var guid: UUID?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - postID: Identifier of the post on which to comment.

@@ -16,6 +16,7 @@ extension Friends {
 
 		/// The list of list identifiers.
 		public var listIDs: [FriendListID]
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - userID: User identifier for which lists need to be updated.

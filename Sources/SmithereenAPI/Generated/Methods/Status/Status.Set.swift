@@ -19,6 +19,7 @@ extension Status {
 
 		/// The status text. The status is cleared if this is not specified.
 		public var text: String?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: Which group to update the status in.

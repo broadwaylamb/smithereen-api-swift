@@ -26,6 +26,7 @@ extension Photos {
 		/// - The square will be taken from the top of the rectangular version
 		///   if it’s vertical, or from its center if it’s horizontal
 		public var cropRects: AvatarCropRects?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: If updating a group’s profile picture, identifier of that group.

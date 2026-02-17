@@ -47,6 +47,7 @@ extension Photos {
 
 		/// The tag area.
 		public var area: ImageRect
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - photoID: Identifier of the photo.

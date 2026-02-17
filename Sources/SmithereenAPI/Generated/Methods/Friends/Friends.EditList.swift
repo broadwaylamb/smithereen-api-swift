@@ -29,6 +29,7 @@ extension Friends {
 		/// A list of user identifiers to be removed from this list.
 		/// Only applies if ``userIDs`` was not specified.
 		public var deleteUserIDs: [UserID]?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - listID: The identifier of the friend list to be updated.

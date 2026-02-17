@@ -16,6 +16,7 @@ extension Account {
 	/// ``Account/SetOffline`` will have no effect since their current
 	/// online status will be associated with a different session.
 	public struct SetOffline: SmithereenAPIRequest, Hashable, Encodable, Sendable {
+		public var captchaAnswer: CaptchaAnswer?
 
 		public init() {
 		}

@@ -35,6 +35,7 @@ extension Photos {
 		/// 
 		/// By default `false`.
 		public var needCovers: Bool?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - ownerID: Identifier of the user or minus identifier of the group whose

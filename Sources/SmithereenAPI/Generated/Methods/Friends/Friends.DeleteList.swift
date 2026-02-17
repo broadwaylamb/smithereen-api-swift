@@ -13,6 +13,7 @@ extension Friends {
 
 		/// The identifier of the friend list to be deleted.
 		public var listID: FriendListID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - listID: The identifier of the friend list to be deleted.

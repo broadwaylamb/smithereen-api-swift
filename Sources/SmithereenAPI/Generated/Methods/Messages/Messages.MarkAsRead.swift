@@ -13,6 +13,7 @@ extension Messages {
 
 		/// Identifier of the message to be marked as read.
 		public var messageID: MessageID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - messageID: Identifier of the message to be marked as read.

@@ -47,6 +47,7 @@ final class PrinterVisitor {
 	) -> any DeclSyntaxProtocol {
 		let nameComponents = def.name.split(separator: ".")
 		let fields = def.fields
+		let nonTransientFields = fields.filter { !$0.isTransient }
 		let structSyntax = StructDeclSyntax(
 			leadingTrivia: def.leadingTriviaForTypeDecl,
 			modifiers: [DeclModifierSyntax(name: .keyword(.public))],
@@ -76,13 +77,13 @@ final class PrinterVisitor {
 			}
 
 			InitializerDeclSyntax(
-				leadingTrivia: initializerDocComment(fields: fields),
+				leadingTrivia: initializerDocComment(fields: nonTransientFields),
 				modifiers: [DeclModifierSyntax(name: .keyword(.public))],
 				signature: FunctionSignatureSyntax(
-					parameterClause: parametersForFields(fields)
+					parameterClause: parametersForFields(nonTransientFields)
 				)
 			) {
-				for field in fields where field.constantValue == nil {
+				for field in nonTransientFields where field.constantValue == nil {
 					InfixOperatorExprSyntax(
 						leftOperand: MemberAccessExprSyntax(
 							base: DeclReferenceExprSyntax(baseName: .identifier("self")),
@@ -98,10 +99,10 @@ final class PrinterVisitor {
 				DeclSyntax("public var id: \(identifierField.type.syntax) { return \(raw: identifierField.swiftName) }")
 			}
 
-			let needsCustomCoding = fields.contains { $0.isFlattened }
+			let needsCustomCoding = nonTransientFields.contains { $0.isFlattened }
 			let needsCodingKeys =
-				needsCustomCoding || fields.contains { $0.requiresCustomCodingKey }
-			let nonFlattenedFields = fields.filter { !$0.isFlattened }
+				needsCustomCoding || nonTransientFields.contains { $0.requiresCustomCodingKey }
+			let nonFlattenedFields = nonTransientFields.filter { !$0.isFlattened }
 			if needsCodingKeys && !nonFlattenedFields.isEmpty {
 				codingKeys(for: nonFlattenedFields)
 			}
@@ -109,11 +110,11 @@ final class PrinterVisitor {
 			if needsCustomCoding {
 				if def.conformances.contains(.encodable) || def.conformances.contains(.codable) {
 					try! FunctionDeclSyntax("public func encode(to encoder: any Encoder) throws") {
-						let allFieldsAreFlattened = fields.allSatisfy { $0.isFlattened }
+						let allFieldsAreFlattened = nonTransientFields.allSatisfy { $0.isFlattened }
 						if !allFieldsAreFlattened {
 							"var container = encoder.container(keyedBy: CodingKeys.self)"
 						}
-						for field in fields {
+						for field in nonTransientFields {
 							let fieldIdentifier = field.swiftIdentifier(for: .memberAccess)
 							if field.isFlattened {
 								let questionMark = field.type.isOptional ? "?" : ""
@@ -127,11 +128,11 @@ final class PrinterVisitor {
 				}
 				if def.conformances.contains(.decodable) || def.conformances.contains(.codable) {
 					initFromDecoderDecl {
-						let allFieldsAreFlattened = fields.allSatisfy { $0.isFlattened }
+						let allFieldsAreFlattened = nonTransientFields.allSatisfy { $0.isFlattened }
 						if !allFieldsAreFlattened {
 							"let container = try decoder.container(keyedBy: CodingKeys.self)"
 						}
-						for field in fields where field.constantValue == nil {
+						for field in nonTransientFields where field.constantValue == nil {
 							let fieldIdentifier = field.swiftIdentifier(for: .memberAccess)
 							let typeSyntax = field.type.optional(false).syntax
 							if field.isFlattened {
@@ -176,7 +177,7 @@ final class PrinterVisitor {
 		return printStruct(def.structDef) {
 			"public var path: String { \(StringLiteralExprSyntax(content: def.path)) }"
 			"public static var method: HTTPMethod { .post }"
-			if def.structDef.fields.isEmpty {
+			if def.structDef.fields.filter({ !$0.isTransient }).isEmpty {
 				"public var encodableBody: NeverCodable? { nil }"
 			} else {
 				"public var encodableBody: Self? { self }"
@@ -195,7 +196,7 @@ final class PrinterVisitor {
 						context: .variableName,
 					),
 					signature: FunctionSignatureSyntax(
-						parameterClause: parametersForFields(extended.newFields),
+						parameterClause: parametersForFields(extended.newFields.filter { !$0.isTransient }),
 						returnClause: ReturnClauseSyntax(
 							type: returnTypeRef.syntax
 						),
@@ -207,7 +208,7 @@ final class PrinterVisitor {
 						rightParen: .rightParenToken(),
 					) {
 						var isFirst = true
-						for field in extended.request.structDef.fields where field.constantValue == nil {
+						for field in extended.request.structDef.fields where field.constantValue == nil && !field.isTransient {
 							let id = field.swiftIdentifier(for: .memberAccess)
 							LabeledExprSyntax(
 								leadingTrivia: isFirst ? .newline : nil,
@@ -736,7 +737,7 @@ private func enumCase(
 }
 
 private func parametersForFields(_ fields: [FieldDef]) -> FunctionParameterClauseSyntax {
-	let fields = fields.filter { $0.constantValue == nil }
+	let fields = fields.filter { $0.constantValue == nil && !$0.isTransient }
 	return FunctionParameterClauseSyntax {
 		for (i, field) in fields.enumerated() {
 			FunctionParameterSyntax(

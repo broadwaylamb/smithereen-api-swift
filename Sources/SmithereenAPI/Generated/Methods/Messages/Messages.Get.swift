@@ -23,6 +23,7 @@ extension Messages {
 		/// 
 		/// Minumum value: 1. Maximum value: 200. By default 20.
 		public var count: Int?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// Returns the current user’s incoming or outgoing private messages.
 		/// 
@@ -41,6 +42,7 @@ extension Messages {
 			/// 
 			/// Minumum value: 1. Maximum value: 200. By default 20.
 			public var count: Int?
+			public var captchaAnswer: CaptchaAnswer?
 			private let extended: Bool = true
 
 			/// A list of ``User`` profile fields to be returned.

@@ -20,6 +20,7 @@ import Hammond
 public struct Execute<Args: Encodable, Result: Decodable>: SmithereenAPIRequest, Encodable {
 	public var code: String
 	public var args: Args
+	public var captchaAnswer: CaptchaAnswer?
 
 	public init(
 		code: String,

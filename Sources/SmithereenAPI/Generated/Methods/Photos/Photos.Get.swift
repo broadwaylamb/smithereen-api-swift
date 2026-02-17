@@ -39,6 +39,7 @@ extension Photos {
 		/// 
 		/// By default `false`.
 		public var rev: Bool?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - albumID: Identifier of the photo album.

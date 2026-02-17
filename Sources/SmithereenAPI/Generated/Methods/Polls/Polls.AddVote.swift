@@ -16,6 +16,7 @@ extension Polls {
 
 		/// Comma-separated identifiers of the options to vote for.
 		public var answerIDs: [PollOptionID]
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - pollID: Identifier of the poll.

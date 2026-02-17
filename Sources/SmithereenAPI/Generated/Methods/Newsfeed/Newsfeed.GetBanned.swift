@@ -22,6 +22,7 @@ extension Newsfeed {
 
 		/// A list of ``User`` profile fields to be returned.
 		public var fields: [User.Field]?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - offset: Offset into the user list for pagination.

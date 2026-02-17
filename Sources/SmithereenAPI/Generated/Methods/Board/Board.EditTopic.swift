@@ -16,6 +16,7 @@ extension Board {
 
 		/// The new title.
 		public var title: String
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - topicID: The topic identifier.

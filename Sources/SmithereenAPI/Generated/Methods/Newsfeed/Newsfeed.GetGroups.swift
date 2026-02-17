@@ -199,6 +199,7 @@ extension Newsfeed {
 				case nextFrom = "next_from"
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - filters: Which types of updates to return.

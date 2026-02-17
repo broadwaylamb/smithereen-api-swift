@@ -11,6 +11,7 @@ extension Board {
 		/// The identifier of the comment for which the source needs to be
 		/// returned.
 		public var commentID: TopicCommentID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - commentID: The identifier of the comment for which the source needs to be

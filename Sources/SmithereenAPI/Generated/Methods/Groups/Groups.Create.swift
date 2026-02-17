@@ -61,6 +61,7 @@ extension Groups {
 				try container.encode(tag, forKey: .type)
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - name: The name of the community.

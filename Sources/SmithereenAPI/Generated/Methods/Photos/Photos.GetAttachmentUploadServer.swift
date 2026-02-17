@@ -28,6 +28,7 @@ extension Photos {
 				case uploadUrl = "upload_url"
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		public init() {
 		}

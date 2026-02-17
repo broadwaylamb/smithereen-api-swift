@@ -30,6 +30,7 @@ extension Friends {
 			/// There was an incoming friend request and it was deleted.
 			case inRequestDeleted = "in_request_deleted"
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		public init(userID: UserID? = nil) {
 			self.userID = userID

@@ -40,6 +40,7 @@ extension Account {
 
 		/// User's about field as HTML.
 		public var about: String?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - activities: User's activities.

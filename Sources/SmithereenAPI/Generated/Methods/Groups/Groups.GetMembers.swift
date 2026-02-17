@@ -68,6 +68,7 @@ extension Groups {
 			/// they’ll attend this event.
 			case unsureFriends = "unsure_friends"
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// Returns the list of group members.
 		public struct WithFields: SmithereenAPIRequest, Hashable, Encodable, Sendable {
@@ -91,6 +92,7 @@ extension Groups {
 			/// By default, all members are returned for groups,
 			/// and “sure” attendees for events.
 			public var filter: Filter?
+			public var captchaAnswer: CaptchaAnswer?
 
 			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]

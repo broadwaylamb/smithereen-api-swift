@@ -11,6 +11,7 @@ extension Polls {
 
 		/// The identifier of the poll.
 		public var pollID: PollID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - pollID: The identifier of the poll.

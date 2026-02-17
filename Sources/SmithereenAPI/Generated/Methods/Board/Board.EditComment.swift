@@ -33,6 +33,7 @@ extension Board {
 		/// by default, requiring a click to reveal.
 		/// This text will be shown instead of the content.
 		public var contentWarning: String?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - commentID: The identifier of the comment to be updated.

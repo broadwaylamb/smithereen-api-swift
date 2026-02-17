@@ -11,6 +11,7 @@ struct FieldDef: Documentable, HasSerialName {
 	var isFlattened: Bool = false
 	var constantValue: String? = nil
 	var convertFromString: Bool = false
+	var isTransient: Bool = false
 
 	init(_ serialName: String, type: TypeRef) {
 		self.serialName = serialName
@@ -51,6 +52,10 @@ struct FieldDef: Documentable, HasSerialName {
 
 	func convertFromString(_ value: Bool = true) -> FieldDef {
 		copyWith(self, \.convertFromString, value)
+	}
+
+	func transient() -> FieldDef {
+		copyWith(self, \.isTransient, true)
 	}
 }
 

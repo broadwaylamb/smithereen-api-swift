@@ -100,6 +100,7 @@ extension Photos {
 				self.confirmed = try container.decodeIfPresent(Bool.self, forKey: .confirmed)
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - photoID: Identifier of the photo.

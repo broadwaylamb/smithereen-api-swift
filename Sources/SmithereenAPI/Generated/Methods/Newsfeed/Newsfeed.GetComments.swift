@@ -137,6 +137,7 @@ extension Newsfeed {
 				self.count = count
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - filters: Which types of commentable objects to return.

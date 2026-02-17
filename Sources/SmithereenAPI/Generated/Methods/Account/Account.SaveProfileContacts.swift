@@ -64,6 +64,7 @@ extension Account {
 
 		/// GitHub, GitLab, or other Git forge URL.
 		public var git: Clearable<URL>?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - city: User’s current city.

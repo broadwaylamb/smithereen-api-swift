@@ -13,6 +13,7 @@ extension Messages {
 
 		/// A list of up to 200 message identifiers.
 		public var messageIDs: [MessageID]
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// Returns messages by their identifiers.
 		/// 
@@ -21,6 +22,7 @@ extension Messages {
 
 			/// A list of up to 200 message identifiers.
 			public var messageIDs: [MessageID]
+			public var captchaAnswer: CaptchaAnswer?
 			private let extended: Bool = true
 
 			/// A list of ``User`` profile fields to be returned.

@@ -21,6 +21,7 @@ extension Fave {
 
 		/// A list of ``Group`` profile fields to be returned.
 		public var fields: [Group.Field]?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - offset: Offset into the group list for pagination.

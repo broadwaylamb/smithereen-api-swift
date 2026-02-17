@@ -24,6 +24,7 @@ extension Messages {
 		/// 
 		/// By default `false`.
 		public var revoke: Bool?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - messageID: Identifier of the message to be deleted.

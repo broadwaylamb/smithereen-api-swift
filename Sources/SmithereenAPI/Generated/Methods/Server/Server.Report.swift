@@ -107,6 +107,7 @@ extension Server {
 
 		/// An optional comment for the server staff.
 		public var comment: String?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - ownerID: The identifier of the user or group being reported.

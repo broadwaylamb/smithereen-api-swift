@@ -27,6 +27,7 @@ extension Wall {
 		/// 
 		/// From 0 to 10. By default 2.
 		public var repostHistoryDepth: Int?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// Returns the list of reposts for a wall post or comment.
 		public struct Extended: SmithereenAPIRequest, Hashable, Encodable, Sendable {
@@ -49,6 +50,7 @@ extension Wall {
 			/// 
 			/// From 0 to 10. By default 2.
 			public var repostHistoryDepth: Int?
+			public var captchaAnswer: CaptchaAnswer?
 			private let extended: Bool = true
 
 			/// A list of ``User`` and ``Group`` profile fields to be returned.

@@ -26,6 +26,7 @@ extension Likes {
 				self.likes = likes
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - itemID: Identifier of the object to be liked.

@@ -13,6 +13,7 @@ extension Photos {
 
 		/// Identifier of the comment to delete.
 		public var commentID: PhotoCommentID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - commentID: Identifier of the comment to delete.

@@ -44,6 +44,7 @@ extension Board {
 		/// the ID of that previously created topic will be returned
 		/// instead. Recommended for mobile apps.
 		public var guid: UUID?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: Identifier of the group where to create the topic.

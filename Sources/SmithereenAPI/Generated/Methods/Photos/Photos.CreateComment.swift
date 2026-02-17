@@ -46,6 +46,7 @@ extension Photos {
 		/// the ID of that previously created comment will be returned
 		/// instead. Recommended for mobile apps.
 		public var guid: UUID?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - photoID: Identifier of the photo on which to comment.

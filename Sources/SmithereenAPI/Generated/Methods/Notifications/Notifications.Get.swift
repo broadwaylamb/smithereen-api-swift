@@ -104,6 +104,7 @@ extension Notifications {
 				case lastViewed = "last_viewed"
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - offset: Offset into the notification list for pagination.

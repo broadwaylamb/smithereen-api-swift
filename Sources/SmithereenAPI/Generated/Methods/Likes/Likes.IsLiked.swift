@@ -35,6 +35,7 @@ extension Likes {
 				self.reposted = reposted
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - userID: The user identifier for which the like needs to be checked.

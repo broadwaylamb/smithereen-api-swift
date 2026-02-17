@@ -222,6 +222,7 @@ extension Server {
 				case stats
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		public init() {
 		}

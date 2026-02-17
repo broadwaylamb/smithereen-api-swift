@@ -13,6 +13,7 @@ extension Board {
 
 		/// The topic identifier.
 		public var topicID: BoardTopicID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - topicID: The topic identifier.

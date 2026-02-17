@@ -133,4 +133,7 @@ let error = StructDef("SmithereenAPIError") {
 
 	FieldDef("method", type: .string)
 		.doc("Returned only for the ``Execute`` request.")
+
+	FieldDef("captcha", type: .def(captcha))
+		.doc("Returned only when ``code`` is ``Code/captchaNeeded``.")
 }

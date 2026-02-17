@@ -18,6 +18,7 @@ extension Fave {
 		/// 
 		/// Minumum value: 1. Maximum value: 100. By default 50.
 		public var count: Int?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// Returns the list of posts liked by the current user.
 		/// 
@@ -31,6 +32,7 @@ extension Fave {
 			/// 
 			/// Minumum value: 1. Maximum value: 100. By default 50.
 			public var count: Int?
+			public var captchaAnswer: CaptchaAnswer?
 			private let extended: Bool = true
 
 			/// A list of ``User`` and ``Group`` profile fields to be returned.

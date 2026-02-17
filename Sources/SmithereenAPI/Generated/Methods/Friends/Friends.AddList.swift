@@ -18,6 +18,7 @@ extension Friends {
 
 		/// A list of user identifiers to be added to this list.
 		public var userIDs: [FriendListID]
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - name: The name of the new list.

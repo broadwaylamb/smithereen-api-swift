@@ -13,6 +13,7 @@ extension Photos {
 
 		/// Identifier of the photo.
 		public var photoID: PhotoID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - photoID: Identifier of the photo.

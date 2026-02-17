@@ -13,6 +13,7 @@ extension Fave {
 
 		/// Identifier of the target user.
 		public var userID: UserID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - userID: Identifier of the target user.

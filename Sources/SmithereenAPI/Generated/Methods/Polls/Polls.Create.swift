@@ -41,6 +41,7 @@ extension Polls {
 		/// the poll does not end.
 		@UnixTimestamp
 		public var endDate: Date?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - ownerID: User or group identifier of the owner on whose wall

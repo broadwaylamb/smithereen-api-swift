@@ -50,6 +50,7 @@ extension Account {
 		/// require the partner to set the current user as their partner to show up on both
 		/// their profiles.
 		public var relationPartnerID: Clearable<UserID>?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - firstName: First name. Can't be cleared.

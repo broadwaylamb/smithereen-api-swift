@@ -34,6 +34,7 @@ extension Users {
 			case instrumental = "ins"
 			case prepositional = "pre"
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - userIDs: A list of user IDs or screen names.

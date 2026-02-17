@@ -18,6 +18,7 @@ extension Groups {
 
 		/// Group identifier.
 		public var groupID: GroupID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - domain: The domain name of the server to block.

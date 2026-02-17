@@ -13,6 +13,7 @@ extension Newsfeed {
 
 		/// The identifier of the filter to delete.
 		public var filterID: WordFilterID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - filterID: The identifier of the filter to delete.

@@ -17,6 +17,7 @@ let oauth = FileDef("OAuthRequests", additionalImports: ["Hammond"]) {
 			EnumCaseDef("invalid_request")
 			EnumCaseDef("invalid_grant")
 			EnumCaseDef("unsupported_grant_type")
+			EnumCaseDef("captcha_needed")
 		}
 		.nonexhaustive()
 		code
@@ -25,6 +26,8 @@ let oauth = FileDef("OAuthRequests", additionalImports: ["Hammond"]) {
 			.required()
 		FieldDef("error_description", type: .string)
 			.doc("A localized error description suitable for display in the UI.")
+		FieldDef("captcha", type: .def(captcha))
+			.doc("Returned only if ``code`` is ``Code/captchaNeeded``")
 	}
 
 	RequestDef(
@@ -75,6 +78,8 @@ let oauth = FileDef("OAuthRequests", additionalImports: ["Hammond"]) {
 		FieldDef("password", type: .string)
 			.required()
 			.doc("The user's password.")
+		FieldDef("captchaAnswer", type: .def(captchaAnswer))
+			.transient()
 	}
 	.doc("""
 		Receive an access token with complete access to a user account

@@ -172,18 +172,24 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 	/// Returned only for the ``Execute`` request.
 	public var method: String?
 
+	/// Returned only when ``code`` is ``Code/captchaNeeded``.
+	public var captcha: Captcha?
+
 	/// - parameters:
 	///   - method: Returned only for the ``Execute`` request.
+	///   - captcha: Returned only when ``code`` is ``Code/captchaNeeded``.
 	public init(
 		code: Code,
 		message: String,
 		requestParams: [RequestParameter],
 		method: String? = nil,
+		captcha: Captcha? = nil,
 	) {
 		self.code = code
 		self.message = message
 		self.requestParams = requestParams
 		self.method = method
+		self.captcha = captcha
 	}
 
 	private enum CodingKeys: String, CodingKey {
@@ -191,5 +197,6 @@ public struct SmithereenAPIError: Hashable, Codable, Sendable {
 		case message = "error_msg"
 		case requestParams = "request_params"
 		case method
+		case captcha
 	}
 }

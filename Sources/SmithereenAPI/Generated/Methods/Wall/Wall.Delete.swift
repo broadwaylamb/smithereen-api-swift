@@ -13,6 +13,7 @@ extension Wall {
 
 		/// The identifier of the post which you’re deleting.
 		public var postID: WallPostID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - postID: The identifier of the post which you’re deleting.

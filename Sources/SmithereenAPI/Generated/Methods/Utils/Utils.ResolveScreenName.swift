@@ -64,6 +64,7 @@ extension Utils {
 				try container.encode(tag, forKey: .type)
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - screenName: The username or `username@domain` to resolve.

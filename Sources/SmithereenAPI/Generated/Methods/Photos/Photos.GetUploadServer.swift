@@ -35,6 +35,7 @@ extension Photos {
 				case uploadUrl = "upload_url"
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - albumID: Identifier of the photo album to which to upload the photo.

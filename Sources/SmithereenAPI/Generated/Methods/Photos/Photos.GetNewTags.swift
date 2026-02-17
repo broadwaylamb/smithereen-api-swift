@@ -22,6 +22,7 @@ extension Photos {
 		/// 
 		/// By default `false`.
 		public var extended: Bool?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - offset: Offset into the photo list for pagination.

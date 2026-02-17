@@ -14,6 +14,7 @@ extension Groups {
 
 		/// A list of ``Group`` profile fields to be returned.
 		public var fields: [Group.Field]?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupIDs: A list of group identifiers.

@@ -70,6 +70,7 @@ extension Server {
 				case showUntilDate = "show_until_date"
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		public init() {
 		}

@@ -41,6 +41,7 @@ extension Wall {
 		/// the ID of that previously created post will be returned
 		/// instead. Recommended for mobile apps.
 		public var guid: UUID?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - postID: The identifier of the post or comment to be reposted.

@@ -87,6 +87,7 @@ extension Account {
 				case feedTypes = "feed_types"
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		public init() {
 		}

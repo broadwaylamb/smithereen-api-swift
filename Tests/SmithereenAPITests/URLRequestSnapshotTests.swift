@@ -459,4 +459,42 @@ class URLRequestSnapshotTests: XCTestCase {
 			"""#
 		}
 	}
+
+	func testApiMethodCaptchaAnswer() throws {
+		var request = Utils.TestCaptcha()
+		request.captchaAnswer = CaptchaAnswer(sid: CaptchaSID(rawValue: "whatever"), answer: "l33t")
+		let urlRequest = try URLRequest(
+			host: "example.com",
+			request: request,
+			globalParameters: GlobalRequestParameters(apiVersion: .v1_0),
+		)
+		assertInlineSnapshot(of: urlRequest, as: .curl) {
+			#"""
+			curl \
+				--request POST \
+				--header "Accept: application/json" \
+				"https://example.com/api/method/utils.testCaptcha?captcha_answer=l33t&captcha_sid=whatever&v=1.0"
+			"""#
+		}
+	}
+
+	func testPasswordGrantCaptchaAnswer() throws {
+		var request = OAuth.PasswordGrant(
+			clientID: URL(string: "https://example.com/app")!,
+			username: "admin@example.com",
+			password: "password123",
+		)
+		request.captchaAnswer = CaptchaAnswer(sid: CaptchaSID(rawValue: "whatever"), answer: "l33t")
+		let urlRequest = try URLRequest(host: "example.com", request: request)
+		assertInlineSnapshot(of: urlRequest, as: .curl) {
+			#"""
+			curl \
+				--request POST \
+				--header "Accept: application/json" \
+				--header "Content-Type: application/x-www-form-urlencoded" \
+				--data "client_id=https%3A%2F%2Fexample.com%2Fapp&grant_type=password&password=password123&username=admin%40example.com" \
+				"https://example.com/oauth/token?captcha_answer=l33t&captcha_sid=whatever"
+			"""#
+		}
+	}
 }

@@ -111,6 +111,7 @@ extension Groups {
 				case board
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: Group identifier.

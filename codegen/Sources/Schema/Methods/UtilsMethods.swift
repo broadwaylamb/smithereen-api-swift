@@ -36,4 +36,17 @@ let utils = Group("Utils") {
 		in the server’s database. If you need to load a remote actor that
 		the server may not know about, use ``LoadRemoteObject`` instead.
 		""")
+
+	apiMethod("utils.testCaptcha", resultType: .void) {
+	}
+	.doc("""
+		Allows you to intentionally trigger a captcha needed response to test
+		how your app handles it.
+
+		See [captcha and validation](https://smithereen.software/docs/api/captcha)
+		for details.
+
+		When first called, this method will fail with the error ``SmithereenAPIError/Code/captchaNeeded``.
+		When the request is then retried with a valid ``captchaAnswer``, returns normally.
+		""")
 }

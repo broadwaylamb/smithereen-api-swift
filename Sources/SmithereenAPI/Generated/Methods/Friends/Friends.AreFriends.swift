@@ -72,6 +72,7 @@ extension Friends {
 				case isRequestUnread = "is_request_unread"
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - userIDs: The list of user identifiers to retrieve friendship states for.

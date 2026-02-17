@@ -22,6 +22,7 @@ extension Polls {
 		/// 
 		/// Minumum value: 1. Maximum value: 1000. By default 100.
 		public var count: Int?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// Returns a list of users who voted for a specific option in a poll.
 		public struct WithFields: SmithereenAPIRequest, Hashable, Encodable, Sendable {
@@ -39,6 +40,7 @@ extension Polls {
 			/// 
 			/// Minumum value: 1. Maximum value: 1000. By default 100.
 			public var count: Int?
+			public var captchaAnswer: CaptchaAnswer?
 
 			/// A list of ``User`` profile fields to be returned.
 			public var fields: [User.Field]

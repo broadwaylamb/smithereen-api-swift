@@ -28,6 +28,7 @@ extension Groups {
 		/// 
 		/// If this parameter is not specified, it will be assigned automatically.
 		public var text: String?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: Group identifier

@@ -14,6 +14,7 @@ extension Groups {
 
 		/// User identifier to check.
 		public var userID: UserID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: Group identifier.
@@ -108,6 +109,7 @@ extension Groups {
 				case canInvite = "can_invite"
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: Group identifier.

@@ -28,6 +28,7 @@ extension Groups {
 		/// The publicly-visible title for this person in the "Managers" block
 		/// in the group profile.
 		public var title: String?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: Group identifier.

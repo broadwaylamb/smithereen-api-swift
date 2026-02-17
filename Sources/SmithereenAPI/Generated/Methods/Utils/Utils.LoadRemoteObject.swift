@@ -14,6 +14,7 @@ extension Utils {
 		/// The URL (ActivityPub ID) of the target object or
 		/// a `username@domain` string to resolve a username.
 		public var query: String
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - query: The URL (ActivityPub ID) of the target object or

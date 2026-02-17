@@ -18,6 +18,7 @@ extension Groups {
 
 		/// Link identifier.
 		public var linkID: GroupLinkID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: Group identifier.

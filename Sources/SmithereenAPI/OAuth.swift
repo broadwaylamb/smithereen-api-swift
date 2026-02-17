@@ -168,3 +168,9 @@ extension Data {
         return String(characters)
     }
 }
+
+extension OAuth.PasswordGrant {
+	public var encodableQuery: (some Encodable)? {
+		captchaAnswer
+	}
+}

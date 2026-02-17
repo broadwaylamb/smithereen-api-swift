@@ -18,6 +18,7 @@ extension Account {
 		/// 
 		/// Minumum value: 1. Maximum value: 1000. By default 100.
 		public var count: Int?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - offset: Offset into the domain list for pagination.

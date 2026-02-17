@@ -69,6 +69,7 @@ extension Newsfeed {
 				case expiryDate = "expiry_date"
 			}
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - includeExpired: Whether to also return expired filters.

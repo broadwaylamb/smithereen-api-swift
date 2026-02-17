@@ -17,6 +17,7 @@ extension Account {
 		/// 
 		/// By default `false`.
 		public var mobile: Bool?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - mobile: Whether the user is using a mobile device.

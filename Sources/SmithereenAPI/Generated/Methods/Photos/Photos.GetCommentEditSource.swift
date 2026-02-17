@@ -15,6 +15,7 @@ extension Photos {
 		/// The identifier of the comment for which the source needs
 		/// to be returned.
 		public var commentID: PhotoCommentID
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - commentID: The identifier of the comment for which the source needs

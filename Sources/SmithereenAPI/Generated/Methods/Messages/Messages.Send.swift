@@ -44,6 +44,7 @@ extension Messages {
 		/// the ID of that previously created message will be returned
 		/// instead. Recommended for mobile apps.
 		public var guid: UUID?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - to: A list of user identifiers for recipients.

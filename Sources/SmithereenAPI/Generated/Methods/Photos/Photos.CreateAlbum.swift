@@ -43,6 +43,7 @@ extension Photos {
 		/// 
 		/// By default `false`..
 		public var commentsDisabled: Bool?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - title: The title of the album.

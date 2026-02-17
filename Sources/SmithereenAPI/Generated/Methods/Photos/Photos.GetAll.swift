@@ -29,6 +29,7 @@ extension Photos {
 		/// 
 		/// By default `false`.
 		public var extended: Bool?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - ownerID: Identifier of the user or group whose albums need to be returned.

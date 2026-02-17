@@ -12,6 +12,7 @@ extension Friends {
 		/// Required if not using a token.
 		/// If using a token, defaults to the current user.
 		public var userID: UserID?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - userID: User identifier whose friend lists need to be returned.

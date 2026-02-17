@@ -44,6 +44,7 @@ extension Board {
 		/// the ID of that previously created comment will be returned
 		/// instead. Recommended for mobile apps.
 		public var guid: UUID?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - topicID: Identifier of the topic on which to comment.

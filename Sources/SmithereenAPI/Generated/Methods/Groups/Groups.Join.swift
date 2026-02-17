@@ -19,6 +19,7 @@ extension Groups {
 		/// If this group is an event, whether the user is unsure they’ll
 		/// be able to addend this event.
 		public var notSure: Bool?
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: The group identifier.

@@ -48,6 +48,7 @@ extension Wall {
 
 		/// Whether to return information about likes.
 		public var needLikes: Bool?
+		public var captchaAnswer: CaptchaAnswer?
 
 		public struct Extended: SmithereenAPIRequest, Hashable, Encodable, Sendable {
 
@@ -91,6 +92,7 @@ extension Wall {
 
 			/// Whether to return information about likes.
 			public var needLikes: Bool?
+			public var captchaAnswer: CaptchaAnswer?
 			private let extended: Bool = true
 
 			/// A list of ``User`` and ``Group`` profile fields to be returned.

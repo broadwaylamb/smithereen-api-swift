@@ -21,6 +21,7 @@ extension Groups {
 
 		/// Where the link should be placed.
 		public var placement: Placement
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - groupID: Group identifier.

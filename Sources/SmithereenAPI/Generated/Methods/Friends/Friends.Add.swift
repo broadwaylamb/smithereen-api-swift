@@ -31,6 +31,7 @@ extension Friends {
 			/// without sending a friend request
 			case followed
 		}
+		public var captchaAnswer: CaptchaAnswer?
 
 		/// - parameters:
 		///   - userID: The identifier of the target user.

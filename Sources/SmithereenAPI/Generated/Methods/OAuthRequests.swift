@@ -55,8 +55,12 @@ extension OAuth {
 			]
 		}
 		public var code: Code
+
+		/// A localized error description suitable for display in the UI.
 		public var errorDescription: String?
 
+		/// - parameters:
+		///   - errorDescription: A localized error description suitable for display in the UI.
 		public init(
 			code: Code,
 			errorDescription: String? = nil,
@@ -113,6 +117,57 @@ extension OAuth {
 			case redirectUri = "redirect_uri"
 			case clientID = "client_id"
 			case codeVerifier = "code_verifier"
+		}
+		public var path: String {
+			"/oauth/token"
+		}
+		public static var method: HTTPMethod {
+			.post
+		}
+		public var encodableBody: Self? {
+			self
+		}
+	}
+}
+extension OAuth {
+
+	/// Receive an access token with complete access to a user account
+	/// using their email/username and password.
+	/// This is intended for client apps, to provide a more streamlined
+	/// user experience, and for apps running on platforms that can't
+	/// load or render modern web pages.
+	public struct PasswordGrant: SmithereenOAuthTokenRequest, Hashable, Encodable, Sendable {
+		private let grantType: String = "password"
+
+		/// Your application ID.
+		@URLAsString
+		public var clientID: URL
+
+		/// The email or username.
+		public var username: String
+
+		/// The user's password.
+		public var password: String
+
+		/// - parameters:
+		///   - clientID: Your application ID.
+		///   - username: The email or username.
+		///   - password: The user's password.
+		public init(
+			clientID: URL,
+			username: String,
+			password: String,
+		) {
+			self.clientID = clientID
+			self.username = username
+			self.password = password
+		}
+
+		private enum CodingKeys: String, CodingKey {
+			case grantType = "grant_type"
+			case clientID = "client_id"
+			case username
+			case password
 		}
 		public var path: String {
 			"/oauth/token"

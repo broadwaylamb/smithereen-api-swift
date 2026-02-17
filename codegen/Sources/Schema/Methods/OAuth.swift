@@ -24,6 +24,7 @@ let oauth = FileDef("OAuthRequests", additionalImports: ["Hammond"]) {
 			.swiftName("code")
 			.required()
 		FieldDef("error_description", type: .string)
+			.doc("A localized error description suitable for display in the UI.")
 	}
 
 	RequestDef(
@@ -51,4 +52,35 @@ let oauth = FileDef("OAuthRequests", additionalImports: ["Hammond"]) {
 		FieldDef("code_verifier", type: .string)
 			.doc("If using PKCE, the code verifier string.")
 	}
+
+	RequestDef(
+		"/oauth/token",
+		swiftName: "OAuth.PasswordGrant",
+		conformances: [
+			TypeRef(name: "SmithereenOAuthTokenRequest"),
+			.hashable,
+			.encodable,
+			.sendable,
+		],
+	) {
+		FieldDef("grant_type", type: .string)
+			.required()
+			.constantValue("\"password\"")
+		FieldDef("client_id", type: .url)
+			.required()
+			.doc("Your application ID.")
+		FieldDef("username", type: .string)
+			.required()
+			.doc("The email or username.")
+		FieldDef("password", type: .string)
+			.required()
+			.doc("The user's password.")
+	}
+	.doc("""
+		Receive an access token with complete access to a user account
+		using their email/username and password.
+		This is intended for client apps, to provide a more streamlined
+		user experience, and for apps running on platforms that can't
+		load or render modern web pages.
+		""")
 }

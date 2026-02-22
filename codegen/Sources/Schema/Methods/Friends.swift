@@ -191,6 +191,10 @@ let friends = Group("Friends") {
 				.doc("Order randomly.")
 			EnumCaseDef("id")
 				.doc("Order by user identifiers.")
+			EnumCaseDef("first_name")
+				.doc("Order alphabetically by first names, then last names.")
+			EnumCaseDef("last_name")
+				.doc("Order alphabetically by last names, then first names.")
 			EnumCaseDef("recent")
 				.doc("""
 					Order by when each friend was added, most recent first.

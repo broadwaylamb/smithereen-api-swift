@@ -29,6 +29,12 @@ extension Friends {
 			/// Order by user identifiers.
 			case id
 
+			/// Order alphabetically by first names, then last names.
+			case firstName = "first_name"
+
+			/// Order alphabetically by last names, then first names.
+			case lastName = "last_name"
+
 			/// Order by when each friend was added, most recent first.
 			/// Requires `friends:read` and only works for the current user.
 			case recent

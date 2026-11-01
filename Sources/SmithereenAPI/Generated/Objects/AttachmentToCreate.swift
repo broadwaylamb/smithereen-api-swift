@@ -52,6 +52,30 @@ public enum AttachmentToCreate: Hashable, Codable, Sendable {
 	/// ``Polls/Create``
 	case poll(PollID)
 
+	public var isImage: Bool {
+		if case .image = self {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	public var isPhoto: Bool {
+		if case .photo = self {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	public var isPoll: Bool {
+		if case .poll = self {
+			return true
+		} else {
+			return false
+		}
+	}
+
 	private enum CodingKeys: String, CodingKey {
 		case type
 		case image

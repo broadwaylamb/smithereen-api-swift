@@ -18,6 +18,38 @@ public enum LikeableObject: Hashable, Codable, Sendable {
 	/// A comment in a discussion board topic.
 	case topicComment(TopicCommentID)
 
+	public var isPost: Bool {
+		if case .post = self {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	public var isPhoto: Bool {
+		if case .photo = self {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	public var isPhotoComment: Bool {
+		if case .photoComment = self {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	public var isTopicComment: Bool {
+		if case .topicComment = self {
+			return true
+		} else {
+			return false
+		}
+	}
+
 	private enum CodingKeys: String, CodingKey {
 		case type
 		case itemID = "item_id"

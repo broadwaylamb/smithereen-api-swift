@@ -26,6 +26,22 @@ extension Groups {
 			/// The associated value is the time when the event starts.
 			case event(Date)
 
+			public var isGroup: Bool {
+				if case .group = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isEvent: Bool {
+				if case .event = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
 			private enum CodingKeys: String, CodingKey {
 				case type
 				case startDate = "start_date"

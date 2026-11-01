@@ -376,6 +376,32 @@ final class PrinterVisitor {
 				decl.accept(self)
 			}
 
+			for variant in def.variants {
+				let variantName = identifier(variant.swiftName, context: .variableName)
+				let propertyName = identifier("is" + variant.swiftName.uppercasedFirstChar, context: .variableName)
+				VariableDeclSyntax(
+					leadingTrivia: .newlines(2),
+					modifiers: [DeclModifierSyntax(name: .keyword(.public))],
+					bindingSpecifier: .keyword(.var),
+				) {
+					PatternBindingSyntax(
+						pattern: IdentifierPatternSyntax(identifier: propertyName),
+						typeAnnotation: TypeAnnotationSyntax(type: IdentifierTypeSyntax(name: .identifier("Bool"))),
+						accessorBlock: AccessorBlockSyntax(
+							accessors: .getter(
+								"""
+								if case .\(variantName) = self {
+									return true
+								} else {
+									return false
+								}
+								"""
+							)
+						)
+					)
+				}
+			}
+
 			var keys = def.variants
 				.flatMap { $0.fields }
 				.distinct { $0.serialName }

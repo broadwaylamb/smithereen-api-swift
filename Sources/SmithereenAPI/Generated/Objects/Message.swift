@@ -63,6 +63,30 @@ public struct Message: Hashable, Codable, Sendable, Identifiable {
 		/// This is a reply to another private message.
 		case message(MessageID)
 
+		public var isWallPost: Bool {
+			if case .wallPost = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isWallComment: Bool {
+			if case .wallComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isMessage: Bool {
+			if case .message = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
 		private enum CodingKeys: String, CodingKey {
 			case type
 			case wallPostID = "wall_post_id"

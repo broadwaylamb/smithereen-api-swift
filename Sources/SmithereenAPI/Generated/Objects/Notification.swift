@@ -36,6 +36,30 @@ public struct Notification: Hashable, Codable, Sendable, Identifiable {
 		case photoComment(PhotoCommentID)
 		case boardComment(TopicCommentID)
 
+		public var isWallComment: Bool {
+			if case .wallComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isPhotoComment: Bool {
+			if case .photoComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isBoardComment: Bool {
+			if case .boardComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
 		private enum CodingKeys: String, CodingKey {
 			case type
 			case wallCommentID = "wall_comment_id"
@@ -88,6 +112,38 @@ public struct Notification: Hashable, Codable, Sendable, Identifiable {
 		case wallComment(WallPostID)
 		case photoComment(PhotoCommentID)
 		case boardComment(TopicCommentID)
+
+		public var isWallPost: Bool {
+			if case .wallPost = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isWallComment: Bool {
+			if case .wallComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isPhotoComment: Bool {
+			if case .photoComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isBoardComment: Bool {
+			if case .boardComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
 
 		private enum CodingKeys: String, CodingKey {
 			case type
@@ -146,6 +202,14 @@ public struct Notification: Hashable, Codable, Sendable, Identifiable {
 	public enum WallPostFeedback: Hashable, Codable, Sendable {
 		case wallPost(WallPostID)
 
+		public var isWallPost: Bool {
+			if case .wallPost = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
 		private enum CodingKeys: String, CodingKey {
 			case type
 			case wallPostID = "wall_post_id"
@@ -183,6 +247,30 @@ public struct Notification: Hashable, Codable, Sendable, Identifiable {
 		case wallPost(WallPostID)
 		case boardComment(TopicCommentID)
 		case photo(PhotoID)
+
+		public var isWallPost: Bool {
+			if case .wallPost = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isBoardComment: Bool {
+			if case .boardComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isPhoto: Bool {
+			if case .photo = self {
+				return true
+			} else {
+				return false
+			}
+		}
 
 		private enum CodingKeys: String, CodingKey {
 			case type
@@ -235,6 +323,30 @@ public struct Notification: Hashable, Codable, Sendable, Identifiable {
 		case wallComment(WallPostID)
 		case photoComment(PhotoCommentID)
 		case boardComment(TopicCommentID)
+
+		public var isWallComment: Bool {
+			if case .wallComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isPhotoComment: Bool {
+			if case .photoComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isBoardComment: Bool {
+			if case .boardComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
 
 		private enum CodingKeys: String, CodingKey {
 			case type
@@ -289,6 +401,46 @@ public struct Notification: Hashable, Codable, Sendable, Identifiable {
 		case photoComment(PhotoCommentID)
 		case boardComment(TopicCommentID)
 		case photo(PhotoID)
+
+		public var isWallPost: Bool {
+			if case .wallPost = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isWallComment: Bool {
+			if case .wallComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isPhotoComment: Bool {
+			if case .photoComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isBoardComment: Bool {
+			if case .boardComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isPhoto: Bool {
+			if case .photo = self {
+				return true
+			} else {
+				return false
+			}
+		}
 
 		private enum CodingKeys: String, CodingKey {
 			case type
@@ -355,6 +507,22 @@ public struct Notification: Hashable, Codable, Sendable, Identifiable {
 		case wallPost(WallPostID)
 		case wallComment(WallPostID)
 
+		public var isWallPost: Bool {
+			if case .wallPost = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isWallComment: Bool {
+			if case .wallComment = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
 		private enum CodingKeys: String, CodingKey {
 			case type
 			case wallPostID = "wall_post_id"
@@ -398,6 +566,30 @@ public struct Notification: Hashable, Codable, Sendable, Identifiable {
 		case wallPost(WallPostID)
 		case photo(PhotoID)
 		case boardTopic(BoardTopicID)
+
+		public var isWallPost: Bool {
+			if case .wallPost = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isPhoto: Bool {
+			if case .photo = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isBoardTopic: Bool {
+			if case .boardTopic = self {
+				return true
+			} else {
+				return false
+			}
+		}
 
 		private enum CodingKeys: String, CodingKey {
 			case type
@@ -477,6 +669,78 @@ public struct Notification: Hashable, Codable, Sendable, Identifiable {
 
 		/// Someone accepted a current user's friend request.
 		case friendAccept(userIDs: UserIDs)
+
+		public var isComment: Bool {
+			if case .comment = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isReply: Bool {
+			if case .reply = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isMention: Bool {
+			if case .mention = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isRepost: Bool {
+			if case .repost = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isLike: Bool {
+			if case .like = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isWallPost: Bool {
+			if case .wallPost = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isInviteSignup: Bool {
+			if case .inviteSignup = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isFollow: Bool {
+			if case .follow = self {
+				return true
+			} else {
+				return false
+			}
+		}
+
+		public var isFriendAccept: Bool {
+			if case .friendAccept = self {
+				return true
+			} else {
+				return false
+			}
+		}
 
 		private enum CodingKeys: String, CodingKey {
 			case type

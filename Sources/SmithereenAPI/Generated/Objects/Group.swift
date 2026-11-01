@@ -337,6 +337,54 @@ public struct Group: Hashable, Codable, Sendable, Identifiable {
 			case photoAlbum(PhotoAlbumID)
 			case topic(BoardTopicID)
 
+			public var isUser: Bool {
+				if case .user = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isGroup: Bool {
+				if case .group = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isPost: Bool {
+				if case .post = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isPhoto: Bool {
+				if case .photo = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isPhotoAlbum: Bool {
+				if case .photoAlbum = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isTopic: Bool {
+				if case .topic = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
 			private enum CodingKeys: String, CodingKey {
 				case type = "object_type"
 				case objectID = "object_id"

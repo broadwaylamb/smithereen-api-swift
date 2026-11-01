@@ -30,6 +30,22 @@ extension Photos {
 			/// just a name, without linking to anyone’s profile.
 			case name(String)
 
+			public var isUser: Bool {
+				if case .user = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isName: Bool {
+				if case .name = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
 			private enum CodingKeys: String, CodingKey {
 				case userID = "user_id"
 				case name

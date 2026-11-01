@@ -21,6 +21,30 @@ extension Utils {
 			case group(GroupID)
 			case application(ApplicationID)
 
+			public var isUser: Bool {
+				if case .user = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isGroup: Bool {
+				if case .group = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isApplication: Bool {
+				if case .application = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
 			private enum CodingKeys: String, CodingKey {
 				case type
 				case id

@@ -61,6 +61,30 @@ extension Newsfeed {
 			/// New photos were added to the group’s photo albums.
 			case photo([PhotoNewsfeedUpdate])
 
+			public var isPost: Bool {
+				if case .post = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isBoard: Bool {
+				if case .board = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isPhoto: Bool {
+				if case .photo = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
 			private enum CodingKeys: String, CodingKey {
 				case type
 				case post

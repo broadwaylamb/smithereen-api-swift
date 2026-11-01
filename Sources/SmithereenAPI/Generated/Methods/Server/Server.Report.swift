@@ -32,6 +32,38 @@ extension Server {
 			/// Anything that doesn’t fit into the above categories.
 			case other
 
+			public var isSpam: Bool {
+				if case .spam = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isRules: Bool {
+				if case .rules = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isIllegal: Bool {
+				if case .illegal = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isOther: Bool {
+				if case .other = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
 			private enum CodingKeys: String, CodingKey {
 				case type = "reason"
 				case ruleIDs = "rule_ids"
@@ -67,6 +99,54 @@ extension Server {
 			case topicComment(TopicCommentID)
 			case message(MessageID)
 			case photo(PhotoID)
+
+			public var isWallPost: Bool {
+				if case .wallPost = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isWallComment: Bool {
+				if case .wallComment = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isPhotoComment: Bool {
+				if case .photoComment = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isTopicComment: Bool {
+				if case .topicComment = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isMessage: Bool {
+				if case .message = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isPhoto: Bool {
+				if case .photo = self {
+					return true
+				} else {
+					return false
+				}
+			}
 
 			private enum CodingKeys: String, CodingKey {
 				case type

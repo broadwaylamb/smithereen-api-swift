@@ -22,6 +22,46 @@ public enum Attachment: Hashable, Codable, Sendable {
 	/// The attachment is a poll.
 	case poll(Poll)
 
+	public var isPhoto: Bool {
+		if case .photo = self {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	public var isGraffiti: Bool {
+		if case .graffiti = self {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	public var isVideo: Bool {
+		if case .video = self {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	public var isAudio: Bool {
+		if case .audio = self {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	public var isPoll: Bool {
+		if case .poll = self {
+			return true
+		} else {
+			return false
+		}
+	}
+
 	private enum CodingKeys: String, CodingKey {
 		case type
 		case photo

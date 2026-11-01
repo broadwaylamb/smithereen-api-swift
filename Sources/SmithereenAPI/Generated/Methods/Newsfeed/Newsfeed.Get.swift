@@ -123,6 +123,86 @@ extension Newsfeed {
 			/// The user has changed their relationship status.
 			case relation(RelationUpdate)
 
+			public var isPost: Bool {
+				if case .post = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isPhoto: Bool {
+				if case .photo = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isPhotoTag: Bool {
+				if case .photoTag = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isFriend: Bool {
+				if case .friend = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isGroupJoin: Bool {
+				if case .groupJoin = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isGroupCreate: Bool {
+				if case .groupCreate = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isEventJoin: Bool {
+				if case .eventJoin = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isEventCreate: Bool {
+				if case .eventCreate = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isBoard: Bool {
+				if case .board = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
+			public var isRelation: Bool {
+				if case .relation = self {
+					return true
+				} else {
+					return false
+				}
+			}
+
 			private enum CodingKeys: String, CodingKey {
 				case type
 				case post
